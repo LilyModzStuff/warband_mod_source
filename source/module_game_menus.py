@@ -11013,7 +11013,7 @@ TOTAL:  {reg5}"),
             (call_script, "script_diplomacy_party_attacks_neutral", "p_main_party", "$current_town"),
           (try_end),
 
-          (rest_for_hours, 3, 5, 1), #rest while attackable (3 hours will be extended by the trigger)
+          (rest_for_hours_interactive, 3, 5, 1), #rest while attackable (3 hours will be extended by the trigger)
           (party_set_slot, "$current_town", slot_town_last_nearby_fire_time, 1), #raiding mode
           # (assign, "$g_village_raid_evil", 1), #SB : to differentiate between raiding
           (change_screen_return),
