@@ -641,6 +641,26 @@ meshes = [
   ("flag_d7", 0, "flag_d7", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("flag_d8", 0, "flag_d8", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("flag_d9", 0, "flag_d9", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+### Dice game ### Dice game ###
+# 3 cards  
+  ("3card_back", 0, "mmc_3c_back", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("3card_qoh", 0, "mmc_3c_qh", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("3card_kos", 0, "mmc_3c_ks", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("3card_koc", 0, "mmc_3c_kc", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("3card_table", 0, "mmc_3c_table", 0, 0, 0, 0, 0, 0, 1, 1, 1),  
+#  ("3card_textbar", 0, "mmc_3c_textbar", 0, 0, 0, 0, 0, 0, 1, 1, 1), 
+  ("3card_window", 0, "mmc_3c_window", 0, 0, 0, 0, 0, 0, 1, 1, 1),  
+# 3 cards end  
+# dices game 
+  ("mmc_dice_1", 0, "mmc_dice_1", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("mmc_dice_2", 0, "mmc_dice_2", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("mmc_dice_3", 0, "mmc_dice_3", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("mmc_dice_4", 0, "mmc_dice_4", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("mmc_dice_5", 0, "mmc_dice_5", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("mmc_dice_6", 0, "mmc_dice_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+# dices game end 
+### Dice game ### Dice game ### END ### 
+
   
   ("tableau_mesh_wse_charger", 0, "tableau_mesh_wse_charger",  0, 0, 0, 0, 0, 0, 1, 1, 1),
 ]

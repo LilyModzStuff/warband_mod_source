@@ -37750,9 +37750,46 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
   [anyone,"tavernkeeper_job_result_2", [], "I'll keep my ears open for other opportunities. You may want to ask again from time to time.", "close_window",[]],
 
+### Three Cards ### Find the Lady ###
+  [anyone|plyr,"tavernkeeper_talk",
+   [],
+   "Find the Lady.", "tavern_tk_3cards",[]],
+   
+  [anyone,"tavern_tk_3cards",
+   [
+    (store_troop_gold,reg1,"trp_player"),#
+    (ge,reg1,1),#
+       ],
+   "Ok. The rules is simple as that. Find the Lady - you win , if not - you lose.", "close_window",
+   [(assign, reg50, 0),
+    (start_presentation, "prsnt_three_card"),]],
+	
+  [anyone,"tavern_tk_3cards",[],
+   "You don't have enough money.", "close_window",[]],
+
+### Three Cards ### Find the Lady ### END ###
+### Dice game ### Dice game ###
+  [anyone|plyr,"tavernkeeper_talk",
+   [],
+   "Dice game.", "tavern_tk_dgame",[]],
+   
+  [anyone,"tavern_tk_dgame",
+   [
+    (store_troop_gold,reg1,"trp_player"),#
+    (ge,reg1,1),#
+       ],
+   "Ok.", "close_window",
+   [(assign, reg50, 0),
+    (assign,"$g_gamble",0),
+    (start_presentation, "prsnt_dices_game"),]],
+	
+  [anyone,"tavern_tk_3cards",[],
+   "You don't have enough money.", "close_window",[]],   
+### Dice game ### Dice game ### END ###
 
 
   [anyone|plyr,"tavernkeeper_talk", [], "I guess I should leave now.", "close_window",[]],
+
 
 #Tavern Talk (with companions)
 #  [anyone, "companion_recruit_yes", [(neg|hero_can_join, "p_main_party"),], "I don't think can lead any more men than you do now.\

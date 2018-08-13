@@ -186,4 +186,5 @@ snd_sex_female = 184
 snd_blowjob = 185
 snd_swallow = 186
 snd_gbt_lick = 187
-snd_orgasm = 188
+snd_dice_roll = 188
+snd_orgasm = 189
