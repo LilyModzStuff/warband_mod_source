@@ -94,11 +94,11 @@ wp_brown      = 0xFF7A4800
 ###########################################################################################################################
 
 # Persistent Betting
-wp_tpe_bet_tier_1                      = 100 # Change this value to set the minimum bet per round. (Other than 0).
-wp_tpe_bet_tier_2                      = 200
-wp_tpe_bet_tier_3                      = 300
-wp_tpe_bet_tier_4                      = 400
-wp_tpe_bet_tier_5                      = 500 # change this value to set the maximum bet per round.
+wp_tpe_bet_tier_1                      = 25 # Change this value to set the minimum bet per round. (Other than 0).
+wp_tpe_bet_tier_2                      = 50
+wp_tpe_bet_tier_3                      = 125
+wp_tpe_bet_tier_4                      = 150
+wp_tpe_bet_tier_5                      = 200 # change this value to set the maximum bet per round.
 
 ###########################################################################################################################
 #####                                                TPE 1.2 Additions                                                #####
