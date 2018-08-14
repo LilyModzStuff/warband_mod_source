@@ -4147,7 +4147,21 @@ mission_templates = [
 	 (47,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),
      ],
     [
-
+        (0, 0, ti_once, [],  ### replace static horse
+         [(neg | is_edit_mode_enabled),
+          (try_for_range, ":horse", all_items_begin, all_items_end),  # itp_type_horse
+          (item_get_type, ":type", ":horse"),
+          (eq, ":type", itp_type_horse),
+          (scene_item_get_num_instances, ":num_instances", ":horse"),
+          (try_for_range, ":number", 0, ":num_instances"),
+          (scene_item_get_instance, ":scene_item", ":horse", ":number"),
+          (prop_instance_get_position, pos53, ":scene_item"),
+          (prop_instance_set_scale, ":scene_item", 0, 0, 0),
+          (set_spawn_position, pos53),
+          (spawn_horse, ":horse", 0),
+          (try_end),
+          (try_end),
+          ]),
       (ti_on_agent_spawn, 0, 0, [],
       [
         (store_trigger_param_1, ":agent_no"),
@@ -4407,17 +4421,15 @@ mission_templates = [
      (5,mtef_scene_source|mtef_team_0,af_override_horse,0,1,[]),
      (6,mtef_scene_source|mtef_team_0,af_override_horse,0,1,[]),
      (7,mtef_scene_source|mtef_team_0,af_override_horse,0,1,[]),
-
      (8,mtef_visitor_source,af_override_horse,0,1,[]),
      (9,mtef_visitor_source,af_override_horse,0,1,[]),(10,mtef_visitor_source,af_override_horse,0,1,[]),(11,mtef_visitor_source,af_override_horse,0,1,[]),(12,mtef_visitor_source,af_override_horse,0,1,[]),(13,mtef_visitor_source,0,0,1,[]),(14,mtef_visitor_source,0,0,1,[]),(15,mtef_visitor_source,0,0,1,[]),
      (16,mtef_visitor_source,af_override_horse,0,1,[]),(17,mtef_visitor_source,af_override_horse,0,1,[]),(18,mtef_visitor_source,af_override_horse,0,1,[]),(19,mtef_visitor_source,af_override_horse,0,1,[]),(20,mtef_visitor_source,af_override_horse,0,1,[]),(21,mtef_visitor_source,af_override_horse,0,1,[]),(22,mtef_visitor_source,af_override_horse,0,1,[]),(23,mtef_visitor_source,af_override_horse,0,1,[]),
      (24,mtef_visitor_source,af_override_horse,0,1,[]),(25,mtef_visitor_source,af_override_horse,0,1,[]),(26,mtef_visitor_source,af_override_horse,0,1,[]),(27,mtef_visitor_source,af_override_horse,0,1,[]),(28,mtef_visitor_source,af_override_horse,0,1,[]),(29,mtef_visitor_source,af_override_horse,0,1,[]),(30,mtef_visitor_source,af_override_horse,0,1,[]),(31,mtef_visitor_source,af_override_horse,0,1,[]),
      (32,mtef_visitor_source,af_override_horse,0,1,[]),(33,mtef_visitor_source,af_override_horse,0,1,[]),(34,mtef_visitor_source,af_override_horse,0,1,[]),(35,mtef_visitor_source,af_override_horse,0,1,[]),(36,mtef_visitor_source,af_override_horse,0,1,[]),(37,mtef_visitor_source,af_override_horse,0,1,[]),(38,mtef_visitor_source,af_override_horse,0,1,[]),(39,mtef_visitor_source,af_override_horse,0,1,[]),
-     (40,mtef_visitor_source,af_override_horse,0,1,[]),(41,mtef_visitor_source,af_override_horse,0,1,[]),(42,mtef_visitor_source,af_override_horse,0,1,[]),(43,mtef_visitor_source,af_override_horse,0,1,[]),(44,mtef_visitor_source,af_override_horse,0,1,[]),(45,mtef_visitor_source,af_override_horse,0,1,[]),(46,mtef_visitor_source,af_override_horse,0,1,[]),(47,mtef_visitor_source,af_override_horse,0,1,[]),
+    (40,mtef_visitor_source,af_override_horse,0,1,[]),(41,mtef_visitor_source,af_override_horse,0,1,[]),(42,mtef_visitor_source,af_override_horse,0,1,[]),(43,mtef_visitor_source,af_override_horse,0,1,[]),(44,mtef_visitor_source,af_override_horse,0,1,[]),(45,mtef_visitor_source,af_override_horse,0,1,[]),(46,mtef_visitor_source,af_override_horse,0,1,[]),(47,mtef_visitor_source,af_override_horse,0,1,[]),
      ],
     
     [
-          
       (1, 0, ti_once, [], [
           (store_current_scene, ":cur_scene"),
           (scene_set_slot, ":cur_scene", slot_scene_visited, 1),
@@ -4527,7 +4539,7 @@ mission_templates = [
       (call_script, "script_change_player_relation_with_center", "$current_town", -1),
     (try_end),
    ]),
-    ] + bodyguard_triggers,
+    ] + bodyguard_triggers
   ),
 
   (
