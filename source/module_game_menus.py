@@ -3412,7 +3412,7 @@ TOTAL:  {reg5}"),
        
        ("formation_mod_option",[],"Formations mod options.", [(start_presentation, "prsnt_formation_mod_option")]),
        
-      ("content_options",[],"Content Options.",[(jump_to_menu, "mnu_content_options")]),
+      ("content_options",[],"Dickplomacy Content Options.",[(jump_to_menu, "mnu_content_options")]),
        
       ("camp_fuck_1",[(eq,1,0)],"Fuck Test",
        [(jump_to_menu, "mnu_fuck"),
@@ -21920,9 +21920,9 @@ goods, and books will never be sold. ^^You can change some settings here freely.
   ),
   
   ("content_options",0,
-   "Diplomacy Content Options",
+   "Dickplomacy Reloaded Content Options",
    "none",
-   [],
+   [     (set_background_mesh, "mesh_pic_camp"), ],
     [
       ("camp_fuck_setting",[
         #(eq,0,1),
@@ -21977,7 +21977,13 @@ goods, and books will never be sold. ^^You can change some settings here freely.
            (store_sub, "$g_polygamy", 1, "$g_polygamy"),
         ]
        ),
-      ("back",[],"Back",
+       ("gender_change", [], "Change player gender",
+        [(store_sub, "$character_gender", 1, "$character_gender"),
+         (troop_set_type, "trp_player", "$character_gender"),
+         (display_message, "@Your gender has been changed!"),
+         ]
+        ),
+       ("back",[],"Back",
        [(jump_to_menu, "mnu_camp"),
         ]
        ),
