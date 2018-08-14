@@ -4407,7 +4407,7 @@ mission_templates = [
        (troop_set_slot, ":dead_agent_troop_no", slot_troop_mission_participation, mp_prison_break_caught),
      (try_end),
    ]),
-  ] + bodyguard_triggers
+  ] + bodyguard_triggers,
   ),
 
   (
@@ -4539,7 +4539,7 @@ mission_templates = [
       (call_script, "script_change_player_relation_with_center", "$current_town", -1),
     (try_end),
    ]),
-    ] + bodyguard_triggers
+    ] + bodyguard_triggers,
   ),
 
   (
