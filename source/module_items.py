@@ -1277,8 +1277,7 @@ items = [
 ["warhorse_b","Warhorse", [("warhorse_chain",0)], itp_merchandise|itp_type_horse, 0, 1224,abundance(50)|hit_points(165)|body_armor(40)|difficulty(4)|horse_speed(40)|horse_maneuver(41)|horse_charge(28)|horse_scale(110),imodbits_horse_basic|imodbit_champion],
 ["charger_plate","Plated Charger", [("charger_plate_1",0)], itp_merchandise|itp_type_horse, 0, 1811,abundance(10)|hit_points(165)|body_armor(65)|difficulty(4)|horse_speed(37)|horse_maneuver(38)|horse_charge(40)|horse_scale(112),imodbits_horse_basic|imodbit_champion, [], [fac_kingdom_1, fac_kingdom_5]],
  
-["items_end", "Items End", [("shield_round_a",0)], 0, 0, 1, 0, 0],
- 
+
 ################################################################################
 # FISH&CHIP MODIFICATIONS START
 ################################################################################
@@ -1350,7 +1349,48 @@ items = [
 ################################################################################
 # FISH&CHIP MODIFICATIONS END
 ################################################################################
+ ["afrinaboots","AfinaBoots", [("AfinaBoot", 0)], itp_type_foot_armor|itp_attach_armature|itp_merchandise|itp_civilian, 0,19, weight(1.25)|abundance(100)|leg_armor(50), imodbits_cloth, []],
+  ["dianaboots","DianaBoots", [("DianaBoots", 0)], itp_type_foot_armor|itp_attach_armature|itp_merchandise|itp_civilian, 0,19, weight(1.25)|abundance(100)|leg_armor(50), imodbits_cloth, []],
+  ["afrinaarmor","AfinaArmor", [("AfinaArmor", 0)], itp_type_body_armor|itp_merchandise|itp_covers_legs|itp_doesnt_cover_hair, 0,2558, weight(15)|abundance(100)|body_armor(80)|leg_armor(50)|difficulty(8), imodbits_armor, []],
+  ["dianaarmor","DianaArmor", [("DianaArmor", 0)], itp_type_body_armor|itp_merchandise|itp_covers_legs|itp_doesnt_cover_hair, 0,863, weight(15)|abundance(100)|body_armor(80)|leg_armor(50)|difficulty(6), imodbits_armor, []],
+  ["sunburnarmor","SunburnArmor", [("SunburnArmor", 0)], itp_type_body_armor|itp_merchandise|itp_covers_legs|itp_doesnt_cover_hair, 0,863, weight(15)|abundance(100)|body_armor(80)|leg_armor(50)|difficulty(6), imodbits_armor, []],
+  ["sunburnboots","SunburnBoots", [("SunburnBoots", 0)], itp_type_foot_armor|itp_attach_armature|itp_merchandise|itp_civilian, 0,19, weight(1.25)|abundance(100)|leg_armor(50), imodbits_cloth, []],
+  ["dianafullarmor","DianaFullArmor", [("DianaFullArmor", 0)], itp_type_body_armor|itp_merchandise|itp_covers_legs|itp_doesnt_cover_hair, 0,863, weight(15)|abundance(100)|body_armor(80)|leg_armor(50)|difficulty(6), imodbits_armor, []],
+  ["florafullarmor","FloraFullArmor", [("FloraFullArmor", 0)], itp_type_body_armor|itp_merchandise|itp_covers_legs|itp_doesnt_cover_hair, 0,863, weight(15)|abundance(100)|body_armor(80)|leg_armor(50)|difficulty(6), imodbits_armor, []],
+  ["floraarmor","FloraArmor", [("FloraArmor", 0)], itp_type_body_armor|itp_merchandise|itp_covers_legs|itp_doesnt_cover_hair, 0,863, weight(15)|abundance(100)|body_armor(80)|leg_armor(50)|difficulty(6), imodbits_armor, []],
+  ["floraboots", "FloraBoots", [("FloraBoots", 0)], itp_type_foot_armor|itp_attach_armature|itp_merchandise|itp_civilian, 0,19, weight(1.25)|abundance(100)|leg_armor(50), imodbits_cloth, []],
+  ["01armor1npc","Eva_Armor", [("01armor1npc", 0)], itp_type_body_armor|itp_covers_legs|itp_doesnt_cover_hair, 0,1259, weight(1)|abundance(100)|body_armor(100)|leg_armor(80)|difficulty(6), imodbits_armor, []],
+  ["02boots1npc","Eva_Boots", [("02boots1npc", 0)], itp_type_foot_armor|itp_attach_armature, 0,465, weight(1)|abundance(100)|leg_armor(70), imodbits_cloth, []],
+  ["03helm1npc","Eva_Helmet", [("03helm1npc", 0)], itp_type_head_armor, 0,824, weight(0.25)|abundance(40)|head_armor(70), imodbits_armor|imodbit_cracked, []],
+  ["04armor2npc","Valeria_Armor", [("04armor2npc", 0)], itp_type_body_armor|itp_covers_legs|itp_doesnt_cover_hair, 0,1259, weight(1)|abundance(100)|body_armor(100)|leg_armor(80)|difficulty(6), imodbits_armor, []],
+  ["05boots2npc","Valeria_Boots", [("05boots2npc", 0)], itp_type_foot_armor|itp_attach_armature, 0,465, weight(1)|abundance(100)|leg_armor(70), imodbits_cloth, []],
+  ["06helm2npc","Valeria_Helmet", [("06helm2npc", 0)], itp_type_head_armor, 0,824, weight(0.25)|abundance(40)|head_armor(70), imodbits_armor|imodbit_cracked, []],
+  ["07armor3npc","Selena_Armor", [("07armor3npc", 0)], itp_type_body_armor|itp_covers_legs|itp_doesnt_cover_hair, 0,1259, weight(1)|abundance(100)|body_armor(100)|leg_armor(80)|difficulty(6), imodbits_armor, []],
+  ["08boots3npc","Selena_Boots", [("08boots3npc", 0)], itp_type_foot_armor|itp_attach_armature, 0,465, weight(1)|abundance(100)|leg_armor(70), imodbits_cloth, []],
+  ["09helm3npc","Selena_Helmet", [("09helm3npc", 0)], itp_type_head_armor, 0,824, weight(0.25)|abundance(40)|head_armor(70), imodbits_armor|imodbit_cracked, []],
+  ["10armor4npc","Calypso_Armor", [("10armor4npc", 0)], itp_type_body_armor|itp_covers_legs|itp_doesnt_cover_hair, 0,1259, weight(1)|abundance(100)|body_armor(100)|leg_armor(80)|difficulty(6), imodbits_armor, []],
+  ["11boots4npc","Calypso_Boots", [("11boots4npc", 0)], itp_type_foot_armor|itp_attach_armature, 0,465, weight(1)|abundance(100)|leg_armor(70), imodbits_cloth, []],
+  ["12helm4npc","Calypso_Helmet", [("12helm4npc", 0)], itp_type_head_armor, 0,824, weight(0.25)|abundance(40)|head_armor(70), imodbits_armor|imodbit_cracked, []],
+  ["13armor5npc","Kleo_Armor", [("13armor5npc", 0)], itp_type_body_armor|itp_covers_legs|itp_doesnt_cover_hair, 0,1259, weight(1)|abundance(100)|body_armor(100)|leg_armor(80)|difficulty(6), imodbits_armor, []],
+  ["14boots5npc","Kleo_Boots", [("14boots5npc", 0)], itp_type_foot_armor|itp_attach_armature, 0,465, weight(1)|abundance(100)|leg_armor(70), imodbits_cloth, []],
+  ["15helm5npc","Kleo_Helmet", [("15helm5npc", 0)], itp_type_head_armor, 0,824, weight(0.25)|abundance(40)|head_armor(70), imodbits_armor|imodbit_cracked, []],
+  ["16armor6npc","Astrid_Armor", [("16armor6npc", 0)], itp_type_body_armor|itp_covers_legs|itp_doesnt_cover_hair, 0,1259, weight(1)|abundance(100)|body_armor(100)|leg_armor(80)|difficulty(6), imodbits_armor, []],
+  ["17boots6npc","Astrid_Boots", [("17boots6npc", 0)], itp_type_foot_armor|itp_attach_armature, 0,465, weight(1)|abundance(100)|leg_armor(70), imodbits_cloth, []],
+  ["18helm6npc","Astrid_Helmet", [("18helm6npc", 0)], itp_type_head_armor, 0,824, weight(0.25)|abundance(40)|head_armor(70), imodbits_armor|imodbit_cracked, []],
+  ["19armor7npc","Arvel_Armor", [("19armor7npc", 0)], itp_type_body_armor|itp_covers_legs|itp_doesnt_cover_hair, 0,1259, weight(1)|abundance(100)|body_armor(100)|leg_armor(80)|difficulty(6), imodbits_armor, []],
+  ["20boots7npc","Arvel_Boots", [("20boots7npc", 0)], itp_type_foot_armor|itp_attach_armature, 0,465, weight(1)|abundance(100)|leg_armor(70), imodbits_cloth, []],
+  ["21helm7npc","Arvel_Helmet", [("21helm7npc", 0)], itp_type_head_armor, 0,824, weight(0.25)|abundance(40)|head_armor(70), imodbits_armor|imodbit_cracked, []],
+  ["22armor8npc","Solveig_Armor", [("22armor8npc", 0)], itp_type_body_armor|itp_covers_legs|itp_doesnt_cover_hair, 0,1259, weight(1)|abundance(100)|body_armor(100)|leg_armor(80)|difficulty(6), imodbits_armor, []],
+  ["23boots8npc","Solveig_Boots", [("23boots8npc", 0)], itp_type_foot_armor|itp_attach_armature, 0,465, weight(1)|abundance(100)|leg_armor(70), imodbits_cloth, []],
+  ["24helm8npc","Solveig_Helmet", [("24helm8npc", 0)], itp_type_head_armor, 0,824, weight(0.25)|abundance(40)|head_armor(70), imodbits_armor|imodbit_cracked, []],
+  ["25armor9npc","Matilda_Armor", [("25armor9npc", 0)], itp_type_body_armor|itp_covers_legs|itp_doesnt_cover_hair, 0,1259, weight(1)|abundance(100)|body_armor(100)|leg_armor(80)|difficulty(6), imodbits_armor, []],
+  ["26boots9npc","Matilda_Boots", [("26boots9npc", 0)], itp_type_foot_armor|itp_attach_armature, 0,465, weight(1)|abundance(100)|leg_armor(70), imodbits_cloth, []],
+  ["27helm9npc","Matilda_Helmet", [("27helm9npc", 0)], itp_type_head_armor, 0,824, weight(0.25)|abundance(40)|head_armor(70), imodbits_armor|imodbit_cracked, []],
+  ["28armor10npc","Sigrid_Armor", [("28armor10npc", 0)], itp_type_body_armor|itp_merchandise|itp_covers_legs|itp_doesnt_cover_hair, 0,863, weight(15)|abundance(100)|body_armor(80)|leg_armor(50)|difficulty(6), imodbits_armor, []],
+  ["29boots10npc","Sigrid_Boots", [("29boots10npc", 0)], itp_type_foot_armor|itp_attach_armature|itp_merchandise|itp_civilian, 0,19, weight(1.25)|abundance(100)|leg_armor(50), imodbits_cloth, []],
+  ["30helm10npc","Sigrid_Helmet", [("30helm10npc", 0)], itp_type_head_armor|itp_merchandise|itp_fit_to_head, 0,147, weight(1.25)|abundance(100)|head_armor(70)|difficulty(7), imodbits_armor|imodbit_cracked, []],
 
+["items_end", "Items End", [("shield_round_a",0)], 0, 0, 1, 0, 0],
 
 ]
 # modmerger_start version=201 type=2
