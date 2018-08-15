@@ -1278,6 +1278,115 @@ items = [
 ["charger_plate","Plated Charger", [("charger_plate_1",0)], itp_merchandise|itp_type_horse, 0, 1811,abundance(10)|hit_points(165)|body_armor(65)|difficulty(4)|horse_speed(37)|horse_maneuver(38)|horse_charge(40)|horse_scale(112),imodbits_horse_basic|imodbit_champion, [], [fac_kingdom_1, fac_kingdom_5]],
  
 ["items_end", "Items End", [("shield_round_a",0)], 0, 0, 1, 0, 0],
+ 
+################################################################################
+# FISH&CHIP MODIFICATIONS START
+################################################################################
+
+  # HERALDIC ITEMS
+
+  ["hera_shirt_a", "Heraldic Linen Tunic", [("shirt_a",0)], itp_merchandise|itp_type_body_armor|itp_civilian|itp_covers_legs,0,6,weight(1)|abundance(100)|head_armor(0)|body_armor(6)|leg_armor(1)|difficulty(0),imodbits_cloth,
+    [(ti_on_init_item, [(store_trigger_param_1, ":agent_id"),(store_trigger_param_2, ":troop_id"),(call_script, "script_shield_item_set_banner", "tableau_heraldic_shirt_a", ":agent_id", ":troop_id")])],[]],
+  ["hera_arena_tunicW", "Heraldic Arena Tunic", [("arena_tunicW_new",0)], itp_type_body_armor |itp_covers_legs ,0, 47 , weight(2)|abundance(100)|head_armor(0)|body_armor(16)|leg_armor(6), imodbits_cloth,
+    [(ti_on_init_item, [(store_trigger_param_1, ":agent_id"),(store_trigger_param_2, ":troop_id"),(call_script, "script_shield_item_set_banner", "tableau_heraldic_arena_tunicW", ":agent_id", ":troop_id")])],[]],
+  ["hera_rich_tunic_a", "Heraldic Tunic", [("rich_tunic_a",0)], itp_type_body_armor |itp_civilian |itp_covers_legs ,0, 10 , weight(1)|abundance(100)|head_armor(0)|body_armor(7)|leg_armor(1)|difficulty(0) ,imodbits_cloth,
+    [(ti_on_init_item, [(store_trigger_param_1, ":agent_id"),(store_trigger_param_2, ":troop_id"),(call_script, "script_shield_item_set_banner", "tableau_heraldic_rich_tunic_a", ":agent_id", ":troop_id")])],[]],
+  ["hera_tabard_b", "Heraldic Tabard", [("tabard_b",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_civilian,0, 107 , weight(3)|abundance(100)|head_armor(0)|body_armor(14)|leg_armor(6)|difficulty(0) ,imodbits_cloth,
+    [(ti_on_init_item, [(store_trigger_param_1, ":agent_id"),(store_trigger_param_2, ":troop_id"),(call_script, "script_shield_item_set_banner", "tableau_heraldic_tabard_b", ":agent_id", ":troop_id")])], []],
+  ["hera_padded_cloth_a", "Heraldic Aketon", [("padded_cloth_a",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs ,0, 297 , weight(11)|abundance(100)|head_armor(0)|body_armor(22)|leg_armor(6)|difficulty(0) ,imodbits_cloth,
+    [(ti_on_init_item, [(store_trigger_param_1, ":agent_id"),(store_trigger_param_2, ":troop_id"),(call_script, "script_shield_item_set_banner", "tableau_heraldic_padded_cloth_a", ":agent_id", ":troop_id")])],[]],
+  ["hera_padded_cloth_b", "Heraldic Padded Cloth", [("padded_cloth_b",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs ,0, 297 , weight(11)|abundance(100)|head_armor(0)|body_armor(22)|leg_armor(6)|difficulty(0) ,imodbits_cloth,
+    [(ti_on_init_item, [(store_trigger_param_1, ":agent_id"),(store_trigger_param_2, ":troop_id"),(call_script, "script_shield_item_set_banner", "tableau_heraldic_padded_cloth_b", ":agent_id", ":troop_id")])],[]],
+  ["hera_archers_vest", "Heraldic Archer's Padded Vest", [("archers_vest",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs ,0, 260 , weight(6)|abundance(100)|head_armor(0)|body_armor(23)|leg_armor(12)|difficulty(0) ,imodbits_cloth,
+    [(ti_on_init_item, [(store_trigger_param_1, ":agent_id"),(store_trigger_param_2, ":troop_id"),(call_script, "script_shield_item_set_banner", "tableau_heraldic_archers_vest", ":agent_id", ":troop_id")])],[]],
+  ["hera_leather_vest", "Heraldic Leather Vest", [("leather_vest_a",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs|itp_civilian ,0, 146 , weight(4)|abundance(100)|head_armor(0)|body_armor(15)|leg_armor(7)|difficulty(0) ,imodbits_cloth,
+    [(ti_on_init_item, [(store_trigger_param_1, ":agent_id"),(store_trigger_param_2, ":troop_id"),(call_script, "script_shield_item_set_banner", "tableau_heraldic_leather_vest_a", ":agent_id", ":troop_id")])],[]],
+  ["hera_sarranid_leather_armor", "Heraldic Sarranid Leather Armor", [("sarranid_leather_armor",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs ,0, 650 , weight(9)|abundance(100)|head_armor(0)|body_armor(32)|leg_armor(12)|difficulty(0) ,imodbits_armor,
+    [(ti_on_init_item, [(store_trigger_param_1, ":agent_id"),(store_trigger_param_2, ":troop_id"),(call_script, "script_shield_item_set_banner", "tableau_heraldic_sarranid_leather_armor", ":agent_id", ":troop_id")])],[]],
+  ["hera_tribal_warrior_outfit_a_new", "Heraldic Tribal Warrior Outfit", [("tribal_warrior_outfit_a_new",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs|itp_civilian ,0, 520 , weight(14)|abundance(100)|head_armor(0)|body_armor(30)|leg_armor(10)|difficulty(0) ,imodbits_cloth,
+    [(ti_on_init_item, [(store_trigger_param_1, ":agent_id"),(store_trigger_param_2, ":troop_id"),(call_script, "script_shield_item_set_banner", "tableau_heraldic_tribal_warrior_outfit_a", ":agent_id", ":troop_id")])],[]],
+  ["hera_light_mail_and_plate", "Heraldic Light Mail and Plate", [("light_mail_and_plate",0)], itp_type_body_armor|itp_covers_legs   ,0, 532 , weight(10)|abundance(100)|head_armor(0)|body_armor(32)|leg_armor(12)|difficulty(0) ,imodbits_armor,
+    [(ti_on_init_item, [(store_trigger_param_1, ":agent_id"),(store_trigger_param_2, ":troop_id"),(call_script, "script_shield_item_set_banner", "tableau_heraldic_light_mail_and_plate", ":agent_id", ":troop_id")])],[]],
+  ["hera_mail_and_plate", "Heraldic Mail and Plate", [("mail_and_plate",0)], itp_type_body_armor|itp_covers_legs   ,0, 593 , weight(16)|abundance(100)|head_armor(0)|body_armor(34)|leg_armor(12)|difficulty(0) ,imodbits_armor,
+    [(ti_on_init_item, [(store_trigger_param_1, ":agent_id"),(store_trigger_param_2, ":troop_id"),(call_script, "script_shield_item_set_banner", "tableau_heraldic_mail_and_plate", ":agent_id", ":troop_id")])],[]],
+  ["hera_cuir_bouilli_a", "Heraldic Cuir Bouilli", [("cuir_bouilli_a",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs ,0, 3100 , weight(24)|abundance(100)|head_armor(0)|body_armor(50)|leg_armor(15)|difficulty(8) ,imodbits_armor,
+    [(ti_on_init_item, [(store_trigger_param_1, ":agent_id"),(store_trigger_param_2, ":troop_id"),(call_script, "script_shield_item_set_banner", "tableau_heraldic_cuir_bouilli_a", ":agent_id", ":troop_id")])],[]],
+  ["hera_brigandine_b", "Heraldic Brigandine", [("brigandine_b",0)], itp_merchandise| itp_type_body_armor|itp_covers_legs,0, 1830 , weight(19)|abundance(100)|head_armor(0)|body_armor(46)|leg_armor(12)|difficulty(0) ,imodbits_armor,
+    [(ti_on_init_item, [(store_trigger_param_1, ":agent_id"),(store_trigger_param_2, ":troop_id"),(call_script, "script_shield_item_set_banner", "tableau_heraldic_brigandine_b", ":agent_id", ":troop_id")])],[]],
+  ["hera_arena_armorW", "Heraldic Arena Armor", [("arena_armorW_new",0)], itp_type_body_armor  |itp_covers_legs ,0, 650 , weight(16)|abundance(100)|head_armor(0)|body_armor(29)|leg_armor(13), imodbits_armor,
+    [(ti_on_init_item, [(store_trigger_param_1, ":agent_id"),(store_trigger_param_2, ":troop_id"),(call_script, "script_shield_item_set_banner", "tableau_heraldic_arena_armorW", ":agent_id", ":troop_id")])], []],
+  ["hera_mail_long_surcoat", "Heraldic Mail with Surcoat", [("mail_long_surcoat_new",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs ,0, 1544 , weight(22)|abundance(100)|head_armor(0)|body_armor(42)|leg_armor(14)|difficulty(7) ,imodbits_armor,
+    [(ti_on_init_item, [(store_trigger_param_1, ":agent_id"),(store_trigger_param_2, ":troop_id"),(call_script, "script_shield_item_set_banner", "tableau_heraldic_mail_long_surcoat", ":agent_id", ":troop_id")])],[]],
+  ["hera_plate_armor", "Heraldic Plate Armor", [("full_plate_armor",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs ,0, 6553 , weight(27)|abundance(100)|head_armor(0)|body_armor(55)|leg_armor(17)|difficulty(9) ,imodbits_plate,
+    [(ti_on_init_item, [(store_trigger_param_1, ":agent_id"),(store_trigger_param_2, ":troop_id"),(call_script, "script_shield_item_set_banner", "tableau_heraldic_full_plate", ":agent_id", ":troop_id")])], []],
+
+  # CAMO ITEM EXAMPLES - PLAIN COLORS (using 0x800000 everywhere, i.e. RED)
+
+  ["camo_peasant_dress_b", "Camo Peasant Dress", [("peasant_dress_b_new",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs|itp_civilian ,0, 6 , weight(1)|abundance(100)|head_armor(0)|body_armor(6)|leg_armor(2)|difficulty(0) ,imodbits_cloth,
+    [(ti_on_init_item, [(cur_item_set_tableau_material, "tableau_camo_peasant_dress_b", -0x800000)])],[]],
+  ["camo_blue_dress", "Camo Dress", [("blue_dress_new",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs|itp_civilian ,0, 6 , weight(1)|abundance(100)|head_armor(0)|body_armor(6)|leg_armor(2)|difficulty(0) ,imodbits_cloth,
+    [(ti_on_init_item, [(cur_item_set_tableau_material, "tableau_camo_blue_dress", -0x800000)])], []],
+
+  ["camo_shirt_a", "Camo Linen Tunic", [("shirt_a",0)], itp_merchandise|itp_type_body_armor|itp_civilian|itp_covers_legs,0,6,weight(1)|abundance(100)|head_armor(0)|body_armor(6)|leg_armor(1)|difficulty(0),imodbits_cloth,
+    [(ti_on_init_item, [(cur_item_set_tableau_material, "tableau_camo_shirt_a", -0x800000)])],[]],
+  ["camo_arena_tunicW", "Camo Arena Tunic", [("arena_tunicW_new",0)], itp_type_body_armor |itp_covers_legs ,0, 47 , weight(2)|abundance(100)|head_armor(0)|body_armor(16)|leg_armor(6), imodbits_cloth,
+    [(ti_on_init_item, [(cur_item_set_tableau_material, "tableau_camo_arena_tunicW", -0x800000)])],[]],
+  ["camo_rich_tunic_a", "Camo Tunic", [("rich_tunic_a",0)], itp_type_body_armor |itp_civilian |itp_covers_legs ,0, 10 , weight(1)|abundance(100)|head_armor(0)|body_armor(7)|leg_armor(1)|difficulty(0) ,imodbits_cloth,
+    [(ti_on_init_item, [(cur_item_set_tableau_material, "tableau_camo_rich_tunic_a", -0x800000)])],[]],
+  ["camo_coarse_tunic_a", "Camo Tunic with vest", [("coarse_tunic_a",0)], itp_merchandise| itp_type_body_armor |itp_civilian |itp_covers_legs ,0, 47 , weight(2)|abundance(100)|head_armor(0)|body_armor(11)|leg_armor(6)|difficulty(0) ,imodbits_cloth,
+    [(ti_on_init_item, [(cur_item_set_tableau_material, "tableau_camo_coarse_tunic_a", -0x800000)])],[]],
+  ["camo_tabard_b", "Camo Tabard", [("tabard_b",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_civilian,0, 107 , weight(3)|abundance(100)|head_armor(0)|body_armor(14)|leg_armor(6)|difficulty(0) ,imodbits_cloth,
+    [(ti_on_init_item, [(cur_item_set_tableau_material, "tableau_camo_tabard_b", -0x800000)])], []],
+  ["camo_sarranid_cloth_robe_b", "Camo Worn Robe", [("sar_robe_b",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs ,0, 33 , weight(1)|abundance(100)|head_armor(0)|body_armor(9)|leg_armor(9)|difficulty(0) ,imodbits_cloth,
+    [(ti_on_init_item, [(cur_item_set_tableau_material, "tableau_camo_sarranid_cloth_robe_b", -0x800000)])],[]],
+  ["camo_padded_cloth_a", "Camo Aketon", [("padded_cloth_a",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs ,0, 297 , weight(11)|abundance(100)|head_armor(0)|body_armor(22)|leg_armor(6)|difficulty(0) ,imodbits_cloth,
+    [(ti_on_init_item, [(cur_item_set_tableau_material, "tableau_camo_padded_cloth_a", -0x800000)])],[]],
+  ["camo_padded_cloth_b", "Camo Padded Cloth", [("padded_cloth_b",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs ,0, 297 , weight(11)|abundance(100)|head_armor(0)|body_armor(22)|leg_armor(6)|difficulty(0) ,imodbits_cloth,
+    [(ti_on_init_item, [(cur_item_set_tableau_material, "tableau_camo_padded_cloth_b", -0x800000)])],[]],
+  ["camo_red_gambeson_a", "Camo Gambeson", [("red_gambeson_a",0)], itp_merchandise| itp_type_body_armor|itp_covers_legs|itp_civilian,0, 275 , weight(5)|abundance(100)|head_armor(0)|body_armor(21)|leg_armor(5)|difficulty(0) ,imodbits_cloth,
+    [(ti_on_init_item, [(cur_item_set_tableau_material, "tableau_camo_red_gambeson_a", -0x800000)])],[]],
+  ["camo_fur_coat", "Camo Fur Coat", [("fur_coat",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_civilian,0, 117 , weight(6)|abundance(100)|head_armor(0)|body_armor(13)|leg_armor(6)|difficulty(0) ,imodbits_armor,
+    [(ti_on_init_item, [(cur_item_set_tableau_material, "tableau_camo_fur_coat", -0x800000)])],[]],
+  ["camo_archers_vest", "Camo Archer's Padded Vest", [("archers_vest",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs ,0, 260 , weight(6)|abundance(100)|head_armor(0)|body_armor(23)|leg_armor(12)|difficulty(0) ,imodbits_cloth,
+    [(ti_on_init_item, [(cur_item_set_tableau_material, "tableau_camo_archers_vest", -0x800000)])],[]],
+  ["camo_tribal_warrior_outfit_a_new", "Camo Tribal Warrior Outfit", [("tribal_warrior_outfit_a_new",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs|itp_civilian ,0, 520 , weight(14)|abundance(100)|head_armor(0)|body_armor(30)|leg_armor(10)|difficulty(0) ,imodbits_cloth,
+    [(ti_on_init_item, [(cur_item_set_tableau_material, "tableau_camo_tribal_warrior_outfit_a", -0x800000)])],[]],
+
+  # CAMO ITEM EXAMPLES - TEXTURED (using rich tunic with all 14 textures from the pack)
+
+  ["camo_rich_tunic_a_01", "Re-Textured Tunic 01", [("rich_tunic_a",0)], itp_type_body_armor |itp_civilian |itp_covers_legs ,0, 10 , weight(1)|abundance(100)|head_armor(0)|body_armor(7)|leg_armor(1)|difficulty(0) ,imodbits_cloth,
+    [(ti_on_init_item, [(cur_item_set_tableau_material, "tableau_camo_rich_tunic_a", "mesh_camo_texture_01")])],[]],
+  ["camo_rich_tunic_a_02", "Re-Textured Tunic 02", [("rich_tunic_a",0)], itp_type_body_armor |itp_civilian |itp_covers_legs ,0, 10 , weight(1)|abundance(100)|head_armor(0)|body_armor(7)|leg_armor(1)|difficulty(0) ,imodbits_cloth,
+    [(ti_on_init_item, [(cur_item_set_tableau_material, "tableau_camo_rich_tunic_a", "mesh_camo_texture_02")])],[]],
+  ["camo_rich_tunic_a_03", "Re-Textured Tunic 03", [("rich_tunic_a",0)], itp_type_body_armor |itp_civilian |itp_covers_legs ,0, 10 , weight(1)|abundance(100)|head_armor(0)|body_armor(7)|leg_armor(1)|difficulty(0) ,imodbits_cloth,
+    [(ti_on_init_item, [(cur_item_set_tableau_material, "tableau_camo_rich_tunic_a", "mesh_camo_texture_03")])],[]],
+  ["camo_rich_tunic_a_04", "Re-Textured Tunic 04", [("rich_tunic_a",0)], itp_type_body_armor |itp_civilian |itp_covers_legs ,0, 10 , weight(1)|abundance(100)|head_armor(0)|body_armor(7)|leg_armor(1)|difficulty(0) ,imodbits_cloth,
+    [(ti_on_init_item, [(cur_item_set_tableau_material, "tableau_camo_rich_tunic_a", "mesh_camo_texture_04")])],[]],
+  ["camo_rich_tunic_a_05", "Re-Textured Tunic 05", [("rich_tunic_a",0)], itp_type_body_armor |itp_civilian |itp_covers_legs ,0, 10 , weight(1)|abundance(100)|head_armor(0)|body_armor(7)|leg_armor(1)|difficulty(0) ,imodbits_cloth,
+    [(ti_on_init_item, [(cur_item_set_tableau_material, "tableau_camo_rich_tunic_a", "mesh_camo_texture_05")])],[]],
+  ["camo_rich_tunic_a_06", "Re-Textured Tunic 06", [("rich_tunic_a",0)], itp_type_body_armor |itp_civilian |itp_covers_legs ,0, 10 , weight(1)|abundance(100)|head_armor(0)|body_armor(7)|leg_armor(1)|difficulty(0) ,imodbits_cloth,
+    [(ti_on_init_item, [(cur_item_set_tableau_material, "tableau_camo_rich_tunic_a", "mesh_camo_texture_06")])],[]],
+  ["camo_rich_tunic_a_07", "Re-Textured Tunic 07", [("rich_tunic_a",0)], itp_type_body_armor |itp_civilian |itp_covers_legs ,0, 10 , weight(1)|abundance(100)|head_armor(0)|body_armor(7)|leg_armor(1)|difficulty(0) ,imodbits_cloth,
+    [(ti_on_init_item, [(cur_item_set_tableau_material, "tableau_camo_rich_tunic_a", "mesh_camo_texture_07")])],[]],
+  ["camo_rich_tunic_a_08", "Re-Textured Tunic 08", [("rich_tunic_a",0)], itp_type_body_armor |itp_civilian |itp_covers_legs ,0, 10 , weight(1)|abundance(100)|head_armor(0)|body_armor(7)|leg_armor(1)|difficulty(0) ,imodbits_cloth,
+    [(ti_on_init_item, [(cur_item_set_tableau_material, "tableau_camo_rich_tunic_a", "mesh_camo_texture_08")])],[]],
+  ["camo_rich_tunic_a_09", "Re-Textured Tunic 09", [("rich_tunic_a",0)], itp_type_body_armor |itp_civilian |itp_covers_legs ,0, 10 , weight(1)|abundance(100)|head_armor(0)|body_armor(7)|leg_armor(1)|difficulty(0) ,imodbits_cloth,
+    [(ti_on_init_item, [(cur_item_set_tableau_material, "tableau_camo_rich_tunic_a", "mesh_camo_texture_09")])],[]],
+  ["camo_rich_tunic_a_10", "Re-Textured Tunic 10", [("rich_tunic_a",0)], itp_type_body_armor |itp_civilian |itp_covers_legs ,0, 10 , weight(1)|abundance(100)|head_armor(0)|body_armor(7)|leg_armor(1)|difficulty(0) ,imodbits_cloth,
+    [(ti_on_init_item, [(cur_item_set_tableau_material, "tableau_camo_rich_tunic_a", "mesh_camo_texture_10")])],[]],
+  ["camo_rich_tunic_a_11", "Re-Textured Tunic 11", [("rich_tunic_a",0)], itp_type_body_armor |itp_civilian |itp_covers_legs ,0, 10 , weight(1)|abundance(100)|head_armor(0)|body_armor(7)|leg_armor(1)|difficulty(0) ,imodbits_cloth,
+    [(ti_on_init_item, [(cur_item_set_tableau_material, "tableau_camo_rich_tunic_a", "mesh_camo_texture_11")])],[]],
+  ["camo_rich_tunic_a_12", "Re-Textured Tunic 12", [("rich_tunic_a",0)], itp_type_body_armor |itp_civilian |itp_covers_legs ,0, 10 , weight(1)|abundance(100)|head_armor(0)|body_armor(7)|leg_armor(1)|difficulty(0) ,imodbits_cloth,
+    [(ti_on_init_item, [(cur_item_set_tableau_material, "tableau_camo_rich_tunic_a", "mesh_camo_texture_12")])],[]],
+  ["camo_rich_tunic_a_13", "Re-Textured Tunic 13", [("rich_tunic_a",0)], itp_type_body_armor |itp_civilian |itp_covers_legs ,0, 10 , weight(1)|abundance(100)|head_armor(0)|body_armor(7)|leg_armor(1)|difficulty(0) ,imodbits_cloth,
+    [(ti_on_init_item, [(cur_item_set_tableau_material, "tableau_camo_rich_tunic_a", "mesh_camo_texture_13")])],[]],
+  ["camo_rich_tunic_a_14", "Re-Textured Tunic 14", [("rich_tunic_a",0)], itp_type_body_armor |itp_civilian |itp_covers_legs ,0, 10 , weight(1)|abundance(100)|head_armor(0)|body_armor(7)|leg_armor(1)|difficulty(0) ,imodbits_cloth,
+    [(ti_on_init_item, [(cur_item_set_tableau_material, "tableau_camo_rich_tunic_a", "mesh_camo_texture_14")])],[]],
+
+################################################################################
+# FISH&CHIP MODIFICATIONS END
+################################################################################
+
 
 ]
 # modmerger_start version=201 type=2

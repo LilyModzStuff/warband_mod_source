@@ -659,7 +659,69 @@ meshes = [
   ("mmc_dice_5", 0, "mmc_dice_5", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("mmc_dice_6", 0, "mmc_dice_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),
 # dices game end 
-### Dice game ### Dice game ### END ### 
+### Dice game ### Dice game ### END ###
+################################################################################
+# FISH&CHIP MODIFICATIONS START
+################################################################################
+
+  # Heraldic banners support
+
+  ("heraldic_map_flag_01", 0, "heraldic_map_flag_01",  0, 0, 0, -90, 0, 90, 1, 1, 1),
+  ("heraldic_map_flag_02", 0, "heraldic_map_flag_02",  0, 0, 0, -90, 0, 90, 1, 1, 1),
+  ("heraldic_map_flag_03", 0, "heraldic_map_flag_03",  0, 0, 0, -90, 0, 90, 1, 1, 1),
+
+  ("tableau_mesh_heraldic_banner_01", 0, "tableau_mesh_heraldic_banner_01", 0, 0, 0, 0, 0, 0, 10, 10, 10),
+  ("tableau_mesh_heraldic_banner_02", 0, "tableau_mesh_heraldic_banner_02", 0, 0, 0, 0, 0, 0, 10, 10, 10),
+  ("tableau_mesh_heraldic_banner_03", 0, "tableau_mesh_heraldic_banner_03", 0, 0, 0, 0, 0, 0, 10, 10, 10),
+
+  # Heraldic & Camo items support
+
+  ("camo_tableau_peasant_dress_b", 0, "camo_tableau_peasant_dress_b", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("camo_tableau_blue_dress", 0, "camo_tableau_blue_dress",  0, 0, 0, 0, 0, 0, 1, 1, 1),
+
+  ("camo_tableau_shirt_a", 0, "camo_tableau_shirt_a", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("camo_tableau_arena_tunicW", 0, "camo_tableau_arena_tunicW", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("camo_tableau_rich_tunic_a", 0, "camo_tableau_rich_tunic_a", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("camo_tableau_coarse_tunic_a", 0, "camo_tableau_coarse_tunic_a", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("camo_tableau_tabard_b", 0, "camo_tableau_tabard_b",  0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("camo_tableau_sarranid_cloth_robe_b", 0, "camo_tableau_sarranid_cloth_robe_b", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("camo_tableau_padded_cloth_a", 0, "camo_tableau_padded_cloth_a", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("camo_tableau_padded_cloth_b", 0, "camo_tableau_padded_cloth_b", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("camo_tableau_red_gambeson_a", 0, "camo_tableau_red_gambeson_a", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("camo_tableau_fur_coat", 0, "camo_tableau_fur_coat", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("camo_tableau_archers_vest", 0, "camo_tableau_archers_vest", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("camo_tableau_leather_vest_a", 0, "camo_tableau_leather_vest_a", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("camo_tableau_sarranid_leather_armor", 0, "camo_tableau_sarranid_leather_armor", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("camo_tableau_tribal_warrior_outfit_a", 0, "camo_tableau_tribal_warrior_outfit_a", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("camo_tableau_light_mail_and_plate", 0, "camo_tableau_light_mail_and_plate", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("camo_tableau_mail_and_plate", 0, "camo_tableau_mail_and_plate", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("camo_tableau_cuir_bouilli_a", 0, "camo_tableau_cuir_bouilli_a", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("camo_tableau_brigandine_b", 0, "camo_tableau_brigandine_b", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("camo_tableau_arena_armorW", 0, "camo_tableau_arena_armorW",  0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("camo_tableau_mail_long_surcoat", 0, "camo_tableau_mail_long_surcoat", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("camo_tableau_full_plate", 0, "camo_tableau_full_plate",  0, 0, 0, 0, 0, 0, 1, 1, 1),
+
+  # Texture pack for camo items
+
+  ("camo_texture_01", 0, "camo_texture_01",  0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("camo_texture_02", 0, "camo_texture_02",  0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("camo_texture_03", 0, "camo_texture_03",  0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("camo_texture_04", 0, "camo_texture_04",  0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("camo_texture_05", 0, "camo_texture_05",  0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("camo_texture_06", 0, "camo_texture_06",  0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("camo_texture_07", 0, "camo_texture_07",  0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("camo_texture_08", 0, "camo_texture_08",  0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("camo_texture_09", 0, "camo_texture_09",  0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("camo_texture_10", 0, "camo_texture_10",  0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("camo_texture_11", 0, "camo_texture_11",  0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("camo_texture_12", 0, "camo_texture_12",  0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("camo_texture_13", 0, "camo_texture_13",  0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("camo_texture_14", 0, "camo_texture_14",  0, 0, 0, 0, 0, 0, 1, 1, 1),
+
+################################################################################
+# FISH&CHIP MODIFICATIONS END
+################################################################################
+
 
   
   ("tableau_mesh_wse_charger", 0, "tableau_mesh_wse_charger",  0, 0, 0, 0, 0, 0, 1, 1, 1),

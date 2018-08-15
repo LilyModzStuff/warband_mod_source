@@ -76660,7 +76660,27 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 		(position_get_y, reg2, pos1),
 		(overlay_set_text, "$g_little_pos_helper", "@{reg1},{reg2}"),
     (try_end),
- ]), 
+ ]),
+     # Shared script for all FISH&CHIP camo items
+    ("setup_camouflage",
+        [
+            (store_script_param, ":tableau_mesh", 1),
+            (store_script_param, ":instance_id", 2),
+            (set_fixed_point_multiplier, 100),
+            (init_position, pos1),
+            (try_begin),
+                (gt, ":instance_id", 0),
+                (cur_tableau_add_mesh, ":instance_id", pos1, 0, 0),
+            (else_try),
+                (store_sub, ":instance_id", 0, ":instance_id"),
+                (val_or, ":instance_id", 0xFF000000),
+                (cur_tableau_set_background_color, ":instance_id"),
+            (try_end),
+            (position_set_z, pos1, 30),
+            (cur_tableau_add_mesh, ":tableau_mesh", pos1, 0, 0),
+            (cur_tableau_set_camera_parameters, 0, 200, 200, 0, 100000),
+        ]
+    ),
 ]# modmerger_start version=201 type=2
 try:
     component_name = "scripts"
