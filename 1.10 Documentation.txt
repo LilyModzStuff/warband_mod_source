@@ -48,6 +48,10 @@ Dynamic Troop Trees - Modmerger Kit by  Dunde
 (REMOVED FROM MOD Raudentius Warband Historical Music Pack by  Raudentius 
 OGRE'S AUDIO PACK - HQ OGG's by  tacticsogre Alisacat007 - Amazon Orda v.1.0)	
 
+Added documentation
+Allows player to change gender in game
+Changes the camp menu "Content Options" to "Dickplomacy Options" 
+Changed new char header to be Dickplomacy Reloaded instead of Diplomacy 
 Forever Free image -  aluckymuse and The Creation Kids (Nexus image)
 Bug fixes by Lily (Warhorse allowed in tournaments with less than 4 riding, and looters and arena fighters have clothing.)
 Polished Land Scapes - by  gutekfiutek 
