@@ -1,0 +1,58 @@
+Credits: 
+= Begin Original Dickplomacy =
+
+(Note: the first few credits are from the readme by the original developer of Dickplomacy, the credits for what I added are at the bottom. WSE was also completely removed from this version of the mod.)
+new female face pack (This credit entry was added by the original developer. I still can't figure out what he meant. Please tell me if you find out who made it so I can add it to the credits.)
+ibotlax - male face pack
+zfarisal, wahiti, somebody: diplomacy team
+jacobhinds - battle morale and routing code
+motomataru & caba-drin - formations and formAI
+broken_one - jewellery
+shik - medieval crpg weapons
+Lav - WRECK
+Lav - native expansion siege scenes
+The Bowman: town and arena scenes
+panpiper - female combat sounds
+dejawolf - viking weapons
+RNE - tent mesh
+talak - SWUP native replacement meshes
+1453 La Guerre Cent Ans - some female sounds
+shredzorz 15th c weapons
+corprus - female face pack
+slamowir of aaarrghh - tavern animations pack, map icons pack (dedal_map_icons)
+throttlekitty/jclyde6108 - Working Eyelashes
+Waswar/Adeline - new hair and aged textures for corprus faces
+wildhorse - long caparisoned horses
+
+=Begin Deneidez fork of Dickplomacy =
+
+Warband HD - High Definition Textures - gameweb - http://www.moddb.com/mods/warband-hd-high-definition-textures
+Polygamy bug fix - Deneidez 
+
+=Begin 4chan Anons fork of Deneidez fork of Dickplomacy (CTT + Polygamy bug fix)=
+
+Custom Troop Trees by  MitchellD	
+
+=Begin Dickplomacy Reloaded 1.0 = 
+
+Warband UI Retexture by Rohzdear
+Raudentius Warband Historical Music Pack by  Raudentius 
+OGRE'S AUDIO PACK - HQ OGG's by  tacticsogre	
+World map by Rubik 
+Single Screen Character Creation by mercury19 	
+Freelancer by Nords with Guns	
+Tournament Play Enhancements by  Windyplains 
+Dynamic Troop Trees - Modmerger Kit by  Dunde 
+
+=Begin Dickplomacy Reloaded 1.1=
+(REMOVED FROM MOD Raudentius Warband Historical Music Pack by  Raudentius 
+OGRE'S AUDIO PACK - HQ OGG's by  tacticsogre Alisacat007 - Amazon Orda v.1.0)	
+
+Forever Free image -  aluckymuse and The Creation Kids (Nexus image)
+Bug fixes by Lily (Warhorse allowed in tournaments with less than 4 riding, and looters and arena fighters have clothing.)
+Polished Land Scapes - by  gutekfiutek 
+Bodyguards/Escorts in Town/Village Scenes - by  Caba`drin 
+Village Raids & Sieges--Allow Player Party Actions - by Caba`drin 
+3 cards - AndyYa
+Dice game - AndyYa
+Alive horses - AndyYa
