@@ -659,6 +659,7 @@ meshes = [
   ("mmc_dice_5", 0, "mmc_dice_5", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("mmc_dice_6", 0, "mmc_dice_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),
 # dices game end 
+<<<<<<< HEAD
 ### Dice game ### Dice game ### END ###
 ################################################################################
 # FISH&CHIP MODIFICATIONS START
@@ -714,6 +715,9 @@ meshes = [
 # FISH&CHIP MODIFICATIONS END
 ################################################################################
 
+=======
+### Dice game ### Dice game ### END ### 
+>>>>>>> parent of 988b86c...  CHIP OSP with a modified tableau method
 
   
   ("tableau_mesh_wse_charger", 0, "tableau_mesh_wse_charger",  0, 0, 0, 0, 0, 0, 1, 1, 1),

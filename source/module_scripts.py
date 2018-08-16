@@ -76660,6 +76660,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 		(position_get_y, reg2, pos1),
 		(overlay_set_text, "$g_little_pos_helper", "@{reg1},{reg2}"),
     (try_end),
+<<<<<<< HEAD
  ]),
      # Shared script for all FISH&CHIP camo items
     ("setup_camouflage",
@@ -76683,6 +76684,9 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     ),
 
 
+=======
+ ]), 
+>>>>>>> parent of 988b86c...  CHIP OSP with a modified tableau method
 ]# modmerger_start version=201 type=2
 try:
     component_name = "scripts"

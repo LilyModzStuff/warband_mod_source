@@ -1308,6 +1308,7 @@ tableaus = [
            (cur_tableau_set_camera_parameters, 0, 200, 200, 0, 100000),
        (try_end),
        
+<<<<<<< HEAD
        ]),
 ################################################################################
 # FISH&CHIP MODIFICATIONS START
@@ -1414,6 +1415,9 @@ tableaus = [
 # FISH&CHIP MODIFICATIONS END
 ################################################################################
 
+=======
+       ]),	  
+>>>>>>> parent of 988b86c...  CHIP OSP with a modified tableau method
   
 ]
 # modmerger_start version=201 type=4

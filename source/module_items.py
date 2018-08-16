@@ -1278,6 +1278,7 @@ items = [
 ["charger_plate","Plated Charger", [("charger_plate_1",0)], itp_merchandise|itp_type_horse, 0, 1811,abundance(10)|hit_points(165)|body_armor(65)|difficulty(4)|horse_speed(37)|horse_maneuver(38)|horse_charge(40)|horse_scale(112),imodbits_horse_basic|imodbit_champion, [], [fac_kingdom_1, fac_kingdom_5]],
  
 ["items_end", "Items End", [("shield_round_a",0)], 0, 0, 1, 0, 0],
+<<<<<<< HEAD
  
 ################################################################################
 # FISH&CHIP MODIFICATIONS START
@@ -1351,6 +1352,8 @@ items = [
 # FISH&CHIP MODIFICATIONS END
 ################################################################################
 
+=======
+>>>>>>> parent of 988b86c...  CHIP OSP with a modified tableau method
 
 ]
 # modmerger_start version=201 type=2

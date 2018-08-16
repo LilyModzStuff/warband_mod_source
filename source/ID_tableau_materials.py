@@ -52,6 +52,7 @@ tableau_retired_troop_color = 50
 tableau_retirement_troop = 51
 tableau_dplmc_lord_profile = 52
 tableau_wse_charger = 53
+<<<<<<< HEAD
 tableau_camo_peasant_dress_b = 54
 tableau_camo_blue_dress = 55
 tableau_camo_shirt_a = 56
@@ -66,3 +67,5 @@ tableau_camo_red_gambeson_a = 64
 tableau_camo_fur_coat = 65
 tableau_camo_archers_vest = 66
 tableau_camo_tribal_warrior_outfit_a = 67
+=======
+>>>>>>> parent of 988b86c...  CHIP OSP with a modified tableau method

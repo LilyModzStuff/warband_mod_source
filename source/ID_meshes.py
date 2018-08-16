@@ -582,6 +582,7 @@ mesh_mmc_dice_3 = 580
 mesh_mmc_dice_4 = 581
 mesh_mmc_dice_5 = 582
 mesh_mmc_dice_6 = 583
+<<<<<<< HEAD
 mesh_camo_tableau_peasant_dress_b = 584
 mesh_camo_tableau_blue_dress = 585
 mesh_camo_tableau_shirt_a = 586
@@ -623,3 +624,9 @@ mesh_tableau_mesh_wse_charger = 621
 mesh_pic_soldier_world_map = 622
 mesh_pic_soldier_rebel = 623
 mesh_pic_soldier_desert = 624
+=======
+mesh_tableau_mesh_wse_charger = 584
+mesh_pic_soldier_world_map = 585
+mesh_pic_soldier_rebel = 586
+mesh_pic_soldier_desert = 587
+>>>>>>> parent of 988b86c...  CHIP OSP with a modified tableau method
