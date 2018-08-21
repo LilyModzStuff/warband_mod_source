@@ -2754,7 +2754,18 @@ or you won't be able to hang on to a single man you catch.", "ramun_ask_about_ca
 ]],
 [anyone|plyr,"village_farmer_talk", [], "Carry on, then. Farewell.", "close_window",[(assign, "$g_leave_encounter",1)]],
 
-[party_tpl|pt_merchant_ship,"start", [], "The winds are fair today.", "close_window",[(assign, "$g_leave_encounter",1)]],
+[party_tpl|pt_merchant_ship,"start", [], "Fine sailing today, isn't it?", "merchant_ship_talk_b",[]],
+[party_tpl|pt_merchant_ship|plyr,"merchant_ship_talk_b", [], "Yes, that it is indeed. Farewell friend.", "merchant_ship_talk_b1",[]],
+[party_tpl|pt_merchant_ship|plyr,"merchant_ship_talk_b", [], "Hand us your goods, and surrender or die!", "merchant_ship_talk_b3",[
+    (assign,"$encountered_party_hostile",1),
+    (assign,"$encountered_party_friendly",0),
+]],
+[party_tpl|pt_merchant_ship,"merchant_ship_talk_b3", [], "You've made a grave mistake today. You will pay for your crimes!", "close_window",[]],
+[party_tpl|pt_merchant_ship,"merchant_ship_talk_b2", [], "Stay safe, Milord.", "close_window",[(assign, "$g_leave_encounter",1)]],
+
+
+
+
 
 ### COMPANIONS
 
