@@ -101,10 +101,12 @@ simple_triggers = [
 
 
 #Auto-menu
+ #Auto-menu
+#Auto-menu
   (0,
-   [
+   [         
      (try_begin),
-       (is_between, "$g_last_rest_center",  centers_begin, centers_end), #SB : proper rest conditions
+       (gt, "$g_last_rest_center", 0),
        (party_get_battle_opponent, ":besieger_party", "$g_last_rest_center"),
        (gt, ":besieger_party", 0),
        (store_faction_of_party, ":encountered_faction", "$g_last_rest_center"),
@@ -133,46 +135,50 @@ simple_triggers = [
        (else_try),
          (ge,"$auto_enter_town",1),
          (start_encounter, "$auto_enter_town"),
-       (else_try),
-         (ge,"$auto_besiege_town",1),
-         (start_encounter, "$auto_besiege_town"),
+       #(else_try),  ### Comment out this entire else_try
+         #(ge,"$auto_besiege_town",1), ### Here
+         #(start_encounter, "$auto_besiege_town"), ###And here, too
        (else_try),
          (ge,"$g_camp_mode", 1),
          (assign, "$g_camp_mode", 0),
          (assign, "$g_infinite_camping", 0),
+         (assign, "$g_player_icon_state", pis_normal),
          
-         (try_begin),
-           (neq, "$g_player_icon_state", pis_ship),
-           (assign, "$g_player_icon_state", pis_normal),
-         (try_end),
-
          (rest_for_hours, 0, 0, 0), #stop camping
-
-         (display_message, "@Breaking camp...", message_alert), #SB : colorize
-       (else_try), #SB : restore after leaving town with disguises
-         (gt, "$sneaked_into_town", disguise_none),
-         (display_message, "@Removing disguise...", message_alert), #SB : colorize
-         (try_begin),
-           (eq, "$g_dplmc_player_disguise", 1),
-           (set_show_messages, 0),
-           #equipment is deposited back to inventory, it starts off blank
-           (try_for_range, ":i_slot", ek_item_0, ek_food + 1),
-             (troop_get_inventory_slot, ":item", "trp_player", ":i_slot"),
-             (neq, ":item", -1),
-             (troop_get_inventory_slot_modifier, ":imod", "trp_player", ":i_slot"),
-             (troop_add_item, "trp_random_town_sequence", ":item", ":imod"),
-           (try_end),
-           #less efficient, but merge and respect original player inventory's order
-           (call_script, "script_move_inventory_and_gold", "trp_player", "trp_random_town_sequence", 0), #do not move gold
-           (call_script, "script_dplmc_copy_inventory", "trp_random_town_sequence", "trp_player"),
-           (call_script, "script_troop_transfer_gold", "trp_random_town_sequence", "trp_player", 0), #move remaining gold now
-           (set_show_messages, 1),
-         (try_end),
-         (assign, "$sneaked_into_town", disguise_none),
+                 
+         (display_message, "@Breaking camp..."),
        (try_end),
      (try_end),
      ]),
 
+  
+(0.25,
+   [
+      (gt,"$auto_besiege_town",0),
+      (gt,"$g_player_besiege_town", 0),
+      (ge, "$g_siege_method", 1),
+   
+      (store_distance_to_party_from_party, ":distance", "$g_player_besiege_town", "p_main_party"),
+      (try_begin),
+        (gt, ":distance", raid_distance / 2),
+        (str_store_party_name_link, s1, "$g_player_besiege_town"),
+        (display_message, "@You have broken off your siege of {s1}."),
+        (call_script, "script_lift_siege", "$g_player_besiege_town", 0),
+        (assign, "$g_player_besiege_town", -1),
+        (rest_for_hours, 0, 0, 0), #stop resting - abort
+      (else_try),
+        (ge, ":distance", raid_distance / 3),
+        (map_free),
+        (str_store_party_name_link, s1, "$g_player_besiege_town"),
+        (display_message, "@You cannot maintain your siege of {s1} from this distance. You risk your lines breaking."),
+      (else_try),
+        (store_current_hours, ":cur_hours"),
+        (ge, ":cur_hours", "$g_siege_method_finish_hours"),
+        (neg|is_currently_night),
+        (rest_for_hours, 0, 0, 0), #stop resting, if resting
+        (start_encounter, "$auto_besiege_town"),
+      (try_end),
+    ]), 
 
 #Notification menus
   (0,
@@ -410,9 +416,9 @@ simple_triggers = [
         (neq, "$g_player_is_captive", 0),
         #(rest_for_hours, 0, 0, 0), #stop resting - abort
         (assign,"$g_player_raiding_village",0),
-      (else_try),
-        (map_free), #we have been attacked during raid
-        (assign,"$g_player_raiding_village",0),
+     ### (else_try),         ###Remove this entire Else-Try###
+       ### (map_free), #we have been attacked during raid
+       ### (assign,"$g_player_raiding_village",0),
       (else_try),
         (this_or_next|party_slot_eq, "$g_player_raiding_village", slot_village_state, svs_looted),
         (party_slot_eq, "$g_player_raiding_village", slot_village_state, svs_deserted),
@@ -422,13 +428,31 @@ simple_triggers = [
         (assign,"$g_player_raid_complete",1),
       (else_try),
         (party_slot_eq, "$g_player_raiding_village", slot_village_state, svs_being_raided),
-        (rest_for_hours, 3, 5, 1), #rest while attackable
+        (rest_for_hours_interactive, 3, 5, 1), #rest while attackable    ###CHANGE rest_for_hours to rest_for_hours_interactive; ###OPTIONAL COMMENT OUT
       (else_try),
         (rest_for_hours, 0, 0, 0), #stop resting - abort
         (assign,"$g_player_raiding_village",0),
         (assign,"$g_player_raid_complete",0),
       (try_end),
     ]),
+  (0.25,
+   [
+      (ge,"$g_player_raiding_village",1),
+      (store_distance_to_party_from_party, ":distance", "$g_player_raiding_village", "p_main_party"),
+      (try_begin),
+        (gt, ":distance", raid_distance),
+        (str_store_party_name_link, s1, "$g_player_raiding_village"),
+        (display_message, "@You have broken off your raid of {s1}."),
+        (call_script, "script_village_set_state", "$current_town", 0),
+        (party_set_slot, "$current_town", slot_village_raided_by, -1),
+        (assign, "$g_player_raiding_village", 0),
+        (rest_for_hours, 0, 0, 0), #stop resting - abort
+      (else_try),
+        (ge, ":distance", raid_distance / 2),
+        (map_free),
+        (jump_to_menu, "mnu_village_loot_continue"),
+      (try_end),
+    ]),  
 
   #Pay day.
   (24 * 7,
