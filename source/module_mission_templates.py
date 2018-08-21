@@ -339,7 +339,6 @@ AI_triggers = [
 ] #end AI triggers
 #Bodyguards
 from header_skills import *
-
 bodyguard_triggers = [
     (ti_after_mission_start, 0, ti_once, [(neq, "$g_mt_mode", tcm_disguised)],
      # condition for not sneaking in; to exclude prison-breaks, etc change to (eq, "$g_mt_mode", tcm_default")
@@ -351,14 +350,11 @@ bodyguard_triggers = [
          (val_div, ":renown", 400),
          (store_add, ":max_guards", ":renown", ":leadership"),
          (val_min, ":max_guards", 4),
-
          (ge, ":max_guards", 1),
-
          # Get player info
          (get_player_agent_no, ":player"),
          (agent_get_team, ":playerteam", ":player"),
          (agent_get_horse, ":use_horse", ":player"),  # If the player spawns with a horse, the bodyguard will too.
-
          # Prepare Scene/Mission Template
          (assign, ":entry_point", 0),
          (assign, ":mission_tpl", 0),
@@ -388,7 +384,6 @@ bodyguard_triggers = [
          (try_end),
          (store_current_scene, ":cur_scene"),
          (modify_visitors_at_site, ":cur_scene"),
-
          # Find and Spawn Bodyguards
          (assign, ":bodyguard_count", 0),
          (party_get_num_companion_stacks, ":num_of_stacks", "p_main_party"),
@@ -398,15 +393,12 @@ bodyguard_triggers = [
          (troop_is_hero, ":troop_id"),
          (neg | troop_is_wounded, ":troop_id"),
          (val_add, ":bodyguard_count", 1),
-
          (try_begin),  # For prison-breaks
          (this_or_next | eq, "$talk_context", tc_escape),
          (eq, "$talk_context", tc_prison_break),
          (troop_set_slot, ":troop_id", slot_troop_will_join_prison_break, 1),
          (try_end),
-
          (add_visitors_to_current_scene, ":entry_point", ":troop_id", 1),
-
          (eq, ":bodyguard_count", ":max_guards"),
          (assign, ":num_of_stacks", 0),  # Break Loop
          (try_end),  # Stack Loop
@@ -415,7 +407,6 @@ bodyguard_triggers = [
          (team_give_order, ":playerteam", 8, mordr_follow),  # Division 8 to avoid potential conflicts
          (set_show_messages, 1),
      ]),
-
     (ti_on_agent_spawn, 0, 0, [],
      [
          (store_trigger_param_1, ":agent"),
@@ -423,11 +414,9 @@ bodyguard_triggers = [
          (neq, ":troop", "trp_player"),
          (troop_is_hero, ":troop"),
          (main_party_has_troop, ":troop"),
-
          (get_player_agent_no, ":player"),
          (agent_get_team, ":playerteam", ":player"),
          (agent_get_position, pos1, ":player"),
-
          (agent_set_team, ":agent", ":playerteam"),
          (agent_set_division, ":agent", 8),
          (agent_add_relation_with_agent, ":agent", ":player", 1),
@@ -445,11 +434,9 @@ bodyguard_triggers = [
          (position_move_x, pos1, ":shift"),
          (agent_set_position, ":agent", pos1),
      ]),
-
     (ti_on_agent_killed_or_wounded, 0, 0, [],
      [
          (store_trigger_param_1, ":dead_agent"),
-
          (agent_get_troop_id, ":troop", ":dead_agent"),
          (neq, ":troop", "trp_player"),
          (troop_is_hero, ":troop"),
@@ -1577,6 +1564,66 @@ jacobhinds_battle_ratio_calculate = (
    ],
                   )
                   
+killed_or_wounded = (
+    ti_on_agent_killed_or_wounded, 0, 0, [],
+       [
+        (store_trigger_param_1, ":dead_agent_no"),
+        (store_trigger_param_2, ":killer_agent_no"),
+        (store_trigger_param_3, ":is_wounded"),
+        
+        ###realistic wounding begin###
+        (try_begin),
+          (eq, "$g_realistic_wounding", 1),
+          (agent_get_troop_id, ":dead_agent_troop_id", ":dead_agent_no"),
+          (neg|troop_is_hero, ":dead_agent_troop_id"),
+          (neq, ":dead_agent_troop_id", "trp_player"),
+          (agent_get_slot, ":last_damage", ":dead_agent_no", slot_agent_last_damage),
+          
+          (assign, ":chance", 0),
+          (assign, ":rand", 100),
+          (try_begin),
+            (agent_is_ally, ":dead_agent_no"),
+            (party_get_skill_level, ":surgery", "p_main_party", skl_surgery),
+            (store_mul, ":chance", ":surgery", 4),
+            (val_add, ":chance", 25),
+            (store_random_in_range, ":rand", 0, 100),
+          (try_end),
+          
+          (try_begin),
+              (le, ":last_damage", 10),
+              (assign, ":is_wounded", 1),
+              (set_trigger_result, 2),
+          (else_try),
+              (ge, ":last_damage", 40),
+              (try_begin),
+                (ge, ":rand", ":chance"),
+                (assign, ":is_wounded", 0),
+                (set_trigger_result, 1),
+              (else_try),
+                (assign, ":is_wounded", 1),
+                (set_trigger_result, 2),
+              (try_end),
+          (else_try),
+              (set_trigger_result, 0),
+          (try_end),
+        (try_end),
+        
+        ###realistic wounding end###
+        
+        (try_begin),
+          (ge, ":dead_agent_no", 0),
+          (neg|agent_is_ally, ":dead_agent_no"),
+          (agent_is_human, ":dead_agent_no"),
+          (agent_get_troop_id, ":dead_agent_troop_id", ":dead_agent_no"),
+          (party_add_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), #addition_to_p_total_enemy_casualties
+          (eq, ":is_wounded", 1),
+          (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1),
+        (try_end),
+
+        (call_script, "script_apply_death_effect_on_courage_scores", ":dead_agent_no", ":killer_agent_no"),
+       ],
+)
+                  
 morale_triggers = [          
       (3, 0, 0, [
           (try_for_agents, ":agent_no"),
@@ -1620,77 +1667,7 @@ morale_triggers = [
          (agent_set_slot, ":agent_no", slot_agent_courage_score, ":initial_courage_score"),
          ]),
          
-      (ti_on_agent_killed_or_wounded, 0, 0, [],
-       [
-        (store_trigger_param_1, ":dead_agent_no"),
-        (store_trigger_param_2, ":killer_agent_no"),
-        (store_trigger_param_3, ":is_wounded"),
-
-        (try_begin),
-          (ge, ":dead_agent_no", 0),
-          (neg|agent_is_ally, ":dead_agent_no"),
-          (agent_is_human, ":dead_agent_no"),
-          (agent_get_troop_id, ":dead_agent_troop_id", ":dead_agent_no"),
-          
-          (party_add_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), #addition_to_p_total_enemy_casualties
-          
-          (agent_get_slot, ":last_damage", ":dead_agent_no", slot_agent_last_damage),
-              
-          (try_begin),
-              (neg|troop_is_hero, ":dead_agent_troop_id"),
-              (eq, "$g_realistic_wounding", 1),
-              (le, ":last_damage", 10),
-              (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1),
-              (set_trigger_result, 2),
-          (else_try),
-              (neg|troop_is_hero, ":dead_agent_troop_id"),
-              (eq, "$g_realistic_wounding", 1),
-              (ge, ":last_damage", 40),
-              (set_trigger_result, 1),
-          (else_try),
-              (try_begin),
-                  (eq, ":is_wounded", 1),
-                  (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1),
-              (try_end),
-              (set_trigger_result, 0),
-          (try_end),
-        (try_end),
-        
-        (try_begin),
-          (ge, ":dead_agent_no", 0),
-          (agent_is_ally, ":dead_agent_no"),
-          (agent_is_human, ":dead_agent_no"),
-          (agent_get_troop_id, ":dead_agent_troop_id", ":dead_agent_no"),
-          
-          (agent_get_slot, ":last_damage", ":dead_agent_no", slot_agent_last_damage),
-              
-          (agent_get_troop_id, ":dead_agent_troop_id", ":dead_agent_no"),
-          
-          (agent_get_slot, ":last_damage", ":dead_agent_no", slot_agent_last_damage),
-              
-          (party_get_skill_level, ":surgery", "p_main_party", skl_surgery),
-          (store_mul, ":chance", ":surgery", 4),
-          (val_add, ":chance", 25),
-          (store_random_in_range, ":rand", 0, 100),
-              
-          (try_begin),
-              (neg|troop_is_hero, ":dead_agent_troop_id"),
-              (eq, "$g_realistic_wounding", 1),
-              (le, ":last_damage", 10),
-              (set_trigger_result, 2),
-          (else_try),
-              (neg|troop_is_hero, ":dead_agent_troop_id"),
-              (eq, "$g_realistic_wounding", 1),
-              (gt, ":rand", ":chance"),
-              (ge, ":last_damage", 40),
-              (set_trigger_result, 1),
-          (else_try),
-            (set_trigger_result, 0),
-          (try_end),
-        (try_end),
-
-        (call_script, "script_apply_death_effect_on_courage_scores", ":dead_agent_no", ":killer_agent_no"),
-       ]),
+      killed_or_wounded,
  ]
                   
 jacobhinds_morale_triggers = [
@@ -3386,7 +3363,6 @@ common_siege_assign_men_to_belfry = (
 
 
 tournament_triggers = [
-    
   (ti_before_mission_start, 0, 0, [], [(call_script, "script_change_banners_and_chest"),
                                        (assign, "$g_arena_training_num_agents_spawned", 0)]),
   (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_arena")], []),
@@ -3409,7 +3385,7 @@ tournament_triggers = [
       (get_player_agent_no, ":player_agent"),
       (agent_get_kill_count, "$g_arena_training_kills", ":player_agent", 1),#use this for conversation
       #SB : deduct health here
-      (call_script, "script_agent_apply_training_health", ":player_agent"),
+      #(call_script, "script_agent_apply_training_health", ":player_agent"),
     (try_end),
     (finish_mission,0),
     ]),
@@ -3623,7 +3599,7 @@ tournament_triggers = [
        (jump_to_scene, ":arena_scene"),
        
        #SB : deduct health here
-       (call_script, "script_agent_apply_training_health", ":player_agent"),
+       #(call_script, "script_agent_apply_training_health", ":player_agent"),
        ]),
 
 
@@ -4147,7 +4123,7 @@ mission_templates = [
 	 (47,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),
      ],
     [
-        (0, 0, ti_once, [],  ### replace static horse
+         (0, 0, ti_once, [],  ### replace static horse
          [(neg | is_edit_mode_enabled),
           (try_for_range, ":horse", all_items_begin, all_items_end),  # itp_type_horse
           (item_get_type, ":type", ":horse"),
@@ -4406,9 +4382,10 @@ mission_templates = [
        (troop_slot_ge, ":dead_agent_troop_no", slot_troop_mission_participation, mp_prison_break_fight),
        (troop_set_slot, ":dead_agent_troop_no", slot_troop_mission_participation, mp_prison_break_caught),
      (try_end),
-   ]),
-  ] + bodyguard_triggers,
-  ),
+   ]
+    ),
+  ] + bodyguard_triggers, 
+    ),
 
   (
     "village_center",0,-1,
@@ -4421,14 +4398,14 @@ mission_templates = [
      (5,mtef_scene_source|mtef_team_0,af_override_horse,0,1,[]),
      (6,mtef_scene_source|mtef_team_0,af_override_horse,0,1,[]),
      (7,mtef_scene_source|mtef_team_0,af_override_horse,0,1,[]),
+
      (8,mtef_visitor_source,af_override_horse,0,1,[]),
      (9,mtef_visitor_source,af_override_horse,0,1,[]),(10,mtef_visitor_source,af_override_horse,0,1,[]),(11,mtef_visitor_source,af_override_horse,0,1,[]),(12,mtef_visitor_source,af_override_horse,0,1,[]),(13,mtef_visitor_source,0,0,1,[]),(14,mtef_visitor_source,0,0,1,[]),(15,mtef_visitor_source,0,0,1,[]),
      (16,mtef_visitor_source,af_override_horse,0,1,[]),(17,mtef_visitor_source,af_override_horse,0,1,[]),(18,mtef_visitor_source,af_override_horse,0,1,[]),(19,mtef_visitor_source,af_override_horse,0,1,[]),(20,mtef_visitor_source,af_override_horse,0,1,[]),(21,mtef_visitor_source,af_override_horse,0,1,[]),(22,mtef_visitor_source,af_override_horse,0,1,[]),(23,mtef_visitor_source,af_override_horse,0,1,[]),
      (24,mtef_visitor_source,af_override_horse,0,1,[]),(25,mtef_visitor_source,af_override_horse,0,1,[]),(26,mtef_visitor_source,af_override_horse,0,1,[]),(27,mtef_visitor_source,af_override_horse,0,1,[]),(28,mtef_visitor_source,af_override_horse,0,1,[]),(29,mtef_visitor_source,af_override_horse,0,1,[]),(30,mtef_visitor_source,af_override_horse,0,1,[]),(31,mtef_visitor_source,af_override_horse,0,1,[]),
      (32,mtef_visitor_source,af_override_horse,0,1,[]),(33,mtef_visitor_source,af_override_horse,0,1,[]),(34,mtef_visitor_source,af_override_horse,0,1,[]),(35,mtef_visitor_source,af_override_horse,0,1,[]),(36,mtef_visitor_source,af_override_horse,0,1,[]),(37,mtef_visitor_source,af_override_horse,0,1,[]),(38,mtef_visitor_source,af_override_horse,0,1,[]),(39,mtef_visitor_source,af_override_horse,0,1,[]),
-    (40,mtef_visitor_source,af_override_horse,0,1,[]),(41,mtef_visitor_source,af_override_horse,0,1,[]),(42,mtef_visitor_source,af_override_horse,0,1,[]),(43,mtef_visitor_source,af_override_horse,0,1,[]),(44,mtef_visitor_source,af_override_horse,0,1,[]),(45,mtef_visitor_source,af_override_horse,0,1,[]),(46,mtef_visitor_source,af_override_horse,0,1,[]),(47,mtef_visitor_source,af_override_horse,0,1,[]),
+     (40,mtef_visitor_source,af_override_horse,0,1,[]),(41,mtef_visitor_source,af_override_horse,0,1,[]),(42,mtef_visitor_source,af_override_horse,0,1,[]),(43,mtef_visitor_source,af_override_horse,0,1,[]),(44,mtef_visitor_source,af_override_horse,0,1,[]),(45,mtef_visitor_source,af_override_horse,0,1,[]),(46,mtef_visitor_source,af_override_horse,0,1,[]),(47,mtef_visitor_source,af_override_horse,0,1,[]),
      ],
-    
     [
       (1, 0, ti_once, [], [
           (store_current_scene, ":cur_scene"),
@@ -4539,7 +4516,7 @@ mission_templates = [
       (call_script, "script_change_player_relation_with_center", "$current_town", -1),
     (try_end),
    ]),
-    ] + bodyguard_triggers,
+    ] + bodyguard_triggers, 
   ),
 
   (
@@ -4563,7 +4540,6 @@ mission_templates = [
      (44,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),(45,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),(46,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),(47,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),
      ],
     [
-
       (ti_on_agent_spawn, 0, 0, [],
        [
          (store_trigger_param_1, ":agent_no"),
@@ -4612,7 +4588,7 @@ mission_templates = [
          (try_end),
          (finish_mission),
          ]),
-      ] + bodyguard_triggers,
+      ],
     ),
 
 
@@ -4623,7 +4599,6 @@ mission_templates = [
      (4,mtef_visitor_source|mtef_team_1,af_override_everything,aif_start_alarmed,1,[itm_practice_staff, itm_practice_boots]),
      ],
     [
-
       (ti_before_mission_start, 0, 0, [],
        [
          (assign, "$g_train_peasants_against_bandits_training_succeeded", 0),
@@ -4693,7 +4668,6 @@ mission_templates = [
      (31,mtef_visitor_source,af_castle_lord,0,1,[])
      ],
     [
-
       (ti_on_agent_spawn, 0, 0, [],
       [
         (store_trigger_param_1, ":agent_no"),
@@ -4803,7 +4777,6 @@ mission_templates = [
       (3,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),
     ],
     [
-
       common_inventory_not_available,
       (ti_tab_pressed, 0, 0, [(display_message,"str_cannot_leave_now")], []),
       (ti_before_mission_start, 0, 0, [], [(call_script, "script_change_banners_and_chest")]),
@@ -4860,7 +4833,7 @@ mission_templates = [
            (try_end),
            (finish_mission),
            ]),
-    ],
+         ] + bodyguard_triggers,
   ),
 
   (
@@ -4870,7 +4843,6 @@ mission_templates = [
      (3,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),
      ],
     [
-
       common_inventory_not_available,
 
       common_battle_init_banner,
@@ -4902,7 +4874,7 @@ mission_templates = [
            (try_end),
            (finish_mission),
            ]),
-    ],
+         ] + bodyguard_triggers,
   ),
 
   (
@@ -4915,7 +4887,7 @@ mission_templates = [
      (4,mtef_attackers|mtef_team_1,0,aif_start_alarmed,0,[]),
      ],
     [
-
+    
       (ti_on_agent_spawn, 0, 0, [],
        [
          (store_trigger_param_1, ":agent_no"),
@@ -4946,75 +4918,7 @@ mission_templates = [
 
       common_battle_init_banner,
 
-      (ti_on_agent_killed_or_wounded, 0, 0, [],
-       [
-        (store_trigger_param_1, ":dead_agent_no"),
-        (store_trigger_param_2, ":killer_agent_no"),
-        (store_trigger_param_3, ":is_wounded"),
-        
-        (try_begin),
-          (ge, ":dead_agent_no", 0),
-          (neg|agent_is_ally, ":dead_agent_no"),
-          (agent_is_human, ":dead_agent_no"),
-          (agent_get_troop_id, ":dead_agent_troop_id", ":dead_agent_no"),
-          
-          (party_add_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), #addition_to_p_total_enemy_casualties
-                    
-          (agent_get_slot, ":last_damage", ":dead_agent_no", slot_agent_last_damage),
-              
-          (try_begin),
-              (neg|troop_is_hero, ":dead_agent_troop_id"),
-              (eq, "$g_realistic_wounding", 1),
-              (le, ":last_damage", 10),
-              (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1),
-              (set_trigger_result, 2),
-          (else_try),
-              (neg|troop_is_hero, ":dead_agent_troop_id"),
-              (eq, "$g_realistic_wounding", 1),
-              (ge, ":last_damage", 40),
-              (set_trigger_result, 1),
-          (else_try),
-              (try_begin),
-                  (eq, ":is_wounded", 1),
-                  (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1),
-              (try_end),
-              (set_trigger_result, 0),
-          (try_end),
-        (try_end),
-        
-        (try_begin),
-          (ge, ":dead_agent_no", 0),
-          (agent_is_ally, ":dead_agent_no"),
-          (agent_is_human, ":dead_agent_no"),
-          
-          (agent_get_troop_id, ":dead_agent_troop_id", ":dead_agent_no"),
-          
-          (agent_get_slot, ":last_damage", ":dead_agent_no", slot_agent_last_damage),
-              
-          (party_get_skill_level, ":surgery", "p_main_party", skl_surgery),
-          (store_mul, ":chance", ":surgery", 4),
-          (val_add, ":chance", 25),
-          (store_random_in_range, ":rand", 0, 100),
-              
-          (try_begin),
-              (neg|troop_is_hero, ":dead_agent_troop_id"),
-              (eq, "$g_realistic_wounding", 1),
-              (le, ":last_damage", 10),
-              (set_trigger_result, 2),
-          (else_try),
-              (neg|troop_is_hero, ":dead_agent_troop_id"),
-              (eq, "$g_realistic_wounding", 1),
-              (gt, ":rand", ":chance"),
-              (ge, ":last_damage", 40),
-              (set_trigger_result, 1),
-          (else_try),
-          (else_try),
-              (set_trigger_result, 0),
-          (try_end),
-        (try_end),
-        
-        (call_script, "script_apply_death_effect_on_courage_scores", ":dead_agent_no", ":killer_agent_no"),
-       ]),
+      killed_or_wounded,
 
       common_battle_tab_press,
 
@@ -5316,58 +5220,7 @@ mission_templates = [
          (agent_set_slot, ":agent_no", slot_agent_courage_score, ":initial_courage_score"),
          ]),
          
-      (ti_on_agent_killed_or_wounded, 0, 0, [],
-       [
-        (store_trigger_param_1, ":dead_agent_no"),
-        (store_trigger_param_2, ":killer_agent_no"),
-        #(store_trigger_param_3, ":is_wounded"),        
-
-        (try_begin),
-          (ge, ":dead_agent_no", 0),
-          (neg|agent_is_ally, ":dead_agent_no"),
-          (agent_is_human, ":dead_agent_no"),
-          (agent_get_troop_id, ":dead_agent_troop_id", ":dead_agent_no"),
-                              
-          (agent_get_slot, ":last_damage", ":dead_agent_no", slot_agent_last_damage),
-              
-          (try_begin),
-              (neg|troop_is_hero, ":dead_agent_troop_id"),
-              (le, ":last_damage", 10),
-              (set_trigger_result, 2),
-          (else_try),
-              (neg|troop_is_hero, ":dead_agent_troop_id"),
-              (ge, ":last_damage", 40),
-              (set_trigger_result, 1),
-          (else_try),
-              (set_trigger_result, 0),
-          (try_end),
-        (try_end),
-        
-        (try_begin),
-          (ge, ":dead_agent_no", 0),
-          (agent_is_ally, ":dead_agent_no"),
-          (agent_is_human, ":dead_agent_no"),
-          
-          (agent_get_troop_id, ":dead_agent_troop_id", ":dead_agent_no"),
-          
-          (agent_get_slot, ":last_damage", ":dead_agent_no", slot_agent_last_damage),
-              
-          (try_begin),
-              (neg|troop_is_hero, ":dead_agent_troop_id"),
-              (le, ":last_damage", 10),
-              (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1),
-              (set_trigger_result, 2),
-          (else_try),
-              (neg|troop_is_hero, ":dead_agent_troop_id"),
-              (ge, ":last_damage", 40),
-              (set_trigger_result, 1),
-          (else_try),
-              (set_trigger_result, 0),
-          (try_end),
-        (try_end),
-        
-        (call_script, "script_apply_death_effect_on_courage_scores", ":dead_agent_no", ":killer_agent_no"),
-       ]),
+      killed_or_wounded,
 
     ]
     ##diplomacy begin
@@ -5389,7 +5242,6 @@ mission_templates = [
      (1,mtef_attackers|mtef_team_1,0,aif_start_alarmed,0,[]),
      ],
     [
-
       common_battle_tab_press,
       common_battle_init_banner,
 
@@ -5705,7 +5557,6 @@ mission_templates = [
      (20, mtef_defenders|mtef_use_exact_number|mtef_team_0,af_override_horse,aif_start_alarmed,1,[]),
      ],
     [
-
       (ti_before_mission_start, 0, 0, [], [(call_script, "script_change_banners_and_chest")]),
 
       common_battle_tab_press,
@@ -5788,7 +5639,6 @@ mission_templates = [
      (28, mtef_defenders|mtef_use_exact_number|mtef_team_0,af_override_horse,aif_start_alarmed,1,[]),
      ],
     [
-
       (ti_before_mission_start, 0, 0, [], [(call_script, "script_change_banners_and_chest")]),
 
       common_battle_tab_press,
@@ -5870,7 +5720,6 @@ mission_templates = [
      (3,mtef_defenders|mtef_team_0,0,aif_start_alarmed,0,[]),
      ],
     [
-
       # (ti_on_agent_spawn, 0, 0, [],
        # [
          # (store_trigger_param_1, ":agent_no"),
@@ -5907,74 +5756,7 @@ mission_templates = [
       common_battle_tab_press,
       common_battle_init_banner,
 
-      (ti_on_agent_killed_or_wounded, 0, 0, [], #new
-       [
-        (store_trigger_param_1, ":dead_agent_no"),
-        #(store_trigger_param_2, ":killer_agent_no"),
-        (store_trigger_param_3, ":is_wounded"),
-       
-        (try_begin),
-          (ge, ":dead_agent_no", 0),
-          (neg|agent_is_ally, ":dead_agent_no"),
-          (agent_is_human, ":dead_agent_no"),
-          (agent_get_troop_id, ":dead_agent_troop_id", ":dead_agent_no"),
-          
-          (party_add_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), #addition_to_p_total_enemy_casualties
-                    
-          (agent_get_slot, ":last_damage", ":dead_agent_no", slot_agent_last_damage),
-              
-          (try_begin),
-              (neg|troop_is_hero, ":dead_agent_troop_id"),
-              (eq, "$g_realistic_wounding", 1),
-              (le, ":last_damage", 10),
-              (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1),
-              (set_trigger_result, 2),
-          (else_try),
-              (neg|troop_is_hero, ":dead_agent_troop_id"),
-              (eq, "$g_realistic_wounding", 1),
-              (ge, ":last_damage", 40),
-              (set_trigger_result, 1),
-          (else_try),
-              (try_begin),
-                  (eq, ":is_wounded", 1),
-                  (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1),
-              (try_end),
-              (set_trigger_result, 0),
-          (try_end),
-        (try_end),
-        
-        (try_begin),
-          (ge, ":dead_agent_no", 0),
-          (agent_is_ally, ":dead_agent_no"),
-          (agent_is_human, ":dead_agent_no"),
-          
-          (agent_get_troop_id, ":dead_agent_troop_id", ":dead_agent_no"),
-          
-          (agent_get_slot, ":last_damage", ":dead_agent_no", slot_agent_last_damage),
-              
-          (party_get_skill_level, ":surgery", "p_main_party", skl_surgery),
-          (store_mul, ":chance", ":surgery", 4),
-          (val_add, ":chance", 25),
-          (store_random_in_range, ":rand", 0, 100),
-              
-          (try_begin),
-              (neg|troop_is_hero, ":dead_agent_troop_id"),
-              (eq, "$g_realistic_wounding", 1),
-              (le, ":last_damage", 10),
-              (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1),
-              (set_trigger_result, 2),
-          (else_try),
-              (neg|troop_is_hero, ":dead_agent_troop_id"),
-              (eq, "$g_realistic_wounding", 1),
-              (gt, ":rand", ":chance"),
-              (ge, ":last_damage", 40),
-              (set_trigger_result, 1),
-          (else_try),
-              (set_trigger_result, 0),
-          (try_end),
-        (try_end),
-        
-       ]),
+      killed_or_wounded,
 
       (ti_question_answered, 0, 0, [],
        [(store_trigger_param_1,":answer"),
@@ -6069,7 +5851,6 @@ mission_templates = [
      (47,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
      ],
     [
-
       common_battle_mission_start,
       common_battle_tab_press,
       common_battle_init_banner,
@@ -6103,73 +5884,7 @@ mission_templates = [
          (set_show_messages, 1),
          ], []),
 
-      (ti_on_agent_killed_or_wounded, 0, 0, [],
-       [
-        (store_trigger_param_1, ":dead_agent_no"),
-        #(store_trigger_param_2, ":killer_agent_no"),
-        (store_trigger_param_3, ":is_wounded"),
-
-        (try_begin),
-          (ge, ":dead_agent_no", 0),
-          (neg|agent_is_ally, ":dead_agent_no"),
-          (agent_is_human, ":dead_agent_no"),
-          (agent_get_troop_id, ":dead_agent_troop_id", ":dead_agent_no"),
-          
-          (party_add_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), #addition_to_p_total_enemy_casualties
-                    
-          (agent_get_slot, ":last_damage", ":dead_agent_no", slot_agent_last_damage),
-              
-          (try_begin),
-              (neg|troop_is_hero, ":dead_agent_troop_id"),
-              (eq, "$g_realistic_wounding", 1),
-              (le, ":last_damage", 10),
-              (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1),
-              (set_trigger_result, 2),
-          (else_try),
-              (neg|troop_is_hero, ":dead_agent_troop_id"),
-              (eq, "$g_realistic_wounding", 1),
-              (ge, ":last_damage", 40),
-              (set_trigger_result, 1),
-          (else_try),
-              (try_begin),
-                  (eq, ":is_wounded", 1),
-                  (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1),
-              (try_end),
-              (set_trigger_result, 0),
-          (try_end),
-        (try_end),
-        
-        (try_begin),
-          (ge, ":dead_agent_no", 0),
-          (agent_is_ally, ":dead_agent_no"),
-          (agent_is_human, ":dead_agent_no"),
-          
-          (agent_get_troop_id, ":dead_agent_troop_id", ":dead_agent_no"),
-          
-          (agent_get_slot, ":last_damage", ":dead_agent_no", slot_agent_last_damage),
-          
-          (party_get_skill_level, ":surgery", "p_main_party", skl_surgery),
-          (store_mul, ":chance", ":surgery", 4),
-          (val_add, ":chance", 25),
-          (store_random_in_range, ":rand", 0, 100),
-              
-          (try_begin),
-              (neg|troop_is_hero, ":dead_agent_troop_id"),
-              (eq, "$g_realistic_wounding", 1),
-              (le, ":last_damage", 10),
-              (set_trigger_result, 2),
-          (else_try),
-              (neg|troop_is_hero, ":dead_agent_troop_id"),
-              (eq, "$g_realistic_wounding", 1),
-              (gt, ":rand", ":chance"),
-              (ge, ":last_damage", 40),
-              (set_trigger_result, 1),
-          (else_try),
-              (set_trigger_result, 0),
-          (try_end),
-        (try_end),
-        
-       ]),
+      killed_or_wounded,
        
        
       (ti_on_leave_area, 0, 0,
@@ -6234,7 +5949,6 @@ mission_templates = [
      (46,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
      ],
     [
-
       common_battle_mission_start,
       common_battle_tab_press,
       common_battle_init_banner,
@@ -6272,73 +5986,7 @@ mission_templates = [
       #(agent_set_division, ":agent_no", grc_archers),
       ]),
 
-      (ti_on_agent_killed_or_wounded, 0, 0, [],
-       [
-        (store_trigger_param_1, ":dead_agent_no"),
-        #(store_trigger_param_2, ":killer_agent_no"),
-        (store_trigger_param_3, ":is_wounded"),
-
-        (try_begin),
-          (ge, ":dead_agent_no", 0),
-          (neg|agent_is_ally, ":dead_agent_no"),
-          (agent_is_human, ":dead_agent_no"),
-          (agent_get_troop_id, ":dead_agent_troop_id", ":dead_agent_no"),
-          
-          (party_add_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1), #addition_to_p_total_enemy_casualties
-          
-          (agent_get_slot, ":last_damage", ":dead_agent_no", slot_agent_last_damage),
-                        
-          (try_begin),
-              (neg|troop_is_hero, ":dead_agent_troop_id"),
-              (eq, "$g_realistic_wounding", 1),
-              (le, ":last_damage", 10),
-              (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1),
-              (set_trigger_result, 2),
-          (else_try),
-              (neg|troop_is_hero, ":dead_agent_troop_id"),
-              (eq, "$g_realistic_wounding", 1),
-              (ge, ":last_damage", 40),
-              (set_trigger_result, 1),
-          (else_try),
-              (try_begin),
-                  (eq, ":is_wounded", 1),
-                  (party_wound_members, "p_total_enemy_casualties", ":dead_agent_troop_id", 1),
-              (try_end),
-              (set_trigger_result, 0),
-          (try_end),
-        (try_end),
-        
-        (try_begin),
-          (ge, ":dead_agent_no", 0),
-          (agent_is_ally, ":dead_agent_no"),
-          (agent_is_human, ":dead_agent_no"),
-          
-          (agent_get_troop_id, ":dead_agent_troop_id", ":dead_agent_no"),
-          
-          (agent_get_slot, ":last_damage", ":dead_agent_no", slot_agent_last_damage),
-          
-          (party_get_skill_level, ":surgery", "p_main_party", skl_surgery),
-          (store_mul, ":chance", ":surgery", 4),
-          (val_add, ":chance", 25),
-          (store_random_in_range, ":rand", 0, 100),
-              
-          (try_begin),
-              (neg|troop_is_hero, ":dead_agent_troop_id"),
-              (eq, "$g_realistic_wounding", 1),
-              (le, ":last_damage", 10),
-              (set_trigger_result, 2),
-          (else_try),
-              (neg|troop_is_hero, ":dead_agent_troop_id"),
-              (eq, "$g_realistic_wounding", 1),
-              (ge, ":last_damage", 40),
-              (ge, ":rand", ":chance"),
-              (set_trigger_result, 1),
-          (else_try),
-              (set_trigger_result, 0),
-          (try_end),
-        (try_end),
-        
-       ]),
+      killed_or_wounded,
        
       (ti_on_leave_area, 0, 0,
       [],
@@ -6437,7 +6085,6 @@ mission_templates = [
      (46,mtef_visitor_source|mtef_team_0,af_override_horse,0,1,[]),
      ],
     [
-
       (ti_on_agent_spawn, 0, 0, [],
       [
         (store_trigger_param_1, ":agent_no"),
@@ -6615,7 +6262,7 @@ mission_templates = [
         (mission_enable_talk),
         (finish_mission, 0),
       ]),
-    ] + bodyguard_triggers,
+    ],
   ),
 
 
@@ -6632,7 +6279,6 @@ mission_templates = [
       (6,mtef_scene_source|mtef_team_0,0,0,1,[]),
     ],
     [
-
       (ti_before_mission_start, 0, 0, [],
        [
          (call_script, "script_change_banners_and_chest"),
@@ -6890,7 +6536,7 @@ mission_templates = [
          (eq,":answer",0),
          (assign, "$g_training_ground_training_success_ratio", 0),
          
-         (call_script, "script_troop_set_training_health_from_agent"), #SB : store health
+         #(call_script, "script_troop_set_training_health_from_agent"), #SB : store health
          (jump_to_menu, "mnu_training_ground_training_result"),
          (finish_mission),
          ]),
@@ -7010,7 +6656,7 @@ mission_templates = [
            (val_div, "$g_training_ground_training_success_ratio", "$g_training_ground_training_num_enemies"),
          (try_end),
          #SB : calculate hero wounded status
-         (call_script, "script_troop_set_training_health_from_agent"),
+         #(call_script, "script_troop_set_training_health_from_agent"),
          (jump_to_menu, "mnu_training_ground_training_result"),
          (finish_mission),
          ]),
@@ -7155,7 +6801,6 @@ mission_templates = [
      # (32,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),
     ],
     [
-
       (ti_before_mission_start, 0, 0, [],
       [
         (call_script, "script_change_banners_and_chest"),
@@ -7401,9 +7046,8 @@ mission_templates = [
       (57, mtef_visitor_source|mtef_team_0, af_override_all, aif_start_alarmed, 1, [itm_practice_sword, itm_practice_shield, itm_padded_cloth, itm_segmented_helmet]),
     ],
     tournament_triggers
-    
   ),
-    
+
   (
     "arena_challenge_fight",mtf_arena_fight|mtf_commit_casualties,-1,
     "You enter a melee fight in the arena.",
@@ -17432,7 +17076,8 @@ mission_templates = [
            (agent_set_hit_points, ":player_agent", 90),
          (try_end),
        ]),
-     ]),
+     ] + bodyguard_triggers,
+        ),
 
   (
     "meeting_merchant",0,-1,
@@ -17623,7 +17268,6 @@ mission_templates = [
 	  (47,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),
     ],
     [
-
       common_battle_init_banner,
 
       (ti_on_agent_spawn, 0, 0, [],
@@ -18358,11 +18002,11 @@ mission_templates = [
       (ti_before_mission_start, 0, 0, [],
       [
         (store_sub, "$fuck_stamina", "$fuck_stamina", 1),
-	    (play_track,0,2),
+        (play_track,0,2),
         (call_script, "script_change_banners_and_chest"),
-		(mission_disable_talk),
-		(replace_scene_props, "spr_player_chest", "spr_locked_player_chest"),
-		(set_player_troop, "trp_bandit_leaders_end"), #temp dummy
+        (mission_disable_talk),
+        (replace_scene_props, "spr_player_chest", "spr_locked_player_chest"),
+        (set_player_troop, "trp_bandit_leaders_end"), #temp dummy
         (assign, "$g_mute", 1),
         (assign, "$g_orgasm", 0),
         (try_for_range, ":r", 0, 6),
@@ -18400,7 +18044,7 @@ mission_templates = [
 			  (store_add, ":string", "$g_dplmc_cam_activated", "str_camera_keyboard"),
 			  (val_sub, ":string", 1),
 			  (display_message, ":string"),
-              (display_message, "@Press Tab when you are finished watching."),
+        (display_message, "@Press Tab when you are finished watching."),
 			  
 			  (mission_cam_get_position, pos1), #Death pos
 			   (position_get_rotation_around_z, ":rot_z", pos1),
@@ -18432,7 +18076,7 @@ mission_templates = [
             (agent_get_troop_id,":troop_id",":agent"),
             (agent_get_entry_no, ":entry_no", ":agent"),
             (call_script, "script_dplmc_store_troop_is_female_reg", ":troop_id", 65),
-			(assign, ":is_female", reg65),
+            (assign, ":is_female", reg65),
             (try_begin),
                 (eq, ":is_female", 1),
                 (assign, ":anim", "anim_stand_man"),
@@ -18516,8 +18160,8 @@ mission_templates = [
        (try_end)]),
 	  
 		(0,0,6,[
-            (main_hero_fallen),
-            (eq, "$g_orgasm", 0),
+      (main_hero_fallen),
+      (eq, "$g_orgasm", 0),
 			(assign, ":troop_id", 0),
 			(try_for_agents,":agent"),
 				(agent_get_troop_id,":troop_id",":agent"),
@@ -18562,12 +18206,12 @@ mission_templates = [
 					#(agent_set_animation_progress,":agent",":r"),
 				(else_try),
 					(eq, ":entry_no", 5),
-                    (try_begin),
-                        (eq, ":is_female", 1),
-                        (assign, ":anim", "anim_stand_lady"),
-                    (else_try),
-                        (assign, ":anim", "anim_male_masterb"),
-                    (try_end),
+          (try_begin),
+              (eq, ":is_female", 1),
+              (assign, ":anim", "anim_stand_lady"),
+          (else_try),
+              (assign, ":anim", "anim_male_masterb"),
+          (try_end),
 					(agent_set_stand_animation, ":agent", ":anim"),
 					# (agent_set_slot, ":agent", slot_agent_cur_animation, ":anim"),
 					(agent_set_animation, ":agent", ":anim"),
@@ -18604,9 +18248,35 @@ mission_templates = [
             # (try_end),
             (try_for_agents,":agent"),
                 (agent_get_entry_no, ":entry_no", ":agent"),
+                
+                (try_begin),
+                  (eq, ":entry_no", 1),
+                  (agent_get_position, pos1, ":agent"),
+                  (try_for_agents, ":other_agent"),
+                    (agent_get_entry_no, ":other_entry_no", ":other_agent"),
+                    (try_begin),
+                      (eq, ":other_entry_no", 2),
+                      (copy_position, pos2, pos1),
+                      (position_move_y, pos2, -5),
+                      (agent_set_position, ":other_agent", pos2),
+                    (else_try),
+                      (eq, ":other_entry_no", 3),
+                      (copy_position, pos2, pos1),
+                      (position_move_y, pos2, -25),
+                      (agent_set_position, ":other_agent", pos2),
+                    (else_try),
+                      (eq, ":other_entry_no", 4),
+                      (copy_position, pos2, pos1),
+                      (position_rotate_z, pos2, 180),
+                      (position_move_y, pos2, -90),
+                      (agent_set_position, ":other_agent", pos2),
+                    (try_end),
+                  (try_end),
+                (try_end),
+                
                 (agent_get_troop_id,":troop_id",":agent"),
-				(call_script, "script_dplmc_store_troop_is_female_reg", ":troop_id", 65),
-				(assign, ":is_female", reg65),
+                (call_script, "script_dplmc_store_troop_is_female_reg", ":troop_id", 65),
+                (assign, ":is_female", reg65),
                 (troop_set_slot, "trp_temp_array_a", ":entry_no", ":is_female"),
                 # (try_begin),
                     # (eq, ":entry_no", 1),
@@ -18794,6 +18464,381 @@ mission_templates = [
     ],
   ),
   
+  
+  (
+    "ship_battle",mtf_battle_mode|mtf_synch_inventory,charge,
+    "You lead your men to battle.",
+    [
+     (1,mtef_defenders|mtef_team_0,0,aif_start_alarmed,12,[]),
+     (0,mtef_defenders|mtef_team_0,0,aif_start_alarmed,0,[]),
+     (4,mtef_attackers|mtef_team_1,0,aif_start_alarmed,12,[]),
+     (4,mtef_attackers|mtef_team_1,0,aif_start_alarmed,0,[]),
+     ],
+    [
+    
+      (ti_on_agent_spawn, 0, 0, [],
+       [
+         (store_trigger_param_1, ":agent_no"),
+         (call_script, "script_agent_reassign_team", ":agent_no"),
+         
+         (display_message, "@current mission: ship"),
+
+         (assign, ":initial_courage_score", 5000),
+
+         (agent_get_troop_id, ":troop_id", ":agent_no"),
+         (store_character_level, ":troop_level", ":troop_id"),
+         (val_mul, ":troop_level", 100), #was 35
+         (val_add, ":initial_courage_score", ":troop_level"), #average : 20 * 35 = 700
+
+         (store_random_in_range, ":randomized_addition_courage", 0, 3000), #average : 1500
+         (val_add, ":initial_courage_score", ":randomized_addition_courage"),
+
+         (agent_get_party_id, ":agent_party", ":agent_no"),
+         (party_get_morale, ":cur_morale", ":agent_party"),
+
+         (store_sub, ":morale_effect_on_courage", ":cur_morale", 70),
+         (val_mul, ":morale_effect_on_courage", 30), #this can effect morale with -2100..900
+         (val_add, ":initial_courage_score", ":morale_effect_on_courage"),
+
+         #average = 5000 + 700 + 1500 = 7200; min : 5700, max : 8700
+         #morale effect = min : -2100(party morale is 0), average : 0(party morale is 70), max : 900(party morale is 100)
+         #min starting : 3600, max starting  : 9600, average starting : 7200
+         (agent_set_slot, ":agent_no", slot_agent_courage_score, ":initial_courage_score"),
+         ]),
+
+      common_battle_init_banner,
+
+      killed_or_wounded,
+
+      common_battle_tab_press,
+
+      (ti_question_answered, 0, 0, [],
+       [(store_trigger_param_1,":answer"),
+        (eq,":answer",0),
+        (assign, "$pin_player_fallen", 0),
+        (try_begin),
+          (store_mission_timer_a, ":elapsed_time"),
+          (gt, ":elapsed_time", 20),
+          (str_store_string, s5, "str_retreat"),
+          (call_script, "script_simulate_retreat", 10, 20, 1),
+        (try_end),
+        (call_script, "script_count_mission_casualties_from_agents"),
+        (finish_mission,0),]),
+
+      (ti_before_mission_start, 0, 0, [],
+       [
+         (team_set_relation, 0, 2, 1),
+         (team_set_relation, 1, 3, 1),
+         (call_script, "script_place_player_banner_near_inventory_bms"),
+
+         (party_clear, "p_routed_enemies"),
+
+         (assign, "$g_latest_order_1", 1),
+         (assign, "$g_latest_order_2", 1),
+         (assign, "$g_latest_order_3", 1),
+         (assign, "$g_latest_order_4", 1),
+         ]),
+
+
+      (0, 0, ti_once, [], [(assign,"$g_battle_won",0),
+                           (assign,"$defender_reinforcement_stage",0),
+                           (assign,"$attacker_reinforcement_stage",0),
+                           (call_script, "script_place_player_banner_near_inventory"),
+                           (call_script, "script_combat_music_set_situation_with_culture"),
+                           (assign, "$g_defender_reinforcement_limit", 2),
+                           ##diplomacy begin
+                           (call_script, "script_init_death_cam"),
+                           # (assign, "$g_dplmc_charge_when_dead", 0),
+                           ##diplomacy end
+                           ]),
+
+      common_music_situation_update,
+      common_battle_check_friendly_kills,
+
+      (1, 0, 5, [
+
+      #new (25.11.09) starts (sdsd = TODO : make a similar code to also helping ally encounters)
+      #count all total (not dead) enemy soldiers (in battle area + not currently placed in battle area)
+      (call_script, "script_party_count_members_with_full_health", "p_collective_enemy"),
+      (assign, ":total_enemy_soldiers", reg0),
+
+      #decrease number of agents already in battle area to find all number of reinforcement enemies
+      (assign, ":enemy_soldiers_in_battle_area", 0),
+      (try_for_agents,":cur_agent"),
+        (agent_is_human, ":cur_agent"),
+        (agent_get_party_id, ":agent_party", ":cur_agent"),
+        (try_begin),
+          (neq, ":agent_party", "p_main_party"),
+          (neg|agent_is_ally, ":cur_agent"),
+          (val_add, ":enemy_soldiers_in_battle_area", 1),
+        (try_end),
+      (try_end),
+      (store_sub, ":total_enemy_reinforcements", ":total_enemy_soldiers", ":enemy_soldiers_in_battle_area"),
+
+      (try_begin),
+        (lt, ":total_enemy_reinforcements", 15),
+        (ge, "$defender_reinforcement_stage", 2),
+        (eq, "$defender_reinforcement_limit_increased", 0),
+        (val_add, "$g_defender_reinforcement_limit", 1),
+        (assign, "$defender_reinforcement_limit_increased", 1),
+      (try_end),
+      #new (25.11.09) ends
+
+      (lt,"$defender_reinforcement_stage","$g_defender_reinforcement_limit"),
+                 (store_mission_timer_a,":mission_time"),
+                 (ge,":mission_time",10),
+                 (store_normalized_team_count,":num_defenders", 0),
+                 (lt,":num_defenders",6)],
+           [(add_reinforcements_to_entry,0,7),(assign, "$defender_reinforcement_limit_increased", 0),(val_add,"$defender_reinforcement_stage",1)]),
+
+      (1, 0, 5, [(lt,"$attacker_reinforcement_stage",2),
+                 (store_mission_timer_a,":mission_time"),
+                 (ge,":mission_time",10),
+                 (store_normalized_team_count,":num_attackers", 1),
+                 (lt,":num_attackers",6)],
+           [(add_reinforcements_to_entry,3,7),(val_add,"$attacker_reinforcement_stage",1)]),
+
+    (1, 60, ti_once,
+      [
+        (store_mission_timer_a,reg(1)),
+        (ge,reg(1),10),
+        (call_script, "script_all_enemies_routed"),
+        (eq, reg10, 0),
+        ##diplomacy begin
+        (this_or_next|eq, "$g_dplmc_battle_continuation", 0),
+        (neg|main_hero_fallen),
+        ##diplomacy end
+        (set_mission_result,1),
+        (display_message,"str_msg_battle_won"),
+        (assign,"$g_battle_won",1),
+        (assign, "$g_battle_result", 1),
+        (call_script, "script_play_victorious_sound"),
+        ],
+      [
+        (call_script, "script_count_mission_casualties_from_agents"),
+        (finish_mission, 1),
+        ]),
+      
+      #common_battle_check_victory_condition,
+      common_battle_victory_display,
+
+      (1, 4,
+      ##diplomacy begin
+      0,
+      ##diplomacy end
+      [(main_hero_fallen)],
+          [
+              ##diplomacy begin
+              (try_begin),
+                (call_script, "script_cf_dplmc_battle_continuation"),
+              (else_try),
+                ##diplomacy end
+                (assign, "$pin_player_fallen", 1),
+                (str_store_string, s5, "str_retreat"),
+                (call_script, "script_simulate_retreat", 10, 20, 1),
+                (assign, "$g_battle_result", -1),
+                (set_mission_result,-1),
+                (call_script, "script_count_mission_casualties_from_agents"),
+                (finish_mission,0),
+                ##diplomacy begin
+              (try_end),
+              ##diplomacy end
+            ]),
+
+      common_battle_inventory,
+      #common_battle_order_panel,
+      common_battle_order_panel_tick,
+
+    ]
+    + [common_move_deathcam, common_rotate_deathcam, dplmc_death_camera,],
+  ),
+  (
+    "ship_battle_reversed",mtf_battle_mode|mtf_synch_inventory,charge,
+    "You lead your men to battle.",
+    [
+     (1,mtef_attackers|mtef_team_1,0,aif_start_alarmed,12,[]),
+     (0,mtef_attackers|mtef_team_1,0,aif_start_alarmed,0,[]),
+     (4,mtef_defenders|mtef_team_0,0,aif_start_alarmed,12,[]),
+     (4,mtef_defenders|mtef_team_0,0,aif_start_alarmed,0,[]),
+     ],
+    [
+    
+      (ti_on_agent_spawn, 0, 0, [],
+       [
+         (store_trigger_param_1, ":agent_no"),
+         (call_script, "script_agent_reassign_team", ":agent_no"),
+         
+         (display_message, "@current mission: reverse"),
+
+         (assign, ":initial_courage_score", 5000),
+
+         (agent_get_troop_id, ":troop_id", ":agent_no"),
+         (store_character_level, ":troop_level", ":troop_id"),
+         (val_mul, ":troop_level", 100), #was 35
+         (val_add, ":initial_courage_score", ":troop_level"), #average : 20 * 35 = 700
+
+         (store_random_in_range, ":randomized_addition_courage", 0, 3000), #average : 1500
+         (val_add, ":initial_courage_score", ":randomized_addition_courage"),
+
+         (agent_get_party_id, ":agent_party", ":agent_no"),
+         (party_get_morale, ":cur_morale", ":agent_party"),
+
+         (store_sub, ":morale_effect_on_courage", ":cur_morale", 70),
+         (val_mul, ":morale_effect_on_courage", 30), #this can effect morale with -2100..900
+         (val_add, ":initial_courage_score", ":morale_effect_on_courage"),
+
+         #average = 5000 + 700 + 1500 = 7200; min : 5700, max : 8700
+         #morale effect = min : -2100(party morale is 0), average : 0(party morale is 70), max : 900(party morale is 100)
+         #min starting : 3600, max starting  : 9600, average starting : 7200
+         (agent_set_slot, ":agent_no", slot_agent_courage_score, ":initial_courage_score"),
+         ]),
+
+      common_battle_init_banner,
+
+      killed_or_wounded,
+
+      common_battle_tab_press,
+
+      (ti_question_answered, 0, 0, [],
+       [(store_trigger_param_1,":answer"),
+        (eq,":answer",0),
+        (assign, "$pin_player_fallen", 0),
+        (try_begin),
+          (store_mission_timer_a, ":elapsed_time"),
+          (gt, ":elapsed_time", 20),
+          (str_store_string, s5, "str_retreat"),
+          (call_script, "script_simulate_retreat", 10, 20, 1),
+        (try_end),
+        (call_script, "script_count_mission_casualties_from_agents"),
+        (finish_mission,0),]),
+
+      (ti_before_mission_start, 0, 0, [],
+       [
+         (team_set_relation, 0, 2, 1),
+         (team_set_relation, 1, 3, 1),
+         (call_script, "script_place_player_banner_near_inventory_bms"),
+
+         (party_clear, "p_routed_enemies"),
+
+         (assign, "$g_latest_order_1", 1),
+         (assign, "$g_latest_order_2", 1),
+         (assign, "$g_latest_order_3", 1),
+         (assign, "$g_latest_order_4", 1),
+         ]),
+
+
+      (0, 0, ti_once, [], [(assign,"$g_battle_won",0),
+                           (assign,"$defender_reinforcement_stage",0),
+                           (assign,"$attacker_reinforcement_stage",0),
+                           (call_script, "script_place_player_banner_near_inventory"),
+                           (call_script, "script_combat_music_set_situation_with_culture"),
+                           (assign, "$g_defender_reinforcement_limit", 2),
+                           ##diplomacy begin
+                           (call_script, "script_init_death_cam"),
+                           # (assign, "$g_dplmc_charge_when_dead", 0),
+                           ##diplomacy end
+                           ]),
+
+      common_music_situation_update,
+      common_battle_check_friendly_kills,
+
+      (1, 0, 5, [
+
+      #new (25.11.09) starts (sdsd = TODO : make a similar code to also helping ally encounters)
+      #count all total (not dead) enemy soldiers (in battle area + not currently placed in battle area)
+      (call_script, "script_party_count_members_with_full_health", "p_collective_enemy"),
+      (assign, ":total_enemy_soldiers", reg0),
+
+      #decrease number of agents already in battle area to find all number of reinforcement enemies
+      (assign, ":enemy_soldiers_in_battle_area", 0),
+      (try_for_agents,":cur_agent"),
+        (agent_is_human, ":cur_agent"),
+        (agent_get_party_id, ":agent_party", ":cur_agent"),
+        (try_begin),
+          (neq, ":agent_party", "p_main_party"),
+          (neg|agent_is_ally, ":cur_agent"),
+          (val_add, ":enemy_soldiers_in_battle_area", 1),
+        (try_end),
+      (try_end),
+      (store_sub, ":total_enemy_reinforcements", ":total_enemy_soldiers", ":enemy_soldiers_in_battle_area"),
+
+      (try_begin),
+        (lt, ":total_enemy_reinforcements", 15),
+        (ge, "$defender_reinforcement_stage", 2),
+        (eq, "$defender_reinforcement_limit_increased", 0),
+        (val_add, "$g_defender_reinforcement_limit", 1),
+        (assign, "$defender_reinforcement_limit_increased", 1),
+      (try_end),
+      #new (25.11.09) ends
+
+      (lt,"$defender_reinforcement_stage","$g_defender_reinforcement_limit"),
+                 (store_mission_timer_a,":mission_time"),
+                 (ge,":mission_time",10),
+                 (store_normalized_team_count,":num_defenders", 0),
+                 (lt,":num_defenders",6)],
+           [(add_reinforcements_to_entry,0,7),(assign, "$defender_reinforcement_limit_increased", 0),(val_add,"$defender_reinforcement_stage",1)]),
+
+      (1, 0, 5, [(lt,"$attacker_reinforcement_stage",2),
+                 (store_mission_timer_a,":mission_time"),
+                 (ge,":mission_time",10),
+                 (store_normalized_team_count,":num_attackers", 1),
+                 (lt,":num_attackers",6)],
+           [(add_reinforcements_to_entry,3,7),(val_add,"$attacker_reinforcement_stage",1)]),
+
+    (1, 60, ti_once,
+      [
+        (store_mission_timer_a,reg(1)),
+        (ge,reg(1),10),
+        (call_script, "script_all_enemies_routed"),
+        (eq, reg10, 0),
+        ##diplomacy begin
+        (this_or_next|eq, "$g_dplmc_battle_continuation", 0),
+        (neg|main_hero_fallen),
+        ##diplomacy end
+        (set_mission_result,1),
+        (display_message,"str_msg_battle_won"),
+        (assign,"$g_battle_won",1),
+        (assign, "$g_battle_result", 1),
+        (call_script, "script_play_victorious_sound"),
+        ],
+      [
+        (call_script, "script_count_mission_casualties_from_agents"),
+        (finish_mission, 1),
+        ]),
+      
+      #common_battle_check_victory_condition,
+      common_battle_victory_display,
+
+      (1, 4,
+      ##diplomacy begin
+      0,
+      ##diplomacy end
+      [(main_hero_fallen)],
+          [
+              ##diplomacy begin
+              (try_begin),
+                (call_script, "script_cf_dplmc_battle_continuation"),
+              (else_try),
+                ##diplomacy end
+                (assign, "$pin_player_fallen", 1),
+                (str_store_string, s5, "str_retreat"),
+                (call_script, "script_simulate_retreat", 10, 20, 1),
+                (assign, "$g_battle_result", -1),
+                (set_mission_result,-1),
+                (call_script, "script_count_mission_casualties_from_agents"),
+                (finish_mission,0),
+                ##diplomacy begin
+              (try_end),
+              ##diplomacy end
+            ]),
+
+      common_battle_inventory,
+      #common_battle_order_panel,
+      common_battle_order_panel_tick,
+
+    ]
+    + [common_move_deathcam, common_rotate_deathcam, dplmc_death_camera,],
+  ),
 
 ]
 # modmerger_start version=201 type=4

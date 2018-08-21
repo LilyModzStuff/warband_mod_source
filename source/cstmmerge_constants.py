@@ -4,12 +4,33 @@ from cstm_troop_trees import *
 def equipment_funds_available(level):
 	return round(240 * math.exp(level * 0.13) - 225, -1)
 
+class Skin:
+	def __init__(self, id, text, face_code_1, face_code_2):
+		self.id = id
+		self.text = text
+		self.face_code_1 = face_code_1
+		self.face_code_2 = face_code_2
+
+man_face_younger_1 = 0x0000000000000001124000000020000000000000001c00800000000000000000
+man_face_younger_2 = 0x000000003f0052064deeffffffffffff00000000001efff90000000000000000
+
+woman_face_1 = 0x0000000000000001000000000000000000000000001c00000000000000000000
+woman_face_2 = 0x00000003bf0030067ff7fbffefff6dff00000000001f6dbf0000000000000000
+
+# This sets the tree structure options available
 CUSTOM_TROOP_TREES = [
 	CustomTroopTree(id = "1_tier", text = "1 Branch with 7 Tiers", num_branches = 1, num_tiers = 7, levels_start = 4, levels_per_upgrade = 5),
 	CustomTroopTree(id = "2_tiers", text = "2 Branches with 6 Tiers", num_branches = 2, num_tiers = 6, levels_start = 4, levels_per_upgrade = 5.5),
 	CustomTroopTree(id = "3_tiers", text = "3 Branches with 5 Tiers", num_branches = 3, num_tiers = 5, levels_start = 4, levels_per_upgrade = 6)
 ]
 
+# This sets the gender (or race if applicable) options available
+CSTM_SKINS = [
+	Skin(tf_male, "Male", man_face_younger_1, man_face_younger_2),
+	Skin(tf_female, "Female", woman_face_1, woman_face_2)
+]
+
+# Set the below to values such that there are no clashes with existing slots if necessary
 NEW_TROOP_SLOTS_BEGIN = 500
 NEW_PARTY_SLOTS_BEGIN = 500
 
@@ -25,27 +46,9 @@ CSTM_WP_LEVELS_PER_WM = 15		# Bonus proficiency levels per point in Weapon Maste
 CSTM_WP_POINTS_PER_LEVEL = 20	# Bonus Proficiency points available to spend per level
 CSTM_WP_POINTS_PER_AGI = 10		# Bonus Proficiency points available to spend per point in AGI
 
-CSTM_IMOD_COST_DIVISOR = 2
+CSTM_IMOD_COST_DIVISOR = 2		# The cost addition to items from modifiers is divided by this number (see script_cstm_item_type_get_cost_modifier in cstmmerge_scripts for the cost modifiers)
 
-man_face_younger_1 = 0x0000000000000001124000000020000000000000001c00800000000000000000
-man_face_younger_2 = 0x000000003f0052064deeffffffffffff00000000001efff90000000000000000
-
-woman_face_1 = 0x0000000000000001000000000000000000000000001c00000000000000000000
-woman_face_2 = 0x00000003bf0030067ff7fbffefff6dff00000000001f6dbf0000000000000000
-
-class Skin:
-	def __init__(self, id, text, face_code_1, face_code_2):
-		self.id = id
-		self.text = text
-		self.face_code_1 = face_code_1
-		self.face_code_2 = face_code_2
-
-CSTM_SKINS = [
-	Skin(tf_male, "Male", man_face_younger_1, man_face_younger_2),
-	Skin(tf_female, "Female", woman_face_1, woman_face_2)
-]
-
-## ITEM TYPES AVAILABLE FOR EQUIPPING CUSTOM TROOPS
+# Item types available for equipping custom troops
 cstm_item_type_strings = {
 	itp_type_horse: "Horses",
 	itp_type_one_handed_wpn: "One Handed Weapons",
@@ -66,7 +69,7 @@ cstm_item_type_strings = {
 	itp_type_bullets: "Bullets"
 }
 
-## RANGES OF ATTRIUTES, SKILLS AND PROFICIENCIES THAT CAN BE MODIFIED (skills also need to be active in module_skills)
+# Ranges of attriutes, skills and proficiencies that can be modified (skills also need to be active in module_skills)
 attributes_begin = ca_strength
 attributes_end = ca_charisma + 1
 

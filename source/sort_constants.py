@@ -1,0 +1,4 @@
+slot_troop_skill_companion = 1000
+slot_party_template_temp_parties_made = 1000
+slot_party_template_temp_party = 1001
+slot_party_template_temp_party_2 = 1002

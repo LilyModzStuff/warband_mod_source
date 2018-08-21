@@ -1028,3 +1028,5 @@ spr_rock_bridge_a = 1026
 spr_suspension_bridge_a = 1027
 spr_mine_a = 1028
 spr_tent = 1029
+spr_sailing_plane = 1030
+spr_boarding_plane = 1031

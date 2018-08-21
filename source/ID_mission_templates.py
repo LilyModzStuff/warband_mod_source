@@ -50,3 +50,5 @@ mt_multiplayer_duel = 48
 mt_camp = 49
 mt_fucking = 50
 mt_brothel = 51
+mt_ship_battle = 52
+mt_ship_battle_reversed = 53

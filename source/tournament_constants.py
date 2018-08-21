@@ -48,7 +48,7 @@ wp_tpe_enhanced_helmet                 = "itm_tourney_helm_red" # (team color)
 wp_tpe_normal_boots                    = "itm_tpe_normal_boots" # (non-standard) -> Included in tournament_items.py
 wp_tpe_enhanced_boots                  = "itm_tpe_enhanced_boots" # (non-standard) -> Included in tournament_items.py
 wp_tpe_normal_horse                    = "itm_practice_horse"
-wp_tpe_enhanced_horse                  = "itm_tournament_warhorse" # Lily mod Made a new item just for tournaments with a riding skill of one instead of four 
+wp_tpe_enhanced_horse                  = "itm_warhorse" # Can be setup with team colors, but line for it is commented out.
 wp_tpe_normal_lance                    = "itm_tpe_normal_lance" # (non-standard) -> Included in tournament_items.py
 wp_tpe_enhanced_lance                  = "itm_tpe_enhanced_lance" # (non-standard) -> Included in tournament_items.py
 wp_tpe_normal_bow                      = "itm_tpe_normal_bow" # (non-standard) -> Included in tournament_items.py
@@ -94,11 +94,11 @@ wp_brown      = 0xFF7A4800
 ###########################################################################################################################
 
 # Persistent Betting
-wp_tpe_bet_tier_1                      = 25 # Change this value to set the minimum bet per round. (Other than 0).
-wp_tpe_bet_tier_2                      = 50
-wp_tpe_bet_tier_3                      = 125
-wp_tpe_bet_tier_4                      = 150
-wp_tpe_bet_tier_5                      = 200 # change this value to set the maximum bet per round.
+wp_tpe_bet_tier_1                      = 100 # Change this value to set the minimum bet per round. (Other than 0).
+wp_tpe_bet_tier_2                      = 200
+wp_tpe_bet_tier_3                      = 300
+wp_tpe_bet_tier_4                      = 400
+wp_tpe_bet_tier_5                      = 500 # change this value to set the maximum bet per round.
 
 ###########################################################################################################################
 #####                                                TPE 1.2 Additions                                                #####

@@ -45,7 +45,7 @@ def list_find_first_match_i(objlist,obj_id):
       result = i_object
     i_object += 1
   return result
-
+  
 
 # add a list of tuple/array objects to another, with first element as key
 # dst_objects : destination object list

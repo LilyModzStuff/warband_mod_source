@@ -381,6 +381,11 @@ ti_on_init_missile = -101.0 #can only be used in module_items triggers
 # Trigger Param 5: missile item modifier
 # Trigger Param 6: missile no
 
+ti_on_agent_turn = -102.0 #can only be used in module_mission_templates triggers (for multiplayer player's agents)
+# Trigger Param 1: agent no
+# Trigger Param 2: max rotation speed (fixed point)
+# trigger result = replace max rotation speed (fixed point)
+
 ti_on_agent_blocked = -103.0 #can only be used in module_mission_templates triggers
 # Trigger Param 1: receiver agent no
 # Trigger Param 2: dealer agent no

@@ -2326,7 +2326,7 @@ If you would like to practice your horsemanship, you can take my horse here. The
 (val_add, ":num_workers", ":num_girls"),
 (party_set_slot, "$current_town", slot_town_brothel_num_workers, ":num_workers"),
 ]],   
-[trp_brothel_madam, "brothel_sell_members", [
+[trp_brothel_madam, "brothel_sell_member", [
 (party_get_slot, ":num_workers", "$current_town", slot_town_brothel_num_workers),
 (ge, ":num_workers", 50),
 ], "Unfortunately we have reached full capacity and cannot house any more girls.", "close_window",[
@@ -2754,6 +2754,7 @@ or you won't be able to hang on to a single man you catch.", "ramun_ask_about_ca
 ]],
 [anyone|plyr,"village_farmer_talk", [], "Carry on, then. Farewell.", "close_window",[(assign, "$g_leave_encounter",1)]],
 
+[party_tpl|pt_merchant_ship,"start", [], "The winds are fair today.", "close_window",[(assign, "$g_leave_encounter",1)]],
 
 ### COMPANIONS
 
@@ -4712,10 +4713,9 @@ Still I am sorry that I'll leave you soon. You must promise me, you'll come visi
 
 
 [anyone, "start", [(is_between, "$g_talk_troop", companions_begin, companions_end),
-                   (this_or_next|eq, "$talk_context", tc_tavern_talk),
-                   (this_or_next | eq, "$talk_context", tc_town_talk),  # ADD THIS LINE FOR BODYGUARD CODE
-                   (eq, "$talk_context", tc_court_talk),
-                   (main_party_has_troop, "$g_talk_troop")],
+               (this_or_next|eq, "$talk_context", tc_tavern_talk),
+            (eq, "$talk_context", tc_court_talk),
+               (main_party_has_troop, "$g_talk_troop")],
 "Let's leave whenever you are ready.", "close_window", []],
 
 [anyone, "start", [(is_between, "$g_talk_troop", companions_begin, companions_end),
@@ -25354,8 +25354,8 @@ I will use this to make amends to those you have wronged, and I will let it be k
  
 [anyone|plyr, "lord_talk_ask_about_capture_prisoners_count", [], "Never mind.", "lord_talk_ask_something_again", [
   #clear globals
-  (assign, "$g_prisoner_recruit_troop_id", -1),
-  (assign, "$g_prisoner_recruit_size", -1),
+  (assign, "$g_prisoner_recruit_troop_id", 0),
+  (assign, "$g_prisoner_recruit_size", 0),
 ]],
 [anyone|plyr, "lord_talk_ask_about_capture_prisoners_count", [
   (quest_get_slot, ":amount", "qst_capture_prisoners", slot_quest_target_amount),
@@ -25401,8 +25401,8 @@ I will use this to make amends to those you have wronged, and I will let it be k
     (troop_remove_gold, "trp_player", "$diplomacy_var"),
     (call_script, "script_dplmc_distribute_gold_to_lord_and_holdings", "$diplomacy_var", "$g_talk_troop"),
   (try_end),
-  (assign, "$g_prisoner_recruit_troop_id", -1),
-  (assign, "$g_prisoner_recruit_size", -1),
+  (assign, "$g_prisoner_recruit_troop_id", 0),
+  (assign, "$g_prisoner_recruit_size", 0),
   ],
  ],
 #SB : qst_rescue_prisoner ransom proposal
@@ -25559,16 +25559,16 @@ I will use this to make amends to those you have wronged, and I will let it be k
  ]],
  
 #get the money
-#[anyone|plyr, "lord_ask_calculated_ransom",
-#[], "For sure.","lord_lend_ransom_accept",[
-#  (call_script, "script_lend_money_for_ransom", "$g_talk_troop"),
-#]],
+[anyone|plyr, "lord_ask_calculated_ransom",
+[], "For sure.","lord_lend_ransom_accept",[
+  (call_script, "script_lend_money_for_ransom", "$g_talk_troop"),
+]],
 
 #reset calculated amount
-#[anyone|plyr, "lord_ask_calculated_ransom",
-#[], "Nevermind.","lord_lend_ransom_reject",[
-#  (troop_set_slot, "$g_talk_troop", slot_troop_player_debt, 0),
-#]],
+[anyone|plyr, "lord_ask_calculated_ransom",
+[], "Nevermind.","lord_lend_ransom_reject",[
+  (troop_set_slot, "$g_talk_troop", slot_troop_player_debt, 0),
+]],
 
 [anyone, "lord_ask_calculated_ransom",
 [], "Then take it with my blessings, {playername}. Give {s1} my regards.","lord_pretalk",[
@@ -26185,7 +26185,8 @@ I will use this to make amends to those you have wronged, and I will let it be k
 
 [anyone|plyr,"lord_talk_ask_something_2", [
 (neg|troop_slot_eq, "$g_talk_troop", slot_lord_granted_courtship_permission, 1),
-#(neg|troop_slot_ge, "trp_player", slot_troop_spouse, active_npcs_begin),
+(this_or_next|neg|troop_slot_ge, "trp_player", slot_troop_spouse, active_npcs_begin),
+(eq, "$g_polygamy", 1),
 #diplomacy start+
 ##OLD:
 #(troop_get_type, ":is_female", "$g_talk_troop"),
@@ -26195,9 +26196,9 @@ I will use this to make amends to those you have wronged, and I will let it be k
 #Avoid saying this to people you're engaged to (with the possible benign
 #side-effect of avoiding giving this dialog for promoted heroes with uninitialized
 #family slots.
-#(neg|troop_slot_eq, "$g_talk_troop", slot_troop_betrothed, "trp_player"),
+(neg|troop_slot_eq, "$g_talk_troop", slot_troop_betrothed, "trp_player"),
 #If the player is engaged already, the other person must either be gone or in another kingdom
-#(troop_get_slot, reg0, "trp_player", slot_troop_betrothed),
+(troop_get_slot, reg0, "trp_player", slot_troop_betrothed),
 (neq, reg0, "$g_talk_troop"),
 (try_begin),
 	(ge, reg0, 1),
@@ -27393,8 +27394,10 @@ I will use this to make amends to those you have wronged, and I will let it be k
 
 
 [anyone|plyr,"lord_courtship_pre_permission", [
-    #(neg|troop_slot_ge, "trp_player", slot_troop_spouse, 1),
-    #(neg|troop_slot_ge, "trp_player", slot_troop_betrothed, 1),
+    (this_or_next|neg|troop_slot_ge, "trp_player", slot_troop_spouse, 1),
+	(eq, "$g_polygamy", 1),
+    (this_or_next|neg|troop_slot_ge, "trp_player", slot_troop_betrothed, 1),
+	(eq, "$g_polygamy", 1),
     #diplomacy start+ get courtship of female lords to work
     (neq, reg65, 1),#not talking to a woman
     #(assign, ":is_female", "$character_gender"), #dckplmc
@@ -31470,7 +31473,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 		(this_or_next|troop_slot_eq, "trp_player", slot_troop_spouse, ":spouse"),
 		(this_or_next|troop_slot_eq, ":spouse", slot_troop_spouse, "trp_player"),
 			(troop_slot_eq, "trp_player", slot_troop_betrothed, ":spouse"),
-		(call_script, "script_troop_change_relation_with_troop", ":spouse", "trp_player", 1),
+		(call_script, "script_troop_change_relation_with_troop", ":spouse", "trp_player", -1),
 	(try_end),
 
 	(try_begin),
@@ -31525,7 +31528,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
    (try_end),
    (assign, "$g_pre_consent", 1),
    
-   (call_script, "script_troop_change_relation_with_troop", "trp_player", "$g_talk_troop", 10),
+   (call_script, "script_troop_change_relation_with_troop", "trp_player", "$g_talk_troop", 1),
  ]],
 ####fucking#### 
 
@@ -33957,7 +33960,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 			(this_or_next|troop_slot_eq, "trp_player", slot_troop_spouse, ":spouse"),
 			(this_or_next|troop_slot_eq, ":spouse", slot_troop_spouse, "trp_player"),
 				(troop_slot_eq, "trp_player", slot_troop_betrothed, ":spouse"),
-			(call_script, "script_troop_change_relation_with_troop", ":spouse", "trp_player", 1),
+			(call_script, "script_troop_change_relation_with_troop", ":spouse", "trp_player", -1),
 		(try_end),
     (try_end),
     ##diplomacy end+
@@ -34032,7 +34035,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
      (gt, reg0, 0),
      ],
 	 ##diplomacy start+ "my lady" -> "my {reg65?lady:lord}"
-   "My {reg65?lady:lord}, I tire of playing at games of love. Have your nurse leave and I will show you what true love really is.", "fuck_decision",[
+   "My {reg65?lady:lord}, I tire of these games. Have your nurse leave and let me show you what true love really is.", "fuck_decision",[
    ##diplomacy end+
 	 (assign, "$g_time_to_spare", 0),
 	 (call_script, "script_change_player_honor", -2),
@@ -34199,7 +34202,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
     (troop_slot_eq, "$g_talk_troop", slot_lord_reputation_type, lrep_moralist),
 	(lt, "$player_honor", 10)
 	],
-    "It is good to hear that your intentions are honorable. However, I have resolved only to marry a man of the strongest moral fiber. I would like you to prove yourself more in that regard.", "lady_proposal_refused",[
+    "It is good to hear that your intentions are honorable. However, I have resolved only to marry someone of the strongest moral fiber. I would like you to prove yourself more in that regard.", "lady_proposal_refused",[
     ]],
 
 
@@ -34207,7 +34210,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
     [
 	(lt, "$g_talk_troop_relation", 20),
     ],
-    "Sir -- it is comforting to hear that your intentions towards me are honorable. But perhaps we should take the time to get to allow our affections for each other to grow a little stronger, before making any such decision.", "lady_proposal_refused",[
+    "{Sir/Madame} -- it is comforting to hear that your intentions towards me are honorable. But perhaps we should take the time to get to allow our affections for each other to grow a little stronger, before making any such decision.", "lady_proposal_refused",[
     ]],
 
 
@@ -37750,7 +37753,6 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
        ]],
 
   [anyone,"tavernkeeper_job_result_2", [], "I'll keep my ears open for other opportunities. You may want to ask again from time to time.", "close_window",[]],
-
 ### Three Cards ### Find the Lady ###
   [anyone|plyr,"tavernkeeper_talk",
    [],
@@ -37769,6 +37771,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
    "You don't have enough money.", "close_window",[]],
 
 ### Three Cards ### Find the Lady ### END ###
+
 ### Dice game ### Dice game ###
   [anyone|plyr,"tavernkeeper_talk",
    [],
@@ -37788,9 +37791,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
    "You don't have enough money.", "close_window",[]],   
 ### Dice game ### Dice game ### END ###
 
-
   [anyone|plyr,"tavernkeeper_talk", [], "I guess I should leave now.", "close_window",[]],
-
 
 #Tavern Talk (with companions)
 #  [anyone, "companion_recruit_yes", [(neg|hero_can_join, "p_main_party"),], "I don't think can lead any more men than you do now.\

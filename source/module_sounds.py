@@ -225,11 +225,11 @@ sounds = [
  # ("moan_pain",sf_priority_6|sf_vol_4, ["gbt_whip_hit.ogg"]),
  # ("gbt_touch",sf_priority_6|sf_vol_4|sf_looping, ["gbt_touch.ogg"]),
  ("gbt_lick",sf_priority_6|sf_vol_4|sf_looping, ["gbt_lick.ogg"]),
+ ("orgasm",sf_priority_6|sf_vol_7, ["3_O1.ogg","3_O2.ogg","3_O3.ogg","gbt_orgasm.ogg"]),
 ### Dice game ### Dice game ###
  ("dice_roll",sf_priority_10|sf_vol_10, ["dice_roll.wav"]),
 ### Dice game ### Dice game ### END ###
 
- ("orgasm",sf_priority_6|sf_vol_7, ["3_O1.ogg","3_O2.ogg","3_O3.ogg","gbt_orgasm.ogg"]),
 ]
 # modmerger_start version=201 type=2
 try:

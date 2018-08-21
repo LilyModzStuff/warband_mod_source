@@ -48,7 +48,9 @@ from compiler import *
 scenes = [
   ("random_scene",sf_generate|sf_randomize|sf_auto_entry_points,"none", "none", (0,0),(240,240),-0.5,"0x300028000003e8fa0000034e00004b34000059be",
     [],[]),
-  ("conversation_scene",0,"encounter_spot", "bo_encounter_spot", (-40,-40),(40,40),-100,"0",
+  # ("conversation_scene",0,"encounter_spot", "bo_encounter_spot", (-40,-40),(40,40),-100,"0",
+    # [],[]),
+  ("conversation_scene",sf_generate|sf_randomize|sf_auto_entry_points,"none", "none", (0,0),(240,240),-0.5,"0x300028000003e8fa0000034e00004b34000059be",
     [],[]),
   ("water",0,"none", "none", (-1000,-1000),(1000,1000),-0.5,"0",
     [],[]),
@@ -1358,6 +1360,46 @@ scenes = [
     ["exit"],[]),
   ("dungeon",sf_indoors,"dungeon_a", "bo_dungeon_a", (-100,-100),(100,100),-100,"0",
     ["exit"],[]),
+    
+  # ("sea_1",sf_generate,"none", "none", (0,0),(240,240),-0.5,"0x0000000030000000c00d2348000000008000000000000000",
+   # [],[]),
+  ("sea_1",0,"none", "none", (-1000,-1000),(1000,1000),50,"0",
+    [],[]),
+  # ("sea_2",sf_generate,"none", "none", (0,0),(100,100),0,"0x0000000030000000c00d2348000000008000000000000000",
+    # [],[], "sea_outer_terrain_2"),
+  ("sea_2",0,"none", "none", (-1000,-1000),(1000,1000),50,"0",
+    [],[]),
+  ("sea_3",0,"none", "none", (-1000,-1000),(1000,1000),50,"0",
+    [],[]),
+  ("sea_4",0,"none", "none", (-1000,-1000),(1000,1000),50,"0",
+    [],[]),
+    
+  ("sea_boarding_a_a",0,"none", "none", (-1000,-1000),(1000,1000),50,"0",
+    [],[]),
+  ("sea_boarding_a_b",0,"none", "none", (-1000,-1000),(1000,1000),50,"0",
+    [],[]),
+  ("sea_boarding_a_c",0,"none", "none", (-1000,-1000),(1000,1000),50,"0",
+    [],[]),
+  ("sea_boarding_a_d",0,"none", "none", (-1000,-1000),(1000,1000),50,"0",
+    [],[]),
+    
+  ("sea_boarding_b_b",0,"none", "none", (-1000,-1000),(1000,1000),50,"0",
+    [],[]),
+  ("sea_boarding_b_c",0,"none", "none", (-1000,-1000),(1000,1000),50,"0",
+    [],[]),
+  ("sea_boarding_b_d",0,"none", "none", (-1000,-1000),(1000,1000),50,"0",
+    [],[]),
+    
+  ("sea_boarding_c_c",0,"none", "none", (-1000,-1000),(1000,1000),50,"0",
+    [],[]),
+  ("sea_boarding_c_d",0,"none", "none", (-1000,-1000),(1000,1000),50,"0",
+    [],[]),
+  ("sea_boarding_d_d",0,"none", "none", (-1000,-1000),(1000,1000),50,"0",
+    [],[]),
+    
+  ("sea_boarding_end",0,"none", "none", (-1000,-1000),(1000,1000),50,"0",
+    [],[]),
+    
 ]
 # modmerger_start version=201 type=2
 try:

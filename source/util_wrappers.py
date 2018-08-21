@@ -6,6 +6,22 @@
 ## a specific dialog similar to FindTrigger (though it isn't within a class)
 ## and a function to find the first "i" list item whose ID contains a value
 
+##Notes from Caba'drin testing:
+# The full Animations, Meshes, Dialogs, factions, troops, items, etc can be
+# wrapped with the OpBlockWrapper (since they are lists of tuples) to access
+# the additional InsertBefore/After type functions for lists
+# Also, animations and dialogs are lists with nested lists, not tuples and can be treated
+# as such.
+#
+# Changing elements in "immutable" tuples is possible by directly converting the
+# object to a list, setting the element, and reverting back to a tuple, like so:
+# ##Change re-arm interval to 0 (using work around to edit immutable tuple)
+# orig_mission_templates[mt_i][5][trigger_i] = list(orig_mission_templates[mt_i][5][trigger_i])
+# orig_mission_templates[mt_i][5][trigger_i][2] = 0
+# orig_mission_templates[mt_i][5][trigger_i] = tuple(orig_mission_templates[mt_i][5][trigger_i])
+# using a reference (for instance trigger = orig_mission_templates[mt_i][5][trigger_i] ) and then
+# trying to convert the trigger reference to/from a list/tuple will NOT work
+
 from types import *
 
 class BaseWrapper:
@@ -30,6 +46,8 @@ class BaseWrapper:
 		# try:
 			# self.data[i] = value # no range check.
 		# except TypeError: ##handle setting item in tuple #Caba'drin addition
+			# block = list(self.Unwrap())
+			# block[i] = value
 			# self.data = list(self.data)
 			# self.data[i] = value
 			# self.data = tuple(self.data)
@@ -96,9 +114,11 @@ class OpBlockWrapper(BaseWrapper):
     def SetLineContent(self, line_no, line_content):
         if( not isinstance(line_content,TupleType)):
             raise ValueError("OpBlockWrapper: Wrapped must be a list.")
-        if( line_no >= 0 and line_no < self.GetLength()):
-            self.data[line_no] = line_content
-        raise IndexError("OpBlockWrapper: Line number out of range")
+        elif( line_no >= 0 and line_no < self.GetLength()):
+            #self.data[line_no] = line_content
+			self.SetElement(line_no, line_content)
+        else:
+			raise IndexError("OpBlockWrapper: Line number out of range")
 
     # search the op block according to some directives
     # Return: line no if found, -1 if not found
@@ -432,9 +452,22 @@ class ItemWrapper(BaseWrapper):
         def GetItemModifierBits(self):
             return self.GetElement(7)
             
-
-        def GetOpBlock(self):
-            return OpBlockWrapper(self.GetElement(1))
+        ##Caba`drin
+        # def GetOpBlock(self):
+            # return OpBlockWrapper(self.GetElement(1))
+        def GetTriggers(self):
+            while self.GetLength() < 9:
+                self.Unwrap().append([])
+            return self.GetElement(8)    		
+			
+        def GetItemTrigger(self, i):
+            # return SimpleTriggerWrapper(self.data[3])
+            return SimpleTriggerWrapper(self.GetTriggers()[i]) # no range check
+		
+        def GetItemFactions(self):
+            while self.GetLength() < 10:
+                self.Unwrap().append([])
+            return OpBlockWrapper(self.GetElement(9))
     
  
 

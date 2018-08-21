@@ -606,8 +606,11 @@ slot_center_last_reconnoitered_by_faction_time 				= 350
 
 slot_town_has_brothel = 300
 slot_town_brothel_num_workers = 301
+slot_town_port = 302
+slot_port_town = 303
 
 slot_town_seneschal = 310
+slot_party_ship_type                = 311  
 
 #slot_party_type values
 ##spt_caravan            = 1

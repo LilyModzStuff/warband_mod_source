@@ -183,7 +183,7 @@ def weight(x):
   a = int(4.0 * x)
   a = ibf_armor_mask & a
   return (((bignum | a) & ibf_armor_mask) << ibf_weight_bits)
-
+  
 def get_weight(y):
   a = (y >> ibf_weight_bits) & ibf_armor_mask
   return 0.25 * a 
@@ -281,7 +281,6 @@ def abundance(x):
   return (((bignum | x) & ibf_armor_mask) << iwf_abundance_bits)
 
 def get_abundance(y):
-  print y
   abnd = (y >> iwf_abundance_bits) & ibf_armor_mask
   if (abnd == 0):
     abnd = 100

@@ -49,13 +49,9 @@ def modmerge(var_set):
 		errstring = "Variable set does not contain expected variable: \"%s\"." % var_name_1
 		raise ValueError(errstring)
 	
-	for simple_trigger in new_simple_triggers:
-		orig_simple_triggers.append(simple_trigger)
+	orig_simple_triggers.extend(new_simple_triggers)
 	
-	simple_triggers = []
-	for st_tuple in orig_simple_triggers:
-		simple_triggers.append(SimpleTrigger(*st_tuple))
+	simple_triggers = [SimpleTrigger(*st_tuple) for st_tuple in orig_simple_triggers]
 	
 	del orig_simple_triggers[:]
-	for simple_trigger in simple_triggers:
-		orig_simple_triggers.append(simple_trigger.convert_to_tuple())
+	orig_simple_triggers.extend([simple_trigger.convert_to_tuple() for simple_trigger in simple_triggers])

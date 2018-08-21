@@ -52,7 +52,7 @@ map_icons = [
 
 
   ("camp",mcn_no_shadow,"camp_tent", 0.13, 0),
-  ("ship",mcn_no_shadow,"boat_sail_on", 0.23, snd_footstep_grass, 0.0, 0.05, 0),
+  ("ship",mcn_no_shadow,"boat_sail_on", 0.23, 0, 0.0, 0.05, 0),
   ("ship_on_land",mcn_no_shadow,"boat_sail_off", 0.23, 0),
 
   ("castle_a",mcn_no_shadow,"map_castle_a", 0.35,0),
@@ -298,6 +298,15 @@ map_icons = [
           (cur_map_icon_set_tableau_material, "tableau_custom_banner_short", "trp_temp_troop"),
         ]),
   ]),
+  
+  ("longboat",mcn_no_shadow,"boat_a_sail_on", 0.23, 0, 0.0, 0.05, 0),
+  ("longboat_on_land",mcn_no_shadow,"boat_a_sail_off", 0.23, 0),
+  ("galley",mcn_no_shadow,"boat_b_sail_on", 0.23, 0, 0.0, 0.05, 0),
+  ("galley_on_land",mcn_no_shadow,"boat_b_sail_off", 0.23, 0),
+  ("carrack",mcn_no_shadow,"boat_c_sail_on", 0.23, 0, 0.0, 0.05, 0),
+  ("carrack_on_land",mcn_no_shadow,"boat_c_sail_off", 0.23, 0),
+  ("dhow",mcn_no_shadow,"boat_d_sail_on", 0.23, 0, 0.0, 0.05, 0),
+  ("dhow_on_land",mcn_no_shadow,"boat_d_sail_off", 0.23, 0),
 ]
 # modmerger_start version=201 type=2
 try:

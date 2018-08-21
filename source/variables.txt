@@ -1282,4 +1282,4 @@ g_jrider_faction_coat_of_arms
 g_latest_character_relation_entry
 g_jrider_last_checked_indicator
 g_autoloot
-g_next_pay_timeg_wp_tpe_activeg_wp_tpe_renown_scalingg_wp_tpe_troop
+g_next_pay_time

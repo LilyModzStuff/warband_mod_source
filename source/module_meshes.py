@@ -641,6 +641,8 @@ meshes = [
   ("flag_d7", 0, "flag_d7", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("flag_d8", 0, "flag_d8", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("flag_d9", 0, "flag_d9", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  
+  ("tableau_mesh_wse_charger", 0, "tableau_mesh_wse_charger",  0, 0, 0, 0, 0, 0, 1, 1, 1),
 ### Dice game ### Dice game ###
 # 3 cards  
   ("3card_back", 0, "mmc_3c_back", 0, 0, 0, 0, 0, 0, 1, 1, 1),
@@ -660,9 +662,6 @@ meshes = [
   ("mmc_dice_6", 0, "mmc_dice_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),
 # dices game end 
 ### Dice game ### Dice game ### END ### 
-
-  
-  ("tableau_mesh_wse_charger", 0, "tableau_mesh_wse_charger",  0, 0, 0, 0, 0, 0, 1, 1, 1),
 ]
 # modmerger_start version=201 type=2
 try:

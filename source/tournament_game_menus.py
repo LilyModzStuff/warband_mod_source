@@ -89,8 +89,8 @@ game_menus = [
         #(call_script, "script_change_player_relation_with_center", "$current_town", 1),   # original script removed by Renown Scaling.
 		## TOURNAMENT PLAY ENHANCEMENTS end
 		
-        (assign, reg9, 500), # Was 200
-        (add_xp_to_troop, 700, "trp_player"), # Was 250
+        (assign, reg9, 2000), # Was 200
+        (add_xp_to_troop, 2500, "trp_player"), # Was 250
         (troop_add_gold, "trp_player", reg9),
         (str_clear, s8),
         (store_add, ":total_win", "$g_tournament_bet_placed", "$g_tournament_bet_win_amount"),

@@ -20,9 +20,20 @@ from cstm_header_simple_triggers import *
 
 new_simple_triggers = [
 
-	
-	
+	# Add any new triggers here
+
 ]
+
+def operation_matches(operation, arg_tuple):
+	matches = False
+	if type(operation) == tuple and len(operation) == len(arg_tuple):
+		matches = True
+		for i in xrange(len(arg_tuple)):
+			if arg_tuple[i] != '?' and arg_tuple[i] != operation[i]:
+				matches = False
+				break
+	
+	return matches
 
 def modmerge(var_set):
 	try:
@@ -32,20 +43,18 @@ def modmerge(var_set):
 		errstring = "Variable set does not contain expected variable: \"%s\"." % var_name_1
 		raise ValueError(errstring)
 	
-	for simple_trigger in new_simple_triggers:
-		orig_simple_triggers.append(simple_trigger)
+	orig_simple_triggers.extend(new_simple_triggers)
 	
-	simple_triggers = []
-	for st_tuple in orig_simple_triggers:
-		simple_triggers.append(SimpleTrigger(*st_tuple))
+	simple_triggers = [SimpleTrigger(*st_tuple) for st_tuple in orig_simple_triggers]
 	
 	try:
-		# Make recruiters go to player faction villages
-		dplmc_recruiter_trigger = [trigger for trigger in simple_triggers if len([operation for operation in trigger.operations if type(operation) == tuple and operation[0] == party_slot_eq and operation[2] == slot_party_type and operation[3] == dplmc_spt_recruiter]) > 0][0]
+		# Make Diplomacy recruiters go to player faction villages
+		dplmc_recruiter_trigger = [trigger for trigger in simple_triggers if len([operation for operation in trigger.operations if operation_matches(operation, (party_slot_eq, '?', slot_party_type, dplmc_spt_recruiter))]) > 0][0]
 		get_faction_operations = [(i, operation) for i, operation in enumerate(dplmc_recruiter_trigger.operations) if type(operation) == tuple and operation[0] == party_get_slot and operation[3] == slot_center_original_faction]
 		for operation_tuple in get_faction_operations[::-1]:
 			index = operation_tuple[0]
 			operation = operation_tuple[1]
+			
 			faction_var = operation[1]
 			village_var = operation[2]
 			
@@ -61,5 +70,4 @@ def modmerge(var_set):
 		print "Diplomacy Recruiter party type not found, disregarding changes to recruiter trigger"
 	
 	del orig_simple_triggers[:]
-	for simple_trigger in simple_triggers:
-		orig_simple_triggers.append(simple_trigger.convert_to_tuple())
+	orig_simple_triggers.extend([simple_trigger.convert_to_tuple() for simple_trigger in simple_triggers])

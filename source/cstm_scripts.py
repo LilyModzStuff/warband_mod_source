@@ -998,7 +998,6 @@ new_scripts = [
 		(assign, ":max_level", reg0),
 		(store_proficiency_level, ":curr_level", ":troop", ":proficiency"),
 		(val_max, ":max_level", ":curr_level"),
-		## APPLY THIS FOR ATTRIBUTES AND SKILLS AND FIX BEING ABLE TO SET TROOP TREE MAX FOR ALL PROFICIENCIES/SKILLS/ATTRIBUTES, WHICH RAISES UPGRADE ABOVE TOTAL MAX POINTS
 		
 		(try_begin),
 			(troop_get_upgrade_troop, ":upgrade", ":troop", 0),

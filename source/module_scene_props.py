@@ -2999,6 +2999,8 @@ scene_props = [
  ("mine_a",0,"mine_a","bo_mine_a", []),
  
  ("tent",0,"tent","bo_tent", []),
+ ("sailing_plane",0,"sailing_plane",0,[]),
+ ("boarding_plane",0,"boarding_plane",0,[]),
 ]
 # modmerger_start version=201 type=2
 try:

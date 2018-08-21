@@ -246,7 +246,7 @@ new_scripts = [
 			(store_div, ":xp_rounds", ":garrison_strength", 5),
 			(val_add, ":xp_rounds", 2),
 
-			(game_get_reduce_campaign_ai, ":reduce_campaign_ai"),                
+			(game_get_reduce_campaign_ai, ":reduce_campaign_ai"),								
 
 			(try_begin), #hard
 				(eq, ":reduce_campaign_ai", 0),
@@ -259,7 +259,7 @@ new_scripts = [
 				(assign, ":xp_addition_for_centers", 2500),
 			(try_end),
 
-			(try_for_range, ":unused", 0, ":xp_rounds"),          
+			(try_for_range, ":unused", 0, ":xp_rounds"),					
 				(party_upgrade_with_xp, ":center_no", ":xp_addition_for_centers", 0),
 			(try_end),
 		(try_end),
@@ -376,19 +376,116 @@ def modmerge(var_set):
 		(try_end),
 	]
 	
-	faction_var = [operation[1] for operation in scripts["cf_reinforce_party"].operations if type(operation) == tuple and operation[0] == store_faction_of_party][-1]
-	index = scripts["cf_reinforce_party"].operations.index((eq, faction_var, "fac_player_supporters_faction")) + 1
-	if index > 0:
-		scripts["cf_reinforce_party"].operations[index:index] = [
-			(eq, 0, 1),
+	party_var = scripts["cf_reinforce_party"].script_param(1)
+	
+	# Try setting player faction party reinforcement operations as including Diplomacy operations, if failed use Native
+	# Overwrite with any reinforcement logic your own mod uses
+	try:
+		reinforce_player_fac_party_operations = [
+			(faction_get_slot, ":party_template_a", "fac_player_supporters_faction", slot_faction_reinforcements_a),
+			(faction_get_slot, ":party_template_b", "fac_player_supporters_faction", slot_faction_reinforcements_b),
+			(faction_get_slot, ":party_template_c", "fac_player_supporters_faction", slot_faction_reinforcements_c),
+			
+			(party_get_slot, ":party_type", party_var, slot_party_type),
+			(assign, ":party_template", 0),
+			(store_random_in_range, ":rand", 0, 100),
+			##diplomacy start+
+			#Implement "quality vs. quantity" in a way that is visible in player battles
+			#(previously, quantity increased party size, but quality only had an effect
+			#in autocalc battles)
+			(try_begin),
+				(faction_get_slot, ":dplmc_quality", "fac_player_supporters_faction", dplmc_slot_faction_quality),
+				(val_clamp, ":dplmc_quality", -3, 4),
+				(val_add, ":rand", ":dplmc_quality"),
+				(val_clamp, ":rand", 0, 101),
+			(try_end),
+			##diplomacy end+
+			(try_begin),
+				(this_or_next|eq, ":party_type", spt_town),
+				(eq, ":party_type", spt_castle),	#CASTLE OR TOWN
+				(try_begin),
+					(lt, ":rand", 65),
+					(assign, ":party_template", ":party_template_a"),
+				(else_try),
+					(assign, ":party_template", ":party_template_b"),
+				(try_end),
+			(else_try),
+				(eq, ":party_type", spt_kingdom_hero_party),
+				(try_begin),
+					(lt, ":rand", 50),
+					(assign, ":party_template", ":party_template_a"),
+				(else_try),
+					(lt, ":rand", 75),
+					(assign, ":party_template", ":party_template_b"),
+				(else_try),
+					(assign, ":party_template", ":party_template_c"),
+				(try_end),
+			(else_try),
+			##diplomacy start+ Reinforcements for patrols
+				(eq, ":party_type", spt_patrol),
+				(try_begin),
+					 (lt, ":rand", 65),
+					 (assign, ":party_template", ":party_template_a"),
+				(else_try),
+					 (assign, ":party_template", ":party_template_b"),
+				(try_end),
+			##diplomacy end+
+			(try_end),
+
+			(try_begin),
+				(gt, ":party_template", 0),
+				(party_add_template, party_var, ":party_template"),
+			(try_end),
+		]
+	except NameError:
+		reinforce_player_fac_party_operations = [
+			(faction_get_slot, ":party_template_a", "fac_player_supporters_faction", slot_faction_reinforcements_a),
+			(faction_get_slot, ":party_template_b", "fac_player_supporters_faction", slot_faction_reinforcements_b),
+			(faction_get_slot, ":party_template_c", "fac_player_supporters_faction", slot_faction_reinforcements_c),
+			
+			(party_get_slot, ":party_type", party_var, slot_party_type),
+			(assign, ":party_template", 0),
+			(store_random_in_range, ":rand", 0, 100),
+			(try_begin),
+				(this_or_next|eq, ":party_type", spt_town),
+				(eq, ":party_type", spt_castle),	#CASTLE OR TOWN
+				(try_begin),
+					(lt, ":rand", 65),
+					(assign, ":party_template", ":party_template_a"),
+				(else_try),
+					(assign, ":party_template", ":party_template_b"),
+				(try_end),
+			(else_try),
+				(eq, ":party_type", spt_kingdom_hero_party),
+				(try_begin),
+					(lt, ":rand", 50),
+					(assign, ":party_template", ":party_template_a"),
+				(else_try),
+					(lt, ":rand", 75),
+					(assign, ":party_template", ":party_template_b"),
+				(else_try),
+					(assign, ":party_template", ":party_template_c"),
+				(try_end),
+			(try_end),
+
+			(try_begin),
+				(gt, ":party_template", 0),
+				(party_add_template, party_var, ":party_template"),
+			(try_end),
 		]
 	
-	party_type_var = [operation[1] for operation in scripts["cf_reinforce_party"].operations if type(operation) == tuple and operation[0] == party_get_slot and operation[3] == slot_party_type][-1]
-	index = scripts["cf_reinforce_party"].operations.index((eq, party_type_var, spt_kingdom_hero_party)) + 1
-	if index > 0:
-		scripts["cf_reinforce_party"].operations[index:index] = [
-			(neq, faction_var, "fac_player_supporters_faction"),
-		]
+	index = scripts["cf_reinforce_party"].store_script_param_index(1) + 1
+	scripts["cf_reinforce_party"].operations[index:index] = [
+		(try_begin), 
+			(store_faction_of_party, ":party_faction", party_var),
+			(eq, ":party_faction", "fac_player_supporters_faction")
+	] + reinforce_player_fac_party_operations + [
+		(else_try)
+	]
+	scripts["cf_reinforce_party"].operations.extend([
+		(try_end),
+	])
+	
 	#print "\n".join([str(x) for x in scripts["cf_reinforce_party"].operations])
 	
 	del orig_scripts[:]

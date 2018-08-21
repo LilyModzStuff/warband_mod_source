@@ -21,14 +21,14 @@ default_kingdom_relations = [("outlaws",-0.05),("peasant_rebels", -0.1),("desert
 factions = [
   ("no_faction","No Faction",0, 0.9, [], []),
   ("commoners","Commoners",0, 0.1,[("player_faction",0.1)], []),
-  ("outlaws","Outlaws", max_player_rating(-30), 0.5,[("commoners",-0.6),("player_faction",-0.15)], [], 0x888888),
+  ("outlaws","Outlaws", max_player_rating(-30), 0.5,[("commoners",-0.6),("player_faction",-0.15),("player_supporters_faction", -0.15),("kingdom_1",-0.15),("kingdom_2",-0.15),("kingdom_3",-0.15),("kingdom_4",-0.15),("kingdom_5",-0.15),("kingdom_6",-0.15)], [], 0x888888),
 # Factions before this point are hardwired into the game end their order should not be changed.
 
   ("neutral","Neutral",0, 0.1,[("player_faction",0.0)], [],0xFFFFFF),
   ("innocents","Innocents", ff_always_hide_label, 0.5,[("outlaws",-0.05)], []),
   ("merchants","Merchants", ff_always_hide_label, 0.5,[("outlaws",-0.5),], []),
 
-  ("dark_knights","Dark Knights", 0, 0.5,[("innocents",-0.9),("player_faction",-0.4)], [], 0x383838),
+  ("dark_knights","Dark Knights", 0, 0.5,[("innocents",-0.9),("player_faction",-0.4),("player_supporters_faction", -0.2),("kingdom_1",-0.2),("kingdom_2",-0.2),("kingdom_3",-0.2),("kingdom_4",-0.2),("kingdom_5",-0.2),("kingdom_6",-0.2)], [], 0x383838),
 
   ("culture_1",  "{!}culture_1", 0, 0.9, [], []),
   ("culture_2",  "{!}culture_2", 0, 0.9, [], []),
@@ -60,14 +60,14 @@ factions = [
   ("robber_knights",  "{!}robber_knights", 0, 0.1, [], []),
 
   ("khergits","{!}Khergits", 0, 0.5,[("player_faction",0.0)], []),
-  ("black_khergits","Black Khergits", 0, 0.5,[("player_faction",-0.3),("kingdom_1",-0.02),("kingdom_2",-0.02),("kingdom_4",-0.02),("kingdom_5",-0.02),("kingdom_6",-0.02)], [], 0x401344),
+  ("black_khergits","Black Khergits", 0, 0.5,[("player_faction",-0.3),("player_supporters_faction", -0.15),("kingdom_1",-0.15),("kingdom_2",-0.15),("kingdom_4",-0.15),("kingdom_5",-0.15),("kingdom_6",-0.15)], [], 0x401344),
 
 ##  ("rebel_peasants","Rebel Peasants", 0, 0.5,[("vaegirs",-0.5),("player_faction",0.0)], []),
 
   ("manhunters","Manhunters", 0, 0.5,[("outlaws",-0.6),("player_faction",0.1)], []),
-  ("deserters","Deserters", 0, 0.5,[("manhunters",-0.6),("merchants",-0.5),("player_faction",-0.1)], [], 0x888888),
-  ("mountain_bandits","Mountain Bandits", 0, 0.5,[("commoners",-0.2),("merchants",-0.5),("manhunters",-0.6),("player_faction",-0.15)], [], 0x888888),
-  ("forest_bandits","Forest Bandits", 0, 0.5,[("commoners",-0.2),("merchants",-0.5),("manhunters",-0.6),("player_faction",-0.15)], [], 0x888888),
+  ("deserters","Deserters", 0, 0.5,[("manhunters",-0.6),("merchants",-0.5),("player_faction",-0.1),("player_supporters_faction", -0.15),("kingdom_1",-0.15),("kingdom_2",-0.15),("kingdom_3",-0.15),("kingdom_4",-0.15),("kingdom_5",-0.15),("kingdom_6",-0.15)], [], 0x888888),
+  ("mountain_bandits","Mountain Bandits", 0, 0.5,[("commoners",-0.2),("merchants",-0.5),("manhunters",-0.6),("player_faction",-0.15),("player_supporters_faction", -0.15),("kingdom_1",-0.15),("kingdom_2",-0.15),("kingdom_3",-0.15),("kingdom_4",-0.15),("kingdom_5",-0.15),("kingdom_6",-0.15)], [], 0x888888),
+  ("forest_bandits","Forest Bandits", 0, 0.5,[("commoners",-0.2),("merchants",-0.5),("manhunters",-0.6),("player_faction",-0.15),("player_supporters_faction", -0.15),("kingdom_1",-0.15),("kingdom_2",-0.15),("kingdom_3",-0.15),("kingdom_4",-0.15),("kingdom_5",-0.15),("kingdom_6",-0.15)], [], 0x888888),
 
   ("undeads","{!}Undeads", max_player_rating(-30), 0.5,[("commoners",-0.7),("player_faction",-0.5)], []),
   ("slavers","{!}Slavers", 0, 0.1, [], []),

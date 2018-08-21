@@ -316,7 +316,7 @@ colour_change_dialogs.extend([
 		[]
 	],
 	
-	[anyone|plyr, "cstm_dplmc_constable_change_colour_specific_gruop_select",
+	[anyone|plyr, "cstm_dplmc_constable_change_colour_specific_group_select",
 		[],
 		"Never mind", "minister_pretalk",
 		[]

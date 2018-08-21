@@ -75,6 +75,7 @@ parties = [
 ###############################################################  
   ("zendar","Zendar",   icon_town|pf_disabled|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(18,60),[]),
 
+  #Tang
   ("town_1","Sargoth",  icon_town|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-17.6, 79.7),[], 170),
   ("town_2","Tihr",     icon_town|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-53.5, 78.4),[], 120),
   ("town_3","Veluca",   icon_town|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(-57.4, -44.5),[], 80),
@@ -100,6 +101,16 @@ parties = [
   ("town_20","Durquba", icon_town_desert|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(90, -95.1),[], 270),
   ("town_21","Ahmerrad", icon_town_desert|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(130.5, -78.5),[], 330),
   ("town_22","Bariyye", icon_town_desert|pf_town, no_menu, pt_none, fac_neutral,0,ai_bhvr_hold,0,(165, -106.7),[], 225),
+  
+  #Tufan cities
+  
+  #Silla cities
+  
+  #Yamato cities
+  
+  #Gokturk
+  
+  #Balhae
 
 #   Aztaq_Castle       
 #  Malabadi_Castle
@@ -323,11 +334,21 @@ parties = [
   ("desert_bandit_spawn_point"  ,"the desert",pf_disabled|pf_is_static, no_menu, pt_none, fac_outlaws,0,ai_bhvr_hold,0,(110, -100),[(trp_looter,15,0)]),
  # add extra towns before this point 
   ("spawn_points_end"                  ,"{!}last_spawn_point",    pf_disabled|pf_is_static, no_menu, pt_none, fac_commoners,0,ai_bhvr_hold,0,(0., 0),[(trp_looter,15,0)]),
-  ("reserved_1"                  ,"{!}last_spawn_point",    pf_disabled|pf_is_static, no_menu, pt_none, fac_commoners,0,ai_bhvr_hold,0,(0., 0),[(trp_looter,15,0)]),
-  ("reserved_2"                  ,"{!}last_spawn_point",    pf_disabled|pf_is_static, no_menu, pt_none, fac_commoners,0,ai_bhvr_hold,0,(0., 0),[(trp_looter,15,0)]),
-  ("reserved_3"                  ,"{!}last_spawn_point",    pf_disabled|pf_is_static, no_menu, pt_none, fac_commoners,0,ai_bhvr_hold,0,(0., 0),[(trp_looter,15,0)]),
-  ("reserved_4"                  ,"{!}last_spawn_point",    pf_disabled|pf_is_static, no_menu, pt_none, fac_commoners,0,ai_bhvr_hold,0,(0., 0),[(trp_looter,15,0)]),
+  ("reserved_1"                  ,"{!}sea_raider_ship_sp",    pf_disabled|pf_is_static, no_menu, pt_none, fac_commoners,0,ai_bhvr_hold,0,(-40,126),[(trp_looter,15,0)]),
+  ("reserved_2"                  ,"{!}pirate_sp",    pf_disabled|pf_is_static, no_menu, pt_none, fac_commoners,0,ai_bhvr_hold,0,(-56, -107),[(trp_looter,15,0)]),
+  ("reserved_3"                  ,"{!}corsair_sp",    pf_disabled|pf_is_static, no_menu, pt_none, fac_commoners,0,ai_bhvr_hold,0,(-156, -7.3),[(trp_looter,15,0)]),
+  ("reserved_4"                  ,"{!}foreign_merchant_sp",    pf_disabled|pf_is_static, no_menu, pt_none, fac_commoners,0,ai_bhvr_hold,0,(-177, 7),[(trp_looter,15,0)]),
   ("reserved_5"                  ,"{!}last_spawn_point",    pf_disabled|pf_is_static, no_menu, pt_none, fac_commoners,0,ai_bhvr_hold,0,(0., 0),[(trp_looter,15,0)]),
+  #ports
+  ("port_1"                  ,"Sargoth",    pf_disabled|pf_is_static, no_menu, pt_none, fac_commoners,0,ai_bhvr_hold,0,(-15.98, 84.02),[(trp_looter,15,0)]), 
+  ("port_2"                  ,"Tihr",    pf_disabled|pf_is_static, no_menu, pt_none, fac_commoners,0,ai_bhvr_hold,0,(-54.26, 81.83),[(trp_looter,15,0)]), 
+  ("port_6"                  ,"Praven",    pf_disabled|pf_is_static, no_menu, pt_none, fac_commoners,0,ai_bhvr_hold,0,(-97.3, 30),[(trp_looter,15,0)]),
+  ("port_12"                  ,"Wercheg",    pf_disabled|pf_is_static, no_menu, pt_none, fac_commoners,0,ai_bhvr_hold,0,(-0.31,105.56),[(trp_looter,15,0)]), 
+  ("port_13"                  ,"Rivacheg",    pf_disabled|pf_is_static, no_menu, pt_none, fac_commoners,0,ai_bhvr_hold,0,(64.4, 119.4),[(trp_looter,15,0)]),
+  ("port_15"                  ,"Yalen",    pf_disabled|pf_is_static, no_menu, pt_none, fac_commoners,0,ai_bhvr_hold,0,(-136.91, -50.84),[(trp_looter,15,0)]), 
+  ("port_19"                  ,"Shariz",    pf_disabled|pf_is_static, no_menu, pt_none, fac_commoners,0,ai_bhvr_hold,0,(6.7, -108),[(trp_looter,15,0)]),
+  
+  ("ports_end"                  ,"{!}last_port",    pf_disabled|pf_is_static, no_menu, pt_none, fac_commoners,0,ai_bhvr_hold,0,(0., 0),[(trp_looter,15,0)]),
   ]
 # modmerger_start version=201 type=2
 try:

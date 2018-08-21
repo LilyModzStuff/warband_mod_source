@@ -102,9 +102,9 @@ simple_triggers = [
 
 #Auto-menu
   (0,
-   [         
+   [
      (try_begin),
-       (gt, "$g_last_rest_center", 0),
+       (is_between, "$g_last_rest_center",  centers_begin, centers_end), #SB : proper rest conditions
        (party_get_battle_opponent, ":besieger_party", "$g_last_rest_center"),
        (gt, ":besieger_party", 0),
        (store_faction_of_party, ":encountered_faction", "$g_last_rest_center"),
@@ -133,48 +133,46 @@ simple_triggers = [
        (else_try),
          (ge,"$auto_enter_town",1),
          (start_encounter, "$auto_enter_town"),
-       #(else_try),  ### Comment out this entire else_try
-         #(ge,"$auto_besiege_town",1), ### Here
-         #(start_encounter, "$auto_besiege_town"), ###And here, too
+       (else_try),
+         (ge,"$auto_besiege_town",1),
+         (start_encounter, "$auto_besiege_town"),
        (else_try),
          (ge,"$g_camp_mode", 1),
          (assign, "$g_camp_mode", 0),
          (assign, "$g_infinite_camping", 0),
-         (assign, "$g_player_icon_state", pis_normal),
          
+         (try_begin),
+           (neq, "$g_player_icon_state", pis_ship),
+           (assign, "$g_player_icon_state", pis_normal),
+         (try_end),
+
          (rest_for_hours, 0, 0, 0), #stop camping
-                 
-         (display_message, "@Breaking camp..."),
+
+         (display_message, "@Breaking camp...", message_alert), #SB : colorize
+       (else_try), #SB : restore after leaving town with disguises
+         (gt, "$sneaked_into_town", disguise_none),
+         (display_message, "@Removing disguise...", message_alert), #SB : colorize
+         (try_begin),
+           (eq, "$g_dplmc_player_disguise", 1),
+           (set_show_messages, 0),
+           #equipment is deposited back to inventory, it starts off blank
+           (try_for_range, ":i_slot", ek_item_0, ek_food + 1),
+             (troop_get_inventory_slot, ":item", "trp_player", ":i_slot"),
+             (neq, ":item", -1),
+             (troop_get_inventory_slot_modifier, ":imod", "trp_player", ":i_slot"),
+             (troop_add_item, "trp_random_town_sequence", ":item", ":imod"),
+           (try_end),
+           #less efficient, but merge and respect original player inventory's order
+           (call_script, "script_move_inventory_and_gold", "trp_player", "trp_random_town_sequence", 0), #do not move gold
+           (call_script, "script_dplmc_copy_inventory", "trp_random_town_sequence", "trp_player"),
+           (call_script, "script_troop_transfer_gold", "trp_random_town_sequence", "trp_player", 0), #move remaining gold now
+           (set_show_messages, 1),
+         (try_end),
+         (assign, "$sneaked_into_town", disguise_none),
        (try_end),
      (try_end),
      ]),
- (0.25,
-   [
-      (gt,"$auto_besiege_town",0),
-      (gt,"$g_player_besiege_town", 0),
-      (ge, "$g_siege_method", 1),
-   
-      (store_distance_to_party_from_party, ":distance", "$g_player_besiege_town", "p_main_party"),
-      (try_begin),
-        (gt, ":distance", raid_distance / 2),
-        (str_store_party_name_link, s1, "$g_player_besiege_town"),
-        (display_message, "@You have broken off your siege of {s1}."),
-        (call_script, "script_lift_siege", "$g_player_besiege_town", 0),
-        (assign, "$g_player_besiege_town", -1),
-        (rest_for_hours, 0, 0, 0), #stop resting - abort
-      (else_try),
-        (ge, ":distance", raid_distance / 3),
-        (map_free),
-        (str_store_party_name_link, s1, "$g_player_besiege_town"),
-        (display_message, "@You cannot maintain your siege of {s1} from this distance. You risk your lines breaking."),
-      (else_try),
-        (store_current_hours, ":cur_hours"),
-        (ge, ":cur_hours", "$g_siege_method_finish_hours"),
-        (neg|is_currently_night),
-        (rest_for_hours, 0, 0, 0), #stop resting, if resting
-        (start_encounter, "$auto_besiege_town"),
-      (try_end),
-    ]), 
+
 
 #Notification menus
   (0,
@@ -358,7 +356,8 @@ simple_triggers = [
 	(try_begin),
 		(neg|check_quest_active, "qst_visit_lady"),
 		(neg|troop_slot_ge, "trp_player", slot_troop_prisoner_of_party, 1),
-#		(neg|troop_slot_ge, "trp_player", slot_troop_spouse, active_npcs_begin),
+		(this_or_next|neg|troop_slot_ge, "trp_player", slot_troop_spouse, active_npcs_begin),
+		(eq, "$g_polygamy", 1),
 
 		(assign, ":lady_not_visited_longest_time", -1),
 		(assign, ":longest_time_without_visit", 120), #five days
@@ -367,7 +366,8 @@ simple_triggers = [
             ##diplomacy start not dead, exiled, etc.
 			(neg|troop_slot_ge, ":troop_id", slot_troop_occupation, slto_retirement),
             #not already betrothed
-            #(neg|troop_slot_eq, "trp_player", slot_troop_betrothed, ":troop_id"),
+            (this_or_next|neg|troop_slot_eq, "trp_player", slot_troop_betrothed, ":troop_id"),
+			(eq, "$g_polygamy", 1),
 			##diplomacy end
 			#set up message for ladies the player is courting
 			(troop_slot_ge, ":troop_id", slot_troop_met, 2),
@@ -403,8 +403,6 @@ simple_triggers = [
 
 #Player raiding a village
 # This trigger will check if player's raid has been completed and will lead control to village menu.
-#Player raiding a village
-# This trigger will check if player's raid has been completed and will lead control to village menu.
   (1,
    [
       (ge,"$g_player_raiding_village",1),
@@ -412,9 +410,9 @@ simple_triggers = [
         (neq, "$g_player_is_captive", 0),
         #(rest_for_hours, 0, 0, 0), #stop resting - abort
         (assign,"$g_player_raiding_village",0),
-     ### (else_try),         ###Remove this entire Else-Try###
-       ### (map_free), #we have been attacked during raid
-       ### (assign,"$g_player_raiding_village",0),
+      (else_try),
+        (map_free), #we have been attacked during raid
+        (assign,"$g_player_raiding_village",0),
       (else_try),
         (this_or_next|party_slot_eq, "$g_player_raiding_village", slot_village_state, svs_looted),
         (party_slot_eq, "$g_player_raiding_village", slot_village_state, svs_deserted),
@@ -424,31 +422,14 @@ simple_triggers = [
         (assign,"$g_player_raid_complete",1),
       (else_try),
         (party_slot_eq, "$g_player_raiding_village", slot_village_state, svs_being_raided),
-        (rest_for_hours_interactive, 3, 5, 1), #rest while attackable    ###CHANGE rest_for_hours to rest_for_hours_interactive; ###OPTIONAL COMMENT OUT
+        (rest_for_hours, 3, 5, 1), #rest while attackable
       (else_try),
         (rest_for_hours, 0, 0, 0), #stop resting - abort
         (assign,"$g_player_raiding_village",0),
         (assign,"$g_player_raid_complete",0),
       (try_end),
     ]),
-  (0.25,
-   [
-      (ge,"$g_player_raiding_village",1),
-      (store_distance_to_party_from_party, ":distance", "$g_player_raiding_village", "p_main_party"),
-      (try_begin),
-        (gt, ":distance", raid_distance),
-        (str_store_party_name_link, s1, "$g_player_raiding_village"),
-        (display_message, "@You have broken off your raid of {s1}."),
-        (call_script, "script_village_set_state", "$current_town", 0),
-        (party_set_slot, "$current_town", slot_village_raided_by, -1),
-        (assign, "$g_player_raiding_village", 0),
-        (rest_for_hours, 0, 0, 0), #stop resting - abort
-      (else_try),
-        (ge, ":distance", raid_distance / 2),
-        (map_free),
-        (jump_to_menu, "mnu_village_loot_continue"),
-      (try_end),
-    ]),  
+
   #Pay day.
   (24 * 7,
    [
@@ -497,11 +478,11 @@ simple_triggers = [
     ]),
 
   # Reducing luck by 1 in every 180 hours
-#  (180,
-#   [
-#     (val_sub, "$g_player_luck", 1),
-#     (val_max, "$g_player_luck", 0),
-#    ]),
+  #(180,
+   #[
+     #(val_sub, "$g_player_luck", 1),
+     #(val_max, "$g_player_luck", 0),
+    #]),
 
 	#courtship reset
   (72,
@@ -1707,30 +1688,36 @@ simple_triggers = [
    [
    (assign, "$fuck_stamina", 1), #fucking
    
-   (try_begin),
-       (neq, "$g_fix_rebel_ladies", 1),
-       (try_for_range, ":cur_troop", kingdom_ladies_begin, kingdom_ladies_end),
-         (troop_slot_eq, ":cur_troop", slot_troop_occupation, slto_kingdom_lady),
-         (store_troop_faction, ":cur_faction", ":cur_troop"),
-         (eq, ":cur_faction", "fac_player_supporters_faction"),
-         (faction_get_slot, ":leader", ":cur_faction", slot_faction_leader),
-         (store_faction_of_troop, ":leader_faction", ":leader"),
-         (troop_set_faction, ":cur_troop", ":leader_faction"),
-         (call_script, "script_troop_set_title_according_to_faction", ":cur_troop", ":leader_faction"),
-       (try_end),
-       (assign, "$g_fix_rebel_ladies", 1),
-   (try_end),
+   # (try_begin),
+       # (neq, "$g_fix_rebel_ladies", 1),
+       # (try_for_range, ":cur_troop", kingdom_ladies_begin, kingdom_ladies_end),
+         # (troop_slot_eq, ":cur_troop", slot_troop_occupation, slto_kingdom_lady),
+         # (store_troop_faction, ":cur_faction", ":cur_troop"),
+         # (eq, ":cur_faction", "fac_player_supporters_faction"),
+         # (faction_get_slot, ":leader", ":cur_faction", slot_faction_leader),
+         # (store_faction_of_troop, ":leader_faction", ":leader"),
+         # (troop_set_faction, ":cur_troop", ":leader_faction"),
+         # (call_script, "script_troop_set_title_according_to_faction", ":cur_troop", ":leader_faction"),
+       # (try_end),
+       # (assign, "$g_fix_rebel_ladies", 1),
+   # (try_end),
+   
+   # (try_begin),
+       # (neq, "$g_fix_pretender_titles", 1),
+       #fix pretender titles save games
+       # (try_for_range, ":troop", pretenders_begin, pretenders_end),
+           # (store_sub, ":offset", ":troop", pretenders_begin),
+           # (store_add, ":kingdom", npc_kingdoms_begin, ":offset"),
+           # (faction_slot_eq, ":kingdom", slot_faction_leader, ":troop"),
+           # (call_script, "script_troop_set_title_according_to_faction", ":troop", ":kingdom"),
+       # (try_end),
+       # (assign, "$g_fix_pretender_titles", 1),
+   # (try_end),
    
    (try_begin),
-       (neq, "$g_fix_pretender_titles", 1),
-       #fix pretender titles save games
-       (try_for_range, ":troop", pretenders_begin, pretenders_end),
-           (store_sub, ":offset", ":troop", pretenders_begin),
-           (store_add, ":kingdom", npc_kingdoms_begin, ":offset"),
-           (faction_slot_eq, ":kingdom", slot_faction_leader, ":troop"),
-           (call_script, "script_troop_set_title_according_to_faction", ":troop", ":kingdom"),
-       (try_end),
-       (assign, "$g_fix_pretender_titles", 1),
+      (neg|main_party_has_troop, "trp_player"),
+      (party_add_members, "p_main_party", "trp_player", 1),
+      (display_message, "@DEBUG: PLAYER CHARACTER RESTORED TO PARTY",0xFF2222),
    (try_end),
    
      #(call_script, "script_process_kingdom_parties_ai"), #moved to below trigger (per 1 hour) in order to allow it processed more frequent.
@@ -3279,7 +3266,7 @@ simple_triggers = [
    (neq, "$g_election_date", 45),
    (display_message, "@re-initializing banner info"),
    (call_script, "script_initialize_banner_info"),
-   (assign, "$g_custom_banner_new_game", 0),
+   #(assign, "$g_custom_banner_new_game", 0),
    #(call_script, "script_assign_lords_to_empty_centers"),
     ]),
 
@@ -3941,6 +3928,15 @@ simple_triggers = [
             (party_set_ai_patrol_radius, ":party_no", 45),
           (try_end),
         (try_end),
+      (else_try), #AC : merchant ship
+        (eq, ":party_template", "pt_merchant_ship"),
+        (party_is_in_any_town, ":party_no"),
+        (party_get_cur_town, ":cur_town", ":party_no"),
+        (store_random_in_range, ":dest_port", "p_port_1", "p_ports_end"),
+        (neq, ":cur_town", ":dest_port"),
+        (party_set_flags, ":party_no", pf_default_behavior, 0),
+        (party_set_ai_behavior, ":party_no", ai_bhvr_travel_to_party),
+        (party_set_ai_object, ":party_no", ":dest_port"),
       (else_try), #SB : piggyback to handle reinforcements
         (this_or_next|eq, ":party_template", "pt_center_reinforcements"),
         (eq, ":party_template", "pt_routed_warriors"),
@@ -5806,8 +5802,8 @@ simple_triggers = [
   (24,
    [
     (eq, "$g_player_banner_granted", 1),
-    (neq, "$g_custom_banner_new_game", 1),
-    (assign, "$g_custom_banner_new_game", 1),
+    #(neq, "$g_custom_banner_new_game", 1),
+    #(assign, "$g_custom_banner_new_game", 1),
     (le,"$auto_menu",0),
     (troop_get_slot, ":flag_spr", "trp_player", slot_troop_custom_banner_flag_type),
     (lt, ":flag_spr", 0),
@@ -6002,7 +5998,13 @@ simple_triggers = [
          (party_get_slot, ":target_volunteer_type", ":target", slot_center_volunteer_troop_type),
          (assign, ":still_needed", ":needed"),
          (val_sub, ":still_needed", ":amount"),
+         
+         #debug recruiters adding player character
          (try_begin),
+            (le, ":target_volunteer_type", 0),
+            (display_message, "@ERROR IN THE RECRUITER KIT SIMPLE TRIGGERS!",0xFF2222),
+            (party_set_slot, ":target", dplmc_slot_village_reserved_by_recruiter, 0),
+         (else_try),
             (gt, ":volunteers_in_target", ":still_needed"),
             (assign, ":santas_little_helper", ":volunteers_in_target"),
             (val_sub, ":santas_little_helper", ":still_needed"),
@@ -7425,15 +7427,6 @@ simple_triggers = [
 
   ##diplomacy end
 ]# modmerger_start version=201 type=2
-try:
-    component_name = "simple_triggers"
-    var_set = { "simple_triggers" : simple_triggers }
-    from modmerger import modmerge
-    modmerge(var_set)
-except:
-    raise
-# modmerger_end
-# modmerger_start version=201 type=2
 try:
     component_name = "simple_triggers"
     var_set = { "simple_triggers" : simple_triggers }

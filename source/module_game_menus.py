@@ -40,7 +40,7 @@ from compiler import *
 game_menus = [
   ("start_game_0",menu_text_color(0xFF000000)|mnf_disable_all_keys,
   ##diplomacy begin
-    "Welcome, adventurer, to Dickplomacy Reloaded for Mount & Blade: Warband. Before beginning the game you must create your character. Remember that in the traditional medieval society depicted in the game, war and politics are usually dominated by male members of the nobility. That does not however mean that you should not choose to play a female character, or one who is not of noble birth. Male nobles may have a somewhat easier start, but women and commoners can attain all of the same goals -- and in fact may have a much more interesting if more challenging early game.",
+    "Welcome, adventurer, to Diplomacy for Mount & Blade: Warband. Before beginning the game you must create your character. Remember that in the traditional medieval society depicted in the game, war and politics are usually dominated by male members of the nobility. That does not however mean that you should not choose to play a female character, or one who is not of noble birth. Male nobles may have a somewhat easier start, but women and commoners can attain all of the same goals -- and in fact may have a much more interesting if more challenging early game.",
   ##diplomacy end
   "none",
     [],
@@ -131,7 +131,7 @@ game_menus = [
           (assign, ":shield_score", ":score"),
         (try_end),
       (try_end),
-      
+
       (try_for_range, ":i_slot", 0, ":capacity"),
         (troop_get_inventory_slot, ":item_no", "trp_player", ":i_slot"),
         (ge, ":item_no", 0),
@@ -672,12 +672,13 @@ game_menus = [
        [(jump_to_menu, "mnu_faction_orders"),
         ]
        ),
+      
 	  ("action_view_world_map",[],"View the world map.",
        [
            (start_presentation, "prsnt_world_map"),
         ]
        ),
-	  
+
       ("view_character_report",[],"View character report.",
        [(jump_to_menu, "mnu_character_report"),
         ]
@@ -763,7 +764,7 @@ game_menus = [
            # Jrider -
         ]
        ),
-       
+
      ("dplmc_show_economic_report",[],"View prosperity report.",
        [
            (jump_to_menu, "mnu_dplmc_economic_report"),
@@ -1228,7 +1229,7 @@ game_menus = [
             (jump_to_menu,"mnu_start_character_3"),
         ]),
         #SB : conditional of parents being noble
-     ("noble",[ #"Noble in Training" is vaguely similar to role of courtier/page, 
+     ("noble",[ #"Noble in Training" is vaguely similar to role of courtier/page,
         #we pretend this means you were not fostered but rather educated in-situ
         (eq, "$background_type", cb_noble),
         ],"An unexpected heir.",[
@@ -1786,7 +1787,7 @@ game_menus = [
        (store_random_in_range, ":helmet_imod", imod_tattered, imod_reinforced),
        (store_random_in_range, ":weapon_imod", imod_crude, imod_deadly),
        (store_random_in_range, ":armor_imod", imod_tattered, imod_reinforced),
-       
+
        #SB : pick 1 set for each faction
        (store_random_in_range, ":faction_no", npc_kingdoms_begin, npc_kingdoms_end),
        (try_begin),
@@ -1846,7 +1847,7 @@ game_menus = [
          (gt, ":boots_item", 0),
          (troop_add_item, "trp_player", ":boots_item", 0),
        (try_end),
-       
+
        (store_random_in_range, ":food_item", "itm_cattle_meat", "itm_siege_supply"),
        (troop_add_item, "trp_player",":food_item"),
        # (troop_add_gold, "trp_player", 20),
@@ -2493,14 +2494,14 @@ game_menus = [
 				# (try_begin),
 					# (check_quest_active, "qst_lend_companion"),
 					# (quest_slot_eq, "qst_lend_companion", slot_quest_target_troop, ":companion"),
-					# (str_store_string, s8, "@On loan,"), 
+					# (str_store_string, s8, "@On loan,"),
 				# (else_try),
 					# (check_quest_active, "qst_lend_surgeon"),
 					# (quest_slot_eq, "qst_lend_surgeon", slot_quest_target_troop, ":companion"),
-					# (str_store_string, s8, "@On loan,"), 
+					# (str_store_string, s8, "@On loan,"),
 				# (else_try),
 					# (troop_set_slot, ":companion", slot_troop_current_mission, npc_mission_rejoin_when_possible),
-					# (str_store_string, s8, "str_attempting_to_rejoin_party"),                  
+					# (str_store_string, s8, "str_attempting_to_rejoin_party"),
 				# (try_end),
 				# (str_store_string, s5, "str_whereabouts_unknown"),
 
@@ -2542,7 +2543,7 @@ game_menus = [
 
     ],
     [
-    
+
     #SB : start commander presentation
       ("start",[],"Companion Overview...",
        [
@@ -2561,12 +2562,12 @@ game_menus = [
           # (assign, ":end", -1),
         # (try_end),
         # (set_player_troop, "$g_player_troop"),
-        
+
         #To do : add $supported_pretender and/or spouse in two placeholder troops before active_npcs
         (start_presentation, "prsnt_companion_overview"),
         ]
        ),
-      
+
       ("continue",[],"Continue...",
        [(jump_to_menu, "mnu_reports"),
         #SB : fix globals
@@ -2777,7 +2778,7 @@ game_menus = [
          (jump_to_menu, "mnu_faction_orders"),
         ]
        ),
-       
+
        #SB : debug slots
       ("faction_orders_slots", [],"{!}Debug slots.",
        [
@@ -2910,7 +2911,7 @@ game_menus = [
          (setup_quest_text,"qst_rebel_against_kingdom"),
          (str_store_string, s2, "@You promised to help {s13} claim the throne of {s14}."),
          (call_script, "script_start_quest", "qst_rebel_against_kingdom", "$supported_pretender"),
-         
+
          #merge lords
          (try_begin),
            (eq, "$players_kingdom", "fac_player_supporters_faction"),
@@ -2922,7 +2923,7 @@ game_menus = [
               (call_script, "script_change_troop_faction", ":npc", "$g_talk_troop_faction"),
            (try_end),
          (try_end),
-                 
+
          (try_begin),
            (is_between, "$players_kingdom", kingdoms_begin, kingdoms_end),
            (neq, "$players_kingdom", "fac_player_supporters_faction"),
@@ -2932,9 +2933,9 @@ game_menus = [
            (call_script, "script_add_log_entry", logent_renounced_allegiance,   "trp_player",  -1, ":old_leader", "$players_kingdom"),
            (call_script, "script_activate_player_faction", "$g_talk_troop"),
          (try_end),
-         
+
          (call_script, "script_player_join_faction", "$g_talk_troop_faction"),
-         
+
          (call_script, "script_add_notification_menu", "mnu_notification_faction_defeated", "$g_cheat_selected_faction", 0),
          (change_screen_return),
         ]
@@ -3104,7 +3105,7 @@ game_menus = [
 	   (jump_to_menu, "mnu_character_report"),
        ]
        ),
-       
+
 	("cheat_slots",[(eq,"$cheat_mode",1),
         (str_store_troop_name, s14, "$g_talk_troop"),
 	],"{!}CHEAT! - Access {s14} troop slots",
@@ -3182,7 +3183,7 @@ game_menus = [
       (str_store_string, s4, "str_space"),
     (try_end),
 
-    
+
     #SB : other modifiers from party_get_ideal_size, listed in order of precedence
     (try_for_range, ":sreg", s6, s10),
       (str_clear, ":sreg"),
@@ -3202,7 +3203,7 @@ game_menus = [
       (else_try),
         (assign, ":king_bonus", 0),
       (try_end),
-    
+
       (try_begin),
         (faction_slot_eq, "$players_kingdom", slot_faction_marshall, "trp_player"),
         (assign, ":marshal_bonus", dplmc_marshal_party_bonus),
@@ -3263,7 +3264,7 @@ game_menus = [
         (val_add, ":percent", ":serfdom"),
       (try_end),
       #if no change from default, do not display
-      (try_begin), 
+      (try_begin),
         (eq, ":percent", 100),
         (assign, ":percent", 0),
       (else_try), #last new string
@@ -3287,7 +3288,7 @@ game_menus = [
       (str_store_string, s6, "@Castellan: +{reg6}^"),
     (try_end),
     ## CC
-    
+
     # (assign, reg9, ":percent"),
     # (assign, reg8, ":king_bonus"),
     # (assign, reg7, ":marshal_bonus"),
@@ -3399,8 +3400,17 @@ TOTAL:  {reg5}"),
    "You set up camp. What do you want to do?",
    "none",
    [
-     (assign, "$g_player_icon_state", pis_normal),
-     (set_background_mesh, "mesh_pic_camp"),
+     (try_begin),
+       (neq, "$g_player_icon_state", pis_ship),
+       (assign, "$g_player_icon_state", pis_normal),
+        (party_get_slot, ":player_party", "$marshalship"),
+        (ge, ":player_party", 0),
+        (set_fixed_point_multiplier, 100),
+        (position_set_x, pos1, 70),
+        (position_set_y, pos1, 5),
+        (position_set_z, pos1, 75),
+        (set_game_menu_tableau_mesh, "tableau_troop_note_mesh", ":player_party", pos1),
+        (try_end),
     ],
     [
       ("camp_action_1",[],"Walk around the campsite.", #dckplmc
@@ -3409,18 +3419,70 @@ TOTAL:  {reg5}"),
         (change_screen_mission),
         ]
        ),
-       
+       #Fix duplication bug with mod merger by adding it directly to menus
+       ("camp_mod_opition",[],"Dickplomacy Settings.", [(start_presentation, "prsnt_mod_option")]),
        ("formation_mod_option",[],"Formations mod options.", [(start_presentation, "prsnt_formation_mod_option")]),
-       
-      ("content_options",[],"Dickplomacy Content Options.",[(jump_to_menu, "mnu_content_options")]),
-       
-      ("camp_fuck_1",[(eq,1,0)],"Fuck Test",
+
+      #("content_options",[],"Dickplomacy Reloaded Content Options.",[(jump_to_menu, "mnu_content_options")]), Not used anymore, as the mod now uses a presentation
+
+        ("gender_change", [], "Change player gender",
+         #This part of the mod could not be added to the presentation properly. It just changes the gender, so you can't really make it a drop down.
+        [(store_sub, "$character_gender", 1, "$character_gender"),
+         (troop_set_type, "trp_player", "$character_gender"),
+         (display_message, "@Your gender has been changed!"),
+         ]
+        ),
+
+      ("camp_fuck_1",[(ge, "$cheat_mode", 1)],"Fuck Test",
        [(jump_to_menu, "mnu_fuck"),
         ]
        ),
-       
 
-       
+      ("camp_disembark", [(eq, "$g_player_icon_state", pis_ship),
+        (party_get_position, pos1, "p_main_party"),
+        (map_get_land_position_around_position, pos0, pos1, 3),
+        (get_distance_between_positions_in_meters, ":dist", pos1, pos0),
+        (lt, ":dist", 3),
+      ], "Disembark.",
+       [(assign, "$g_player_icon_state", pis_normal),
+        (party_set_flags, "p_main_party", pf_is_ship, 0),
+        (party_set_position, "p_main_party", pos0),
+        (party_get_slot, ":ship_type", "p_main_party", slot_party_ship_type),
+        (try_begin),
+          (le, "$g_main_ship_party", 0),
+          (set_spawn_radius, 0),
+          (spawn_around_party, "p_main_party", "pt_none"),
+          (assign, "$g_main_ship_party", reg0),
+          (party_set_flags, "$g_main_ship_party", pf_is_static|pf_always_visible|pf_hide_defenders|pf_is_ship, 1),
+          (str_store_troop_name, s1, "trp_player"),
+          (party_set_slot, "$g_main_ship_party", slot_party_ship_type, ":ship_type"),
+          (party_set_name, "$g_main_ship_party", "@{s1}'s Ship"),
+          (party_set_icon, "$g_main_ship_party", "icon_ship"),
+          (party_set_slot, "$g_main_ship_party", slot_party_type, spt_ship),
+
+          (try_begin),
+            (eq, ":ship_type", 1),
+            (party_set_name, "$g_main_ship_party", "@{s1}'s Longship"),
+          (else_try),
+            (eq, ":ship_type", 2),
+            (party_set_name, "$g_main_ship_party", "@{s1}'s Galley"),
+          (else_try),
+            (eq, ":ship_type", 3),
+            (party_set_name, "$g_main_ship_party", "@{s1}'s Cog"),
+          (else_try),
+            (eq, ":ship_type", 4),
+            (party_set_name, "$g_main_ship_party", "@{s1}'s Dhow"),
+          (try_end),
+
+        (try_end),
+        (enable_party, "$g_main_ship_party"),
+        (party_set_position, "$g_main_ship_party", pos0),
+        (party_set_icon, "$g_main_ship_party", "icon_ship_on_land"),
+        (assign, "$g_main_ship_party", -1),
+        (party_set_slot, "p_main_party", slot_party_ship_type, 0),
+        (change_screen_return),
+        ]),
+
        ##diplomacy begin
 ###################################################################################
 # Autoloot: Allow item management from camp
@@ -3498,7 +3560,11 @@ TOTAL:  {reg5}"),
        [
            (assign,"$g_camp_mode", 1),
            (assign, "$g_infinite_camping", 0),
-           (assign, "$g_player_icon_state", pis_camping),
+
+           (try_begin),
+             (neq, "$g_player_icon_state", pis_ship),
+             (assign, "$g_player_icon_state", pis_camping),
+           (try_end),
 
            (try_begin),
              (party_is_active, "p_main_party"),
@@ -3639,7 +3705,7 @@ TOTAL:  {reg5}"),
           (try_for_range, ":troop_no", ":start", ":end"),
             (troop_set_slot, ":troop_no", slot_troop_cur_center, -1),
             (store_random_in_range, ":town_no", towns_begin, towns_end),
-            
+
             (try_begin), #ensure no overlaps
               (party_slot_ge, ":town_no", ":slots", ":start"),
               # (assign, ":limit", towns_end),
@@ -3838,7 +3904,7 @@ TOTAL:  {reg5}"),
      (val_sub, reg6, 1),
      ],
     [
-    
+
     #SB : easier debug
       ("cheat_find_item_prev_range",[], "{!}Move to previous range.",
        [
@@ -3850,7 +3916,7 @@ TOTAL:  {reg5}"),
         (jump_to_menu, "mnu_cheat_find_item"),
        ]
        ),
-       
+
       ("cheat_find_item_next_range",[], "{!}Move to next item range.",
        [
         (val_add, "$cheat_find_item_range_begin", max_inventory_items),
@@ -3899,7 +3965,7 @@ TOTAL:  {reg5}"),
         (try_end),
        ]
        ),
-       
+
       ("camp_action_4",[],"{!}Back to camp menu.",
        [(jump_to_menu, "mnu_camp"),
         ]
@@ -3958,10 +4024,19 @@ TOTAL:  {reg5}"),
   ("camp_action",0,
    "Choose an action:",
    "none",
+
    [
+            (try_begin),
+              (party_get_slot, ":player_party", "$marshalship"),
+              (ge, ":player_party", 0),
+              (set_fixed_point_multiplier, 100),
+              (position_set_x, pos1, 70),
+              (position_set_y, pos1, 5),
+              (position_set_z, pos1, 75),
+              (set_game_menu_tableau_mesh, "tableau_troop_note_mesh", ":player_party", pos1),
+              (try_end),
      ],
     [
-
 
       ("camp_recruit_prisoners",
        [(troops_can_join, 1),
@@ -3983,12 +4058,12 @@ TOTAL:  {reg5}"),
        [(jump_to_menu, "mnu_camp_action_read_book"),
         ]
        ),
-       
+
       ("action_food",[],"Change your party's food consumption habits.",
        [(start_presentation, "prsnt_food_options"),
         ]
        ),
-       
+
       #SB : rename changes
       ("camp_change_name",[],"Change the name of your party.",
        [(assign, "$g_presentation_state", rename_party),
@@ -4394,7 +4469,7 @@ TOTAL:  {reg5}"),
         (change_screen_return),
         ]
        ),
-       
+
        #SB : cattle tweaks
       ("cattle_drag_with",[
        # (call_script, "script_party_count_members_with_full_health", "p_main_party"),
@@ -4586,7 +4661,7 @@ TOTAL:  {reg5}"),
         (else_try),
           (assign, ":weapon", "itm_arena_sword"),
         (try_end),
-        
+
         (try_for_range, ":cur_entry_point", 0, 2),
           (troop_get_slot, ":cur_troop", "trp_tournament_participants", ":cur_entry_point"),
           (try_begin), #within the courtyard, 23/24 is guard entry
@@ -4731,7 +4806,7 @@ TOTAL:  {reg5}"),
               (assign, "$encountered_party_friendly", 1),
             (try_end),
           (try_end),
-          
+
           (try_begin),
             (lt, "$g_encountered_party_relation", 0),
             (assign, "$encountered_party_hostile", 1),
@@ -4897,8 +4972,8 @@ TOTAL:  {reg5}"),
       [
         (assign, "$g_battle_result", 0),
         (assign, "$g_engaged_enemy", 1),
-        
-        (assign, "$player_deploy_troops", 1),
+
+        #(assign, "$player_deploy_troops", 1),
 
         (party_get_template_id, ":encountered_party_template", "$g_encountered_party"),
         (try_begin),
@@ -4945,6 +5020,13 @@ TOTAL:  {reg5}"),
           (set_jump_mission,"mt_village_raid"),
           (party_get_slot, ":scene_to_use", "$g_encounter_is_in_village", slot_castle_exterior),
           (jump_to_scene, ":scene_to_use"),
+        (else_try), #ships
+          (party_get_slot, ":ship_type", "p_main_party", slot_party_ship_type),
+          (party_get_slot, ":enemy_ship_type", "$g_encountered_party", slot_party_ship_type),
+          (gt, ":ship_type", 0),
+          (gt, ":enemy_ship_type", 0),
+          #(set_jump_mission,"mt_ship_battle"),
+          (call_script, "script_setup_random_scene"),
         (else_try),
           (set_jump_mission,"mt_lead_charge"),
           (call_script, "script_setup_random_scene"),
@@ -5042,7 +5124,7 @@ TOTAL:  {reg5}"),
        (assign, reg3, 0),
        (str_store_troop_name, s3, ":max_skill_owner"),
      (try_end),
-     
+
     #SB : add tableau
     (set_fixed_point_multiplier, 100),
     (position_set_x, pos0, 70),
@@ -6191,15 +6273,25 @@ TOTAL:  {reg5}"),
         (assign, "$g_joined_battle_to_help", 1),
         (party_set_next_battle_simulation_time, "$g_encountered_party", -1),
         (assign, "$g_battle_result", 0),
-        
-        (assign, "$player_deploy_troops", 1),
-        
+
+        #(assign, "$player_deploy_troops", 1),
+
         (call_script, "script_calculate_renown_value"),
         (call_script, "script_calculate_battle_advantage"),
         (set_battle_advantage, reg0),
         (set_party_battle_mode),
-        (set_jump_mission,"mt_lead_charge"),
-        (call_script, "script_setup_random_scene"),
+
+        (try_begin), #ships
+          (party_get_slot, ":ship_type", "$g_ally_party", slot_party_ship_type),
+          (party_get_slot, ":enemy_ship_type", "$g_enemy_party", slot_party_ship_type),
+          (gt, ":ship_type", 0),
+          (gt, ":enemy_ship_type", 0),
+          #(set_jump_mission,"mt_ship_battle"),
+          (call_script, "script_setup_random_scene"),
+        (else_try),
+          (set_jump_mission,"mt_lead_charge"),
+          (call_script, "script_setup_random_scene"),
+        (try_end),
         (assign, "$g_next_menu", "mnu_join_battle"),
         (jump_to_menu, "mnu_battle_debrief"),
         (change_screen_mission),
@@ -6566,7 +6658,7 @@ TOTAL:  {reg5}"),
             (ge, reg0, -10),
             (eq, "$capture_screen_shown", 0),
             (assign, "$capture_screen_shown", 1),
-            
+
             (party_clear, "p_temp_party"),
             (assign, "$g_move_heroes", 0),
             (change_screen_exchange_with_party, "p_temp_party"),
@@ -6716,7 +6808,7 @@ TOTAL:  {reg5}"),
 		  #(assign, "$g_dplmc_terrain_advantage", ":save_dplmc_terrain_advantage"),
 		  ###diplomacy end+
           (assign, "$entry_to_town_forbidden",0),
-         
+
          (try_begin),         #dckplmc: handle removing disguise here, bug with saving in-mission
              (gt, "$sneaked_into_town", disguise_none),
              (display_message, "@Removing disguise...", message_alert), #SB : colorize
@@ -6738,7 +6830,7 @@ TOTAL:  {reg5}"),
              (try_end),
              (assign, "$sneaked_into_town", disguise_none),
           (try_end),
-          
+
           (assign, "$sneaked_into_town", disguise_none),
           (assign, "$town_entered", 0),
 #          (assign, "$waiting_for_arena_fight_result", 0),
@@ -6798,7 +6890,7 @@ TOTAL:  {reg5}"),
           (str_store_string,s7,"@{s8} of {s9}"),
         (try_end),
         ##diplomacy start+
-        
+
         #SB : move coruler variable up here
 		(assign, ":is_coruler", 0),
 		(try_begin),
@@ -7027,7 +7119,7 @@ TOTAL:  {reg5}"),
           (party_stack_get_troop_dna, ":caravan_leader_dna", "$caravan_escort_party_id", 0),
           (call_script, "script_setup_troop_meeting", ":caravan_leader", ":caravan_leader_dna"),
           # (start_map_conversation, ":caravan_leader", ":caravan_leader_dna"),
-          
+
 ##        (else_try),
 ##          (gt, "$lord_requested_to_talk_to", 0),
 ##          (store_current_hours, ":cur_hours"),
@@ -7115,7 +7207,7 @@ TOTAL:  {reg5}"),
 #             (change_screen_map_conversation, reg(6))
 #             ]),
       ("approach_gates",[(this_or_next|eq,"$entry_to_town_forbidden",1),
-(try_begin),
+      (try_begin),
         (party_get_slot, ":center_lord", "$current_town", slot_town_lord),
         (ge, ":center_lord", 0),
         (set_fixed_point_multiplier, 100),
@@ -7157,7 +7249,7 @@ TOTAL:  {reg5}"),
         ],
        "Disguise yourself and try to sneak into the {s7}",
        [
-       
+
          #SB : apply different disguises in new system, with outcomes
         (try_begin),
           (eq, "$g_dplmc_player_disguise", 1),
@@ -7166,11 +7258,11 @@ TOTAL:  {reg5}"),
           (troop_set_slot, "trp_player", slot_troop_player_disguise_sets, ":player_disguise"),
           # (assign, "$sneaked_into_town", disguise_none), #set no disguise
           (troop_clear_inventory, "trp_random_town_sequence"), # clear items to bring
-          
+
           (try_for_range, ":i_slot", 0, ek_food + 1), #dckplmc: bugfix - clear equipped items
             (troop_set_inventory_slot, "trp_random_town_sequence", ":i_slot", -1),
           (try_end),
-          
+
           (store_troop_gold, ":cur_amount", "trp_random_town_sequence"),
           (troop_remove_gold, "trp_random_town_sequence", ":cur_amount"),#clear gold
           (assign, "$temp", 0),
@@ -7298,7 +7390,7 @@ TOTAL:  {reg5}"),
         # (assign, "$g_mt_mode", tcm_disguised),
         (jump_to_menu, "mnu_town_cheats"),
       ]),
-      
+
       # ("castle_cheat_interior",[(eq, "$cheat_mode", 1)], "{!}CHEAT! Interior.",[(set_jump_mission,"mt_ai_training"),
                                                        # (party_get_slot, ":castle_scene", "$current_town", slot_town_castle),
                                                        # (jump_to_scene,":castle_scene"),
@@ -7368,7 +7460,7 @@ TOTAL:  {reg5}"),
        [(jump_to_menu,"mnu_town")]),
     ]
   ),
-  
+
   (
     "castle_entry_denied",mnf_scale_picture,
     "The lord of this castle has forbidden you from coming inside these walls,\
@@ -7383,7 +7475,7 @@ TOTAL:  {reg5}"),
        [(jump_to_menu,"mnu_castle_guard")]),
     ]
   ),
-  
+
   #SB : restructue this to call new script
   # (
     # "castle_meeting",mnf_scale_picture,
@@ -7746,7 +7838,7 @@ TOTAL:  {reg5}"),
 
       ("build_siege_tower",[(party_slot_eq, "$current_town", slot_center_siege_with_belfry, 1),(eq, "$g_siege_method", 0)],
        "Build a siege tower.", [(jump_to_menu,"mnu_construct_siege_tower")]),
-       
+
       ("siege_camp",[],"Walk around the siege camp.", #dckplmc
        [(set_jump_mission,"mt_camp"),
         (call_script, "script_setup_camp_scene"),
@@ -7924,7 +8016,7 @@ TOTAL:  {reg5}"),
        (assign, reg3, 0),
        (str_store_troop_name, s3, ":max_skill_owner"),
      (try_end),
-     
+
     #SB : add tableau
     (set_fixed_point_multiplier, 100),
     (position_set_x, pos0, 70),
@@ -7972,7 +8064,7 @@ TOTAL:  {reg5}"),
        (assign, reg3, 0),
        (str_store_troop_name, s3, ":max_skill_owner"),
      (try_end),
-     
+
     #SB : add tableau
     (set_fixed_point_multiplier, 100),
     (position_set_x, pos0, 70),
@@ -8463,7 +8555,7 @@ TOTAL:  {reg5}"),
             (assign, ":end", heroes_begin),
           (try_end),
           (eq, ":end", heroes_begin),
-          
+
       ],"Plunder it and share the spoils equally between your vassals and yourself.",
        [
          (assign, ":vassal_count", 1),
@@ -9196,13 +9288,13 @@ TOTAL:  {reg5}"),
        [
              (call_script, "script_enter_court", "$current_town"),
         ], "Door to the castle."),
-              
+
       #SB : add garrison management, maybe penalties if player disbands prisoners
       ("siege_defender_manage_troops",[
         (assign, ":player_can_draw_from_garrison", 0),
         (str_clear, s10),
         (party_get_slot, ":town_lord", "$g_encountered_party", slot_town_lord),
-        
+
         (store_party_size_wo_prisoners, ":party_size", "$g_encountered_party"),
         (gt, ":party_size", 0),
         (try_begin), #option 1 - player is town lord
@@ -9251,7 +9343,7 @@ TOTAL:  {reg5}"),
       ],
           "Manage the garrison {s10}",[
               (change_screen_exchange_members,1),]),
-    
+
      ##diplomacy begin
       ("dplmc_negotiate_with_besieger",
       [
@@ -9268,14 +9360,14 @@ TOTAL:  {reg5}"),
          (neg|troop_is_wounded, "trp_player"),
          ],
           "Join the battle.",[
-          
+
               (try_begin),
                   (troop_is_wounded, "trp_player"),
                   (display_message,"@Your wounds are too severe to fight.",message_locked),
               (else_try),
                   (assign, "$g_siege_first_encounter", 0), #dckplmc - moved from main menu conditions
                   (assign, "$new_encounter", 0),
-              
+
                   (party_set_next_battle_simulation_time, "$g_encountered_party", -1),
                   (assign, "$g_battle_result", 0),
                   (try_begin),
@@ -9301,7 +9393,7 @@ TOTAL:  {reg5}"),
                   (change_screen_mission),
               (try_end),
               ], "Join the defense."),
-              
+
       ("siege_defender_join_battle",
        [
          (neg|troop_is_wounded, "trp_player"),
@@ -9309,7 +9401,7 @@ TOTAL:  {reg5}"),
           "Sally out.",[
                   (assign, "$g_siege_first_encounter", 0), #dckplmc - moved from main menu conditions
                   (assign, "$new_encounter", 0),
-              
+
                   (party_set_next_battle_simulation_time, "$g_encountered_party", -1),
                   (assign, "$g_battle_result", 0),
                   (try_begin),
@@ -9329,21 +9421,21 @@ TOTAL:  {reg5}"),
                   (jump_to_menu, "mnu_battle_debrief"),
                   (change_screen_mission),
               ]),
-              
+
       ("siege_defender_troops_join_battle",[(call_script, "script_party_count_members_with_full_health", "p_main_party"),
                                             (this_or_next|troop_is_wounded,  "trp_player"),
                                             (ge, reg0, 3)],
           "Order your men to join the battle without you.",[
               (assign, "$g_siege_first_encounter", 0), #dckplmc - moved from main menu conditions
               (assign, "$new_encounter", 0),
-          
+
               (party_set_next_battle_simulation_time, "$g_encountered_party", -1),
               (select_enemy,1),
               (assign,"$g_enemy_party","$g_encountered_party_2"),
               (assign,"$g_ally_party","$g_encountered_party"),
               (assign,"$g_siege_join", 1),
               (jump_to_menu,"mnu_siege_join_defense")]),
-              
+
 
     ]
   ),
@@ -9469,7 +9561,7 @@ TOTAL:  {reg5}"),
     "{s10} {s12}^{s11}^{s6}{s7}",
     "none",
     [
-        (try_begin),
+     (try_begin),
         (party_get_slot, ":center_lord", "$current_town", slot_town_lord),
         (ge, ":center_lord", 0),
         (set_fixed_point_multiplier, 100),
@@ -9681,7 +9773,7 @@ TOTAL:  {reg5}"),
           (val_mul, "$qst_eliminate_bandits_infesting_village_num_bandits", 120),
           (val_div, "$qst_eliminate_bandits_infesting_village_num_bandits", 100),
           (val_max, "$qst_eliminate_bandits_infesting_village_num_bandits", 10), #dckplmc - no less than 10 bandits
-          
+
           # (party_get_num_companions, ":party_size", "$current_town"), #ideal size is 50
           (call_script, "script_party_count_fit_regulars", "$current_town"),
           (assign, ":party_size", reg0),
@@ -9856,8 +9948,7 @@ TOTAL:  {reg5}"),
 		(party_get_slot, ":village_elder_troop", "$current_town",slot_town_elder),
 		(gt, ":village_elder_troop", 0),
 		(this_or_next|eq, "$cheat_mode", 1),#Always can jump to village elder in cheat mode
-		(this_or_next|neq, "$cheat_mode", 1),#rubik's idea was crap, ALWAYS allow player to meet village elder
-#		(this_or_next|eq, "$players_kingdom", "$g_encountered_party_faction"), #allow when member
+		(this_or_next|eq, "$players_kingdom", "$g_encountered_party_faction"), #allow when member
         (troop_slot_ge,":village_elder_troop", slot_troop_met, 1),
 		##diplomacy end+
        ]
@@ -10233,7 +10324,7 @@ TOTAL:  {reg5}"),
 
         (jump_to_menu,"mnu_village"),
       ]),
-      
+
       #SB : disable_menu_option
       ("continue_not_enough_gold",
       [
@@ -10285,7 +10376,7 @@ TOTAL:  {reg5}"),
         (assign, ":max_skill_owner", reg1),
         (quest_get_slot, ":quest_target_dna", "qst_hunt_down_fugitive", slot_quest_target_dna),
         (call_script, "script_get_name_from_dna_to_s50", ":quest_target_dna"),
-            
+
          #SB : tableau at bottom
          (try_begin),
            (eq, ":max_skill_owner", "trp_player"),
@@ -10295,7 +10386,7 @@ TOTAL:  {reg5}"),
            (str_store_troop_name, s3, ":max_skill_owner"),
            (call_script, "script_change_troop_renown", ":max_skill_owner", dplmc_companion_skill_renown),
          (try_end),
-        
+
         (set_fixed_point_multiplier, 100),
         (position_set_x, pos0, 70),
         (position_set_y, pos0, 5),
@@ -10312,16 +10403,16 @@ TOTAL:  {reg5}"),
           (quest_set_slot, "qst_hunt_down_fugitive", slot_quest_current_state, 1),
         (try_end),
     ],
-    
+
     [
       ("continue",[],"Continue...",[
         (call_script, "script_succeed_quest", "qst_hunt_down_fugitive"),
         (jump_to_menu, "mnu_village"),
-        
+
       ]),
     ],
   ),
-  
+
   (
     "village_infest_bandits_result",mnf_scale_picture,
     "{s9}",
@@ -10434,7 +10525,7 @@ TOTAL:  {reg5}"),
                                                                        ]),
 
       ("village_bandits_defeated_cont",[],  "Refuse, stating that they need these items more than you do.",
-      [ 
+      [
         (call_script, "script_change_player_relation_with_center", "$g_encountered_party", 3),
         (call_script, "script_change_player_honor", 1),
         (jump_to_menu, "mnu_village")]),
@@ -10556,7 +10647,7 @@ TOTAL:  {reg5}"),
         (else_try),
           (assign, ":merchant_troop", -1),
         (try_end),
-        
+
         (store_current_hours, ":cur_hours"),
         (val_sub, ":hours_left", ":cur_hours"),
         (val_mul, ":hours_left", 15), #a paltry sum
@@ -10608,7 +10699,7 @@ TOTAL:  {reg5}"),
        (assign, reg3, 0),
        (str_store_troop_name, s3, ":max_skill_owner"),
      (try_end),
-    
+
     #SB : assign globals to be safe
     (assign, "$diplomacy_var", ":improvement_cost"),
     (assign, "$diplomacy_var2", ":improvement_time"),
@@ -10641,7 +10732,7 @@ TOTAL:  {reg5}"),
                                   (disable_menu_option)],
        "Insufficient fund in the treasury.", []),
       ##diplomacy end
-      
+
       ("improve_cont",[(store_troop_gold, ":cur_gold", "trp_player"),
                        (ge, ":cur_gold", "$diplomacy_var")],
        "Go on.", [
@@ -10801,13 +10892,13 @@ TOTAL:  {reg5}"),
         (party_get_slot, ":num_cattle", "$current_town", slot_village_number_of_cattle),
         (val_sub, ":num_cattle", ":random_value"),
         (party_set_slot, "$current_town", slot_village_number_of_cattle, ":num_cattle"),
-        
+
         #SB : add lesser renown bonus
         (try_begin),
           (call_script, "script_get_max_skill_of_player_party", "skl_looting"),
           (neq, reg1, "trp_player"),
           (call_script, "script_change_troop_renown", reg1, dplmc_companion_skill_renown / 2),
-        (try_end),        
+        (try_end),
       (try_end),
     ],
     [
@@ -10942,7 +11033,7 @@ TOTAL:  {reg5}"),
            (jump_to_menu, "mnu_village_loot_defeat"),
          (try_end),
        (try_end),
-       
+
        #SB : display string indicating fugitive is here
       (try_begin), #if we did not knock him out or kill him, he escapes
         (check_quest_active, "qst_hunt_down_fugitive"),
@@ -10999,7 +11090,7 @@ TOTAL:  {reg5}"),
         (neg|check_quest_concluded, "qst_hunt_down_fugitive"),
         (call_script, "script_fail_quest", "qst_hunt_down_fugitive"),
       (try_end),
-      
+
       ]),
     ],
   ),
@@ -11015,7 +11106,7 @@ TOTAL:  {reg5}"),
       (eq, "$auto_enter_menu_in_center", "mnu_village_take_food"),
       (jump_to_menu, "$auto_enter_menu_in_center"),
     (try_end),
-    
+
     ],
     [
       ("village_loot",[], "Plunder the village, then raze it.",
@@ -11031,12 +11122,12 @@ TOTAL:  {reg5}"),
             (call_script, "script_diplomacy_party_attacks_neutral", "p_main_party", "$current_town"),
           (try_end),
 
-          (rest_for_hours_interactive, 3, 5, 1), #rest while attackable (3 hours will be extended by the trigger)
+          (rest_for_hours, 3, 5, 1), #rest while attackable (3 hours will be extended by the trigger)
           (party_set_slot, "$current_town", slot_town_last_nearby_fire_time, 1), #raiding mode
           # (assign, "$g_village_raid_evil", 1), #SB : to differentiate between raiding
           (change_screen_return),
         ]),
-        
+
         #SB : alternative option if that's your thing
       ("village_enslave", [
           (party_get_num_companions, ":amount", "$current_town"),
@@ -11056,7 +11147,7 @@ TOTAL:  {reg5}"),
             (ge, ":relation", 0),
             (call_script, "script_diplomacy_party_attacks_neutral", "p_main_party", "$current_town"),
           (try_end),
-          
+
           #add a party template to represent hiding villagers so we don't go empty-handed
           (party_add_template, "$current_town", "pt_women"),
           (party_add_template, "$current_town", "pt_women"),
@@ -11238,7 +11329,7 @@ TOTAL:  {reg5}"),
           (ge, ":number_of_caravan_raids", 3),
           (unlock_achievement, ACHIEVEMENT_THE_BANDIT),
         (try_end),
-        
+
         (set_background_mesh, "mesh_pic_prisoner_wilderness"),
         (call_script, "script_objectionable_action", tmt_humanitarian, "str_sell_slavery"),
 
@@ -11249,7 +11340,7 @@ TOTAL:  {reg5}"),
         # (try_end),
         (store_random_in_range, ":enmity", -35, -25),
         (call_script, "script_change_player_relation_with_center", "$current_town", ":enmity"),
-        
+
         (party_add_particle_system, "$current_town", "psys_map_village_looted_smoke"),
         (store_faction_of_party, ":village_faction", "$current_town"),
         (store_relation, ":relation", ":village_faction", "fac_player_supporters_faction"),
@@ -11322,10 +11413,10 @@ TOTAL:  {reg5}"),
     "town",mnf_enable_hot_keys|mnf_scale_picture,
     "{s10} {s14}^{s11}{s12}{s13}",
     "none",
-
     [
+
         (try_begin),
-(party_get_slot, ":center_lord", "$current_town", slot_town_lord),
+        (party_get_slot, ":center_lord", "$current_town", slot_town_lord),
         (ge, ":center_lord", 0),
         (set_fixed_point_multiplier, 100),
         (position_set_x, pos1, 70),
@@ -11408,10 +11499,10 @@ TOTAL:  {reg5}"),
           (eq,"$g_leave_town",1),
           (assign,"$g_leave_town",0),
           (assign,"$g_permitted_to_center",0),
-          
+
           #SB : handle disguise removal here or in trigger
-          
-          
+
+
           (leave_encounter),
           (change_screen_return),
         (try_end),
@@ -11605,7 +11696,7 @@ TOTAL:  {reg5}"),
           (troop_get_slot, ":player_spouse", "trp_player", slot_troop_spouse),
           (try_begin),
             (lt, ":player_spouse", 0), #to make registers work
-            (assign, ":player_spouse", 0), 
+            (assign, ":player_spouse", 0),
           (else_try),
             (this_or_next|neg|troop_slot_eq, ":player_spouse", slot_troop_occupation, slto_kingdom_lady),
             (neg|troop_slot_eq, ":player_spouse", slot_troop_cur_center, "$current_town"),
@@ -11687,7 +11778,7 @@ TOTAL:  {reg5}"),
         (else_try),
           (call_script, "script_dplmc_store_troop_is_female_reg", ":town_lord", 4),
         (try_end),
-(try_begin),
+        (try_begin),
         (party_get_slot, ":center_lord", "$current_town", slot_town_lord),
         (ge, ":center_lord", 0),
         (set_fixed_point_multiplier, 100),
@@ -11755,7 +11846,7 @@ TOTAL:  {reg5}"),
 
           ],"Go to the castle{s1}.",
        [
-(try_begin),
+           (try_begin),
         (party_get_slot, ":center_lord", "$current_town", slot_town_lord),
         (ge, ":center_lord", 0),
         (set_fixed_point_multiplier, 100),
@@ -11861,7 +11952,7 @@ TOTAL:  {reg5}"),
              (mission_tpl_entry_set_override_flags, "mt_town_center", ":entry_no", ":override_state"),
              (call_script, "script_set_disguise_override_items", "mt_town_center", ":entry_no", 1),
            (try_end),
-           
+
            (jump_to_scene, ":town_scene"),
            (change_screen_mission),
             #If you're already at escape, then talk context will reset
@@ -12212,7 +12303,7 @@ TOTAL:  {reg5}"),
                (set_visitor, ":cur_entry", reg0),
                (val_add, ":cur_entry", 1),
              (try_end),
-			 
+
 			#dedal begin
 			(party_get_slot, ":center_faction", "$current_town", slot_center_original_faction), #dckplmc - tavern patrons same culture as town
 			(faction_get_slot, ":center_culture", ":center_faction", slot_faction_culture),
@@ -12228,9 +12319,9 @@ TOTAL:  {reg5}"),
 							(mission_tpl_entry_add_override_item,"mt_town_default",":entry","itm_dedal_kufel"),
 						(try_end),
 						(set_visitor,":entry",":town_walker",":dna"),
-                        
+
                         (troop_set_slot, "trp_temp_array_c", ":entry", ":dna"),
-                        
+
 			(try_end),
 			#dedal end
 
@@ -12387,7 +12478,7 @@ TOTAL:  {reg5}"),
            (set_visitor, 7, "trp_player"), #SB : g_player_troop back to trp_player
 
            (set_jump_mission,"mt_castle_visit"),
-           
+
            (try_begin),
              (gt, "$sneaked_into_town", disguise_none), #setup disguise
              (assign, ":override_state", af_override_everything),
@@ -12399,7 +12490,7 @@ TOTAL:  {reg5}"),
              (mission_tpl_entry_set_override_flags, "mt_castle_visit", ":entry_no", ":override_state"),
              (call_script, "script_set_disguise_override_items", "mt_castle_visit", ":entry_no", 1),
            (try_end),
-           
+
            (jump_to_scene, ":cur_castle_exterior"),
            (change_screen_mission),
             #If you're already at escape, then talk context will reset
@@ -12527,7 +12618,7 @@ TOTAL:  {reg5}"),
         (jump_to_scene,":enterprise_scene"),
         (change_screen_mission),
       ],"Door to your enterprise."),
-      
+
      ("town_brothel",
       [
         (party_slot_eq,"$current_town",slot_party_type, spt_town),
@@ -12537,17 +12628,17 @@ TOTAL:  {reg5}"),
       "Visit your tavern and bath-house.",
       [
         (assign, "$talk_context", tc_tavern_talk),
-        
+
         (troop_set_type, "trp_brothel_madam", 1), #savegames
         (troop_set_type, "trp_prostitute", 3),
         (troop_set_type, "trp_courtesan", 3),
         (troop_set_type, "trp_townsman", 2),
-      
+
         (modify_visitors_at_site,"scn_tavern"),
 		(reset_visitors),
         (set_visitor,0,"trp_player"),
         (set_visitor,9,"trp_brothel_madam"),
-        
+
         #dedal begin
         (party_get_slot, ":center_faction", "$current_town", slot_center_original_faction), #dckplmc - tavern patrons same culture as town
         (faction_get_slot, ":center_culture", ":center_faction", slot_faction_culture),
@@ -12562,12 +12653,12 @@ TOTAL:  {reg5}"),
                 (mission_tpl_entry_add_override_item,"mt_brothel",":entry","itm_dedal_kufel"),
             (try_end),
             (set_visitor,":entry",":walker_troop_id",":dna"),
-            
+
             (troop_set_slot, "trp_temp_array_c", ":entry", ":dna"),
         (try_end),
         #dedal end
-        
-        
+
+
         (assign, ":cur_entry", 40),
         (try_for_range, ":lady", heroes_begin, heroes_end),
             (try_begin),
@@ -12590,9 +12681,9 @@ TOTAL:  {reg5}"),
                 (val_add, ":cur_entry", 1),
             (try_end),
         (try_end),
-        
+
         (party_get_slot, ":num_workers", "$current_town", slot_town_brothel_num_workers),
-        
+
         (try_for_range, ":worker", 0, 12),
             (try_begin),
                 (gt, ":cur_entry", 25),
@@ -12618,13 +12709,13 @@ TOTAL:  {reg5}"),
                 (val_add, ":cur_entry", 1),
             (try_end),
         (try_end),
-        
+
         (assign, ":cur_entry", 17),
-        
+
         (store_random_in_range, ":minstrel_troop",tavern_minstrels_begin,tavern_minstrels_end),
         (set_visitor, ":cur_entry",":minstrel_troop"),
         (val_add, ":cur_entry", 1),
-        
+
         (set_jump_mission,"mt_brothel"),
         (jump_to_scene,"scn_tavern"),
         (change_screen_mission),
@@ -12632,7 +12723,7 @@ TOTAL:  {reg5}"),
 
     ("visit_lady",
 	[
-  
+
   (this_or_next|eq, "$g_polygamy", 1),
 	(neg|troop_slot_ge, "trp_player", slot_troop_spouse, kingdom_ladies_begin),
 
@@ -12711,6 +12802,7 @@ TOTAL:  {reg5}"),
              (jump_to_menu,"mnu_town_trade"),
            (try_end),
           ]),
+
       ("walled_center_manage",
       [
         (neg|party_slot_eq, "$current_town", slot_village_state, svs_under_siege),
@@ -12746,7 +12838,7 @@ TOTAL:  {reg5}"),
           (assign, ":is_coruler", 1),
         (try_end),
         (eq, ":is_coruler", 1),
-        
+
       ],
       "Move your court here.",
       [
@@ -12941,7 +13033,7 @@ TOTAL:  {reg5}"),
       [
         (jump_to_menu, "mnu_collect_taxes"),
       ]),
-      ##diplomacy begin
+    ##diplomacy begin
       ("dplmc_guild_master_meeting",
        [(party_slot_eq,"$current_town",slot_party_type, spt_town),
 	    ##nested diplomacy start+
@@ -12968,7 +13060,27 @@ TOTAL:  {reg5}"),
           (try_end),
      ]),
 	##nested diplomacy start+
-	#If you can't jump to the guild master, explain why		
+	#If you can't jump to the guild master, explain why
+    ("dplmc_guild_master_meeting_denied",
+	[
+		#Only show this when the player would get the rest of the town menu
+		(party_slot_eq,"$current_town",slot_party_type, spt_town),
+		(this_or_next|eq,"$entry_to_town_forbidden",0),
+        (gt, "$sneaked_into_town", disguise_none),
+	    #There is a valid guild master, and you haven't met him,
+		#and there isn't another condition that enables the jump.
+		(party_get_slot, ":guild_master_troop", "$current_town",slot_town_elder),
+		(gt, ":guild_master_troop", 0),
+		(eq, "$cheat_mode", 0),
+		(neq, "$g_starting_town", "$current_town"),
+		(neq, "$current_town", "p_town_6"),
+		(troop_slot_eq, ":guild_master_troop", slot_troop_met, 0),
+		(neq, "$players_kingdom", "$g_encountered_party_faction"),
+		(disable_menu_option),
+		],
+       "You have not met the Guild Master yet.",
+       [
+     ]),
 	 ##nested diplomacy end+
 	  ##diplomacy end
       ("town_leave",[],"Leave...",
@@ -12997,7 +13109,7 @@ TOTAL:  {reg5}"),
 		##diplomacy end+
       ],"Leave Area."),
 
-      #SB : consolidated cheat options 
+      #SB : consolidated cheat options
       ("town_cheat", [(ge, "$cheat_mode", 1),],
       "Use cheats.",
       [(jump_to_menu, "mnu_town_cheats"),
@@ -13101,6 +13213,30 @@ TOTAL:  {reg5}"),
         # (assign, "$g_main_ship_party", -1),
         # (change_screen_return),
       # ]),
+
+      ("sail_from_port",
+      [
+        # (party_slot_eq,"$current_town",slot_party_type, spt_town),
+        # (party_get_position, pos1, "$current_town"),
+        # (map_get_water_position_around_position, pos2, pos1, 8),
+        # (get_distance_between_positions_in_meters, ":dist", pos1, pos2),
+        # (lt, ":dist", 8),
+        #(party_set_position, "p_main_party", pos2),
+        # (ge, "$cheat_mode", 1),
+        #(party_slot_eq,"$current_town",slot_town_near_shore, 1),
+        (party_slot_ge, "$current_town", slot_town_port, "p_port_1"),
+      ],
+      "Visit the Shipyard.",
+      [
+        (jump_to_menu, "mnu_buy_ship"),
+        # (assign, "$g_player_icon_state", pis_ship),
+        # (party_set_flags, "p_main_party", pf_is_ship, 1),
+        # #(party_get_position, pos1, "p_main_party"),
+        # #(map_get_water_position_around_position, pos2, pos1, 6),
+        # (party_set_position, "p_main_party", pos2),
+        # (assign, "$g_main_ship_party", -1),
+        # (change_screen_return),
+      ]),
 
     ]
    ),
@@ -13763,14 +13899,14 @@ TOTAL:  {reg5}"),
        (call_script, "script_change_player_relation_with_center", "$current_town", -2),
      (try_end),
      (call_script, "script_succeed_quest", "qst_collect_taxes"),
-     
+
      #SB : add renown to tax collector
      (try_begin),
        (call_script, "script_get_max_skill_of_player_party", "skl_trade"),
        (neq, reg1, "trp_player"),
        (call_script, "script_change_troop_renown", reg1, dplmc_companion_skill_renown),
      (try_end),
-     
+
      (quest_get_slot, reg3, "qst_collect_taxes", slot_quest_gold_reward),
      ##Store quest giver gender to reg4
      (call_script, "script_dplmc_store_troop_is_female_reg", ":quest_giver", 4), #SB : use other script
@@ -14139,6 +14275,7 @@ TOTAL:  {reg5}"),
         (party_set_flags, "p_main_party", pf_is_ship, 0),
         (party_get_position, pos1, "p_main_party"),
         (party_set_position, "p_main_party", pos0),
+        (party_get_slot, ":ship_type", "p_main_party", slot_party_ship_type),
         (try_begin),
           (le, "$g_main_ship_party", 0),
           (set_spawn_radius, 0),
@@ -14146,21 +14283,49 @@ TOTAL:  {reg5}"),
           (assign, "$g_main_ship_party", reg0),
           (party_set_flags, "$g_main_ship_party", pf_is_static|pf_always_visible|pf_hide_defenders|pf_is_ship, 1),
           (str_store_troop_name, s1, "trp_player"),
+          (party_set_slot, "$g_main_ship_party", slot_party_ship_type, ":ship_type"),
           (party_set_name, "$g_main_ship_party", "@{s1}'s Ship"),
           (party_set_icon, "$g_main_ship_party", "icon_ship"),
           (party_set_slot, "$g_main_ship_party", slot_party_type, spt_ship),
+
+          (try_begin),
+            (eq, ":ship_type", 1),
+            (party_set_name, "$g_main_ship_party", "@{s1}'s Longship"),
+          (else_try),
+            (eq, ":ship_type", 2),
+            (party_set_name, "$g_main_ship_party", "@{s1}'s Galley"),
+          (else_try),
+            (eq, ":ship_type", 3),
+            (party_set_name, "$g_main_ship_party", "@{s1}'s Cog"),
+          (else_try),
+            (eq, ":ship_type", 4),
+            (party_set_name, "$g_main_ship_party", "@{s1}'s Dhow"),
+          (try_end),
+
+
         (try_end),
         (enable_party, "$g_main_ship_party"),
         (party_set_position, "$g_main_ship_party", pos0),
         (party_set_icon, "$g_main_ship_party", "icon_ship_on_land"),
         (assign, "$g_main_ship_party", -1),
+        (party_set_slot, "p_main_party", slot_party_ship_type, 0),
         (change_screen_return),
         ]),
-      ("disembark_no", [], "No.",
-       [(change_screen_return),
+      ("disembark_no", [
+        (party_get_position, pos1, "p_main_party"),
+        (map_get_water_position_around_position, pos2, pos1, 3),
+        (get_distance_between_positions_in_meters, ":dist", pos1, pos2),
+        (lt, ":dist", 3),
+      ], "No.",
+       [
+        #(map_get_water_position_around_position, pos1, pos0, 6),
+        #(party_set_position, "p_main_party", pos2),
+        (rest_for_hours_interactive, 1, 20, 1),
+        (change_screen_return),
         ]),
     ]
   ),
+
 
   (
     "ship_reembark",0,
@@ -14168,12 +14333,22 @@ TOTAL:  {reg5}"),
     "none",
     [],
     [
-      ("reembark_yes", [], "Yes.",
+      ("reembark_yes", [
+        (party_get_position, pos1, "$g_encountered_party"),
+        (map_get_water_position_around_position, pos2, pos1, 3),
+        (get_distance_between_positions_in_meters, ":dist", pos1, pos2),
+        (lt, ":dist", 3),
+        #(neq, "$g_player_icon_state", pis_ship),
+        ], "Yes.",
        [(assign, "$g_player_icon_state", pis_ship),
         (party_set_flags, "p_main_party", pf_is_ship, 1),
-        (party_get_position, pos1, "p_main_party"),
-        (map_get_water_position_around_position, pos2, pos1, 6),
+        #(party_get_position, pos1, "p_main_party"),
+        #(map_get_water_position_around_position, pos2, pos1, 6),
         (party_set_position, "p_main_party", pos2),
+
+        (party_get_slot, ":ship_type", "$g_encountered_party", slot_party_ship_type),
+        (party_set_slot, "p_main_party", slot_party_ship_type, ":ship_type"),
+
         (assign, "$g_main_ship_party", "$g_encountered_party"),
         (disable_party, "$g_encountered_party"),
         (change_screen_return),
@@ -14380,7 +14555,7 @@ TOTAL:  {reg5}"),
        [
            (jump_to_menu,"mnu_town_trade_assessment_begin"),
         ]),
-        
+
       ("trade_with_arms_merchant",[(party_slot_ge, "$current_town", slot_town_weaponsmith, 1)],
        "Trade with the arms merchant.",
        [
@@ -14836,7 +15011,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
     "none",
     [(assign, reg1, "$cheat_mode"),
      (call_script, "script_get_disguise_string", "$sneaked_into_town", 1),
-     
+
      # (try_begin),
        # (eq, "$sneaked_into_town", disguise_pilgrim),
        # (assign, ":string", "str_pilgrim_disguise"),
@@ -14867,7 +15042,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
            (reset_visitors),
 
            (set_jump_mission, "mt_sneak_caught_fight"),
-           
+
            (try_begin),
              (this_or_next|eq, "$talk_context", tc_escape),
              (eq, "$talk_context", tc_prison_break),
@@ -14880,7 +15055,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
              #(set_visitor,1,"trp_player"),
              (assign, ":entry_no", 1),
            (try_end),
-           
+
            (try_begin),
              (gt, "$sneaked_into_town", disguise_none), #setup disguise
              (assign, ":override_state", af_override_everything),
@@ -14888,9 +15063,9 @@ goods, and books will never be sold. ^^You can change some settings here freely.
                         #SB : script call to assign correct disguise, with weapons
              (call_script, "script_set_disguise_override_items", "mt_sneak_caught_fight", ":entry_no", 1),
            (try_end),
-           
+
            (set_jump_entry, ":entry_no"),
-           
+
            #(store_faction_of_party, ":town_faction","$current_town"),
            #(faction_get_slot, ":tier_2_troop", ":town_faction", slot_faction_tier_2_troop),
            #(faction_get_slot, ":tier_3_troop", ":town_faction", slot_faction_tier_3_troop),
@@ -14913,7 +15088,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
            #(set_visitor,3,reg1),
            #(set_visitor,4,reg2),
            #(set_visitor,5,reg3),
-           
+
 
            #(set_jump_mission, "mt_sneak_caught_fight"),
            (set_passage_menu, "mnu_town"),
@@ -15007,7 +15182,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
       (str_store_troop_name, s1, "$g_ransom_offer_troop"),
       (store_troop_faction, ":faction_no", "$g_ransom_offer_troop"),
       (str_store_faction_name, s2, ":faction_no"),
-     
+
        #SB : add tableau
       (set_fixed_point_multiplier, 100),
       (position_set_x, pos0, 70),
@@ -15018,7 +15193,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
     [
       ("ransom_accept",[],"Accept the offer.",
        [ ##diplomacy begin
-       
+
         (troop_set_slot, "$g_ransom_offer_troop", slot_troop_courtesan, -1),
         (try_begin),
           (gt, "$g_player_chamberlain", 0),
@@ -15110,7 +15285,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
             (eq, ":is_female", tf_male),
             (get_achievement_stat, ":number_of_lords_sold", ACHIEVEMENT_MAN_HANDLER, 0),
             (val_add, ":number_of_lords_sold", 1),
-            (set_achievement_stat, ACHIEVEMENT_MAN_HANDLER, 0, ":number_of_lords_sold"),			
+            (set_achievement_stat, ACHIEVEMENT_MAN_HANDLER, 0, ":number_of_lords_sold"),
 
             (eq, ":number_of_lords_sold", 3),
             (unlock_achievement, ACHIEVEMENT_MAN_HANDLER),
@@ -15309,8 +15484,8 @@ goods, and books will never be sold. ^^You can change some settings here freely.
         (party_set_slot, "$g_encountered_party", slot_grounds_melee, ":scene_no"),
       (try_end),
       (assign, "$g_training_ground_melee_training_scene", ":scene_no"),
-      
-      
+
+
       #SB : modify this interval
       (party_get_skill_level, ":training", "p_main_party", "skl_trainer"), #from 0 to 10
       (try_begin), #grab trainer troop if it isn't linked
@@ -15442,7 +15617,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
     [
       (assign, reg1, "$temp_2"),
       (troop_get_slot, "$temp_3", "trp_stack_selection_amounts", 0), #number of slots
-      
+
       #SB : show current list
       (str_clear, s1),
       (store_sub, ":end", "$temp_2", 1),
@@ -15587,7 +15762,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
    (store_sub, ":string", "$g_mt_mode", 1),
    (val_add, ":string", "str_ctm_melee"),
    (str_store_string, s0, ":string"),
-   
+
    ],
     [
       ("continue", [], "Continue...",
@@ -15898,7 +16073,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
       ("continue",[],"Continue...",
        [
 	     # Explanation of removing below code : heros are already being removed with 50% (was 75%, I decreased it) probability in mnu_total_defeat, why here there is additionally 30% removing of heros?
-		 # See codes linked to "mnu_captivity_start_wilderness_surrender" and "mnu_captivity_start_wilderness_defeat" which is connected with here they all also enter 
+		 # See codes linked to "mnu_captivity_start_wilderness_surrender" and "mnu_captivity_start_wilderness_defeat" which is connected with here they all also enter
 		 # "mnu_total_defeat" and inside the "mnu_total_defeat" there is script_party_remove_all_companions which removes 50% (was 75%, I decreased it) of compainons from player party.
 
          #(try_for_range, ":npc", companions_begin, companions_end),
@@ -15928,7 +16103,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 
          # (set_camera_follow_party, "$capturer_party"),
          # (assign, "$g_player_is_captive", 1),
-         # (store_random_in_range, ":random_hours", 18, 30),         
+         # (store_random_in_range, ":random_hours", 18, 30),
          # (call_script, "script_event_player_captured_as_prisoner"),
          # (call_script, "script_stay_captive_for_hours", ":random_hours"),
          # (assign,"$auto_menu","mnu_captivity_wilderness_check"),
@@ -15936,13 +16111,13 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 
 
          (assign, "$talk_context", tc_player_defeated),
-         
+
          (party_stack_get_troop_id, ":capturer_troop", "$capturer_party", 0),
          (party_stack_get_troop_dna, ":capturer_dna", "$capturer_party", 0),
          (party_get_template_id, ":template", "$capturer_party"),
          (store_faction_of_troop, ":troop_faction", ":capturer_troop"),
-         
-         (try_begin),     
+
+         (try_begin),
              (eq, "$g_sexual_content", 2),
              (this_or_next|eq, ":template", "pt_deserters"),
              (this_or_next|eq, ":troop_faction", fac_outlaws),
@@ -15964,7 +16139,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
          (else_try),
              (set_camera_follow_party, "$capturer_party"),
              (assign, "$g_player_is_captive", 1),
-             (store_random_in_range, ":random_hours", 18, 30),         
+             (store_random_in_range, ":random_hours", 18, 30),
              (call_script, "script_event_player_captured_as_prisoner"),
              (call_script, "script_stay_captive_for_hours", ":random_hours"),
              (assign,"$auto_menu","mnu_captivity_wilderness_check"),
@@ -16006,7 +16181,10 @@ goods, and books will never be sold. ^^You can change some settings here freely.
              (party_relocate_near_party, "p_main_party", "$capturer_party", 2),
            (try_end),
            (call_script, "script_set_parties_around_player_ignore_player", 8, 12), #it was radius:2 and hours:4, but players make lots of complains about consequent battle losses after releases from captivity then I changed this.
-           (assign, "$g_player_icon_state", pis_normal),
+           (try_begin),
+             (neq, "$g_player_icon_state", pis_ship),
+             (assign, "$g_player_icon_state", pis_normal),
+           (try_end),
            (set_camera_follow_party, "p_main_party"),
            (rest_for_hours, 0, 0, 0), #stop resting
            ##diplomacy begin
@@ -16118,7 +16296,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
     "none",
     [
       (play_cue_track, "track_escape"),
-      
+
       (try_begin),
 		  (party_is_active, "$capturer_party"),
 		  (store_faction_of_party, ":capturer_faction", "$capturer_party"),
@@ -16154,7 +16332,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
  he proposes to free you in return for {reg5} denars of your hidden wealth. You decide to...",
     "none",
     [
-      (assign, reg5, "$player_ransom_amount"),      
+      (assign, reg5, "$player_ransom_amount"),
     ],
     [
       ("captivity_end_ransom_accept",
@@ -16180,7 +16358,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
       [
         (store_troop_gold,":player_gold", "trp_player"),
         (lt, ":player_gold","$player_ransom_amount"),
-      
+
         (try_begin),
           (store_troop_gold, ":player_gold", "trp_player"),
           (assign, reg6, ":player_gold"),
@@ -16189,10 +16367,10 @@ goods, and books will never be sold. ^^You can change some settings here freely.
       [
         (play_cue_track, "track_escape"),
         (assign, "$g_player_is_captive", 0),
-        
+
         (party_get_slot, ":town_lord", "$current_town", slot_town_lord),
         (party_get_slot, ":guild_master_troop", "$current_town",slot_town_elder),
-        
+
         (store_troop_gold,":player_gold", "trp_player"),
         (troop_remove_gold, "trp_player", ":player_gold"),
         (store_sub, ":new_debts", "$player_ransom_amount", ":player_gold"),
@@ -16203,7 +16381,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
             (gt, ":guild_master_troop", -1),
             (call_script, "script_change_debt_to_troop", ":guild_master_troop", ":new_debts"),
         (try_end),
-        
+
         (val_max, ":new_debts", 1),
         (val_div, ":new_debts", 200),
         (try_begin),
@@ -16211,7 +16389,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
             (val_mul, ":new_debts", -1),
             (call_script, "script_change_troop_renown", "trp_player", ":new_debts"),
         (try_end),
-        
+
         (try_begin),
           (party_is_active, "$capturer_party"),
           (party_relocate_near_party, "p_main_party", "$capturer_party", 1),
@@ -16901,7 +17079,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 	   ]),
 	  ##diplomacy end+
       ]+
-      
+
     #SB : roll into loop
       [("appoint_npc"+str(x), [
       (main_party_has_troop, "trp_npc"+str(x)),
@@ -16910,7 +17088,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
        (assign, "$g_player_minister", "trp_npc"+str(x)),
        (jump_to_menu, "mnu_minister_confirm"),
       ]) for x in range (1, 17)]
-      
+
     +[
       ("appoint_default",[],"Appoint a prominent citizen from the area...",
        [
@@ -16944,7 +17122,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 		(main_party_has_troop, "$g_player_minister"),
 		(remove_member_from_party, "$g_player_minister", "p_main_party"),
 	(try_end),
-    
+
     #SB : tableau notes
     (set_fixed_point_multiplier, 100),
     (position_set_x, pos0, 70),
@@ -17543,7 +17721,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
            (troop_set_slot, "$supported_pretender", slot_troop_occupation, slto_kingdom_hero),
            (call_script, "script_change_troop_renown", "$supported_pretender", 1000), #SB : keep existing renown
            (val_div, ":renown_loss", 2), #and add to it half of what old king lost
-           (call_script, "script_change_troop_renown", "$supported_pretender", ":renown_loss"), 
+           (call_script, "script_change_troop_renown", "$supported_pretender", ":renown_loss"),
            # (troop_set_slot, "$supported_pretender", slot_troop_renown, 1000),
 
            (party_remove_members, "p_main_party", "$supported_pretender", 1),
@@ -17725,7 +17903,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
       ##diplomacy start+ Revert register
       (assign, reg4, ":save_reg4"),
       ##diplomacy end+
-      
+
       #SB : add tableau for lady
       (set_fixed_point_multiplier, 100),
       (init_position, pos0),
@@ -17936,12 +18114,12 @@ goods, and books will never be sold. ^^You can change some settings here freely.
         (try_for_range, ":bandit_template", bandit_party_templates_begin, bandit_party_templates_end), #SB : template range
           (party_template_slot_eq, ":bandit_template", slot_party_template_lair_party, "$g_encountered_party"),
           (party_template_set_slot, ":bandit_template", slot_party_template_lair_party, 0),
-          
+
           #dckplmc
            (store_current_hours, ":cur_hours"),
            (val_add, ":cur_hours", 168), #spawn again 1 week later
            (party_template_set_slot, ":bandit_template", slot_party_template_lair_next_spawn, ":cur_hours"),
-          
+
         (try_end),
 
         (try_begin),
@@ -17986,7 +18164,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
           (set_background_mesh, "mesh_pic_sea_raiders"),
         (try_end),
 
-        
+
         (try_begin),
           (party_slot_eq, "$g_encountered_party", slot_party_ai_substate, 0), #used in place of global variable
           (str_store_string, s3, "str_bandit_hideout_preattack"),
@@ -18327,8 +18505,13 @@ goods, and books will never be sold. ^^You can change some settings here freely.
       (call_script, "script_player_arrived"),
     ],
     [
+      ("continue",[], "Go find an inn...",
+       [
+        (jump_to_menu, "mnu_start_phase_3"),
+       ]),
+
     #SB : skip quest
-      ("skip_quest",[], "Take a nice long walk around {s1}...",
+      ("skip_quest",[], "Take a nice long walk outside {s1}...",
        [
         (assign, "$g_starting_town", -1), #this disables the startup merchant from taverns
         #let triggers load first
@@ -18337,11 +18520,6 @@ goods, and books will never be sold. ^^You can change some settings here freely.
         # (start_encounter, "$current_town"),
         (change_screen_return),
        ]),
-
-      ("continue",[], "Go find an inn...",
-       [
-        (jump_to_menu, "mnu_start_phase_3"),
-       ]),
     ]
   ),
 
@@ -18349,7 +18527,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
   ("start_phase_3",mnf_disable_all_keys,
     "{s16}^^You are exhausted by the time you find the inn in {s1}, and fall asleep quickly. However, you awake before dawn and are eager to explore your surroundings. You venture out onto the streets, which are still deserted. All of a sudden, you hear a sound that stands the hairs of your neck on end -- the rasp of a blade sliding from its scabbard...",
     "none",
-    [ 
+    [
       (assign, ":continue", 1),
       (try_begin),
         (eq, "$current_startup_quest_phase", 1),
@@ -18376,7 +18554,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
       (str_store_party_name, s1, "$g_starting_town"),
       (str_clear, s16),
       (eq, ":continue", 1),
-      
+
     ],
     [
 
@@ -18498,7 +18676,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 	(try_end),
 	(troop_set_slot, "trp_hired_assassin", slot_troop_cur_center, -1),
 	(troop_set_slot, "trp_belligerent_drunk", slot_troop_cur_center, -1), #remove him for now
-    
+
     #use s12 for additional info like lost purse, etc
     #SB : penalty for fighting while disguised
     (try_begin),
@@ -18517,7 +18695,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
          #SB : renown loss, less than losing to bandits
          (call_script, "script_change_troop_renown", "trp_player", -1),
        ]),
-       
+
       ("surrender",[(gt, "$sneaked_into_town", disguise_none),],"Surrender...",
        [
          (jump_to_menu, "mnu_captivity_castle_taken_prisoner"),
@@ -18544,7 +18722,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 	    (troop_remove_item, "trp_player", "itm_velvet"),
         (jump_to_menu, "mnu_town"),
        ]),
-       
+
     ("capital_exists",
       [
         (store_and, ":name_set", "$players_kingdom_name_set", rename_center),
@@ -18657,7 +18835,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 			  (set_game_menu_tableau_mesh, "tableau_game_character_sheet", "$lord_selected", pos0),
 			(try_end),
 		  ## CC
-          
+
           #SB : str30 shows items looted after script_dplmc_auto_loot_troop was called
           # (try_begin),
             # (neg|str_is_empty, dplmc_loot_string),
@@ -18725,13 +18903,13 @@ goods, and books will never be sold. ^^You can change some settings here freely.
         [
           (party_get_num_companion_stacks, ":num_stacks", "p_main_party"),
           ##nested diplomcy start+ Add error check.
-          
+
           ##nested diplomacy end+
           (try_begin),
             (is_between, "$lord_selected", companions_begin, companions_end),
             (assign, "$temp", "$lord_selected"),
           (else_try),
-            (assign, "$temp", -1),  
+            (assign, "$temp", -1),
             (try_for_range, ":stack_no", 0, ":num_stacks"),
               (party_stack_get_troop_id,   ":stack_troop", "p_main_party", ":stack_no"),
               (is_between, ":stack_troop", companions_begin, companions_end),
@@ -18753,7 +18931,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
           ##nested diplomacy end+
         ]
       ),
-      
+
       #all other options will reset player eventually, this is for convenience
       ("dplmc_auto_loot_reset_player", [(neq, "$lord_selected", "trp_player")],
          "Reset current troop to the player",
@@ -18890,7 +19068,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 					(jump_to_menu, "mnu_dplmc_manage_loot_pool"),
 				]
 			),
-            
+
             #SB : individual looting
 			("dplmc_autoloot_personal",
 				[(is_between, "$lord_selected", companions_begin, companions_end),(str_store_troop_name, s1, "$lord_selected")],
@@ -19883,6 +20061,15 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 	##diplomacy end+
     "none",
     [
+            (try_begin),
+            (party_get_slot, ":player_party", "$marshalship"),
+            (ge, ":player_party", 0),
+            (set_fixed_point_multiplier, 100),
+            (position_set_x, pos1, 70),
+            (position_set_y, pos1, 5),
+            (position_set_z, pos1, 75),
+            (set_game_menu_tableau_mesh, "tableau_troop_note_mesh", ":player_party", pos1),
+            (try_end),
 	##diplomacy start+
 	(troop_get_slot, reg0, "trp_dplmc_chamberlain", dplmc_slot_troop_affiliated),
 	(str_clear, s0),
@@ -19900,7 +20087,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 		(str_store_string, s0, "@{!}{s0}^^ DEBUG: Internal update code for current saved game is {reg0}.  Update code for the current release is "+str(DPLMC_CURRENT_VERSION_CODE)+"."),
 	(try_end),
 	##diplomacy end+
-    
+
     ##SB : enable presentation to be launched again
     (try_begin),
       (eq, "$g_presentation_next_presentation", "prsnt_redefine_keys"),
@@ -19952,13 +20139,13 @@ goods, and books will never be sold. ^^You can change some settings here freely.
            (store_sub, "$g_dplmc_charge_when_dead", 1, "$g_dplmc_charge_when_dead"),
            # (jump_to_menu, "mnu_dplmc_preferences"),
         ]),
-        
+
       ("dplmc_deathcam_keys",[ (eq, "$g_dplmc_battle_continuation", 0),],"Redefine camera keys.",
        [
            (assign, "$g_presentation_next_presentation", "prsnt_redefine_keys"),
            (start_presentation, "prsnt_redefine_keys"),
         ]),
-        
+
       ##diplomacy start+
       #toggle terrain advantage
       ("dplmc_disable_terrain_advantage",[(eq, "$g_dplmc_terrain_advantage", DPLMC_TERRAIN_ADVANTAGE_ENABLE),],"Disable terrain advantage in Autocalc battles (currently this feature is Enabled).",
@@ -20198,7 +20385,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
        ]),
     ]
   ),
-  
+
   ##Economic report, currently just for debugging purposes
   ("dplmc_economic_report",0,
    "{s0}",
@@ -20216,7 +20403,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 
        (this_or_next|eq, ":faction", 0),
        (faction_slot_eq, ":faction", slot_faction_state, sfs_active),
-       
+
        (try_begin),
           (eq, ":faction", 0),
           (str_store_string, s1, "@Total"),
@@ -20236,7 +20423,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
        (assign, ":q_2", 0),
        (assign, ":q_1", 0),
        (assign, ":num", 0),
-       
+
        (try_for_range, ":center_no", towns_begin, towns_end),
           (store_faction_of_party, reg0, ":center_no"),
           (this_or_next|eq, ":faction", 0),
@@ -20260,7 +20447,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
              (val_add, ":q_5", 1),
           (try_end),
        (try_end),
-       
+
        (assign, reg0, ":num"),
        (val_max, reg0, 1),
        (store_div, reg0, ":sum", reg0),
@@ -20295,7 +20482,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
           (gt, reg0, 0),
           (str_store_string, s0, "@{s0}^{s1} towns with prosperity 0-19: {reg0}"),
        (try_end),
-       
+
        (str_store_string, s0, "@{!}{s0}^"),
 
        ##(2) Faction Prosperity, villages
@@ -20306,7 +20493,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
        (assign, ":q_2", 0),
        (assign, ":q_1", 0),
        (assign, ":num", 0),
-       
+
        (try_for_range, ":center_no", villages_begin, villages_end),
           (store_faction_of_party, reg0, ":center_no"),
           (this_or_next|eq, ":faction", 0),
@@ -20330,7 +20517,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
              (val_add, ":q_5", 1),
           (try_end),
        (try_end),
-       
+
        (assign, reg0, ":num"),
        (val_max, reg0, 1),
        (store_div, reg0, ":sum", reg0),
@@ -20390,7 +20577,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
       [
         (jump_to_menu, "mnu_town_cheats_2"),
       ]),
-      
+
       ("debug",
       [],
       "Party Cheats.",
@@ -20513,7 +20700,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
          # (assign, "$town_nighttime", 1),
        (try_end),
       ]),
-      
+
       ("summon_village_bandit",
       [
        (party_slot_eq, "$current_town", slot_party_type, spt_village),
@@ -20536,7 +20723,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
           (jump_to_menu, "mnu_village"),
         (try_end),
       ]),
-      
+
       ("summon_insurgent",
       [ (party_slot_eq, "$current_town", slot_village_infested_by_bandits, 0),
       ],
@@ -20584,7 +20771,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
         (call_script, "script_refresh_center_inventories"),
         # (assign, g.selected_troop, -1),
       ]),
-      
+
       ("village_refresh",
       [(party_slot_eq, "$current_town", slot_party_type, spt_village),],
       "Refresh village goods.",
@@ -20629,7 +20816,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
         (jump_to_menu,"mnu_village"),
       ]),
     ]),
-    
+
   (
     "town_cheats_2",0,
     "Select an option to interact with the center itself. Prosperity is {reg1}, Relation is {reg2}, there are {reg3} parties in town.",
@@ -20637,7 +20824,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
         (call_script, "script_set_town_picture"),
         (party_get_slot, reg1, "$current_town", slot_town_prosperity),
         (party_get_slot, reg2, "$current_town", slot_center_player_relation),
-        
+
         (assign, ":count", 0),
         (try_for_parties, ":party_no"),
           (party_is_active, ":party_no"),
@@ -20803,11 +20990,11 @@ goods, and books will never be sold. ^^You can change some settings here freely.
           [
             (party_slot_eq,"$current_town",slot_party_type, spt_town),
             (party_get_position, pos1, "$current_town"),
-            (map_get_water_position_around_position, pos2, pos1, 6),
-            (get_distance_between_positions, ":dist", pos1, pos2),
-            (lt, ":dist", 6),
+            (map_get_water_position_around_position, pos2, pos1, 8),
+            (get_distance_between_positions_in_meters, ":dist", pos1, pos2),
+            (lt, ":dist", 8),
             # (party_set_position, "p_main_party", pos2),
-            (ge, "$cheat_mode", 1),
+            # (ge, "$cheat_mode", 1),
             #(party_slot_eq,"$current_town",slot_town_near_shore, 1),
           ],
           "{!}Sail from port.",
@@ -20820,8 +21007,8 @@ goods, and books will never be sold. ^^You can change some settings here freely.
             (assign, "$g_main_ship_party", -1),
             (change_screen_return),
           ]),
-          
-          
+
+
           ("go_back",
           [(neg|party_slot_eq,"$current_town",slot_party_type, spt_village),],
           "Go Back.",
@@ -20837,7 +21024,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
           ]),
       ]
     ),
-  
+
   #rename_court to set a capital
   (
     "rename_court",0,
@@ -20880,23 +21067,23 @@ goods, and books will never be sold. ^^You can change some settings here freely.
         (assign, "$g_presentation_state", rename_companion),
         (start_presentation, "prsnt_name_kingdom"),
       ]),
-      
+
       ("display_slots",
       [(ge, "$cheat_mode", 1)], "Show me all your secrets...",
-      [ 
+      [
         (assign, "$g_talk_troop", "$g_player_troop"),
         (jump_to_menu, "mnu_display_troop_slots"),
       ]),
       ("continue",
       [],
       "Continue...",
-      [ 
+      [
         (set_player_troop, "trp_player"),
         (jump_to_menu, "$g_next_menu"),
       ]),
     ]
   ),
-  
+
   ( #helper menu to show all slots
     "display_party_slots", menu_text_color(0xFF990000),
     "{s1}",
@@ -20920,7 +21107,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
       (neq, reg0, 0), #if there's a value in here
       (str_store_string, s1, "@{s1}^{reg1}: {reg0}"),
     (try_end),
-    
+
     # Process the prev and next parties
     # (assign, "$diplomacy_var",  "$g_encountered_party"),
     # (assign, "$diplomacy_var2", "$g_encountered_party"),
@@ -20950,7 +21137,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
       (try_end),
     (try_end),
     # (val_max, "$diplomacy_var", "p_main_party"), #lock as first party
-    
+
     (try_begin), #look for next
       (neg|party_is_active, "$diplomacy_var2"),
       (assign, "$diplomacy_var2", "$pout_party"), #this was previous checked as highest party
@@ -20963,10 +21150,10 @@ goods, and books will never be sold. ^^You can change some settings here freely.
         (assign, ":end", "$g_encountered_party"),
       (try_end),
     (try_end),
-    
+
     ],
     [
-    
+
       ("notes",
       [(is_between, "$g_encountered_party", centers_begin, centers_end),],
       "View Notes.",
@@ -20985,7 +21172,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
         # (jump_to_menu, "mnu_party_cheat"),
         (assign, "$g_encountered_party", "$diplomacy_var"),
       ]),
-      
+
       ("next",
       [
         (le, "$diplomacy_var2", "$pout_party"),
@@ -20997,8 +21184,8 @@ goods, and books will never be sold. ^^You can change some settings here freely.
       [
         (assign, "$g_encountered_party", "$diplomacy_var2"),
       ]),
-      
-      
+
+
       ("change",
       [],
       "Modify slots.",
@@ -21007,7 +21194,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
         (assign, "$g_presentation_input", rename_center),
         (start_presentation, "prsnt_modify_slots"),
       ]),
-    
+
       ("continue",
       [],
       "Continue.",
@@ -21052,7 +21239,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
     (position_get_y, reg9, pos1),
     (assign, reg11, "$g_encountered_party_relation"),
     (store_distance_to_party_from_party, reg7, "$g_encountered_party", "p_main_party"),
-    
+
     #party composition second line
     (call_script, "script_party_count_fit_for_battle", "$g_encountered_party"),
     (assign, reg12, reg0),
@@ -21061,7 +21248,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
     (party_get_num_prisoners, reg15, "$g_encountered_party"),
     (party_get_num_prisoner_stacks, reg16, "$g_encountered_party"),
     (party_get_num_attached_parties, reg17, "$g_encountered_party"),
-    
+
     #AI info third line
     (get_party_ai_behavior, ":behaviour", "$g_encountered_party"),
     (val_add, ":behaviour", "str_ai_bhvr_hold"),
@@ -21076,7 +21263,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
       (str_clear, s14),
       (assign, reg18, 0),
     (try_end),
-    
+
     (get_party_ai_object, ":object", "$g_encountered_party"),
     (try_begin),
       (this_or_next|le, ":object", 0),
@@ -21097,7 +21284,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
     (else_try),
       (str_store_party_name, s16, ":cur_object"),
     (try_end),
-    
+
     (party_get_ai_target_position, pos2, "$g_encountered_party"),
     (position_get_x, reg20, pos2),
     (position_get_y, reg21, pos2),
@@ -21160,7 +21347,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
     (try_end),
     ],
     [
-    
+
       ("talk",
       [],
       "Encounter the party.",
@@ -21168,7 +21355,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
         (call_script, "script_game_event_party_encounter", "$g_encountered_party", -1),
         # (change_screen_map),
       ]),
-      
+
       ("slots",
       [],
       "Dump all slot values.",
@@ -21176,12 +21363,12 @@ goods, and books will never be sold. ^^You can change some settings here freely.
         (jump_to_menu, "mnu_display_party_slots"),
       ]),
 
-      
+
       ("reinf",
       [],
       "Reinforce party.",
       [
-      
+
       (try_begin),
         (is_between, "$g_encountered_party", villages_begin, villages_end),
         # (party_add_template, "$g_encountered_party", "pt_village_defenders"),
@@ -21204,7 +21391,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
         (party_add_template, "$g_encountered_party", ":party_template"),
       (try_end),
       ]),
-      
+
     ("exp",
       [],
       "Upgrade party.",
@@ -21293,7 +21480,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
       [
         (change_screen_exchange_members,1),
       ]),
-      
+
       ("bandits",
       [(is_between, "$g_encountered_party", centers_begin, centers_end),],
       "Spawn bandits nearby.",
@@ -21304,7 +21491,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
         (spawn_around_party, "$g_encountered_party", ":party_template"),
       (try_end),
       ]),
-      
+
       ("leave",[],"Leave.",
        [
         (assign, "$g_leave_encounter", 1),
@@ -21313,7 +21500,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
       ),
     ]
   ),
-  
+
 
   ( #helper menu to show all troop slots
     "display_troop_slots", menu_text_color(0xFF009900),
@@ -21342,25 +21529,25 @@ goods, and books will never be sold. ^^You can change some settings here freely.
         (str_store_troop_name_plural, s2, ":upgrade_1"),
         (str_store_string, s1, "@{s1} and {s2}"),
       (try_end),
-      
+
       (call_script, "script_game_get_upgrade_xp", "$g_talk_troop"),
       (assign, reg10, reg0),
       (call_script, "script_game_get_upgrade_cost", "$g_talk_troop"),
       (assign, reg11, reg0),
       (str_store_string, s1, "@{s1}^costs {reg11} to upgrade with {reg10} xp"),
-      
+
       (call_script, "script_game_get_troop_wage", "$g_talk_troop", -1),
       (assign, reg12, reg0),
       (call_script, "script_game_get_join_cost", "$g_talk_troop"),
       (assign, reg13, reg0),
-      
+
       #this is because this script ties a global to the price
       (assign, ":troop_no", "$g_talk_troop"),
       (assign, "$g_talk_troop", ransom_brokers_begin),
       (call_script, "script_game_get_prisoner_price", ":troop_no"),
       (assign, reg14, reg0),
       (assign, "$g_talk_troop", ":troop_no"),
-      
+
       (str_store_string, s1, "@{s1}^wage of {reg12}, buy costs {reg13} sell costs {reg14}"),
     (else_try),
       (troop_is_hero, "$g_talk_troop"),
@@ -21380,14 +21567,14 @@ goods, and books will never be sold. ^^You can change some settings here freely.
         # (str_store_string, s1, "@{s1} tasking you with {s2}"),
       # (try_end),
     (try_end),
-    
+
     (str_clear, s2),
     (try_for_range, reg1, 0, 1000),
       (troop_get_slot, reg0, "$g_talk_troop", reg1),
       (neq, reg0, 0), #if there's a value in here
       (str_store_string, s2, "@{s2}^{reg1}: {reg0}"),
     (try_end),
-    
+
     (set_fixed_point_multiplier, 100),
     (init_position, pos0),
     (try_begin),
@@ -21404,7 +21591,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
     (set_game_menu_tableau_mesh, "tableau_game_party_window", ":troop_no", pos0),
     ],
     [
-    
+
     #So apparently this one needs to re-jump to the menu
       ("notes",
       [(is_between, "$g_talk_troop", heroes_begin, heroes_end),],
@@ -21425,7 +21612,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
         (assign, "$g_talk_troop", reg0),
         (jump_to_menu, "mnu_display_troop_slots"),
       ]),
-      
+
       ("next_range",
       [
         (call_script, "script_cf_troop_debug_range", "$g_talk_troop", s3, 1),
@@ -21437,7 +21624,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
         (assign, "$g_talk_troop", reg0),
         (jump_to_menu, "mnu_display_troop_slots"),
       ]),
-      
+
       ("prev",
       [
         (gt, "$g_talk_troop", "trp_player"),
@@ -21449,7 +21636,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
         (val_sub, "$g_talk_troop", 1),
         (jump_to_menu, "mnu_display_troop_slots"),
       ]),
-      
+
       ("next",
       [
         (lt, "$g_talk_troop", "trp_dplmc_recruiter"), #last troop apparently
@@ -21461,7 +21648,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
         (val_add, "$g_talk_troop", 1),
         (jump_to_menu, "mnu_display_troop_slots"),
       ]),
-      
+
       ("rename",
       [],
       "Rename.",
@@ -21470,7 +21657,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
         (assign, "$g_presentation_state", rename_companion),
         (start_presentation, "prsnt_name_kingdom"),
       ]),
-      
+
       ("change",
       [],
       "Modify slots.",
@@ -21479,14 +21666,14 @@ goods, and books will never be sold. ^^You can change some settings here freely.
         (assign, "$g_presentation_input", rename_companion),
         (start_presentation, "prsnt_modify_slots"),
       ]),
-      
+
       ("inventory",
       [],
       "Modify inventory.",
       [
         (change_screen_loot, "$g_talk_troop"),
       ]),
-    
+
        ("gender",[], "Toggle gender.",
          [
            (try_begin),
@@ -21509,13 +21696,13 @@ goods, and books will never be sold. ^^You can change some settings here freely.
       ]),
     ]
   ),
-  
+
   (
     "dplmc_choose_disguise", 0,
     "You are about to sneak into {s1}. Make sure you don't bring suspicious items or excess denars that might be confiscated. {s2}",
     "none",
     [
-    
+
          (troop_get_inventory_capacity, ":inv_cap", "trp_random_town_sequence"),
          (assign, ":count", 0),
          (try_for_range, ":i_slot", ek_food + 1, ":inv_cap"),
@@ -21536,7 +21723,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
             (set_show_messages, 1),
             (display_message, "@You cannot bring that many items with you. Your items have been returned to your inventory."),
          (try_end),
-        
+
         (str_store_party_name, s1, "$current_town"),
         #build text
         (try_begin),
@@ -21591,7 +21778,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
       [
         (change_screen_loot, "trp_random_town_sequence"),
       ]),
-      
+
       ("continue",
       [(neq, "$sneaked_into_town", disguise_none)],
       "Select how much gold to carry.",
@@ -21599,13 +21786,13 @@ goods, and books will never be sold. ^^You can change some settings here freely.
         (assign, "$pool_troop", "trp_random_town_sequence"),
         (start_presentation, "prsnt_deposit_withdraw_money"),
       ]),
-      
+
       ("continue",
       [(neq, "$sneaked_into_town", disguise_none)],
       "Attempt to sneak in...",
       [
         (set_show_messages, 0),
-        
+
         #do inventory placeholder
         (troop_clear_inventory, "trp_temp_troop"),
         (call_script, "script_dplmc_copy_inventory", "trp_player", "trp_temp_troop"),
@@ -21618,10 +21805,10 @@ goods, and books will never be sold. ^^You can change some settings here freely.
         (troop_remove_gold, "trp_random_town_sequence", ":cur_amount"),
         (troop_add_gold, "trp_player", ":cur_amount"),
         (troop_add_gold, "trp_random_town_sequence", ":cur_gold"),
-        
+
         (set_show_messages, 1),
-        
-        
+
+
         (faction_get_slot, ":player_alarm", "$g_encountered_party_faction", slot_faction_player_alarm),
         (party_get_num_companions, ":num_men", "p_main_party"),
         (party_get_num_prisoners, ":num_prisoners", "p_main_party"),
@@ -21634,7 +21821,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
             (this_or_next|ge, "$cheat_mode", 1),
             (this_or_next|ge, ":random_chance", ":get_caught_chance"),
             (eq, "$g_last_defeated_bandits_town", "$g_encountered_party"),
-            (assign, "$g_last_defeated_bandits_town", 0),              
+            (assign, "$g_last_defeated_bandits_town", 0),
             (assign, "$town_entered", 1), #dckplmc
             (assign, "$g_mt_mode", tcm_disguised),
             (jump_to_menu, "mnu_sneak_into_town_suceeded"),
@@ -21642,73 +21829,73 @@ goods, and books will never be sold. ^^You can change some settings here freely.
             (jump_to_menu,"mnu_sneak_into_town_caught"),
         (try_end),
       ]),
-      
+
       ("disguise_pilgrim",
       [
         (neq, "$sneaked_into_town", disguise_pilgrim),
       ], "Don the robes of a poor pilgrim.",
-      [ 
+      [
         (assign, "$sneaked_into_town", disguise_pilgrim),
       ]),
-      
+
       #SB : todo, add peasant woman variant
       ("disguise_farmer",
       [(store_and, ":disguise", "$temp_2", disguise_farmer),
        (eq, ":disguise", disguise_farmer),
-       (neq, "$sneaked_into_town", disguise_farmer),], 
+       (neq, "$sneaked_into_town", disguise_farmer),],
       "Accept your fate as a downtrodden farmer.",
-      [ 
+      [
         (assign, "$sneaked_into_town", disguise_farmer),
       ]),
       ("disguise_hunter",
       [(store_and, ":disguise", "$temp_2", disguise_hunter),
        (eq, ":disguise", disguise_hunter),
-       (neq, "$sneaked_into_town", disguise_hunter),], 
+       (neq, "$sneaked_into_town", disguise_hunter),],
       "Disguise yourself as a skilled {huntsman/huntress}.",
-      [ 
+      [
         (assign, "$sneaked_into_town", disguise_hunter),
       ]),
       ("disguise_guard",
       [(store_and, ":disguise", "$temp_2", disguise_guard),
        (eq, ":disguise", disguise_guard),
-       (neq, "$sneaked_into_town", disguise_guard),], 
+       (neq, "$sneaked_into_town", disguise_guard),],
       "Pass yourself off as a caravan guard.",
-      [ 
+      [
         (assign, "$sneaked_into_town", disguise_guard),
       ]),
       ("disguise_merchant",
       [(store_and, ":disguise", "$temp_2", disguise_merchant),
        (eq, ":disguise", disguise_merchant),
-       (neq, "$sneaked_into_town", disguise_merchant),], 
+       (neq, "$sneaked_into_town", disguise_merchant),],
       "Adopt the guise of a trader.",
-      [ 
+      [
         (assign, "$sneaked_into_town", disguise_merchant),
       ]),
       ("disguise_bard",
       [(store_and, ":disguise", "$temp_2", disguise_bard),
        (eq, ":disguise", disguise_bard),
-       (neq, "$sneaked_into_town", disguise_bard),], 
+       (neq, "$sneaked_into_town", disguise_bard),],
       "Try your luck as a bard.",
-      [ 
+      [
         (assign, "$sneaked_into_town", disguise_bard),
       ]),
 
       ("back",
       [],
       "Never mind...",
-      [ 
+      [
         #put stuff back
         (set_show_messages, 0), #move all gold
         (call_script, "script_move_inventory_and_gold", "trp_random_town_sequence", "trp_player", -1),
         (set_show_messages, 1),
-        
+
         (assign, "$sneaked_into_town", disguise_none),
         (jump_to_menu, "mnu_castle_outside"),
       ]),
     ]
   ),
-  
-  
+
+
   (
     "fuck",0,
     "Select a scene.",
@@ -21744,11 +21931,66 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 		  (assign, "$g_training_ground_melee_training_scene", "scn_dungeon"),
 		  (jump_to_menu,"mnu_fuck_2"),
 	  ],"Dungeon."),
-#      ("zendar_leave",[],"Leave town.",[[leave_encounter],[change_screen_return]]),
+      ("ship_a",[],"Ship a",[
+		  (assign, "$g_training_ground_melee_training_scene", "scn_sea_1"),
+		  (jump_to_menu,"mnu_fuck_2"),
+	  ],"Ship a."),
+      ("ship_b",[],"Ship b",[
+		  (assign, "$g_training_ground_melee_training_scene", "scn_sea_2"),
+		  (jump_to_menu,"mnu_fuck_2"),
+	  ],"Ship b."),
+      ("ship_c",[],"Ship c",[
+		  (assign, "$g_training_ground_melee_training_scene", "scn_sea_3"),
+		  (jump_to_menu,"mnu_fuck_2"),
+	  ],"Ship c."),
+      ("ship_d",[],"Ship d",[
+		  (assign, "$g_training_ground_melee_training_scene", "scn_sea_4"),
+		  (jump_to_menu,"mnu_fuck_2"),
+	  ],"Ship d."),
+      # ("aa",[],"a a",[
+		  # (assign, "$g_training_ground_melee_training_scene", "scn_sea_boarding_a_a"),
+		  # (jump_to_menu,"mnu_fuck_2"),
+	  # ],"a a."),
+      # ("ab",[],"a b",[
+		  # (assign, "$g_training_ground_melee_training_scene", "scn_sea_boarding_a_b"),
+		  # (jump_to_menu,"mnu_fuck_2"),
+	  # ],"a b."),
+      # ("ac",[],"a c",[
+		  # (assign, "$g_training_ground_melee_training_scene", "scn_sea_boarding_a_c"),
+		  # (jump_to_menu,"mnu_fuck_2"),
+	  # ],"a c."),
+      # ("ad",[],"a d",[
+		  # (assign, "$g_training_ground_melee_training_scene", "scn_sea_boarding_a_d"),
+		  # (jump_to_menu,"mnu_fuck_2"),
+	  # ],"a d."),
+      # ("bb",[],"b b",[
+		  # (assign, "$g_training_ground_melee_training_scene", "scn_sea_boarding_b_b"),
+		  # (jump_to_menu,"mnu_fuck_2"),
+	  # ],"b b."),
+      # ("bc",[],"b c",[
+		  # (assign, "$g_training_ground_melee_training_scene", "scn_sea_boarding_b_c"),
+		  # (jump_to_menu,"mnu_fuck_2"),
+	  # ],"b c."),
+      # ("bd",[],"b d",[
+		  # (assign, "$g_training_ground_melee_training_scene", "scn_sea_boarding_b_d"),
+		  # (jump_to_menu,"mnu_fuck_2"),
+	  # ],"b d."),
+      # ("cc",[],"c c",[
+		  # (assign, "$g_training_ground_melee_training_scene", "scn_sea_boarding_c_c"),
+		  # (jump_to_menu,"mnu_fuck_2"),
+	  # ],"c c."),
+      # ("cd",[],"c d",[
+		  # (assign, "$g_training_ground_melee_training_scene", "scn_sea_boarding_c_d"),
+		  # (jump_to_menu,"mnu_fuck_2"),
+	  # ],"c d."),
+      # ("dd",[],"d d",[
+		  # (assign, "$g_training_ground_melee_training_scene", "scn_sea_boarding_d_d"),
+		  # (jump_to_menu,"mnu_fuck_2"),
+	  # ],"d d."),
       ("leave",[],"back",[(jump_to_menu, "mnu_camp")]),
     ]
   ),
-  
+
   (
     "fuck_2",0,
     "Pick a position",
@@ -21775,14 +22017,14 @@ goods, and books will never be sold. ^^You can change some settings here freely.
       ("leave",[],"Go back.",[(jump_to_menu, "mnu_camp")]),
 	]
   ),
-  
+
   ("fuck_3",0,
    "Who will be {s4}?^{s1}^{reg1}:",
    "none",
     [
       (assign, reg1, "$temp_2"),
       (troop_get_slot, "$temp_3", "trp_stack_selection_amounts", 0), #number of slots
-      
+
 	  (str_clear, s4),
 	  (try_begin),
 		  (eq, "$temp_2", 1),
@@ -21796,7 +22038,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 	  (else_try),
 		  (str_store_string, s4, "@fucking"),
 	  (try_end),
-	  
+
       #SB : show current list
       (str_clear, s1),
       (store_sub, ":end", "$temp_2", 1),
@@ -21826,7 +22068,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
        [(call_script, "script_training_ground_sub_routine_2_for_melee_details_fuck", x),])
        for x in range(0, 20)]
   ),
-  
+
   (
     "fucked_by_enemy",0,
     "Your enemies take you prisoner.",
@@ -21838,18 +22080,18 @@ goods, and books will never be sold. ^^You can change some settings here freely.
          (call_script, "script_event_player_captured_as_prisoner"),
          (call_script, "script_stay_captive_for_hours", ":random_hours"),
          (assign,"$auto_menu","mnu_captivity_wilderness_check"),
-         
+
         (call_script, "script_change_troop_renown", "trp_player", -10),
-         
+
         (troop_get_slot, ":dna", "trp_temp_array_c", 17),
-         
-        (troop_set_slot, "trp_temp_array_a", 0, "trp_player"), 
-        (troop_set_slot, "trp_temp_array_b", 0, -1), 
+
+        (troop_set_slot, "trp_temp_array_a", 0, "trp_player"),
+        (troop_set_slot, "trp_temp_array_b", 0, -1),
         (troop_set_slot, "trp_temp_array_a", 1, "$g_talk_troop"),
-        (troop_set_slot, "trp_temp_array_b", 1, ":dna"), 
+        (troop_set_slot, "trp_temp_array_b", 1, ":dna"),
         (store_random_in_range, ":r", 0, 2),
         (assign, "$g_sex_position", ":r"),
-        
+
           (party_get_current_terrain, ":terrain_type", "p_main_party"),
           (assign, ":scene_to_use", "scn_camp_scene_plain"),
           (try_begin),
@@ -21868,9 +22110,24 @@ goods, and books will never be sold. ^^You can change some settings here freely.
             (this_or_next|eq, ":terrain_type", rt_desert),
             (eq, ":terrain_type", rt_desert_forest),
             (assign, ":scene_to_use", "scn_camp_scene_desert"),
-          # (else_try),
-            # (eq, ":terrain_type", rt_water), #figure this out later
-            # (assign, ":scene_to_use", "scn_camp_scene_plain"),
+          (else_try),
+            (this_or_next|eq, ":terrain_type", rt_river),
+            (eq, ":terrain_type", rt_water), #figure this out later
+            (assign, ":scene_to_use", "scn_sea_1"),
+            (party_get_slot, ":ship_type", "$capturer_party", slot_party_ship_type),
+            (try_begin),
+              (eq, ":ship_type", 1),
+              (assign, ":scene_to_use", "scn_sea_1"),
+            (else_try),
+              (eq, ":ship_type", 2),
+              (assign, ":scene_to_use", "scn_sea_2"),
+            (else_try),
+              (eq, ":ship_type", 3),
+              (assign, ":scene_to_use", "scn_sea_3"),
+            (else_try),
+              (eq, ":ship_type", 4),
+              (assign, ":scene_to_use", "scn_sea_4"),
+            (try_end),
           (else_try),
             (eq, ":terrain_type", rt_bridge),
             (try_for_parties, ":party_no"),
@@ -21886,8 +22143,8 @@ goods, and books will never be sold. ^^You can change some settings here freely.
                 (try_end),
             (try_end),
           (try_end),
-        
-        
+
+
         (call_script, "script_start_fucking", 2, ":scene_to_use"),
      ],
     [
@@ -21896,7 +22153,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
          ]),
       ]
   ),
-  
+
   (
     "fucked_by_enemy_prison",0,
     "The guards are infuriated by your refusal to pay the ransom.\
@@ -21908,28 +22165,28 @@ goods, and books will never be sold. ^^You can change some settings here freely.
     [
       ("continue",[],"Continue...",
        [
-       
+
             (assign, "$g_player_is_captive", 1),
             (store_random_in_range, reg(8), 16, 22),
             (call_script, "script_stay_captive_for_hours", reg8),
             (assign,"$auto_menu", "mnu_captivity_castle_check"),
-            
+
 		    (store_faction_of_party, ":capturer_faction", "$capturer_party"),
-            
+
             (faction_get_slot, ":troop_prison_guard", ":capturer_faction", slot_faction_prison_guard_troop),
             (call_script, "script_change_troop_renown", "trp_player", -2),
-            
+
             (try_begin),
                 (eq, ":troop_prison_guard", -1),
                 (assign, ":troop_prison_guard", "trp_hired_blade"),
             (try_end),
-       
-            (troop_set_slot, "trp_temp_array_a", 0, "trp_player"), 
+
+            (troop_set_slot, "trp_temp_array_a", 0, "trp_player"),
             (troop_set_slot, "trp_temp_array_a", 1, ":troop_prison_guard"),
             (troop_set_slot, "trp_temp_array_a", 2, -1),
             (troop_set_slot, "trp_temp_array_a", 3, ":troop_prison_guard"),
             (assign, "$g_sex_position", 2),
-            
+
             (call_script, "script_start_fucking", 4, "scn_dungeon"),
 
          ]),
@@ -21964,11 +22221,11 @@ goods, and books will never be sold. ^^You can change some settings here freely.
        ),
       ]
   ),
-  
+
   ("content_options",0,
-   "Dickplomacy Reloaded Content Options",
+   "Diplomacy Content Options",
    "none",
-   [     (set_background_mesh, "mesh_pic_camp"), ],
+   [],
     [
       ("camp_fuck_setting",[
         #(eq,0,1),
@@ -22011,10 +22268,20 @@ goods, and books will never be sold. ^^You can change some settings here freely.
            (display_message, "@{reg0} parties removed from the map."),
         ]
        ),
-      ("camp_dark_hunters",[(assign, reg0, "$g_realistic_wounding"),],"{reg0?Dis:En}able realistic troop wounding system",
+      ("camp_realistic_wounding",[(assign, reg0, "$g_realistic_wounding"),],"{reg0?Dis:En}able realistic casualties",
        [
            (val_clamp, "$g_realistic_wounding", 0, 2), #in case of other values
            (store_sub, "$g_realistic_wounding", 1, "$g_realistic_wounding"),
+        ]
+       ),
+      ("camp_same_sex_on",[(neq, "$g_disable_condescending_comments", 2)],"Enable same sex marriage",
+       [
+           (assign,"$g_disable_condescending_comments", 2),
+        ]
+       ),
+      ("camp_same_sex_off", [(neq, "$g_disable_condescending_comments", 0)],
+        "Disable same sex marriage",
+        [(assign, "$g_disable_condescending_comments", 0),
         ]
        ),
       ("camp_polygamy",[(assign, reg0, "$g_polygamy"),],"{reg0?Dis:En}able polygamy",
@@ -22023,34 +22290,28 @@ goods, and books will never be sold. ^^You can change some settings here freely.
            (store_sub, "$g_polygamy", 1, "$g_polygamy"),
         ]
        ),
-       ("gender_change", [], "Change player gender",
-        [(store_sub, "$character_gender", 1, "$character_gender"),
-         (troop_set_type, "trp_player", "$character_gender"),
-         (display_message, "@Your gender has been changed!"),
-         ]
-        ),
-       ("back",[],"Back",
+      ("back",[],"Back",
        [(jump_to_menu, "mnu_camp"),
         ]
        ),
       ]
   ),
-  
-  
+
+
   (
     "fuck_encounter",0,
     "Your enemies take you prisoner.",
     "none",
     [
         (troop_get_slot, ":dna", "trp_temp_array_c", 17),
-         
-        # (troop_set_slot, "trp_temp_array_a", 0, "trp_player"), 
-        # (troop_set_slot, "trp_temp_array_b", 0, -1), 
+
+        # (troop_set_slot, "trp_temp_array_a", 0, "trp_player"),
+        # (troop_set_slot, "trp_temp_array_b", 0, -1),
         # (troop_set_slot, "trp_temp_array_a", 1, "$g_talk_troop"),
-        # (troop_set_slot, "trp_temp_array_b", 1, ":dna"), 
+        # (troop_set_slot, "trp_temp_array_b", 1, ":dna"),
         # (store_random_in_range, ":r", 0, 2),
         # (assign, "$g_sex_position", ":r"),
-        
+
           (party_get_current_terrain, ":terrain_type", "p_main_party"),
           (assign, ":scene_to_use", "scn_camp_scene_plain"),
           (try_begin),
@@ -22069,9 +22330,10 @@ goods, and books will never be sold. ^^You can change some settings here freely.
             (this_or_next|eq, ":terrain_type", rt_desert),
             (eq, ":terrain_type", rt_desert_forest),
             (assign, ":scene_to_use", "scn_camp_scene_desert"),
-          # (else_try),
-            # (eq, ":terrain_type", rt_water), #figure this out later
-            # (assign, ":scene_to_use", "scn_camp_scene_plain"),
+          (else_try),
+            (this_or_next|eq, ":terrain_type", rt_river),
+            (eq, ":terrain_type", rt_water), #figure this out later
+            (assign, ":scene_to_use", "scn_sea_1"),
           (else_try),
             (eq, ":terrain_type", rt_bridge),
             (try_for_parties, ":party_no"),
@@ -22087,8 +22349,8 @@ goods, and books will never be sold. ^^You can change some settings here freely.
                 (try_end),
             (try_end),
           (try_end),
-        
-        
+
+
         (call_script, "script_start_fucking", 2, ":scene_to_use"),
      ],
     [
@@ -22097,12 +22359,115 @@ goods, and books will never be sold. ^^You can change some settings here freely.
          ]),
       ]
   ),
+
+  (
+    "buy_ship",0,
+    "Which ship do you want to buy?",
+    "none",
+    [
+	],
+    [
+      ("ship_a",[],"Longship (5000 denars)",[
+        (try_begin),
+          (store_troop_gold, ":gold", "trp_player"),
+          (ge, ":gold", 5000),
+          (assign, "$g_player_icon_state", pis_ship),
+          (party_set_flags, "p_main_party", pf_is_ship, 1),
+          #
+          (party_get_slot, ":port", "$current_town", slot_town_port),
+          (party_get_position, pos2, ":port"),
+          (party_set_position, "p_main_party", pos2),
+          # (party_get_position, pos1, "p_main_party"),
+          # (map_get_water_position_around_position, pos2, pos1, 8),
+          # (party_set_position, "p_main_party", pos2),
+          (assign, "$g_main_ship_party", -1),
+          (party_set_slot, "p_main_party", slot_party_ship_type, 1),
+          (troop_remove_gold, "trp_player", 5000),
+          (change_screen_return),
+        (else_try),
+          (display_message, "@Not enough money to buy that."),
+        (try_end),
+      ]),
+      ("ship_b",[],"Galley (7,000 denars)",[
+        (try_begin),
+          (store_troop_gold, ":gold", "trp_player"),
+          (ge, ":gold", 7000),
+          (assign, "$g_player_icon_state", pis_ship),
+          (party_set_flags, "p_main_party", pf_is_ship, 1),
+          #
+          (party_get_slot, ":port", "$current_town", slot_town_port),
+          (party_get_position, pos2, ":port"),
+          (party_set_position, "p_main_party", pos2),
+          # (party_get_position, pos1, "p_main_party"),
+          # (map_get_water_position_around_position, pos2, pos1, 8),
+          # (party_set_position, "p_main_party", pos2),
+          (assign, "$g_main_ship_party", -1),
+          (party_set_slot, "p_main_party", slot_party_ship_type, 2),
+          (troop_remove_gold, "trp_player", 7000),
+          (change_screen_return),
+        (else_try),
+          (display_message, "@Not enough money to buy that."),
+        (try_end),
+      ]),
+      ("ship_c",[],"Cog (10,000 denars)",[
+        (try_begin),
+          (store_troop_gold, ":gold", "trp_player"),
+          (ge, ":gold", 10000),
+          (assign, "$g_player_icon_state", pis_ship),
+          (party_set_flags, "p_main_party", pf_is_ship, 1),
+          #
+          (party_get_slot, ":port", "$current_town", slot_town_port),
+          (party_get_position, pos2, ":port"),
+          (party_set_position, "p_main_party", pos2),
+          # (party_get_position, pos1, "p_main_party"),
+          # (map_get_water_position_around_position, pos2, pos1, 8),
+          # (party_set_position, "p_main_party", pos2),
+          (assign, "$g_main_ship_party", -1),
+          (party_set_slot, "p_main_party", slot_party_ship_type, 3),
+          (troop_remove_gold, "trp_player", 10000),
+          (change_screen_return),
+        (else_try),
+          (display_message, "@Not enough money to buy that."),
+        (try_end),
+      ]),
+      ("ship_d",[],"Dhow (8,000 denars)",[
+        (try_begin),
+          (store_troop_gold, ":gold", "trp_player"),
+          (ge, ":gold", 8000),
+          (assign, "$g_player_icon_state", pis_ship),
+          (party_set_flags, "p_main_party", pf_is_ship, 1),
+          #
+          (party_get_slot, ":port", "$current_town", slot_town_port),
+          (party_get_position, pos2, ":port"),
+          (party_set_position, "p_main_party", pos2),
+          # (party_get_position, pos1, "p_main_party"),
+          # (map_get_water_position_around_position, pos2, pos1, 8),
+          # (party_set_position, "p_main_party", pos2),
+          (assign, "$g_main_ship_party", -1),
+          (party_set_slot, "p_main_party", slot_party_ship_type, 4),
+          (troop_remove_gold, "trp_player", 8000),
+          (change_screen_return),
+        (else_try),
+          (display_message, "@Not enough money to buy that."),
+        (try_end),
+      ]),
+      ("leave",[],"Leave the shipyard.",[(jump_to_menu, "mnu_town")]),
+    ]
+  ),
+
+
  ]
 # modmerger_start version=201 type=2
 try:
     component_name = "game_menus"
     var_set = { "game_menus" : game_menus }
     from modmerger import modmerge
+    modmerge(var_set)
+except:
+    raise
+try:
+    var_set = { "game_menus" : game_menus }
+    from xgm_mod_options_game_menus import modmerge
     modmerge(var_set)
 except:
     raise

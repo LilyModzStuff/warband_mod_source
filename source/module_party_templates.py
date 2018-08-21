@@ -174,10 +174,15 @@ party_templates = [
  ("refugees","Refugees",icon_woman,0,fac_innocents,merchant_personality,[(trp_refugee,19,48)]),
  
  ("women","Peasant Women",icon_woman,0,fac_innocents,merchant_personality,[(trp_peasant_woman,3,8)]),
- ("sarranid_women","Peasant Women",icon_woman,0,fac_innocents,merchant_personality,[(trp_peasant_woman,3,8)]),
- ("khergit_women","Peasant Women",icon_woman,0,fac_innocents,merchant_personality,[(trp_peasant_woman,3,8)]),
- ("khergit_farmers","Village Farmers",icon_peasant,0,fac_innocents,merchant_personality,[(trp_farmer,5,10),]),
- ("sarranid_farmers","Village Farmers",icon_peasant,0,fac_innocents,merchant_personality,[(trp_farmer,5,10)]),
+ # ("sarranid_women","Peasant Women",icon_woman,0,fac_innocents,merchant_personality,[(trp_sarranid_woman,3,8)]),
+ # ("khergit_women","Peasant Women",icon_woman,0,fac_innocents,merchant_personality,[(trp_khergit_woman,3,8)]),
+ # ("khergit_farmers","Village Farmers",icon_peasant,0,fac_innocents,merchant_personality,[(trp_khergit_farmer,5,10)]),
+ # ("sarranid_farmers","Village Farmers",icon_peasant,0,fac_innocents,merchant_personality,[(trp_sarranid_farmer,5,10)]),
+ 
+ ("sea_raiders_ship","Sea Raiders",icon_longboat|carries_goods(2)|pf_is_ship,0,fac_outlaws,bandit_personality,[(trp_sea_raider,40,45)]),
+ ("corsair_ship","Corsairs",icon_galley|carries_goods(2)|pf_is_ship,0,fac_outlaws,bandit_personality,[(trp_sea_raider,40,45)]),
+ ("merchant_ship","Merchant Vessel",icon_carrack|carries_goods(50)|pf_is_ship|pf_show_faction,0,fac_commoners,merchant_personality,[(trp_caravan_master,1,1),(trp_mercenary_swordsman,5,10),(trp_mercenary_crossbowman,10,25)]),
+ ("pirate_ship","Pirates",icon_dhow|carries_goods(2)|pf_is_ship,0,fac_outlaws,bandit_personality,[(trp_sea_raider,40,45)]),
 
 ]
 # modmerger_start version=201 type=2

@@ -3,10 +3,10 @@
 
 from header_common import *
 from header_operations import *
+from module_constants import *
 from header_mission_templates import *
 from header_items import *
 from header_presentations import * 
-from module_constants import *
 
 
 ####################################################################################################################

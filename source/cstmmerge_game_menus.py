@@ -263,7 +263,7 @@ def modmerge(var_set):
 	menus["start_character_4"].text = "{s12}^^But soon everything changed and you were on your way to a strange land to claim your title of {reg3?Queen:King}. What made you take this decision was..."
 	menus["start_character_4"].operations.append((assign, reg3, "$character_gender"))
 	for option_id, option_text in new_starting_option_texts.iteritems():
-		if option_id in menus["start_character_4"].options:
+		try:
 			menus["start_character_4"].options[option_id].consequences.extend([
 				(try_begin),
 					(eq, "$cstm_start_as_king", 1),
@@ -271,7 +271,7 @@ def modmerge(var_set):
 					(str_store_string, s13, option_text),
 				(try_end),
 			])
-		else:
+		except KeyError:
 			print "Could not find reason for setting out as adventurer option: %s. Discarding text." % (option_id)
 	
 	del orig_menus[:]
