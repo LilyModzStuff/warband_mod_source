@@ -104,7 +104,7 @@ simple_triggers = [
  #Auto-menu
 #Auto-menu
   (0,
-   [         
+   [
      (try_begin),
        (gt, "$g_last_rest_center", 0),
        (party_get_battle_opponent, ":besieger_party", "$g_last_rest_center"),
@@ -143,21 +143,21 @@ simple_triggers = [
          (assign, "$g_camp_mode", 0),
          (assign, "$g_infinite_camping", 0),
          (assign, "$g_player_icon_state", pis_normal),
-         
+
          (rest_for_hours, 0, 0, 0), #stop camping
-                 
+
          (display_message, "@Breaking camp..."),
        (try_end),
      (try_end),
      ]),
 
-  
+
 (0.25,
    [
       (gt,"$auto_besiege_town",0),
       (gt,"$g_player_besiege_town", 0),
       (ge, "$g_siege_method", 1),
-   
+
       (store_distance_to_party_from_party, ":distance", "$g_player_besiege_town", "p_main_party"),
       (try_begin),
         (gt, ":distance", raid_distance / 2),
@@ -178,7 +178,7 @@ simple_triggers = [
         (rest_for_hours, 0, 0, 0), #stop resting, if resting
         (start_encounter, "$auto_besiege_town"),
       (try_end),
-    ]), 
+    ]),
 
 #Notification menus
   (0,
@@ -285,7 +285,7 @@ simple_triggers = [
 		(try_end),
         (lt, ":leaded_party", 1),#if the value is 0, it's a bug, so overlook it
         ##diplomacy end+
-        
+
         #do not change location if under siege
         (assign, ":continue", 1),
         (try_begin),
@@ -295,7 +295,7 @@ simple_triggers = [
             (assign, ":continue", 0),
         (try_end),
         (eq, ":continue", 1),
-        
+
         (neg|troop_slot_ge, ":troop_id", slot_troop_prisoner_of_party, 0),
         (call_script, "script_get_kingdom_lady_social_determinants", ":troop_id"),
         (assign, ":location", reg1),
@@ -452,7 +452,7 @@ simple_triggers = [
         (map_free),
         (jump_to_menu, "mnu_village_loot_continue"),
       (try_end),
-    ]),  
+    ]),
 
   #Pay day.
   (24 * 7,
@@ -622,7 +622,7 @@ simple_triggers = [
 		 (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
 	   ##diplomacy end+
          (troop_get_slot, ":cur_debt", ":troop_no", slot_troop_player_debt),#Increasing debt
-         
+
          (try_begin), #dckplmc - lose relation for unpaid debts
             (gt, ":cur_debt", 0),
             (call_script, "script_troop_change_relation_with_troop", "trp_player", ":troop_no", -3),
@@ -630,7 +630,7 @@ simple_triggers = [
             (assign, reg1, ":cur_debt"),
             (display_message, "@You have an outstanding debt of {reg1} denars with {s15}"),
          (try_end),
-         
+
          (lt, ":cur_debt", dplmc_ransom_debt_mask), #qst_rescue_prisoner does not accumulate
          #SB : aristocracy/plutocracy debt modifier
          (store_faction_of_troop, ":faction_no", ":troop_no"),
@@ -768,7 +768,7 @@ simple_triggers = [
           (assign, ":center_faction", "$g_player_culture"),
         (try_end),
         ##diplomacy end+
-        
+
         (try_begin),
           (this_or_next|eq, ":center_faction", "fac_player_supporters_faction"),
           (eq, ":center_faction", "$players_kingdom"),
@@ -800,31 +800,31 @@ simple_triggers = [
         (faction_get_slot, ":pt_c", ":center_faction", slot_faction_reinforcements_c),
         # do village reinforcement loops
         (try_for_range, ":village_reinforcements", villages_begin, villages_end),
-          
+
           (gt, ":num_hiring_rounds", 0),
           (party_slot_eq, ":village_reinforcements", slot_village_state, svs_normal), ## Not if the village is being raided or is looted
           (party_slot_eq, ":village_reinforcements", slot_village_bound_center, ":center_no"),
           (store_div, ":hiring_budget", ":cur_wealth", 2),
           (gt, ":hiring_budget", ":reinforcement_cost"),
-          
+
           (party_get_slot, ":result", ":village_reinforcements", slot_village_reinforcement_party),
           (try_begin), #inactive, etc
             (this_or_next|le, ":result", 0),
             (neg|party_is_active, ":result"),
             (spawn_around_party, ":village_reinforcements", "pt_center_reinforcements"),
             (assign, ":result", reg0),
-                       
+
               ###faction icons### dckplmc
               (try_begin),
                   (is_between, ":center_faction", npc_kingdoms_begin, kingdoms_end),
                   (store_sub, ":fac_offset", ":center_faction", npc_kingdoms_begin),
                   (try_begin),
-                      (store_add, ":icon", "icon_kingdom_1_soldier_b", ":fac_offset"), 
+                      (store_add, ":icon", "icon_kingdom_1_soldier_b", ":fac_offset"),
                       (party_set_icon, ":result", ":icon"),
                   (try_end),
               (try_end),
               ###
-            
+
           (try_end),
           # (party_get_num_companions, ":num_companions", ":result"), #should be 0, unless this is run before current party reaches there
           # (lt, ":num_companions", 25),
@@ -837,7 +837,7 @@ simple_triggers = [
             (val_add, ":rand", ":dplmc_quality"),
             # (val_clamp, ":rand", 0, 101),
           (try_end),
-          
+
           # (try_begin),
             # (is_between, ":rand", 0, 45),  ## Get weakest template
             # (party_add_template, ":result", ":pt_a"),
@@ -848,7 +848,7 @@ simple_triggers = [
             # (ge, ":rand", 85), ## Get strongest template
             # (party_add_template, ":result", ":pt_c"),
           # (try_end),
-          
+
           (try_begin),
             (lt, ":rand", 65),
             (party_add_template, ":result", ":pt_a"),
@@ -892,7 +892,7 @@ simple_triggers = [
        #(neg|is_between, ":center_no", castles_begin, castles_end),
        (store_random_in_range, ":random", 0, 30),
        (le, ":random", 10),
-	   
+
        (call_script, "script_get_center_ideal_prosperity", ":center_no"),
        (assign, ":ideal_prosperity", reg0),
        (party_get_slot, ":prosperity", ":center_no", slot_town_prosperity),
@@ -905,7 +905,7 @@ simple_triggers = [
              (neg|is_between, ":center_no", castles_begin, castles_end), #castles always gain positive prosperity from surprise income to balance their prosperity.
              (call_script, "script_change_center_prosperity", ":center_no", -10),
              (val_add, "$newglob_total_prosperity_from_convergence", -10),
-           (else_try),     
+           (else_try),
              (call_script, "script_change_center_prosperity", ":center_no", 10),
              (val_add, "$newglob_total_prosperity_from_convergence", 10),
            (try_end),
@@ -1417,21 +1417,21 @@ simple_triggers = [
 			(neg|is_between, ":troop_no", "trp_kingdom_1_lord", "trp_knight_1_1"),
 			(neg|is_between, ":troop_no", pretenders_begin, pretenders_end),
 
-		  (assign, ":num_centers", 0),		  
-		  (try_for_range,":cur_center", walled_centers_begin, walled_centers_end),		    
+		  (assign, ":num_centers", 0),
+		  (try_for_range,":cur_center", walled_centers_begin, walled_centers_end),
 		    (store_faction_of_party, ":faction_of_center", ":cur_center"),
-			(eq, ":faction_of_center", ":faction"),			
+			(eq, ":faction_of_center", ":faction"),
 			(val_add, ":num_centers", 1),
 		  (try_end),
 
-		  #we are counting num_centers to allow defection although there is high relation between faction leader and troop. 
+		  #we are counting num_centers to allow defection although there is high relation between faction leader and troop.
 		  #but this rule should not applied for player's faction and player_supporters_faction so thats why here 1 is added to num_centers in that case.
-		  (try_begin), 
+		  (try_begin),
 		    (this_or_next|eq, ":faction", "$players_kingdom"),
 			(eq, ":faction", "fac_player_supporters_faction"),
 			(val_add, ":num_centers", 1),
 		  (try_end),
-			
+
 			(call_script, "script_troop_get_relation_with_troop", ":troop_no", ":faction_leader"),
           (this_or_next|le, reg0, -50), #was -75
 		  (eq, ":num_centers", 0), #if there is no walled centers that faction has defection happens 100%.
@@ -1454,13 +1454,13 @@ simple_triggers = [
 				(lt, ":random", 5),
 				(neq, ":troop_no", "trp_player"),
 				#do a defection
-                        (try_begin), 
-                          (neq, ":num_centers", 0), 
+                        (try_begin),
+                          (neq, ":num_centers", 0),
 						  #Note that I assign the troop number instead of 1 as is done in Native
                           (assign, "$g_give_advantage_to_original_faction", ":troop_no"),
                         (try_end),
 			#(assign, "$g_give_advantage_to_original_faction", 1),
-        
+
 			(store_faction_of_troop, ":orig_faction", ":troop_no"),
 				(call_script, "script_lord_find_alternative_faction", ":troop_no"),
 				(assign, ":new_faction", reg0),
@@ -1711,7 +1711,7 @@ simple_triggers = [
    (2,
    [
    (assign, "$fuck_stamina", 1), #fucking
-   
+
    # (try_begin),
        # (neq, "$g_fix_rebel_ladies", 1),
        # (try_for_range, ":cur_troop", kingdom_ladies_begin, kingdom_ladies_end),
@@ -1725,7 +1725,7 @@ simple_triggers = [
        # (try_end),
        # (assign, "$g_fix_rebel_ladies", 1),
    # (try_end),
-   
+
    # (try_begin),
        # (neq, "$g_fix_pretender_titles", 1),
        #fix pretender titles save games
@@ -1737,13 +1737,13 @@ simple_triggers = [
        # (try_end),
        # (assign, "$g_fix_pretender_titles", 1),
    # (try_end),
-   
+
    (try_begin),
       (neg|main_party_has_troop, "trp_player"),
       (party_add_members, "p_main_party", "trp_player", 1),
       (display_message, "@DEBUG: PLAYER CHARACTER RESTORED TO PARTY",0xFF2222),
    (try_end),
-   
+
      #(call_script, "script_process_kingdom_parties_ai"), #moved to below trigger (per 1 hour) in order to allow it processed more frequent.
    ]),
 
@@ -1755,7 +1755,7 @@ simple_triggers = [
     (call_script, "script_allow_vassals_to_join_indoor_battle"),
 
     (call_script, "script_process_kingdom_parties_ai"),
-     
+
     #SB : add spotting check, moved to less time-consuming slot
     (call_script, "script_get_max_skill_of_player_party", "skl_spotting"),
     (store_add, ":spotting", reg0, 3),
@@ -2804,7 +2804,7 @@ simple_triggers = [
              (assign, ":caravan_distance_to_player", 9999),
              (try_begin), #code from triggers
                (eq, "$caravan_escort_state", 1),
-               (eq, ":cur_center", "$caravan_escort_destination_town"), 
+               (eq, ":cur_center", "$caravan_escort_destination_town"),
                #arrived, check if player is nearby to prompt conversation (unless player triggered dialog first)
                (store_distance_to_party_from_party, ":caravan_distance_to_player","p_main_party","$caravan_escort_party_id"),
                (lt, ":caravan_distance_to_player", 5),
@@ -2902,7 +2902,7 @@ simple_triggers = [
                (try_end),
              (try_end),
            (try_end),
-           
+
          (else_try),
            (try_begin),
              (party_get_slot, ":cur_ai_object", ":party_no", slot_party_ai_object),
@@ -3455,10 +3455,10 @@ simple_triggers = [
           (call_script, "script_dplmc_remove_gold_from_lord_and_holdings", ":ransom_amount", ":stack_troop"),
           ##diplomacy end+
           (val_add, ":wealth", ":ransom_amount"),
-          
+
           (party_remove_prisoners, ":center_no", ":stack_troop", 1),
           (call_script, "script_remove_troop_from_prison", ":stack_troop"),
-          
+
           (store_troop_faction, ":troop_faction", ":stack_troop"),
           (str_store_troop_name, s1, ":stack_troop"),
           (str_store_faction_name, s2, ":faction_no"),
@@ -3540,7 +3540,7 @@ simple_triggers = [
         # (else_try),
           # (eq, ":cur_improvement", slot_center_has_messenger_post),
         (try_end),
-      
+
       (try_end),
     (try_end),
     ]),
@@ -3596,7 +3596,7 @@ simple_triggers = [
           (lt, ":random_no", 3),
           (assign, ":continue", 1),
         (try_end),
-        
+
         ## SB : add variety to night bandits
         (try_begin),
           (eq, ":continue", 1),
@@ -3804,7 +3804,7 @@ simple_triggers = [
       #(try_begin),
         #(eq, "$cheat_mode", 1),
         #(str_store_faction_name, s1, ":cur_kingdom"),
-        #(faction_get_slot, reg1, ":cur_kingdom", slot_faction_number_of_parties),        
+        #(faction_get_slot, reg1, ":cur_kingdom", slot_faction_number_of_parties),
         #(display_message, "@{!}Number of parties belonging to {s1}: {reg1}"),
       #(try_end),
       (faction_slot_eq, ":cur_kingdom", slot_faction_state, sfs_active),
@@ -3981,7 +3981,7 @@ simple_triggers = [
         (try_end),
         (is_between, ":cur_attached_town", walled_centers_begin, walled_centers_end),
         # (eq, ":cur_attached_town", ":cur_center"),
-        
+
         (try_begin), #weed out undesirables
           (party_get_num_companion_stacks, ":num_stacks", ":party_no"),
           (store_faction_of_party, ":cur_faction", ":cur_attached_town"),
@@ -4004,7 +4004,7 @@ simple_triggers = [
             (try_end),
             (this_or_next|is_between, ":troop_no", "trp_looter", bandits_end), #looters are easy to route, don't let them rejoin
             (lt, ":cur_relation", 0),
-            
+
             (party_stack_get_size, ":stack_size", ":party_no", ":stack_no"),
             (party_remove_members, ":party_no", ":troop_no", ":stack_size"),
             (party_add_prisoners, ":party_no", ":troop_no", ":stack_size"),
@@ -4017,7 +4017,7 @@ simple_triggers = [
            # (str_store_party_name_link, s2, ":cur_center"),
            # (display_log_message, "@active {s1} arrived at {s2}"),
          # (try_end),
-        
+
         (try_begin), #unset slot before deallocating party
           (eq, ":party_template", "pt_center_reinforcements"),
           (party_get_slot, ":village", ":party_no", slot_party_home_center),
@@ -4050,7 +4050,7 @@ simple_triggers = [
        (store_div, ":renown_decrease", ":player_renown", 200),
        (val_sub, ":player_renown", ":renown_decrease"),
        (troop_set_slot, "trp_player", slot_troop_renown, ":player_renown"),
-       
+
        #SB : slowly increase renown of minister weekly instead of doing so upon assignment
        (try_begin),
          (gt, "$g_player_minister", 0),
@@ -4156,7 +4156,7 @@ simple_triggers = [
         (assign, ":town_lord", "trp_player"),
       (try_end),
       (eq, ":town_lord", "trp_player"),
-      
+
       (party_slot_eq, ":cur_village", slot_center_has_school, 1),
       (party_get_slot, ":cur_relation", ":cur_village", slot_center_player_relation),
       (val_add, ":cur_relation", 1),
@@ -5153,7 +5153,7 @@ simple_triggers = [
 	(try_begin),
    (ge, ":diplomacy_version_code", 0),#do not run this if the code is bad
    (lt, ":diplomacy_version_code", 1),
-   
+
    #Add home centers for claimants (mods not using standard NPCs or map may wish to remove this)
    (troop_set_slot, "trp_kingdom_1_pretender", slot_troop_home, "p_town_4"),#Lady Isolle - Suno
    (troop_set_slot, "trp_kingdom_2_pretender", slot_troop_home, "p_town_11"),#Prince Valdym - Curaw
@@ -5173,7 +5173,7 @@ simple_triggers = [
    (troop_set_slot, "trp_kingdom_4_lord", slot_troop_home, "p_town_1"),#King Ragnar to Sargoth
    (troop_set_slot, "trp_kingdom_5_lord", slot_troop_home, "p_town_5"),#King Graveth to Jelkala
    (troop_set_slot, "trp_kingdom_6_lord", slot_troop_home, "p_town_19"),#Sultan Hakim to Shariz
-   
+
    (call_script, "script_dplmc_init_domestic_policy"),
    #Set the "original lord" values corresponding to the above.
    (try_for_range, ":troop_no", active_npcs_begin, active_npcs_end),
@@ -5545,13 +5545,13 @@ simple_triggers = [
          (try_end),
       (try_end),
    (try_end),
-   
+
    #SB : new features
    (try_begin),
       (is_between, ":diplomacy_version_code", 0, DPLMC_CURRENT_VERSION_CODE),
       #set up camera keys
       (call_script, "script_setup_camera_keys"),
-      
+
       #set up disguise system, disabled by default
       (assign, "$g_dplmc_player_disguise", 0),
       (try_begin),
@@ -5563,7 +5563,7 @@ simple_triggers = [
           (val_add, ":disguise", disguise_farmer),
           (assign, ":villages_end", -1), #loop break
         (try_end),
-        
+
         #hunter, acquired from background or archery skill
         (try_begin),
           (store_proficiency_level, ":cur_amount", "trp_player", wpt_archery),
@@ -5573,7 +5573,7 @@ simple_triggers = [
           (eq, "$background_answer_3", cb3_poacher),
           (val_add, ":disguise", disguise_hunter),
         (try_end),
-        
+
         #merchant, from background or gold count or enterprise
         (try_begin),
           (assign, ":continue", 0),
@@ -5608,7 +5608,7 @@ simple_triggers = [
           (eq, "$background_answer_3", cb3_squire),
           (val_add, ":disguise", disguise_guard),
         (try_end),
-        
+
         #bard, from background or known songs
         (try_begin),
           (store_add, ":cur_amount", "$allegoric_poem_recitations", "$mystic_poem_recitations"),
@@ -5621,8 +5621,8 @@ simple_triggers = [
         (try_end),
       (try_end),
       (troop_set_slot, "trp_player", slot_troop_player_disguise_sets, ":disguise"),
-      
-      
+
+
       #equip voulges
       (troop_add_item, "trp_fighter_woman", "itm_shortened_voulge"),
       (troop_add_item, "trp_swadian_sergeant", "itm_awlpike_long"),
@@ -5634,7 +5634,7 @@ simple_triggers = [
       (troop_add_item, "trp_vaegir_guard", "itm_long_bardiche"),
       (troop_add_item, "trp_vaegir_infantry", "itm_two_handed_battle_axe_2"),
       (troop_remove_item, "trp_vaegir_infantry", "itm_battle_axe"),
-      
+
       #add coloured tunics to messengers, remove leather_jerkin
       (troop_remove_item, "trp_swadian_messenger", "itm_leather_jerkin"),
       (troop_remove_item, "trp_vaegir_messenger", "itm_leather_jerkin"),
@@ -5659,10 +5659,10 @@ simple_triggers = [
       (troop_add_item, "trp_rhodok_messenger", "itm_light_crossbow"),
       (troop_add_item, "trp_rhodok_messenger", "itm_steel_bolts"),
       (troop_add_item, "trp_rhodok_messenger", "itm_arena_tunic_green"),
-      
+
       #equip tavern drunks/assassin (could be done as easily in trigger)
       (troop_add_item, "trp_belligerent_drunk","itm_sword_medieval_a"),
-      (troop_add_item, "trp_belligerent_drunk","itm_sword_khergit_1"), 
+      (troop_add_item, "trp_belligerent_drunk","itm_sword_khergit_1"),
       (troop_add_item, "trp_belligerent_drunk","itm_arabian_sword_a"),
       (troop_remove_item, "trp_hired_assassin","itm_sword_medieval_a"),
       (troop_add_item, "trp_hired_assassin","itm_sword_viking_3"),
@@ -5670,7 +5670,7 @@ simple_triggers = [
       (troop_add_item, "trp_hired_assassin","itm_sword_khergit_4"),
       (troop_add_item, "trp_hired_assassin","itm_arabian_sword_d"),
       (troop_add_item, "trp_hired_assassin","itm_strange_sword"),
-      
+
       #rivacheg strange bonus chest
       (store_random_in_range, ":imod", imod_rusty, imod_strong),
       (troop_add_item, "trp_bonus_chest_1","itm_strange_sword", ":imod"),
@@ -5680,7 +5680,7 @@ simple_triggers = [
       (troop_add_item, "trp_bonus_chest_1","itm_strange_boots", ":imod"),
       (store_random_in_range, ":imod", imod_tattered, imod_lame),
       (troop_add_item, "trp_bonus_chest_1","itm_strange_helmet", ":imod"),
-      
+
       (troop_add_item, "trp_bonus_chest_2","itm_bride_dress", imod_stubborn),
       (troop_add_item, "trp_bonus_chest_2","itm_bride_crown", imod_deadly),
       (troop_add_item, "trp_bonus_chest_2","itm_bride_shoes", imod_smelling),
@@ -5716,7 +5716,7 @@ simple_triggers = [
         (party_set_slot, ":grounds", slot_grounds_count, "$g_training_ground_training_count"),
         (troop_set_slot, ":npc", slot_troop_cur_center, ":grounds"),
       (try_end),
-    
+
     #other tavern npc based on location
       (try_for_range, ":town_no", towns_begin, towns_end),
         (try_for_range, ":slot_no", slot_center_ransom_broker, slot_center_tavern_minstrel + 1),
@@ -5735,7 +5735,7 @@ simple_triggers = [
       (assign, "$character_gender", 0),
     (try_end),
    ##diplomacy end+
-   
+
    (assign, reg1, ":save_reg1"),#Revert register
    (assign, reg0, ":save_reg0"),#Revert register
 
@@ -5780,7 +5780,7 @@ simple_triggers = [
 	  #Staples
       (item_set_slot, "itm_bread", slot_item_food_bonus, 8), #brought up from 4
       (item_set_slot, "itm_grain", slot_item_food_bonus, 2), #new - can be boiled as porridge
-	  
+
 	  #Fat sources - preserved
       (item_set_slot, "itm_smoked_fish", slot_item_food_bonus, 4),
       (item_set_slot, "itm_dried_meat", slot_item_food_bonus, 5),
@@ -5792,7 +5792,7 @@ simple_triggers = [
       (item_set_slot, "itm_chicken", slot_item_food_bonus, 8), #brought up from 7
       (item_set_slot, "itm_cattle_meat", slot_item_food_bonus, 7), #brought down from 7
       (item_set_slot, "itm_pork", slot_item_food_bonus, 6), #brought down from 6
-	  
+
 	  #Produce
       (item_set_slot, "itm_raw_olives", slot_item_food_bonus, 1),
       (item_set_slot, "itm_cabbages", slot_item_food_bonus, 2),
@@ -5802,7 +5802,7 @@ simple_triggers = [
 	  #Sweet items
       (item_set_slot, "itm_raw_date_fruit", slot_item_food_bonus, 4), #brought down from 8
       (item_set_slot, "itm_honey", slot_item_food_bonus, 6), #brought down from 12
-      
+
       (item_set_slot, "itm_wine", slot_item_food_bonus, 5),
       (item_set_slot, "itm_ale", slot_item_food_bonus, 4),
    ]),
@@ -6022,7 +6022,7 @@ simple_triggers = [
          (party_get_slot, ":target_volunteer_type", ":target", slot_center_volunteer_troop_type),
          (assign, ":still_needed", ":needed"),
          (val_sub, ":still_needed", ":amount"),
-         
+
          #debug recruiters adding player character
          (try_begin),
             (le, ":target_volunteer_type", 0),
@@ -6529,14 +6529,14 @@ simple_triggers = [
       (val_add, ":cur_number", "$novice_training_difficulty"), #1 to 6
       (val_div, ":cur_number", 2),
       (val_max, ":cur_number", 1),
-      
+
       (try_for_range, ":grounds", training_grounds_begin, training_grounds_end),
         (store_distance_to_party_from_party, ":distance", ":grounds", "$g_constable_training_center"),
         (lt, ":distance", ":max_distance"),
         (val_add, ":xp_gain", ":cur_number"),
       (try_end),
     (try_end),
-   
+
    #SB : move calculations up
    (store_mul, ":troop_limit", "$g_constable_training_improved", 2), #from 0 to 4
    (val_add, ":troop_limit", 7), #base recruit level in Natives + 1, values now can be 7/9/11/13/15
@@ -6599,7 +6599,7 @@ simple_triggers = [
 
       (store_character_level, ":troop_level", ":troop_id"),
       (le, ":troop_level", ":troop_limit"),
-      
+
       # (party_count_members_of_type,":cur_number",":party_no",":troop_id"),
       (party_stack_get_size, ":cur_number", ":party_no", ":i_stack"),
       (party_stack_get_num_wounded, ":num_wounded",":party_no",":i_stack"),
@@ -6613,7 +6613,7 @@ simple_triggers = [
 
       (call_script, "script_game_get_upgrade_cost", ":troop_id"),
       (store_mul, ":upgrade_cost", ":cur_number", reg0),
-      
+
       # (try_for_range, ":troop_count", 0, ":cur_number"),
         # (gt, ":gold", ":total_cost"),
         # (val_add, ":total_cost", ":upgrade_cost"),
@@ -6648,9 +6648,9 @@ simple_triggers = [
       (str_store_troop_name_by_count, s7, ":upgrade_troop", ":cur_number"),
       (str_store_party_name_link, s8, ":party_no"),
       (display_log_message, "@Your constable upgraded {reg5} {s6} to {s7} in {s8}"),
-      
+
     (try_end),
-    
+
     #finalize costs
     (call_script, "script_dplmc_withdraw_from_treasury", ":total_cost"),
    # (try_end),
@@ -6807,7 +6807,7 @@ simple_triggers = [
             (party_set_ai_patrol_radius, ":party_no", 1),
             (party_set_ai_target_position, ":party_no", pos1),
           (try_end),
-          
+
         # (else_try),
           # #remove party?
         (try_end),
@@ -7449,6 +7449,23 @@ simple_triggers = [
       (try_end),
     ]),
 
+  #Interest on deposits.
+  (24 * 7,
+   [
+    (try_begin),
+       (gt, "$g_player_deposit", 0),
+       (store_div,":interest_deposit","$g_player_deposit",250),
+       (troop_add_gold, "trp_player",":interest_deposit"),
+    (try_end),
+    ]),
+  #Interest on debts.
+  (24 * 7,
+   [
+     (try_begin),
+       (gt, "$g_player_debt", 0),
+       (jump_to_menu,"mnu_debt_interest"),
+     (try_end),
+    ]),
   ##diplomacy end
 ]# modmerger_start version=201 type=2
 try:

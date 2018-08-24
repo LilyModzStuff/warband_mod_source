@@ -629,6 +629,9 @@ game_menus = [
         (jump_to_scene,"scn_tutorial_training_ground"),
         (change_screen_mission),
         ]),
+      ("choose_scene",[],"Scene Chooser",
+   [(jump_to_menu, "mnu_choose_scenes_0"),]
+),
 
       ("go_back_dot",
       [],
@@ -672,7 +675,7 @@ game_menus = [
        [(jump_to_menu, "mnu_faction_orders"),
         ]
        ),
-      
+
 	  ("action_view_world_map",[],"View the world map.",
        [
            (start_presentation, "prsnt_world_map"),
@@ -9947,7 +9950,7 @@ TOTAL:  {reg5}"),
 		#rubik had a good idea: only enable this after having met the village elder
 		(party_get_slot, ":village_elder_troop", "$current_town",slot_town_elder),
 		(gt, ":village_elder_troop", 0),
-		(this_or_next|eq, "$cheat_mode", 1),#Always can jump to village elder in cheat mode
+		(this_or_next|eq, "$cheat_mode", 0),#Always can jump to village elder in cheat mode, modified by Lily to always meat regardless of cheat mode.
 		(this_or_next|eq, "$players_kingdom", "$g_encountered_party_faction"), #allow when member
         (troop_slot_ge,":village_elder_troop", slot_troop_met, 1),
 		##diplomacy end+
@@ -9975,22 +9978,22 @@ TOTAL:  {reg5}"),
         ]),
       ##diplomacy end
 	##diplomacy start+
-	#If you can't jump to the village elder, explain why
-    ("dplmc_village_elder_meeting_denied",
-	[
-		#Only show this when the player would get the rest of the village menus
-        (call_script, "script_cf_village_normal_cond", "$current_town"), #SB : script condition
-	    #There is a valid village elder, and you haven't met him,
-		#and there isn't another condition that enables the jump.
-		(party_get_slot, ":village_elder_troop", "$current_town",slot_town_elder),
-		(gt, ":village_elder_troop", 0),
-		(eq, "$cheat_mode", 0),
-		(troop_slot_eq, ":village_elder_troop", slot_troop_met, 0),
-		(disable_menu_option),
-		],
-       "You have not met the village elder yet.",
-       [
-     ]),
+	#I commented this out so that it doens't duplicate in the menu ~ Lily
+#    ("dplmc_village_elder_meeting_denied",
+#	[
+#		#Only show this when the player would get the rest of the village menus
+#        (call_script, "script_cf_village_normal_cond", "$current_town"), #SB : script condition
+#	    #There is a valid village elder, and you haven't met him,
+#		#and there isn't another condition that enables the jump.
+#		(party_get_slot, ":village_elder_troop", "$current_town",slot_town_elder),
+#		(gt, ":village_elder_troop", 0),
+#		(eq, "$cheat_mode", 0),
+#		(troop_slot_eq, ":village_elder_troop", slot_troop_met, 0),
+#		(disable_menu_option),
+#		],
+#       "You have not met the village elder yet.",
+#       [
+#     ]),
 	 ##diplomacy end+
       ("village_buy_food",[(party_slot_eq, "$current_town", slot_village_state, svs_normal),
                            (neg|party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
@@ -12329,6 +12332,13 @@ TOTAL:  {reg5}"),
            (try_end),
         ],"Door to the tavern."),
 
+       ("town_bank",
+       [],
+       "Visit the bank.",
+       [
+           (jump_to_menu,"mnu_bank"),
+        ]),
+
 #      ("town_smithy",[
 #          (eq,"$entry_to_town_forbidden",0),
 #          (eq,"$town_nighttime",0),
@@ -13059,28 +13069,28 @@ TOTAL:  {reg5}"),
            # (change_screen_map_conversation, ":guild_master_troop"),
           (try_end),
      ]),
-	##nested diplomacy start+
-	#If you can't jump to the guild master, explain why
-    ("dplmc_guild_master_meeting_denied",
-	[
-		#Only show this when the player would get the rest of the town menu
-		(party_slot_eq,"$current_town",slot_party_type, spt_town),
-		(this_or_next|eq,"$entry_to_town_forbidden",0),
-        (gt, "$sneaked_into_town", disguise_none),
-	    #There is a valid guild master, and you haven't met him,
-		#and there isn't another condition that enables the jump.
-		(party_get_slot, ":guild_master_troop", "$current_town",slot_town_elder),
-		(gt, ":guild_master_troop", 0),
-		(eq, "$cheat_mode", 0),
-		(neq, "$g_starting_town", "$current_town"),
-		(neq, "$current_town", "p_town_6"),
-		(troop_slot_eq, ":guild_master_troop", slot_troop_met, 0),
-		(neq, "$players_kingdom", "$g_encountered_party_faction"),
-		(disable_menu_option),
-		],
-       "You have not met the Guild Master yet.",
-       [
-     ]),
+#	##nested diplomacy start+
+#	#I commented this out so that it doesn't appear in menu ~ Lily
+#    ("dplmc_guild_master_meeting_denied",
+#	[
+#		#Only show this when the player would get the rest of the town menu
+#		(party_slot_eq,"$current_town",slot_party_type, spt_town),
+#		(this_or_next|eq,"$entry_to_town_forbidden",0),
+#        (gt, "$sneaked_into_town", disguise_none),
+#	    #There is a valid guild master, and you haven't met him,
+#		#and there isn't another condition that enables the jump.
+#		(party_get_slot, ":guild_master_troop", "$current_town",slot_town_elder),
+#		(gt, ":guild_master_troop", 0),
+#		(eq, "$cheat_mode", 0),
+#		(neq, "$g_starting_town", "$current_town"),
+#		(neq, "$current_town", "p_town_6"),
+#		(troop_slot_eq, ":guild_master_troop", slot_troop_met, 0),
+#		(neq, "$players_kingdom", "$g_encountered_party_faction"),
+#		(disable_menu_option),
+#		],
+#       "You have not met the Guild Master yet.",
+#       [
+#     ]),
 	 ##nested diplomacy end+
 	  ##diplomacy end
       ("town_leave",[],"Leave...",
@@ -22454,9 +22464,123 @@ goods, and books will never be sold. ^^You can change some settings here freely.
       ("leave",[],"Leave the shipyard.",[(jump_to_menu, "mnu_town")]),
     ]
   ),
+  (
+    "debt_interest",mnf_scale_picture|mnf_disable_all_keys,
+    "{s2}",
+    "none",
+    [
 
+	  (store_div, ":debt_interest","$g_player_debt",25),
+          (assign, reg11, ":debt_interest"),
+          (store_troop_gold, ":player_wealth", "trp_player"),
+          (assign, reg8, ":player_wealth"),
+	(try_begin),
+	  (ge,"$g_player_debt",1),
+	  (try_begin),
+            (ge, ":player_wealth", ":debt_interest"),
+            (troop_remove_gold, "trp_player",":debt_interest"),
+            (store_sub, reg9, reg8, reg11),
+            (str_store_string, s2, "@You paid {reg11} of your {reg8} denars in interest on your debt. You have {reg9} denars left."),
+          (else_try),
+	    (gt, ":debt_interest",":player_wealth"),
+	    (gt, ":player_wealth",0),
+	    (store_sub, ":unpaid_interest", ":debt_interest",":player_wealth"),
+            (troop_remove_gold, "trp_player",":player_wealth"),
+            (assign, reg10, ":unpaid_interest"),
+            (val_add, "$g_player_debt",":unpaid_interest"),
+            (str_store_string, s2, "@You paid all of your {reg8} denars in interest on your debt.  There were still {reg10} denars of the interest unpaid, which has been added to your debt.  You have 0 denars left."),
+          (else_try),
+	    (gt, "$g_player_debt",0),
+	    (eq, ":player_wealth",0),
+	    (store_sub, ":unpaid_interest", ":debt_interest",":player_wealth"),
+            (val_add, "$g_player_debt",":unpaid_interest"),
+            (str_store_string, s2, "@You had 0 denars left to pay the interest on your debt.  The interest of {reg10} denars has been added to your debt."),
+          (else_try),
+            (str_store_string, s2, "@You have no debts to pay interest on."),
+	  (try_end),
+	(try_end),
+    ],
+    [
+      ("continue",[],"Continue...",
+       [
+        (change_screen_return,0),
+        ]
+       ),
+    ]
+  ),
+  (
+    "bank",0,
+    "You visit the bank.\
+ Here you can deposit money and earn interest over time, or take a loan.\
+ You currently have {reg6} denars deposited here.\
+ You currently have {reg7} denars borrowed from the bank.",
+    "none",
+    [
+    (assign, reg6, "$g_player_deposit"),
+    (assign, reg7, "$g_player_debt"),
+    ],
+    [
+      ("take_loan",[(store_troop_gold, ":player_wealth", "trp_player"),(store_sub, ":player_real_wealth", ":player_wealth", "$g_player_debt"),(gt,":player_real_wealth",100)],"Take a loan of 1000 denars.",
+       [
+	   (troop_remove_gold, "trp_player", 100),
+           (troop_add_gold, "trp_player", 1000),
+           (val_add, "$g_player_debt", 1000),
+        ]),
+      ("give_loan",[(store_troop_gold, ":player_wealth", "trp_player"),(gt,":player_wealth",1000),(gt,"$g_player_debt",1000)],"Repay 1000 denars of your debt.",
+       [
+	   (troop_remove_gold, "trp_player", 1000),
+           (val_sub, "$g_player_debt", 1000),
+        ]),
+      ("give_loan_all",[(store_troop_gold, ":player_wealth", "trp_player"),(gt,":player_wealth","$g_player_debt"),(gt,"$g_player_debt",0)],"Repay all of your debt.",
+       [
+	   (troop_remove_gold, "trp_player", "$g_player_debt"),
+           (val_sub, "$g_player_debt", "$g_player_debt"),
+        ]),
+      ("give_deposit",[(store_troop_gold, ":player_wealth", "trp_player"),(gt,":player_wealth",1000)],"Deposit 1000 denars in the bank.",
+       [
+	   (troop_remove_gold, "trp_player", 1000),
+           (val_add, "$g_player_deposit", 1000),
+        ]),
+      ("take_deposit",[(ge,"$g_player_deposit",1000)],"Withdraw 1000 denars from your deposit.",
+       [
+	   (troop_add_gold, "trp_player", 1000),
+           (val_sub, "$g_player_deposit", 1000),
+        ]),
+      ("take_deposit_all",[(ge,"$g_player_deposit",1)],"Withdraw your entire deposit.",
+       [
+	   (troop_add_gold, "trp_player", reg6),
+           (val_sub, "$g_player_deposit", reg6),
+        ]),
+      ("back_to_town_menu",[],"Head back.",
+       [
+           (jump_to_menu,"mnu_town"),
+        ]),
+    ]
+  ),
 
  ]
+import header_scenes
+from template_tools import *
+from module_scenes import scenes
+
+sorted_scenes = sorted(scenes)
+for i in xrange(len(sorted_scenes)):
+  current_scene = list(sorted_scenes[i])
+  current_scene[1] = get_flags_from_bitmap(header_scenes, "sf_", current_scene[1])
+  sorted_scenes[i] = tuple(current_scene)
+
+choose_scene_template = Game_Menu_Template(
+  id="choose_scenes_",
+  text="Choose a scene: (Page {current_page} of {num_pages})",
+  optn_id="choose_scene_",
+  optn_text="{list_item[0]}{list_item[1]}",
+  optn_consq = [
+    (jump_to_scene, "scn_{list_item[0]}"),
+    (change_screen_mission)
+  ]
+)
+
+game_menus += choose_scene_template.generate_menus(sorted_scenes)
 # modmerger_start version=201 type=2
 try:
     component_name = "game_menus"

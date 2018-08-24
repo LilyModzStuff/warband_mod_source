@@ -1283,3 +1283,5 @@ g_latest_character_relation_entry
 g_jrider_last_checked_indicator
 g_autoloot
 g_next_pay_time
+g_player_debt
+g_player_deposit
