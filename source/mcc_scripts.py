@@ -1179,7 +1179,7 @@ scripts = [
 				(eq, "$background_answer_5", kingdom_6),
 				(troop_add_item, "trp_player", "itm_sarranid_cloth_robe_b"),
 				(troop_add_item, "trp_player", "itm_turban"),
-			(else_try),
+			(try_end),
 			
 			
 			

@@ -689,7 +689,7 @@ from util_wrappers import *
 from util_scripts import *
 
 scripts_directives = [
-	[SD_OP_BLOCK_INSERT, "agent_reassign_team", D_SEARCH_FROM_TOP | D_SEARCH_SCRIPTLINE | D_INSERT_BEFORE,(party_stack_get_troop_id, ":leader_troop_id", ":party_no", 0),0,not_in_party],
+	#[SD_OP_BLOCK_INSERT, "agent_reassign_team", D_SEARCH_FROM_TOP | D_SEARCH_SCRIPTLINE | D_INSERT_BEFORE,(party_stack_get_troop_id, ":leader_troop_id", ":party_no", 0),0,not_in_party],
     [SD_OP_BLOCK_INSERT, "game_start", D_SEARCH_FROM_TOP | D_SEARCH_SCRIPTLINE | D_INSERT_AFTER,(assign, "$g_player_luck", 200),0,
 	[
 		(assign, "$freelancer_state", 0),
@@ -714,7 +714,7 @@ scripts_directives = [
     ]],	
 	
 	##FLORIS ONLY - Trade with Merchant Caravans
-	[SD_OP_BLOCK_INSERT, "party_give_xp_and_gold", D_SEARCH_FROM_TOP | D_SEARCH_SCRIPTLINE | D_INSERT_BEFORE, (party_slot_eq, ":enemy_party", slot_party_type, spt_kingdom_caravan),0,not_in_party],	
+	#[SD_OP_BLOCK_INSERT, "party_give_xp_and_gold", D_SEARCH_FROM_TOP | D_SEARCH_SCRIPTLINE | D_INSERT_BEFORE, (party_slot_eq, ":enemy_party", slot_party_type, spt_kingdom_caravan),0,not_in_party],	
 	##FLORIS ONLY END	
 ]
                 

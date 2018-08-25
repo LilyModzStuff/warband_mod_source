@@ -20221,6 +20221,7 @@ presentations = [
             (position_set_y, pos1, 5000),
             (overlay_set_size, "$g_presentation_obj_15", pos1),
             (assign, reg50, 13),
+		(try_end),
 
 		(try_begin),
 		    (str_clear,s1),  

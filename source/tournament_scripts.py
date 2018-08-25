@@ -782,8 +782,8 @@ from util_scripts import *
 scripts_directives = [
 	#rename scripts to "insert" switch scripts (see end of scripts[])
 	[SD_RENAME, "set_items_for_tournament" , "orig_set_items_for_tournament"], 
-	[SD_OP_BLOCK_INSERT, "fill_tournament_participants_troop", D_SEARCH_FROM_BOTTOM | D_SEARCH_SCRIPTLINE | D_INSERT_AFTER, (neq, ":cur_troop", "trp_kidnapped_girl"), 0, 
-		[(neg|troop_slot_eq, ":cur_troop", slot_troop_tournament_never_spawn, 1),], 1],
+	#[SD_OP_BLOCK_INSERT, "fill_tournament_participants_troop", D_SEARCH_FROM_BOTTOM | D_SEARCH_SCRIPTLINE | D_INSERT_AFTER, (neq, ":cur_troop", "trp_kidnapped_girl"), 0,
+		#[(neg|troop_slot_eq, ":cur_troop", slot_troop_tournament_never_spawn, 1),], 1], This section is commented out, so there is no point inserting this. Hope it wasn't important.
 ] # scripts_rename
                 
 def modmerge_scripts(orig_scripts):
