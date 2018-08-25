@@ -269,7 +269,7 @@ items = [
  ["bodkin_arrows","Bodkin Arrows", [("piercing_arrow",0),("flying_piercing_arrow",ixmesh_flying_ammo),("quiver_c", ixmesh_carry)], itp_type_arrows|itp_merchandise, itcf_carry_quiver_back_right, 350,weight(3)|abundance(50)|weapon_length(91)|thrust_damage(3,pierce)|max_ammo(28),imodbits_missile],
  ["bolts","Bolts", [("bolt",0),("flying_bolt",ixmesh_flying_ammo),("bolt_bag", ixmesh_carry),("bolt_bag_b", ixmesh_carry|imodbit_large_bag)], itp_type_bolts|itp_merchandise|itp_default_ammo|itp_can_penetrate_shield, itcf_carry_quiver_right_vertical, 64,weight(2.25)|abundance(90)|weapon_length(63)|thrust_damage(1,pierce)|max_ammo(29),imodbits_missile],
  ["steel_bolts","Steel Bolts", [("bolt",0),("flying_bolt",ixmesh_flying_ammo),("bolt_bag_c", ixmesh_carry)], itp_type_bolts|itp_merchandise|itp_can_penetrate_shield, itcf_carry_quiver_right_vertical, 210,weight(2.5)|abundance(20)|weapon_length(63)|thrust_damage(2,pierce)|max_ammo(29),imodbits_missile],
- ["cartridges","Bullets", [("bullet",0),("bullet",ixmesh_flying_ammo)], itp_type_bullets|itp_merchandise|itp_can_penetrate_shield|itp_default_ammo, 0, 41,weight(2.25)|abundance(90)|weapon_length(3)|thrust_damage(1,pierce)|max_ammo(50),imodbits_missile],
+ ["cartridges","Bullets", [("bullet",0),("bullet",ixmesh_flying_ammo)], itp_type_bullets|itp_merchandise|itp_can_penetrate_shield|itp_default_ammo, 0, 41,weight(2.25)|abundance(160)|weapon_length(3)|thrust_damage(1,pierce)|max_ammo(50),imodbits_missile],
 
 ["pilgrim_disguise", "Pilgrim Disguise", [("pilgrim_outfit",0)], 0| itp_type_body_armor |itp_covers_legs |itp_civilian ,0, 25 , weight(2)|abundance(100)|head_armor(0)|body_armor(19)|leg_armor(8)|difficulty(0) ,imodbits_cloth ],
 ["pilgrim_hood", "Pilgrim Hood", [("pilgrim_hood",0)], 0| itp_type_head_armor |itp_civilian  ,0, 35 , weight(1.25)|abundance(100)|head_armor(14)|body_armor(0)|leg_armor(0)|difficulty(0) ,imodbits_cloth ],
@@ -964,7 +964,33 @@ items = [
 ["bec_de_corbin_a",  "War Hammer", [("bec_de_corbin_a",0)], itp_type_polearm|itp_merchandise| itp_cant_use_on_horseback|itp_primary|itp_penalty_with_shield|itp_wooden_parry|itp_two_handed, itc_staff|itcf_carry_spear,
  125 , weight(3.0)|difficulty(0)|spd_rtng(81) | weapon_length(120)|swing_damage(38, blunt) | thrust_damage(38 ,  pierce),imodbits_polearm ],
 
+#Guns
+["flintlock_pistol", "Flintlock Pistol", [("flintlock_pistol",0)], itp_type_pistol |itp_merchandise|itp_primary ,itcf_shoot_pistol|itcf_reload_pistol,
+ 230 , weight(1.5)|abundance(80)|difficulty(0)|spd_rtng(38) | shoot_speed(140) | thrust_damage(45 ,pierce)|max_ammo(1)|accuracy(65),imodbits_none,
+ [(ti_on_weapon_attack, [(play_sound,"snd_pistol_shot"),(position_move_x, pos1,27),(position_move_y, pos1,36),(particle_system_burst, "psys_pistol_smoke", pos1, 15)])], [fac_kingdom_2, fac_kingdom_3, fac_kingdom_4, fac_kingdom_6]],
+["flintlock_pistol_1", "Flintlock Pistol", [("flintlock_pistol_1",0)], itp_type_pistol |itp_merchandise|itp_primary ,itcf_shoot_pistol|itcf_reload_pistol,
+ 230 , weight(1.5)|abundance(80)|difficulty(0)|spd_rtng(55) | shoot_speed(140) | thrust_damage(45 ,pierce)|max_ammo(1)|accuracy(65),imodbits_none,
+ [(ti_on_weapon_attack, [(play_sound,"snd_pistol_shot"),(position_move_x, pos1,27),(position_move_y, pos1,36),(particle_system_burst, "psys_pistol_smoke", pos1, 15)])], [fac_kingdom_1, fac_kingdom_5]],
+["arquebus", "Arquebus",[("arquebus",0)],itp_type_pistol|itp_merchandise|itp_cant_reload_on_horseback|itp_primary|itp_two_handed, itcf_reload_musket|itcf_carry_spear|itcf_shoot_musket,
+ 190 , weight(5.5)|abundance(80)|difficulty(0)|spd_rtng(42) | shoot_speed(140) | thrust_damage(60 ,pierce)|max_ammo(1)|accuracy(90),imodbits_none,
+ [(ti_on_weapon_attack, [(play_sound,"snd_pistol_shot"),(position_move_x, pos1,0),(position_move_y, pos1,100),(particle_system_burst, "psys_pistol_smoke", pos1, 15)])], [fac_kingdom_2, fac_kingdom_3, fac_kingdom_4, fac_kingdom_6]],
+["blunderbus", "Blunderbus",[("blunderbus",0)],itp_type_pistol|itp_merchandise|itp_primary|itp_two_handed, itcf_reload_musket|itcf_carry_spear|itcf_shoot_musket,
+ 210 , weight(4.0)|abundance(80)|difficulty(0)|spd_rtng(45) | shoot_speed(120) | thrust_damage(55 ,pierce)|max_ammo(1)|accuracy(85),imodbits_none,
+ [(ti_on_weapon_attack, [(play_sound,"snd_pistol_shot"),(position_move_x, pos1,0),(position_move_y, pos1,72),(particle_system_burst, "psys_pistol_smoke", pos1, 15)])], [fac_kingdom_1, fac_kingdom_4, fac_kingdom_5]],
+["matchlock_1", "Matchlock Musket",[("matchlock_1",0)],itp_type_pistol|itp_merchandise|itp_cant_use_on_horseback|itp_primary|itp_two_handed, itcf_reload_musket|itcf_carry_spear|itcf_shoot_musket,
+ 360 , weight(8.5)|abundance(80)|difficulty(0)|spd_rtng(38) | shoot_speed(160) | thrust_damage(85 ,pierce)|max_ammo(1)|accuracy(95),imodbits_none,
+ [(ti_on_weapon_attack, [(play_sound,"snd_pistol_shot"),(position_move_x, pos1,0),(position_move_y, pos1,107),(particle_system_burst, "psys_pistol_smoke", pos1, 15)])], [fac_kingdom_2, fac_kingdom_4]],
+["matchlock_2", "Matchlock Musket",[("matchlock_2",0)],itp_type_pistol|itp_merchandise|itp_cant_use_on_horseback|itp_primary|itp_two_handed, itcf_reload_musket|itcf_carry_spear|itcf_shoot_musket,
+ 380 , weight(9.0)|abundance(80)|difficulty(0)|spd_rtng(38) | shoot_speed(160) | thrust_damage(85 ,pierce)|max_ammo(1)|accuracy(96),imodbits_none,
+ [(ti_on_weapon_attack, [(play_sound,"snd_pistol_shot"),(position_move_x, pos1,0),(position_move_y, pos1,112),(particle_system_burst, "psys_pistol_smoke", pos1, 15)])], [fac_kingdom_1, fac_kingdom_5]],
+["flintlock_rifle", "Flintlock Rifle",[("flintlock_rifle_1",0)],itp_type_pistol|itp_merchandise|itp_cant_use_on_horseback|itp_primary|itp_two_handed, itcf_reload_musket|itcf_carry_spear|itcf_shoot_musket,
+ 1240 , weight(9.0)|abundance(75)|difficulty(0)|spd_rtng(28) | shoot_speed(160) | thrust_damage(95 ,pierce)|max_ammo(1)|accuracy(99),imodbits_none,
+ [(ti_on_weapon_attack, [(play_sound,"snd_pistol_shot"),(position_move_x, pos1,0),(position_move_y, pos1,139),(particle_system_burst, "psys_pistol_smoke", pos1, 15)])], [fac_kingdom_1, fac_kingdom_5]],
 
+#Jezail OSP 
+["jezail_rifle", "Jezail Rifle",[("jezail",0)],itp_type_pistol|itp_merchandise|itp_cant_use_on_horseback|itp_primary|itp_two_handed, itcf_reload_musket|itcf_carry_spear|itcf_shoot_musket,
+ 1240 , weight(9.0)|abundance(75)|difficulty(0)|spd_rtng(28) | shoot_speed(160) | thrust_damage(95 ,pierce)|max_ammo(1)|accuracy(99),imodbits_none,
+ [(ti_on_weapon_attack, [(play_sound,"snd_pistol_shot"),(position_move_x, pos1,0),(position_move_y, pos1,139),(particle_system_burst, "psys_pistol_smoke", pos1, 15)])]],
 
 # SHIELDS
 

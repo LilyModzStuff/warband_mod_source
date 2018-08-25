@@ -58221,6 +58221,10 @@ scripts = [
       (troop_add_merchandise_with_faction, ":cur_merchant", ":cur_faction", itp_type_thrown, 5),
       (troop_add_merchandise_with_faction, ":cur_merchant", ":cur_faction", itp_type_arrows, 2),
       (troop_add_merchandise_with_faction, ":cur_merchant", ":cur_faction", itp_type_bolts, 2),
+      #Guns and gun related items
+      (troop_add_merchandise_with_faction, ":cur_merchant", ":cur_faction", itp_type_pistol, 1),
+      (troop_add_merchandise_with_faction, ":cur_merchant", ":cur_faction", itp_type_musket, 1),
+      (troop_add_merchandise_with_faction, ":cur_merchant", ":cur_faction", itp_type_bullets, 1),
       (troop_ensure_inventory_space, ":cur_merchant", merchant_inventory_space),
       (troop_sort_inventory, ":cur_merchant"),
       (store_troop_gold, reg6, ":cur_merchant"),
