@@ -1,6 +1,7 @@
-Temporary fork of LilyC-Dev's Warband mod, Dickplomacy Reloaded
+Dickplomacy Reloaded Github page. 
+Feel free to edit, modify, redistribute, as long as you leave in source, allow others to do the same, and require that they do as well, and also credit Dickplomacy Reloaded as the source content. No warrenty. 
 
-Here's a short do-it-yourself compiling tutorial for randoms that pop in here from LL:
+Here's a short do-it-yourself compiling tutorial: 
 
 Step 1: Download/install Python 2.7 https://www.python.org/downloads/release/python-2714/ it should default to "C:\Python27", probably best not to change it.
 
