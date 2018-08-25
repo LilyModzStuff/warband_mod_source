@@ -1927,10 +1927,28 @@ animations = [
 	[0.6, "fuck_female_blow", 0, 8, arf_use_stand_progress|arf_cyclic, 0, (0, 0, 0), 0.25],],
  ["female_cum", acf_enforce_all, amf_priority_die|amf_play,
 	[0.6, "male_fucked", 0, 9, arf_use_stand_progress|arf_cyclic, 0, (0, 0, 0), 0.25],],
- ["unused_human_anim_63", 0, 0, [1.0, "anim_human", 0, 1, 0]],
- ["unused_human_anim_64", 0, 0, [1.0, "anim_human", 0, 1, 0]],
- ["unused_human_anim_65", 0, 0, [1.0, "anim_human", 0, 1, 0]],
- ["unused_human_anim_66", 0, 0, [1.0, "anim_human", 0, 1, 0]],
+ ["dancer", acf_enforce_all, amf_priority_die|amf_play,
+	[2.4, "dancer", 0, 23, arf_use_stand_progress|arf_cyclic, 0, (0, 0, 0), 0.25],],
+ ["dancer_1", acf_enforce_all, amf_priority_die|amf_play,
+	[1.9, "dancer_1", 0, 18, arf_use_stand_progress|arf_cyclic, 0, (0, 0, 0), 0.25],],
+ ["dancer_2", acf_enforce_all, amf_priority_die|amf_play,
+	[1.8, "dancer_2", 0, 17, arf_use_stand_progress|arf_cyclic, 0, (0, 0, 0), 0.25],],
+ ["dancer_3", acf_enforce_all, amf_priority_die|amf_play,
+	[1.9, "dancer_3", 0, 18, arf_use_stand_progress|arf_cyclic, 0, (0, 0, 0), 0.25],],
+	
+####################################################################################################################
+#  There are two animation arrays (one for human and one for horse). Each animation in these arrays contains the following fields:
+#  1) Animation id (string): used for referencing animations in other files. The prefix anim_ is automatically added before each animation-id .
+#  2) Animation flags: could be anything beginning with acf_ defined in header_animations.py
+#  3) Animation master flags: could be anything beginning with amf_ defined in header_animations.py
+#  4) Animation sequences (list).
+#  4.1) Duration of the sequence.
+#  4.2) Name of the animation resource.
+#  4.3) Beginning frame of the sequence within the animation resource.
+#  4.4) Ending frame of the sequence within the animation resource.
+#  4.5) Sequence flags: could be anything beginning with arf_ defined in header_animations.py
+# 
+####################################################################################################################
  ["unused_human_anim_67", 0, 0, [1.0, "anim_human", 0, 1, 0]],
  ["unused_human_anim_68", 0, 0, [1.0, "anim_human", 0, 1, 0]],
  ["unused_human_anim_69", 0, 0, [1.0, "anim_human", 0, 1, 0]],

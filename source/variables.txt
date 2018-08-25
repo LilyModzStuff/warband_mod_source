@@ -1283,5 +1283,17 @@ g_latest_character_relation_entry
 g_jrider_last_checked_indicator
 g_autoloot
 g_next_pay_time
+f_player_prost
+f_cons1
+f_cons2
+f_cons3
+f_cons4
+f_encountertype
+f_temp_var
+tep_entertainer1
+tep_entertainer2
+tep_entertainer3
+tep_entertainer4
+last_feast_location
 g_player_debt
 g_player_deposit

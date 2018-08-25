@@ -3021,6 +3021,12 @@ game_menus = [
 		(str_store_string, s12, "str__right_to_rule_reg12"),
 	(try_end),
 
+	#Sexual Stats
+	#(troop_get_slot, reg21, "trp_player", slot_troop_encounters),
+	#(troop_get_slot, reg22, "trp_player", slot_troop_assaults),
+	#(str_store_string, s9, "@Encounters: {reg21}"),
+	#(str_store_string, s9, "@Assaults: {reg22}"),
+
 	(str_clear, s15),
 	(try_begin),
 		(this_or_next|gt, "$claim_arguments_made", 0),
@@ -6042,7 +6048,7 @@ TOTAL:  {reg5}"),
           (call_script, "script_party_prisoners_add_party_companions", "p_temp_party", "p_main_party"),
           (distribute_party_among_party_group, "p_temp_party", "$g_enemy_party"),
 
-          (assign, "$g_prison_heroes", 1),
+          (assign, "$g_prison_heroes", 1), #Remove this to keep companions on defeat
           (call_script, "script_party_remove_all_companions", "p_main_party"),
           (assign, "$g_prison_heroes", 0),
           (assign, "$g_move_heroes", 1),
@@ -16675,6 +16681,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
       [
         (try_begin),
             (eq, "$g_sexual_content", 2),
+	        (eq, "$character_gender", 1),
             (jump_to_menu, "mnu_fucked_by_enemy_prison"),
         (else_try),
             (assign, "$g_player_is_captive", 1),
@@ -18937,7 +18944,23 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 	(try_begin),
 		(agent_get_troop_id, ":type", "$g_main_attacker_agent"),
 		(eq, ":type", "trp_belligerent_drunk"),
+		(try_begin),
+			(eq, "$g_sexual_content", 2),
+			(eq, "$character_gender", 1),
+			(agent_get_entry_no, ":entry_no", "$g_main_attacker_agent"),
+			(troop_get_slot, ":dna", "trp_temp_array_c", ":entry_no"), #I really don't know why this won't work.
+			(troop_set_slot, "trp_temp_array_a", 0, "trp_player"), 
+			(troop_set_slot, "trp_temp_array_b", 0, -1),
+			(troop_set_slot, "trp_temp_array_a", 1, ":type"),
+			(troop_set_slot, "trp_temp_array_b", 1, ":dna"),
+			(assign, "$g_sex_position", 1),
+			(assign, "$f_encountertype", 1),
+			(assign, "$f_cons1", -1), #Non-con
+			(assign, "$f_cons2", 0), #Con
+			(str_store_string, s11, "@You slump to the floor, stunned by the drunk's last blow. Your attacker's rage seems unending. He flails about and flips a table as the other tavern-goers beat a hasty retreat. Suddenly, he grabs you by the leg and drags you up to the rooms..."),
+		(else_try),
 		(str_store_string, s11, "str_lost_tavern_duel_ordinary"),
+		(try_end),
 	(else_try),
 		(agent_get_troop_id, ":type", "$g_main_attacker_agent"),
 		(eq, ":type", "trp_hired_assassin"),
@@ -18959,10 +18982,17 @@ goods, and books will never be sold. ^^You can change some settings here freely.
     [
       ("continue",[(eq, "$sneaked_into_town", disguise_none),],"Continue...",
        [
+		(try_begin), # Drunk barfight loss scene
+			(eq, "$g_sexual_content", 2),
+			(eq, "$character_gender", 1),
+			(call_script, "script_change_troop_renown", "trp_player", -5),
+			(call_script, "script_start_fucking", 2, "scn_tavern"),
+		(else_try),
          (jump_to_menu, "mnu_town"),
          (troop_set_health, "trp_player", 25),
          #SB : renown loss, less than losing to bandits
          (call_script, "script_change_troop_renown", "trp_player", -1),
+		(try_end),
        ]),
 
       ("surrender",[(gt, "$sneaked_into_town", disguise_none),],"Surrender...",
@@ -22340,9 +22370,10 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 
   (
     "fucked_by_enemy",0,
-    "Your enemies take you prisoner.",
+    "{s10}",
     "none",
     [
+		 (set_background_mesh, "mesh_pic_custom_03"),
          (set_camera_follow_party, "$capturer_party"),
          (assign, "$g_player_is_captive", 1),
          (store_random_in_range, ":random_hours", 18, 30),
@@ -22353,9 +22384,52 @@ goods, and books will never be sold. ^^You can change some settings here freely.
         (call_script, "script_change_troop_renown", "trp_player", -10),
 
         (troop_get_slot, ":dna", "trp_temp_array_c", 17),
+        (troop_set_slot, "trp_temp_array_b", 0, -1), 
 
+		(try_begin),
+		(eq, "$character_gender", 1),
         (troop_set_slot, "trp_temp_array_a", 0, "trp_player"),
+		(try_end),
+		
+		
+		(party_get_num_companion_stacks, ":num_stacks", "p_main_party"),
+		(try_begin),
+			(assign, ":fems", 0),
+			(try_for_range, ":i_stack", 0, ":num_stacks"),
+				(party_stack_get_troop_id, ":troop_id", "p_main_party", ":i_stack"),
+				(troop_is_hero, ":troop_id"),
+				(troop_get_type, ":is_female", ":troop_id"),
+				(eq, ":is_female", tf_female),
+				(val_add, ":fems", 1),
+			(try_end),
+			(store_random_in_range, ":ff", 0, ":fems"),
+			(try_begin),
+				(try_for_range, ":i_stack", 0, ":num_stacks"),
+					(party_stack_get_troop_id, ":troop_id", "p_main_party", ":i_stack"),
+					(troop_is_hero, ":troop_id"),
+					(troop_get_type, ":is_female", ":troop_id"),
+					(eq, ":is_female", tf_female),
+					(try_begin),
+						(gt, ":ff", 0),
+						(val_sub, ":ff", 1),
+					(else_try),
+						(eq, ":ff", 0),
+						(val_sub, ":ff", 1),
+						(troop_set_slot, "trp_temp_array_a", 0, ":troop_id"),
         (troop_set_slot, "trp_temp_array_b", 0, -1),
+						(try_begin),
+							(neq, ":troop_id", "trp_player"),
+							(troop_set_slot, "trp_temp_array_a", 2, "trp_player"),
+							(troop_set_slot, "trp_temp_array_b", 2, -1),
+							(else_try),
+							(troop_set_slot, "trp_temp_array_a", 2, -1),
+							(troop_set_slot, "trp_temp_array_b", 2, -1),
+						(try_end),
+					(try_end),
+				(try_end),
+			(try_end),
+		(try_end),
+		
         (troop_set_slot, "trp_temp_array_a", 1, "$g_talk_troop"),
         (troop_set_slot, "trp_temp_array_b", 1, ":dna"),
         (store_random_in_range, ":r", 0, 2),
@@ -22413,12 +22487,28 @@ goods, and books will never be sold. ^^You can change some settings here freely.
             (try_end),
           (try_end),
 
-
-        (call_script, "script_start_fucking", 2, ":scene_to_use"),
+		(assign, "$f_temp_var", ":scene_to_use"),
+		(troop_get_slot, ":girl", "trp_temp_array_a", 0),
+		(str_store_troop_name,s4,":girl"),
+		(try_begin),
+			(eq, ":girl", 0),
+			(str_store_string, s10, "@Your enemies take you prisoner, and drag you back to their camp. ^^After a few hungry glances, their leader snatches your hair and roughly pulls you into his tent where he tears your clothes away."),
+			(else_try),
+			(str_store_string, s10, "@Your enemies take you and your companions prisoner, leading all of you back to their camp. ^^After a few hungry glances, their leader grabs you by the arm and snatches {s4}'s hair. He roughly pulls you both into his tent and tears your clothes away."),
+		(try_end),
      ],
     [
       ("continue",[],"Continue...",
        [
+	   	(try_begin),
+		(troop_get_slot, ":target_char", "trp_temp_array_a", 2),
+		(neq, ":target_char", "trp_player"),
+		(assign, ":pos", 2),
+		(else_try),
+		(assign, ":pos", 3),
+		(try_end),
+		(call_script, "script_start_fucking", ":pos", "$f_temp_var"),
+		(assign, "$f_temp_var", 0),
          ]),
       ]
   ),
@@ -22455,7 +22545,10 @@ goods, and books will never be sold. ^^You can change some settings here freely.
             (troop_set_slot, "trp_temp_array_a", 2, -1),
             (troop_set_slot, "trp_temp_array_a", 3, ":troop_prison_guard"),
             (assign, "$g_sex_position", 2),
-
+            (assign, "$f_cons1", -1), #Non-con
+			(assign, "$f_cons2", 0), #Con
+			(assign, "$f_cons3", 0), #Con
+			(assign, "$f_cons4", 0), #Con
             (call_script, "script_start_fucking", 4, "scn_dungeon"),
 
          ]),
@@ -22494,7 +22587,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
   ("content_options",0,
    "Diplomacy Content Options",
    "none",
-   [],
+   [     (set_background_mesh, "mesh_pic_camp"), ],
     [
       ("camp_fuck_setting",[
         #(eq,0,1),
@@ -22569,7 +22662,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 
   (
     "fuck_encounter",0,
-    "Your enemies take you prisoner.",
+    "Continue",
     "none",
     [
         (troop_get_slot, ":dna", "trp_temp_array_c", 17),
@@ -22619,16 +22712,187 @@ goods, and books will never be sold. ^^You can change some settings here freely.
             (try_end),
           (try_end),
 
+		(assign, "$f_temp_var", ":scene_to_use"),
 
-        (call_script, "script_start_fucking", 2, ":scene_to_use"),
+		(assign, "$f_cons1", -1), #Non-con
+		(assign, "$f_cons2", 0), #Con
      ],
     [
       ("continue",[],"Continue...",
        [
+        (call_script, "script_start_fucking", 2, "$f_temp_var"),
+		(assign, "$f_temp_var", 0),
          ]),
       ]
   ),
 
+  (
+    "town_tavern_prostitution",0,
+    "Your room is nice, if old and worn down. The window holds a dissapointing,but convienent view of a stone wall from the neighboring building. A dim candle lights the otherwise mellow room to provide a somewhat romantic atmosphere.",
+    "none",
+    [#Auto-exectued
+	(set_background_mesh, "mesh_pic_custom_01"),
+	(party_get_num_companion_stacks, ":num_stacks", "p_main_party"),
+	(try_begin),
+		(assign, ":fems", 0),
+		(try_for_range, ":i_stack", 0, ":num_stacks"),
+			(party_stack_get_troop_id, ":troop_id", "p_main_party", ":i_stack"),
+			(troop_is_hero, ":troop_id"),
+			(troop_get_type, ":is_female", ":troop_id"),
+			(eq, ":is_female", tf_female),
+			(val_add, ":fems", 1),
+		(try_end),
+		(store_random_in_range, ":ff", 0, ":fems"),
+		(try_begin),
+			(try_for_range, ":i_stack", 0, ":num_stacks"),
+				(party_stack_get_troop_id, ":troop_id", "p_main_party", ":i_stack"),
+				(troop_is_hero, ":troop_id"),
+				(troop_get_type, ":is_female", ":troop_id"),
+				(eq, ":is_female", tf_female),
+				(try_begin),
+					(gt, ":ff", 0),
+					(val_sub, ":ff", 1),
+				(else_try),
+					(eq, ":ff", 0),
+					(val_sub, ":ff", 1),
+					(assign, "$f_temp_var", ":troop_id"),
+					(str_store_troop_name,s4,":troop_id"),
+				(try_end),
+			(try_end),
+		(try_end),
+	(try_end),
+	],
+
+    [
+	 ("just_do_it",[],"Watch {s4} with her customer.",
+		[
+		
+		(assign, ":workgirl", "$f_temp_var"),
+
+		(party_get_slot, ":center_faction", "$current_town", slot_center_original_faction),
+		(faction_get_slot, ":center_culture", ":center_faction", slot_faction_culture),
+		(assign, ":customer1", 0),
+		(assign, ":dna1", 0),
+		(assign, ":customer2", 0),
+		(assign, ":dna2", 0),
+		
+		(try_for_range,":entry",0,2), #generate 2 townspeople
+			(faction_get_slot, ":town_walker", ":center_culture", slot_faction_town_walker_male_troop),
+			(store_random_in_range,":rand",0,9), #dckplmc - randomly male or female
+			(try_begin),
+				(eq, ":rand", 1),
+				(store_add, ":town_walker", 1, ":town_walker"),
+			(try_end),
+			(store_random_in_range,":dna",0,1000),
+			(try_begin),
+				(eq, ":customer1", 0),
+				(assign, ":customer1", ":town_walker"),
+				(assign, ":dna1", ":dna"),
+			(else_try),
+				(assign, ":customer2", ":town_walker"),
+				(assign, ":dna2", ":dna"),
+			(try_end),
+		(try_end),
+
+		(troop_set_slot, "trp_temp_array_a", 0, ":workgirl"),
+		(troop_set_slot, "trp_temp_array_b", 0, -1), #Will always be a hero, so no dna needed
+		(troop_set_slot, "trp_temp_array_a", 1, ":customer1"),
+		(troop_set_slot, "trp_temp_array_b", 1, ":dna1"),
+		(troop_set_slot, "trp_temp_array_a", 2, -1), #observer
+		(troop_set_slot, "trp_temp_array_b", 2, -1),
+		(troop_set_slot, "trp_temp_array_a", 3, ":customer2"),
+		(troop_set_slot, "trp_temp_array_b", 3, ":dna2"),
+		 
+		(assign, "$f_cons1", 0), #Con
+		(assign, "$f_cons2", 0), #Con
+		(assign, "$f_cons3", 0), #Con
+		(assign, "$f_cons4", 0), #Con
+
+		(assign, "$f_encountertype", 2),
+		
+		(store_random_in_range,"$g_sex_position",0,3), #Random position type
+		(try_begin),
+			(eq, "$g_sex_position", 2),
+			(assign, ":pos", 4),
+		(else_try),
+			(assign, ":pos", 2),
+		(try_end),
+		
+		(assign, ":scene", "scn_tavern"),
+		(call_script, "script_start_fucking", ":pos", ":scene"),],
+	 ),
+	 
+	 ("back_to_town",[],"Leave the tavern.",
+		[
+		(jump_to_menu, "mnu_town"),
+		],
+	 ),
+	],
+  ),
+ 
+  (
+    "town_tavern_prostitution_results",0,
+    "{s10}",
+    "none",
+    [
+		(set_background_mesh, "mesh_pic_custom_02"),
+		(party_get_num_companion_stacks, ":num_stacks", "p_main_party"),
+		(try_for_range, ":i_stack", 0, ":num_stacks"),
+			(party_stack_get_troop_id, ":troop_id", "p_main_party", ":i_stack"),
+			(troop_is_hero, ":troop_id"),
+			(troop_get_type, ":is_female", ":troop_id"),
+			(eq, ":is_female", tf_female),
+			(str_store_troop_name,s5,":troop_id"),
+		(try_end),
+
+		(try_begin),
+		(gt, ":i_stack", 1),
+		(str_store_string, s10, "@After a hard night's work, everyone returns to your room and pools the earnings..."),
+		(else_try),
+		(eq, ":i_stack", 1),
+		(str_store_string, s10, "@After a hard night's work, {s5} meets you in your room to pool the earnings..."),
+		(else_try),
+		(str_store_string, s10, "@After a hard night's work, you retire to your room to go over the earnings..."),
+		(try_end),
+    ],
+	[
+		(
+			"continue_to_room",
+			[],
+			"Collect payment and clean yourself up.",
+			[
+			(party_get_num_companion_stacks, ":num_stacks", "p_main_party"),
+			(assign, ":cash", 0),
+			(try_for_range, ":i_stack", 0, ":num_stacks"),
+				(party_stack_get_troop_id, ":troop_id", "p_main_party", ":i_stack"),
+				(troop_is_hero, ":troop_id"),
+				(troop_get_type, ":is_female", ":troop_id"),
+				(eq, ":is_female", tf_female),
+				
+				(try_begin),
+					(neq, "$f_temp_var", ":troop_id"),
+					(troop_get_slot, ":encounters", ":troop_id", slot_troop_encounters),
+					(val_add, ":encounters", 1),
+					(troop_set_slot, ":troop_id", slot_troop_encounters, ":encounters"),
+				(try_end),
+				
+				(store_attribute_level, ":cha", ":troop_id", ca_charisma),
+				(val_mul, ":cha", 3.5),
+				(assign, reg5, ":cha"),
+				(val_add, ":cash", ":cha"),
+				(str_store_troop_name,s4,":troop_id"),
+				
+				(display_message, "@{s4}'s customer paid her {reg5} denars.",0xFFFFD800),
+			(try_end),
+			
+			(assign, "$f_temp_var", 0),
+			(play_sound, "snd_money_received"),
+			(troop_add_gold, "trp_player", ":cash"),
+			(jump_to_menu, "mnu_town_tavern_prostitution"),
+			],
+		),
+	],
+  ),
   (
     "buy_ship",0,
     "Which ship do you want to buy?",

@@ -97,6 +97,8 @@ scripts = [
       (assign, "$g_dark_hunters_enabled", 0),
       (assign, "$g_realistic_wounding", 0), #new game
       (assign, "$g_polygamy", 0), #new game
+	  (assign, "$f_con", 0),
+	  (assign, "$f_player_prost", 0),
       (store_add, "$g_player_debt",0,0), #bank starting script
       (store_add, "$g_player_deposit",0,0),
 
@@ -30910,6 +30912,7 @@ scripts = [
         (troop_slot_eq, ":cur_troop", slot_troop_cur_center, ":center_no"),
 
         (assign, ":lady_meets_visitors", 0),
+		(assign, ":tribute_entertainer", 0),
         (try_begin),
             (this_or_next|troop_slot_eq, "trp_player", slot_troop_spouse, ":cur_troop"), #player spouse goes in position of honor
             (troop_slot_eq, "trp_player", slot_troop_betrothed, ":cur_troop"), #player spouse goes in position of honor
@@ -30941,6 +30944,8 @@ scripts = [
                 (try_begin), #SB : distinguish between refugee and prisoner
                   (troop_slot_eq, ":cur_troop", slot_troop_prisoner_of_party, ":center_no"),
                   (display_message, "@{s4} is present at the center as a prisoner"),
+				  #Prisoner Entertainer
+				  (assign, ":lady_meets_visitors", 1),
                 (else_try),
                   (display_message, "str_s4_is_present_at_the_center_as_a_refugee"),
                 (try_end),
@@ -30975,6 +30980,11 @@ scripts = [
 			(faction_slot_eq, ":center_faction", slot_faction_ai_object, ":center_no"),
 			(assign, ":lady_meets_visitors", 1),
 
+			(try_begin),
+				(store_random_in_range,":r",1,8),
+				(eq,":r", 3),
+				(assign, ":tribute_entertainer", 1),
+			(try_end),
 			(try_begin),
 				(eq, "$cheat_mode", 1),
 				(str_store_troop_name, s4, ":cur_troop"),
@@ -31013,6 +31023,26 @@ scripts = [
 		(try_end),
 
 		(eq, ":lady_meets_visitors", 1),
+
+		(try_begin),
+			(eq, ":tribute_entertainer", 1),
+			(try_begin),
+				(eq, "$tep_entertainer1", 69),
+				(assign, "$tep_entertainer1", ":cur_troop"),
+			(else_try),
+				(eq, "$tep_entertainer2", 69),
+				(assign, "$tep_entertainer2", ":cur_troop"),
+			(else_try),
+				(eq, "$tep_entertainer3", 69),
+				(assign, "$tep_entertainer3", ":cur_troop"),
+			(else_try),
+				(eq, "$tep_entertainer4", 69),
+				(assign, "$tep_entertainer4", ":cur_troop"),
+			(else_try),
+				(assign, ":tribute_entertainer", 0),
+		(try_end),
+			#(troop_set_slot, ":cur_troop", slot_troop_entertainer, 1), Now used for permanently abused ladies
+		(try_end),
 
         (lt, ":cur_pos", 32), # spawn up to entry point 32
         (set_visitor, ":cur_pos", ":cur_troop"),

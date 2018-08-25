@@ -4672,11 +4672,64 @@ mission_templates = [
       [
         (store_trigger_param_1, ":agent_no"),
         (call_script, "script_init_town_agent", ":agent_no"),
+		(try_begin),
+			(ge, "$g_sexual_content", 1),
+			(agent_get_troop_id, ":troop_id", ":agent_no"),
+			(assign, ":tribute_entertainer", 0),
+			(try_begin),
+				(troop_slot_ge, ":troop_id", slot_troop_prisoner_of_party, "$g_encountered_party"),
+				(assign, ":tribute_entertainer", 1),
+			(else_try),
+				(troop_slot_ge, ":troop_id", slot_troop_courtesan, 1),
+				(assign, ":tribute_entertainer", 1),
+			(else_try),
+				(troop_slot_eq, ":troop_id", slot_troop_entertainer, 1),
+				(assign, ":tribute_entertainer", 1),
+			(else_try),
+				(neq, ":troop_id", 0),
+				(try_begin), # Temp entertainers for one feast only
+					(eq, "$tep_entertainer1", ":troop_id"),
+					(assign, ":tribute_entertainer", 1),
+				(else_try),
+					(eq, "$tep_entertainer2", ":troop_id"),
+					(assign, ":tribute_entertainer", 1),
+				(else_try),
+					(eq, "$tep_entertainer3", ":troop_id"),
+					(assign, ":tribute_entertainer", 1),
+				(else_try),
+					(eq, "$tep_entertainer4", ":troop_id"),
+					(assign, ":tribute_entertainer", 1),
+				(try_end),
+			(try_end),
+			(try_begin),
+				(eq, ":tribute_entertainer", 1),
+				(agent_equip_item, ":agent_no", "itm_red_tourney_armor"), #Remove clothes/hat
+				(agent_unequip_item, ":agent_no", "itm_red_tourney_armor"),
+				(agent_equip_item, ":agent_no", "itm_red_tourney_helmet"),
+				(agent_unequip_item, ":agent_no", "itm_red_tourney_helmet"),
+				(assign, ":anim", "anim_dancer"),
+				(agent_set_stand_animation, ":agent_no", ":anim"),
+				(agent_set_animation, ":agent_no", ":anim"),
+				(store_random_in_range,":r",0,100),
+				(agent_set_animation_progress,":agent_no",":r"),
+			(try_end),
+		(try_end),
       ]),
 
       (ti_before_mission_start, 0, 0, [],
       [
         (call_script, "script_change_banners_and_chest"),
+		(try_begin),
+			(store_faction_of_party, ":town_faction","$current_town"), # Get current town's faction
+			(faction_slot_eq, ":town_faction", slot_faction_ai_state, sfai_feast), # Current town's faction is having feast
+			(faction_slot_eq, ":town_faction", slot_faction_ai_object, "$current_town"), # Feast is in current town
+			(neq, "$last_feast_location", "$current_town"), # Current town is NOT the same as last feast location
+			(assign, "$tep_entertainer1", 69 ), #clear temp entertainers
+			(assign, "$tep_entertainer2", 69 ),
+			(assign, "$tep_entertainer3", 69 ),
+			(assign, "$tep_entertainer4", 69 ),
+			(assign, "$last_feast_location", "$current_town"), #make new town the last feast location
+		(try_end),
       ]),
 
       (ti_inventory_key_pressed, 0, 0,
@@ -18077,6 +18130,49 @@ mission_templates = [
             (agent_get_entry_no, ":entry_no", ":agent"),
             (call_script, "script_dplmc_store_troop_is_female_reg", ":troop_id", 65),
             (assign, ":is_female", reg65),
+
+			## Encounter Statistics 
+			(str_store_troop_name, s18, ":troop_id"),
+			(troop_get_slot, ":encounters", ":troop_id", slot_troop_encounters),
+			(troop_get_slot, ":assaults", ":troop_id", slot_troop_assaults),
+			(val_add, ":encounters", 1), #Only incremented here, needs set further down!
+			(assign, reg54, ":encounters"),
+			
+			(try_begin),
+			(troop_is_hero, ":troop_id"),
+				(try_begin),
+					(eq, ":entry_no", 1), # The reciever
+					(troop_set_slot, ":troop_id", slot_troop_encounters, ":encounters"),
+					(try_begin), # Consent
+						(eq, "$f_cons1", -1),
+						(val_add, ":assaults", 1),
+						(troop_set_slot, ":troop_id", slot_troop_assaults, ":assaults"),
+					(try_end),
+				(else_try),
+					(eq, ":entry_no", 2), # The giver
+					(troop_set_slot, ":troop_id", slot_troop_encounters, ":encounters"),
+					(try_begin), # Consent
+						(eq, "$f_cons2", -1),
+						(val_add, ":assaults", 1),
+						(troop_set_slot, ":troop_id", slot_troop_assaults, ":assaults"),
+					(try_end),
+				(else_try),
+					(eq, ":entry_no", 3), # The helper
+					(troop_set_slot, ":troop_id", slot_troop_encounters, ":encounters"),
+					(try_begin), # Consent
+						(eq, "$f_cons3", -1),
+						(val_add, ":assaults", 1),
+						(troop_set_slot, ":troop_id", slot_troop_assaults, ":assaults"),
+					(try_end),
+				(else_try),
+					(eq, ":entry_no", 5), # The observer
+					(try_begin), # Consent - nothing to do here right now
+						(eq, "$f_cons4", -1),
+					(try_end),
+				(try_end),
+			(try_end),
+			##
+
             (try_begin),
                 (eq, ":is_female", 1),
                 (assign, ":anim", "anim_stand_man"),
@@ -18136,6 +18232,12 @@ mission_templates = [
                 #(store_random_in_range,":r",0,100),
                 #(agent_set_animation_progress,":agent",":r"),
             (try_end),           
+			(try_begin),
+				(assign, "$f_cons1", 0), #Reset consent
+				(assign, "$f_cons2", 0),
+				(assign, "$f_cons3", 0),
+				(assign, "$f_cons4", 0),
+			(try_end),
         (try_end),
         (display_message, "@Press Tab again to finish."),
         ]),
@@ -18156,6 +18258,14 @@ mission_templates = [
            (eq, "$talk_context", tc_party_encounter),
            (finish_mission,0),(change_screen_map),
        (else_try),
+			(eq, "$f_encountertype", 1),
+			(assign, "$f_encountertype", 0),
+			(jump_to_menu, "mnu_town"),
+       (else_try),
+			(eq, "$f_encountertype", 2),
+			(assign, "$f_encountertype", 0),
+			(jump_to_menu, "mnu_town_tavern_prostitution_results"),
+	   (else_try),
            (set_trigger_result,1),
        (try_end)]),
 	  
