@@ -1,15 +1,5 @@
-Temporary fork of LilyC-Dev's Warband mod, Dickplomacy Reloaded
+# warband_mod_source
+Source for my Warband mod, Dickplomacy Reloaded if you fork it, which you have full permission to do, credit my module as the source module,
+and make sure that your mod includes your source code.
 
-Here's a short do-it-yourself compiling tutorial for randoms that pop in here from LL:
-
-Step 1: Download/install Python 2.7 - should default to "C:\Python27", probably best not to change it.
-
-Step 2: Setup enviroment variables in 5 easy clicks https://i.imgur.com/7iaGdag.jpg
-
-Step 3: Replace the source folder in the module folder with the new one you download from here
-
-Step 4: In the source folder, change "module_info.py" to point to the module folder.
-
-Step 5: In the source folder, double-click compile.bat
-
-Enjoy
+NOTE: If you are using a public version this code most likely won't work, you would be missing resources. This is for developers, however, there are some cases in which you can drag and drop this repo in the Dickplomacy Reloaded module folder and compile it without issues. 
