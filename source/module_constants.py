@@ -1015,6 +1015,10 @@ slot_troop_recent_offense_object           = 152 #to whom it happened
 slot_troop_recent_offense_time             = 153
 slot_troop_stance_on_faction_issue         = 154 #when it happened
 
+slot_troop_encounters					= 155
+slot_troop_assaults						= 156
+slot_troop_entertainer					= 157
+
 tro_failed_to_join_army                    = 1
 tro_failed_to_support_colleague            = 2
 

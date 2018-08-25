@@ -68,6 +68,11 @@ meshes = [
   ("pic_vaegir", 0, "pic_vaegir", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("pic_villageriot", 0, "pic_villageriot", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("pic_sarranid_encounter", 0, "pic_sarranid_encounter", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  
+  #Custom Pictures
+  ("pic_custom_01", 0, "pic_custom_01", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("pic_custom_02", 0, "pic_custom_02", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("pic_custom_03", 0, "pic_custom_03", 0, 0, 0, 0, 0, 0, 1, 1, 1),
 
   ("mp_score_a", 0, "mp_score_a", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("mp_score_b", 0, "mp_score_b", 0, 0, 0, 0, 0, 0, 1, 1, 1),

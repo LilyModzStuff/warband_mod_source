@@ -408,8 +408,19 @@ dialogs = [
   [anyone,"start", [(eq,"$talk_context",tc_player_defeated)],
    "Hah! I caught you! You are my prisoner now.", "close_window",
    [
+   	(party_get_num_companion_stacks, ":num_stacks", "p_main_party"),
+   	(try_for_range, ":i_stack", 0, ":num_stacks"), #now include heroes
+		(party_stack_get_troop_id, ":troop_id", "p_main_party", ":i_stack"),
+		(str_store_troop_name, s4, ":troop_id"),
+		(troop_is_hero, ":troop_id"),
+		(troop_get_type, ":is_female", ":troop_id"),
+		(eq, ":is_female", tf_female),
+		(assign,":has_female", 1),
+		(display_message,"@{s4} is a female.",0xFFFF60D0),
+	(try_end),
     (try_begin),
         (eq, "$g_sexual_content", 2),
+		(eq, ":has_female", 1),
         (assign,"$auto_menu","mnu_fucked_by_enemy"),
         (change_screen_return),
     (else_try),
@@ -419,6 +430,7 @@ dialogs = [
          (call_script, "script_event_player_captured_as_prisoner"),
          (call_script, "script_stay_captive_for_hours", ":random_hours"),
          (assign,"$auto_menu","mnu_captivity_wilderness_check"),
+		 #(display_message,"@No one was targeted!",0xFFFFD800),
          (change_screen_return),
      (try_end),
     ]],
@@ -626,10 +638,13 @@ dialogs = [
      (try_end),
 
     (try_begin),
+        (troop_is_hero, "$g_talk_troop"),
+		(call_script, "script_troop_change_relation_with_troop", "trp_player", "$g_talk_troop", 5),
+     (try_end),
+     
+    (try_begin),
         (is_between, "$g_talk_troop", kingdom_ladies_begin, kingdom_ladies_end),
         (neg|troop_slot_eq, "$g_talk_troop", slot_troop_spouse, "trp_player"),
-
-        (call_script, "script_troop_change_relation_with_troop", "trp_player", "$g_talk_troop", 5),
 
         (call_script, "script_change_player_honor", -5),
 
@@ -651,9 +666,10 @@ dialogs = [
             (try_begin),
                 (eq, ":troop_no", ":guardian"),
                 (val_min, ":relation_change", -10),
-                (call_script, "script_change_troop_renown", ":troop_no", -10), #guardian loses renown
+			#Disabled because there's no good reason for people to find out... yet
+            #    (call_script, "script_change_troop_renown", ":troop_no", -10), #guardian loses renown
                 (str_store_troop_name, s0, ":troop_no"),
-                (display_message, "@{s0} loses 10 renown"),
+            #    (display_message, "@{s0} loses 10 renown"),
             (else_try),
                 #family
                 (call_script, "script_troop_get_family_relation_to_troop", "$g_talk_troop", ":troop_no"),
@@ -706,10 +722,12 @@ dialogs = [
 
             #Now apply the modification
             (lt, ":relation_change", 0),
-            (call_script, "script_troop_change_relation_with_troop", "trp_player", ":troop_no", ":relation_change"),
+			#Disabled because there's no good reason for people to find out... yet
+            #(call_script, "script_troop_change_relation_with_troop", "trp_player", ":troop_no", ":relation_change"),
         (try_end),
      (try_end),
-
+	 (assign, "$f_cons1", 0), #Con
+	 (assign, "$f_cons2", 0), #Con
      (call_script, "script_start_fucking", 2, ":scene"),
   ]],
 
@@ -779,6 +797,9 @@ dialogs = [
      (troop_set_slot, "trp_temp_array_a", 1, "$g_talk_troop"),
      (troop_set_slot, "trp_temp_array_b", 1, ":dna"),
 
+	 (assign, "$f_cons1", 0), #Con
+	 (assign, "$f_cons1", -1), #Non-con
+     
      (store_random_in_range, ":r", 0, 2),
      (assign, "$g_sex_position", ":r"),
      ]],
@@ -794,6 +815,9 @@ dialogs = [
      (troop_set_slot, "trp_temp_array_a", 1, "trp_player"),
      (troop_set_slot, "trp_temp_array_b", 1, -1),
 
+	 (assign, "$f_cons1", -1), #Non-con
+	 (assign, "$f_cons2", 0), #Con
+     
      (store_random_in_range, ":r", 0, 2),
      (assign, "$g_sex_position", ":r"),
 ]],
@@ -851,6 +875,11 @@ dialogs = [
      (troop_set_slot, "trp_temp_array_a", 3, ":troop2"),
      (troop_set_slot, "trp_temp_array_b", 3, -1),
 
+	 (assign, "$f_cons1", -1), #Non-con
+	 (assign, "$f_cons2", 0), #Con
+	 (assign, "$f_cons3", 0), #Con
+	 (assign, "$f_cons4", 0), #Con
+     
      (assign, "$g_sex_position", 2),
 ]],
   [anyone|plyr,"camp_prisoner_talk", [],
@@ -2326,7 +2355,7 @@ If you would like to practice your horsemanship, you can take my horse here. The
 (val_add, ":num_workers", ":num_girls"),
 (party_set_slot, "$current_town", slot_town_brothel_num_workers, ":num_workers"),
 ]],
-[trp_brothel_madam, "brothel_sell_member", [
+[trp_brothel_madam, "brothel_sell_members", [
 (party_get_slot, ":num_workers", "$current_town", slot_town_brothel_num_workers),
 (ge, ":num_workers", 50),
 ], "Unfortunately we have reached full capacity and cannot house any more girls.", "close_window",[
@@ -2451,7 +2480,7 @@ If you would like to practice your horsemanship, you can take my horse here. The
 
 [trp_brothel_madam, "brothel_sell_off_final", [
 ], "Well this is farewell then. Good journeys to you.", "close_window",[
-(party_set_slot, "$g_encountered_party", slot_town_has_brothel, -1),
+(party_set_slot, "$g_encountered_party", slot_town_has_brothel, 0),
 (call_script, "script_troop_add_gold", "trp_player", 2000),
 (try_for_range, ":lady", heroes_begin, heroes_end),
     (troop_slot_eq, ":lady", slot_troop_courtesan, "$g_encountered_party"),
@@ -25130,6 +25159,8 @@ I will use this to make amends to those you have wronged, and I will let it be k
 [
     (troop_set_slot, "trp_temp_array_a", 0, "$g_talk_troop"),
     (troop_set_slot, "trp_temp_array_a", 1, "trp_player"),
+	(assign, "$f_cons1", -1), #Non-con
+	(assign, "$f_cons2", 0),  #Con
     (store_random_in_range, ":r", 0, 2),
     (assign, "$g_sex_position", ":r"),
 
@@ -25153,6 +25184,9 @@ I will use this to make amends to those you have wronged, and I will let it be k
     (troop_set_slot, "trp_temp_array_a", 0, "$g_talk_troop"),
     (troop_set_slot, "trp_temp_array_a", 1, "trp_player"),
     (troop_set_slot, "trp_temp_array_a", 2, "$lord_selected"),
+	(assign, "$f_cons1", -1), #Non-con
+	(assign, "$f_cons2", 0), #Con
+	(assign, "$f_cons3", -1), #Non-con
     (store_random_in_range, ":r", 0, 2),
     (assign, "$g_sex_position", ":r"),
 
@@ -32649,7 +32683,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
   [anyone,"kingdom_lady_brothel",
    [],
-   "What infamy! I am a noble lady, I shall not be treated this way!", "kingdom_lady_brothel_2",[
+   "How vile! I am a noble lady, I shall not be treated this way!", "kingdom_lady_brothel_2",[
  ]],
   [anyone|plyr,"kingdom_lady_brothel_2",
    [],
@@ -34574,7 +34608,82 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
      (assign, "$g_player_penetrated", 0),
    ]],
 
+######################################
+   #!@#$
+   [
+	anyone|plyr,
+	"lady_talk",
+	[
+	(try_begin),
+		(ge, "$g_sexual_content", 1),
+		(try_begin),
+				(eq, "$tep_entertainer1", "$g_talk_troop"),
+				(assign, ":tribute_entertainer", 1),
+			(else_try),
+				(eq, "$tep_entertainer2", "$g_talk_troop"),
+				(assign, ":tribute_entertainer", 1),
+			(else_try),
+				(eq, "$tep_entertainer3", "$g_talk_troop"),
+				(assign, ":tribute_entertainer", 1),
+			(else_try),
+				(eq, "$tep_entertainer4", "$g_talk_troop"),
+				(assign, ":tribute_entertainer", 1),
+			(else_try),
+				(troop_slot_eq, "$g_talk_troop", slot_troop_entertainer, 1),
+				(assign, ":tribute_entertainer", 1),
+		(try_end),
+	(try_end),
+	(eq, ":tribute_entertainer", 1),
+		#(troop_has_item_equipped,"$g_talk_troop",itm_cum),
+	],
+	"What are you doing so exposed, my lady?",
+	"lady_entertainer_question",
+	[],
+   ],
 
+   [
+	anyone,
+	"lady_entertainer_question",
+	[
+	(call_script, "script_get_kingdom_lady_social_determinants", "$g_talk_troop"),
+	(assign, ":mcguardian", reg0),
+	(str_store_troop_name, s4, ":mcguardian"),
+	(call_script, "script_troop_get_family_relation_to_troop", ":mcguardian", "$g_talk_troop"),
+	(try_begin),
+		(troop_slot_eq, "$g_talk_troop", slot_lord_reputation_type, lrep_conventional),
+		(str_store_string, s5, "@I am the tribute for your merriment today, as graciously provided by {s4}. Your gaze is not for me to direct, but as a noble lady it is forbidden to lay hands on me. My {s11} will not allow it. "),
+		(else_try),
+		(troop_slot_eq, "$g_talk_troop", slot_lord_reputation_type, lrep_adventurous),
+		(str_store_string, s5, "@I am the tribute for today, unfortunately. I am to entertain the lords and display myself for them. If it weren't for my {s11}'s honor I would refuse the task outright. I would rather be over with them, speaking of the realm and it's conflicts."),
+		(else_try),
+		(troop_slot_eq, "$g_talk_troop", slot_lord_reputation_type, lrep_otherworldly),
+		(str_store_string, s5, "@It's this dreadful tradition! I am tasked to display myself for the lords' entertainment. As it is, I should be grateful that my figure is forbidden from fondling... It is degrading beyond measure but my {s11}, {s4}, commanded it of me.^^*Sigh*^^I suppose I shall endure."),
+		(else_try),
+		(troop_slot_eq, "$g_talk_troop", slot_lord_reputation_type, lrep_ambitious),
+		(str_store_string, s5, "@It is the duty of a noble to provide tribute for entertainment, and {s4} was selected today. As his tribute, I am to display my figure for the lords merriment. It is a matter of dignity and prestige to provide a proper exhibit for my {s11}.^I trust you are enjoying yourself?"),
+		(else_try),
+		(troop_slot_eq, "$g_talk_troop", slot_lord_reputation_type, lrep_moralist),
+		(str_store_string, s5, "@Oh, it is our custom that women shall entertain the guests during a gathering such as this. As it so happens, {s4} was selected to provide me as tribute today.^^I should also say that I am for your gaze only, my {lord/lady}, it is forbidden to touch."),
+		(else_try),
+		(str_store_string, s5, "@Oh, it is our custom that the women shall entertain the guests during a gathering such as this. Indeed, I was selected to display myself for the guests."),
+	(try_end),
+	],
+	"{s5}",
+	"lady_entertainer_question_response",
+	[],
+   ],
+   
+	[
+	anyone|plyr,
+	"lady_entertainer_question_response",
+	[],
+	"I see.",
+	"lady_talk",
+	[],
+	],
+
+
+######################################
 
   [anyone|plyr,"lady_talk",
    [
@@ -37655,8 +37764,294 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
   [anyone|plyr,"tavernkeeper_talk", [
   (neq, "$g_encountered_party_faction", "fac_player_supporters_faction"),
   ],
-   "Have you heard of anyone in this realm who might have a job for a {man/woman} like myself?", "tavernkeeper_job_ask",[
+   "Do you know who in this realm might have a job for a {man/woman} like myself?", "tavernkeeper_job_ask",[]],
+   
+########################################################################################
+
+	[#!@#$
+		anyone|plyr,
+		"tavernkeeper_talk",
+		[
+		(neg|party_slot_eq, "$current_town", slot_town_has_brothel, 1),
+		(eq, "$f_player_prost", 1),
+		(party_get_num_companion_stacks, ":num_stacks", "p_main_party"),
+		(assign,":has_females", 0),
+		(try_for_range, ":i_stack", 0, ":num_stacks"), #now include heroes
+			(party_stack_get_troop_id, ":troop_id", "p_main_party", ":i_stack"),
+			(str_store_troop_name, s4, ":troop_id"),
+			(troop_is_hero, ":troop_id"),
+			(troop_get_type, ":is_female", ":troop_id"),
+			(eq, ":is_female", tf_female),
+			(val_add, ":has_females", 1),
+		(try_end),
+		(try_begin),
+			(eq,":has_females", 1),
+			(party_slot_eq, "$current_town", slot_town_has_brothel, -69),
+			(str_store_string, s3, "@I am back and would like to work here some more."),
+			(else_try),
+			(ge,":has_females", 2),
+			(party_slot_eq, "$current_town", slot_town_has_brothel, -69),
+			(str_store_string, s3, "@We are back and would like to work here some more."),
+			(else_try),
+			(eq,":has_females", 1),
+			(str_store_string, s3, "@Do you have room for a lady of my... temperment, to exhibit herself here?"),
+			(else_try),
+			(ge,":has_females", 2),
+			(str_store_string, s3, "@Do you have need of some girls like us, as... physical entertainers?"),
+		(try_end),
+		],
+		"{s3}",
+		"prostitution_offer_info_resp_accept2",
+		[
+		],
+	],
+
+   [
+	anyone,
+	"tavernkeeper_job_ask",
+	[
+	(ge, "$g_sexual_content", 1),
+	(party_slot_eq, "$current_town", slot_town_has_brothel, 0),
+	(try_begin), # 25% chance to give this "quest" unless returning from the previously rejected dialogue
+		(eq, reg50, 4),
+		(assign, ":rand", 4),
+		(else_try),
+		(store_random_in_range, ":rand",0,5),
+	(try_end),
+	(eq, ":rand", 4),
+	(party_get_num_companion_stacks, ":num_stacks","p_main_party"),
+	(assign,":fems", 0),
+	(try_for_range, ":i_stack", 0, ":num_stacks"), #Check for female heroes
+	  (party_stack_get_troop_id, ":stack_troop","p_main_party",":i_stack"),
+	  (troop_is_hero, ":stack_troop"),
+	  (troop_get_type, ":is_female", ":stack_troop"),
+	  (eq, ":is_female", tf_female),
+	  (troop_set_slot,"trp_temp_array_a",":fems",":stack_troop"),
+	  (val_add,":fems",1),
+	  (str_store_troop_name,s4,":stack_troop"),
+	  #(display_message,"@{s4} is a female.",0xFFFF60D0),
+	(try_end),
+	(ge, ":fems", 1),
+	(troop_set_slot, "trp_temp_array_a", ":fems", 1), #:i_stack starts at 0 but :fems starts at 1, so the last slot in :fems is unused and could contain a crazy value from who-knows-when. So we sanitize it.
+	(store_random_in_range, ":slot",0,":fems"),
+	(troop_get_slot, ":trp", "trp_temp_array_a", ":slot"),
+	(try_begin),
+		(store_random_in_range, ":rand",0,2),
+		(eq, ":rand", 0),
+		(try_begin),
+			(eq,":fems", 2),
+			(str_store_string, s3, "@a couple girls like you two"),
+			(else_try),
+			(eq,":fems", 3),
+			(str_store_string, s3, "@a few girls like you three"),
+			(else_try),
+			(eq,":fems", 4),
+			(str_store_string, s3, "@a set of girls like you four"),
+			(else_try),
+			(ge,":fems", 5),
+			(str_store_string, s3, "@a covey of you girls"),
+		(try_end),
+		(str_store_string, s5, "@Hmm, yes, yes. You've healthy bodies and  pretty enough faces to satisfy a whole tavern. Indeed, I could use {s3} around here - and more importantly - my patrons could..."),
+		(assign, "$f_temp_var", 1),
+		(else_try),
+		(eq,":trp","trp_player"),
+		(str_store_string, s5, "@Hmm, yes, yes. You've a healthy body and a pretty enough face to satisfy. Indeed, I could use a girl like yourself around here - and more importantly - my patrons could..."),
+		(assign, "$f_temp_var", 2),
+		(else_try),
+		(neq,":trp","trp_player"),
+		(str_store_troop_name,s4,":trp"),
+		(assign, "$f_temp_var", ":trp"),
+		(str_store_string, s5, "@Hmm, yes, yes. Your companion {s4} there has a healthy body and a pretty enough face to satisfy. Indeed, I could use a girl like her around here - and more importantly - my patrons could..."),
+	(try_end),
+	],
+	"{s5}",
+	"prostitution_offer",
+	[],
+   ],
+   
+	[
+		anyone|plyr,
+		"prostitution_offer",
+		[
+		(try_begin),
+			(eq,"$f_temp_var", 1),
+			(str_store_string, s3, "@How DARE you speak of us like that!?"),
+			(else_try),
+			(eq,"$f_temp_var", 2),
+			(str_store_string, s3, "@How DARE you!?"),
+			(else_try),
+			(str_store_troop_name,s4,"$f_temp_var"),
+			(str_store_string, s3, "@How DARE you speak of {s4} like that!?"),
+		(try_end),
+		],
+		"{s3}",
+		"prostitution_offer_decline_a_say",
+		[(party_set_slot, "$current_town", slot_town_has_brothel, -1),],
+	],
+	[anyone|plyr,"prostitution_offer_decline_a_say", [], "YOU slimy, perverted lit-!", "prostitution_offer_decline_a",
+	[ #For funsies, player draws weapon
+	(get_player_agent_no, ":player_agent"),
+	(try_begin),
+	  (agent_get_item_slot, ":item_no", ":player_agent", ek_item_0),
+	  (gt, ":item_no", 0),
+	  (agent_set_wielded_item, ":player_agent", ":item_no"),
+	(try_end),
    ]],
+
+	[anyone,"prostitution_offer_decline_a", [], "Oh, my. I'm sorry, please calm down miss!", "prostitution_offer_decline_a2",[]],
+	[anyone,"prostitution_offer_decline_a2", [], "I didn't mean to imply or insult, or anything! I ain't mean any harm by it.^I was just trying to be helpful, honest...^^I realise, now, 'twas a mistake, I'll not bring it up again.", "close_window",[]],
+
+	[
+		anyone|plyr,
+		"prostitution_offer",
+		[
+		(try_begin),
+			(eq,"$f_temp_var", 1),
+			(str_store_string, s3, "@We are not harlots."),
+			(else_try),
+			(eq,"$f_temp_var", 2),
+			(str_store_string, s3, "@I'm not a harlot."),
+			(else_try),
+			(str_store_troop_name,s4,"$f_temp_var"),
+			(str_store_string, s3, "@{s4} is not a harlot."),
+		(try_end),
+		],
+		"{s3}",
+		"prostitution_offer_decline_b",
+		[(party_set_slot, "$current_town", slot_town_has_brothel, -1),],
+	],
+	
+	[anyone,"prostitution_offer_decline_b", [], "Of course madam, I didn't mean to imply. I shan't bring it up again.", "prostitution_offer_decline_b2",[]],
+	[anyone,"prostitution_offer_decline_b2", [], "I take it, then, you're asking about sword's work and the like?", "tavernkeeper_job_ask",[]],
+	
+	[
+		anyone|plyr,
+		"prostitution_offer",
+		[
+		(try_begin),
+			(eq,"$f_temp_var", 1),
+			(str_store_string, s3, "@Oh, and how much would you pay for us?"),
+			(else_try),
+			(eq,"$f_temp_var", 2),
+			(str_store_string, s3, "@Oh, and how much would I be paid?"),
+			(else_try),
+			(str_store_troop_name,s4,"$f_temp_var"),
+			(str_store_string, s3, "@Oh, how much would I be paid for her?"),
+		(try_end),
+		],
+		"{s3}",
+		"prostitution_offer_info",
+		[],
+	],
+	
+	[anyone,"prostitution_offer_info", [
+		(try_begin),
+			(eq,"$f_temp_var", 1),
+			(str_store_string, s3, "@It honestly depends on how enticing you girls can be. I can give you a room and access to customers, but ultimately what you bring in is what your company is worth."),
+			(else_try),
+			(eq,"$f_temp_var", 2),
+			(str_store_string, s3, "@It honestly depends on how enticing you are. I can give you a room and access to customers, but ultimately what you bring in is what your company is worth."),
+			(else_try),
+			(str_store_troop_name,s4,"$f_temp_var"),
+			(str_store_string, s3, "@It honestly depends on how enticing {s4} can be. I can give her a room and access to customers, but ultimately what you bring in is what her company is worth."),
+		(try_end),
+	], "{s3}^^Of course, my establishment collects one third of this, the prevailing rate in this area.", "prostitution_offer_info_resp",[]],
+
+	[
+		anyone|plyr,
+		"prostitution_offer_info_resp",
+		[],
+		"Alright, I accept.",
+		"prostitution_offer_info_resp_accept",
+		[
+		],
+	],
+	
+	[anyone,"prostitution_offer_info_resp_accept", [], "Fantastic, I'm so glad we can help each other with this arrangement.", "prostitution_offer_info_resp_accept2",[]],
+
+	[
+		anyone,
+		"prostitution_offer_info_resp_accept2",
+		[],
+		"Of course. The room is upstairs, let me show you the way.",
+		"close_window",
+		[
+		(party_set_slot, "$current_town", slot_town_has_brothel, -69),
+		(assign, "$f_player_prost", 1),
+		(jump_to_menu, "mnu_town_tavern_prostitution"),
+		(stop_all_sounds, 1),
+		(finish_mission),
+		],
+	],
+	
+	[
+		anyone|plyr,
+		"prostitution_offer_info_resp_accept3",
+		[],
+		"Show me to my room, I wish to get started.",
+		"fuck_decision",
+		[
+		(assign, "$g_pre_consent", 1),
+		(try_begin),
+			(call_script, "script_cf_dplmc_troop_is_female", "$g_talk_troop"),
+			(eq, "$character_gender", 1),
+			(store_random_in_range, ":r", 0, 2),
+			(assign, "$g_player_penetrated", ":r"),
+		(else_try),
+			(eq, "$character_gender", 1),
+			(assign, "$g_player_penetrated", 1),
+		(else_try),
+			(assign, "$g_player_penetrated", 0),
+		(try_end),
+		],
+	],
+
+	[
+		anyone|plyr,
+		"prostitution_offer_info_resp",
+		[(neq, reg50, 2),],
+		"One third? That is outrageous!",
+		"prostitution_offer_info_resp_price",
+		[(assign, reg50, 2),],
+	],
+	
+	[anyone,"prostitution_offer_info_resp_price", [], "I'm wounded, that is a generous offer and a standard fare for this area. Sadly, my tavern might have to endure on it's own if this is too much for you.", "prostitution_offer_info_resp",[]],
+	
+	[
+		anyone|plyr,
+		"prostitution_offer_info_resp",
+		[],
+		"Never mind",
+		"prostitution_offer_info_resp_decline",
+		[],
+	],
+	
+	[
+		anyone|plyr,
+		"prostitution_offer",
+		[],
+		"You misunderstand. I am looking for mercenary work.",
+		"prostitution_offer_decline_c",
+		[],
+	],
+	
+	[anyone,"prostitution_offer_decline_c", [], "Ah, of course. In that case I can certainly get you pointed in the right direction.", "tavernkeeper_job_ask",[(party_set_slot, "$current_town", slot_town_has_brothel, -2),]],
+	
+	[anyone,"prostitution_offer_info_resp_decline", [
+	(try_begin),
+		(eq,"$f_temp_var", 1),
+		(str_store_string, s3, "@you girls"),
+		(else_try),
+		(eq,"$f_temp_var", 2),
+		(str_store_string, s3, "@you"),
+		(else_try),
+		(str_store_troop_name,s4,"$f_temp_var"),
+		(str_store_string, s3, "@she"),
+	(try_end),
+	], "Truly a shame, I'm sure {s3} would have been wonderful. The offer still stands, though, should you ever want the coin.", "tavernkeeper_pretalk",[(party_set_slot, "$current_town", slot_town_has_brothel, -2),]],
+
+
+########################################################################################
 
   [anyone,"tavernkeeper_job_ask",
    [
@@ -37763,7 +38158,14 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
    [
        ]],
 
-  [anyone,"tavernkeeper_job_result_2", [], "I'll keep my ears open for other opportunities. You may want to ask again from time to time.", "close_window",[]],
+  [anyone,"tavernkeeper_job_result_2", [], "I'll keep my ears open for other opportunities. You may want to ask again from time to time.", "tavernkeeper_job_result_followon",[]],
+
+  [anyone|plyr,"tavernkeeper_job_result_followon",[(neg|party_slot_eq, "$current_town", slot_town_has_brothel, -69),(this_or_next|party_slot_eq, "$current_town", slot_town_has_brothel, -1),(party_slot_eq, "$current_town", slot_town_has_brothel, -2),],"Um, about what you said earlier. The job you had...","tavernkeeper_job_result_followon2",[],],
+  
+  [anyone,"tavernkeeper_job_result_followon2", [], "Huh? But didn't you say you...? Eh, never mind.^^Uh, right the job. Let's see here...", "tavernkeeper_job_ask",[(party_set_slot, "$current_town", slot_town_has_brothel, 0),(assign, reg50, 4),]],
+	
+  [anyone|plyr,"tavernkeeper_job_result_followon",[],"Thank you, that's all I needed.","close_window",[],],
+
 ### Three Cards ### Find the Lady ###
   [anyone|plyr,"tavernkeeper_talk",
    [],
