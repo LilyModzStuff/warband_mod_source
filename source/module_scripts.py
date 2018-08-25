@@ -94,6 +94,7 @@ scripts = [
       (assign, "$first_time", 0),	#squelch compiler warnings
       (assign, "$fuck_stamina", 1),
       (assign, "$g_sexual_content", 0),
+	  (assign, "$g_nohomo", 1),
       (assign, "$g_dark_hunters_enabled", 0),
       (assign, "$g_realistic_wounding", 0), #new game
       (assign, "$g_polygamy", 0), #new game

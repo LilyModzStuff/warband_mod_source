@@ -16681,7 +16681,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
       [
         (try_begin),
             (eq, "$g_sexual_content", 2),
-	        (eq, "$character_gender", 1),
+	        (this_or_next|eq, "$character_gender", 1),(eq, "$g_nohomo", 0),
             (jump_to_menu, "mnu_fucked_by_enemy_prison"),
         (else_try),
             (assign, "$g_player_is_captive", 1),
@@ -18946,7 +18946,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 		(eq, ":type", "trp_belligerent_drunk"),
 		(try_begin),
 			(eq, "$g_sexual_content", 2),
-			(eq, "$character_gender", 1),
+			(this_or_next|eq, "$character_gender", 1),(eq, "$g_nohomo", 0),
 			(agent_get_entry_no, ":entry_no", "$g_main_attacker_agent"),
 			(troop_get_slot, ":dna", "trp_temp_array_c", ":entry_no"), #I really don't know why this won't work.
 			(troop_set_slot, "trp_temp_array_a", 0, "trp_player"), 
@@ -18984,7 +18984,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
        [
 		(try_begin), # Drunk barfight loss scene
 			(eq, "$g_sexual_content", 2),
-			(eq, "$character_gender", 1),
+			(this_or_next|eq, "$character_gender", 1),(eq, "$g_nohomo", 0),
 			(call_script, "script_change_troop_renown", "trp_player", -5),
 			(call_script, "script_start_fucking", 2, "scn_tavern"),
 		(else_try),
@@ -22387,7 +22387,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
         (troop_set_slot, "trp_temp_array_b", 0, -1), 
 
 		(try_begin),
-		(eq, "$character_gender", 1),
+		(this_or_next|eq, "$character_gender", 1),(eq, "$g_nohomo", 0),
         (troop_set_slot, "trp_temp_array_a", 0, "trp_player"),
 		(try_end),
 		
@@ -22399,7 +22399,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 				(party_stack_get_troop_id, ":troop_id", "p_main_party", ":i_stack"),
 				(troop_is_hero, ":troop_id"),
 				(troop_get_type, ":is_female", ":troop_id"),
-				(eq, ":is_female", tf_female),
+				(this_or_next|eq, ":is_female", tf_female),(eq, "$g_nohomo", 0),
 				(val_add, ":fems", 1),
 			(try_end),
 			(store_random_in_range, ":ff", 0, ":fems"),
@@ -22408,7 +22408,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 					(party_stack_get_troop_id, ":troop_id", "p_main_party", ":i_stack"),
 					(troop_is_hero, ":troop_id"),
 					(troop_get_type, ":is_female", ":troop_id"),
-					(eq, ":is_female", tf_female),
+					(this_or_next|eq, ":is_female", tf_female),(eq, "$g_nohomo", 0),
 					(try_begin),
 						(gt, ":ff", 0),
 						(val_sub, ":ff", 1),
@@ -22494,7 +22494,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 			(eq, ":girl", 0),
 			(str_store_string, s10, "@Your enemies take you prisoner, and drag you back to their camp. ^^After a few hungry glances, their leader snatches your hair and roughly pulls you into his tent where he tears your clothes away."),
 			(else_try),
-			(str_store_string, s10, "@Your enemies take you and your companions prisoner, leading all of you back to their camp. ^^After a few hungry glances, their leader grabs you by the arm and snatches {s4}'s hair. He roughly pulls you both into his tent and tears your clothes away."),
+			(str_store_string, s10, "@Your enemies take you and your companions prisoner, leading all of you back to their camp. ^^After a few hungry glances, their leader grabs you by the arm and snatches {s4}'s hair. He roughly pulls you both into his tent and tears both your clothes away."),
 		(try_end),
      ],
     [
@@ -22610,6 +22610,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
        (try_end),
         ]
        ),
+
       ("camp_dark_hunters",[(assign, reg0, "$g_dark_hunters_enabled"),],"{reg0?Dis:En}able Dark Hunter's and Black Khergit Raider's spawning script",
        [
            (val_clamp, "$g_dark_hunters_enabled", 0, 2), #in case of other values
@@ -22650,6 +22651,12 @@ goods, and books will never be sold. ^^You can change some settings here freely.
        [
            (val_clamp, "$g_polygamy", 0, 2), #in case of other values
            (store_sub, "$g_polygamy", 1, "$g_polygamy"),
+        ]
+       ),
+      ("camp_nohomobro",[(assign, reg0, "$g_nohomo"),],"{reg0?Dis:En}able gay scenes",
+       [
+           (val_clamp, "$g_nohomo", 0, 2), #in case of other values
+           (store_sub, "$g_nohomo", 1, "$g_nohomo"),
         ]
        ),
       ("back",[],"Back",
@@ -22728,7 +22735,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 
   (
     "town_tavern_prostitution",0,
-    "Your room is nice, if old and worn down. The window holds a dissapointing,but convienent view of a stone wall from the neighboring building. A dim candle lights the otherwise mellow room to provide a somewhat romantic atmosphere.",
+    "Your room is nice, if old and worn down. The window holds a dissapointing, but convienent view of a stone wall from the neighboring building. A dim candle lights the otherwise mellow room to provide a somewhat romantic atmosphere.",
     "none",
     [#Auto-exectued
 	(set_background_mesh, "mesh_pic_custom_01"),
