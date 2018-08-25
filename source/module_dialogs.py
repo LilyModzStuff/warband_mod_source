@@ -409,14 +409,15 @@ dialogs = [
    "Hah! I caught you! You are my prisoner now.", "close_window",
    [
    	(party_get_num_companion_stacks, ":num_stacks", "p_main_party"),
+	(assign,":has_female", 0),
    	(try_for_range, ":i_stack", 0, ":num_stacks"), #now include heroes
 		(party_stack_get_troop_id, ":troop_id", "p_main_party", ":i_stack"),
 		(str_store_troop_name, s4, ":troop_id"),
 		(troop_is_hero, ":troop_id"),
 		(troop_get_type, ":is_female", ":troop_id"),
-		(eq, ":is_female", tf_female),
+		(this_or_next|eq, ":is_female", tf_female),(eq, "$g_nohomo", 0),
 		(assign,":has_female", 1),
-		(display_message,"@{s4} is a female.",0xFFFF60D0),
+		#(display_message,"@{s4} is a female.",0xFFFF60D0),
 	(try_end),
     (try_begin),
         (eq, "$g_sexual_content", 2),
@@ -37899,7 +37900,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
    ]],
 
 	[anyone,"prostitution_offer_decline_a", [], "Oh, my. I'm sorry, please calm down miss!", "prostitution_offer_decline_a2",[]],
-	[anyone,"prostitution_offer_decline_a2", [], "I didn't mean to imply or insult, or anything! I ain't mean any harm by it.^I was just trying to be helpful, honest...^^I realise, now, 'twas a mistake, I'll not bring it up again.", "close_window",[]],
+	[anyone,"prostitution_offer_decline_a2", [], "I didn't mean to imply or insult, or anything! I ain't mean any harm by it. I was just trying to be helpful, honest...^^I realise, now, 'twas a mistake, I'll not bring it up again.", "close_window",[]],
 
 	[
 		anyone|plyr,

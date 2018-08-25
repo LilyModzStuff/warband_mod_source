@@ -53,8 +53,6 @@ mod_options = [
 
 ),
 
-    
-
      ("camp_same_sex_on", xgm_ov_checkbox, [], "Same sex marriage:", 0,
 	  "Toggles same sex marriage", 0,
         [(try_begin),
@@ -96,6 +94,30 @@ mod_options = [
         (try_end),
         ],
 ), 
+
+    ("camp_nohomobro", xgm_ov_checkbox, [], "Disable Gay", 0,
+	  "Disables gay scenes.", 0,
+
+		[
+		(try_begin),
+			(eq, "$g_nohomo", 0),
+			(assign, reg1, 0),
+		(else_try),
+			(eq, "$g_nohomo", 1),
+			(assign, reg1, 1),
+		(try_end),
+		],
+		[
+        (try_begin),
+        (eq, reg1, 0), 
+        (assign, "$g_nohomo", 0),
+        (else_try),
+        (eq, reg1, 1),
+        (assign, "$g_nohomo", 1),
+        (try_end),
+        ],
+	), 
+
     ("camp_dark_hunters", xgm_ov_checkbox, [], "Enable Black Khergits and Dark Hunters:", 0,
      "Settings for Dark Hunters and Black Khergits.", 0,
   [

@@ -1295,5 +1295,6 @@ tep_entertainer2
 tep_entertainer3
 tep_entertainer4
 last_feast_location
+g_$g_nohomo
 g_player_debt
 g_player_deposit
