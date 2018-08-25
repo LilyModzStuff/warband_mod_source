@@ -13093,6 +13093,12 @@ TOTAL:  {reg5}"),
 #     ]),
 	 ##nested diplomacy end+
 	  ##diplomacy end
+
+      ("hire_troops",[],
+       "Hire troops.",## You have added a new menu.
+       [
+           (jump_to_menu,"mnu_town_pre_hire_troops"),
+        ]),
       ("town_leave",[],"Leave...",
       [
         (assign, "$g_permitted_to_center",0),
@@ -14735,6 +14741,259 @@ goods, and books will never be sold. ^^You can change some settings here freely.
            (jump_to_menu,"mnu_town_trade"),
         ]),
     ]
+  ),
+      (
+    "town_pre_hire_troops",0,
+    "You enter a building with several mercenaries, cut-throuts, poor and adventerous warriors. You ask about to gather a overview of who's available for hire.. (this takes 1 hours)",
+    "none",
+    [],
+    [
+      ("continue",[],"Ask about..",
+       [
+           (store_sub, ":num_hours", 1),
+           (rest_for_hours, ":num_hours", 5, 0), #rest while not attackable
+           (change_screen_return),
+           (jump_to_menu,"mnu_town_hire_troops"),
+        ]),
+      ("go_back",[],"Go back..",
+       [
+           (jump_to_menu,"mnu_town_trade"),
+        ]),
+    ]
+  ),
+
+    (
+    "town_hire_troops",0,
+    "This is the list you've managed to scrap together:",
+    "none",
+    [],
+    [
+      ("hire_farmers",[],"Hire farmers.",
+       [
+           (jump_to_menu,"mnu_town_hire_farmers"),
+        ]),
+      ("hire_cutthroats",[],"Hire villains, cutthrroats and looters.",
+       [
+           (jump_to_menu,"mnu_town_hire_cutthroats"),
+        ]),
+      ("hire_knights",[],"Hire knights in shiny armour.",
+       [
+           (jump_to_menu,"mnu_town_hire_knights"),
+        ]),
+      ("go_back",[],"Go back..",
+       [
+           (jump_to_menu,"mnu_town_trade"),
+        ]),
+    ]
+  ),
+(
+    "town_hire_farmers",0,
+    "Their clothing is tattered and their pockets are empty, but their bravery has no boundaries. They have been driven out of their lands for different reasons and their husbands have been killed in the wars, and now the only way for these women make a living is to join a mercenary band. 100 denars each refugee.",
+    "none",
+    [],
+    [
+      ("farmer1",[(store_troop_gold,":total_money","trp_player"),(ge, ":total_money",100),
+                       (party_get_free_companions_capacity, ":free_capacity", "p_main_party"),
+                       (ge, ":free_capacity",1),
+],
+       "1 Farmer.",
+       [
+           (party_add_members, "p_main_party", "trp_farmer", 1),
+           (troop_remove_gold, "$g_player_troop", 100),
+        ]),
+("farmer5",[(store_troop_gold,":total_money","trp_player"),(ge, ":total_money",500),
+                 (party_get_free_companions_capacity, ":free_capacity", "p_main_party"),
+                 (ge, ":free_capacity",5),
+],"5 Farmers.",
+       [
+           (party_add_members, "p_main_party", "trp_refugee", 5),
+           (troop_remove_gold, "$g_player_troop", 500),
+        ]),
+("farmer10",[(store_troop_gold,":total_money","trp_player"),(ge, ":total_money",1000),
+                 (party_get_free_companions_capacity, ":free_capacity", "p_main_party"),
+                 (ge, ":free_capacity",5),
+],"10 Farmers.",
+       [
+           (party_add_members, "p_main_party", "trp_refugee", 10),
+           (troop_remove_gold, "$g_player_troop", 1000),
+        ]),
+      ("back_to_town_hire_troops",[],"Go back..",
+       [
+           (jump_to_menu,"mnu_town_hire_troops"),
+        ]),
+    ]
+  ),
+
+  (
+    "town_hire_cutthroats",0,
+    "Vile and vicious people with rotten theeth glares at you whilst you question their value and usefulness in your party. 150 for each Looter, 700 for each Nord archer, 300 for each bandit and 500 for each Brigand.",
+    "none",
+    [],
+    [
+      ("looter1",[(store_troop_gold,":total_money","trp_player"),(ge, ":total_money",150),
+                       (party_get_free_companions_capacity, ":free_capacity", "p_main_party"),
+                       (ge, ":free_capacity",1),
+],
+       "1 Looter.",
+       [
+           (party_add_members, "p_main_party", "trp_looter", 1),
+           (troop_remove_gold, "trp_player", 150),
+        ]),
+      ("looter5",[(store_troop_gold,":total_money","trp_player"),(ge, ":total_money",750),
+                       (party_get_free_companions_capacity, ":free_capacity", "p_main_party"),
+                       (ge, ":free_capacity",1),
+],
+       "5 Looters.",
+       [
+           (party_add_members, "p_main_party", "trp_looter", 5),
+           (troop_remove_gold, "trp_player", 750),
+        ]),
+      ("looter10",[(store_troop_gold,":total_money","trp_player"),(ge, ":total_money",1500),
+                       (party_get_free_companions_capacity, ":free_capacity", "p_main_party"),
+                       (ge, ":free_capacity",1),
+],
+       "10 Looters.",
+       [
+           (party_add_members, "p_main_party", "trp_looter", 10),
+           (troop_remove_gold, "trp_player", 1500),
+        ]),
+            ("bandit1",[(store_troop_gold,":total_money","trp_player"),(ge, ":total_money",300),
+                       (party_get_free_companions_capacity, ":free_capacity", "p_main_party"),
+                       (ge, ":free_capacity",1),
+],
+       "1 Bandit.",
+       [
+           (party_add_members, "p_main_party", "trp_bandit", 1),
+           (troop_remove_gold, "trp_player", 300),
+        ]),
+            ("bandit5",[(store_troop_gold,":total_money","trp_player"),(ge, ":total_money",1500),
+                       (party_get_free_companions_capacity, ":free_capacity", "p_main_party"),
+                       (ge, ":free_capacity",1),
+],
+       "1 Bandits.",
+       [
+           (party_add_members, "p_main_party", "trp_bandit", 5),
+           (troop_remove_gold, "trp_player", 1500),
+        ]),
+        ("bandit10",[(store_troop_gold,":total_money","trp_player"),(ge, ":total_money",3000),
+                       (party_get_free_companions_capacity, ":free_capacity", "p_main_party"),
+                       (ge, ":free_capacity",1),
+],
+       "1 Bandits.",
+       [
+           (party_add_members, "p_main_party", "trp_bandit", 10),
+           (troop_remove_gold, "trp_player", 3000),
+        ]),
+              ("brigand1",[(store_troop_gold,":total_money","trp_player"),(ge, ":total_money",500),
+                       (party_get_free_companions_capacity, ":free_capacity", "p_main_party"),
+                       (ge, ":free_capacity",1),
+],
+       "1 Brigand.",
+       [
+           (party_add_members, "p_main_party", "trp_brigand", 1),
+           (troop_remove_gold, "trp_player", 500),
+        ]),
+                    ("brigand5",[(store_troop_gold,":total_money","trp_player"),(ge, ":total_money",2500),
+                       (party_get_free_companions_capacity, ":free_capacity", "p_main_party"),
+                       (ge, ":free_capacity",1),
+],
+       "1 Brigands.",
+       [
+           (party_add_members, "p_main_party", "trp_brigand", 5),
+           (troop_remove_gold, "trp_player", 2500),
+        ]),
+                    ("brigand10",[(store_troop_gold,":total_money","trp_player"),(ge, ":total_money",5000),
+                       (party_get_free_companions_capacity, ":free_capacity", "p_main_party"),
+                       (ge, ":free_capacity",1),
+],
+       "10 Brigands.",
+       [
+           (party_add_members, "p_main_party", "trp_brigand", 10),
+           (troop_remove_gold, "trp_player", 5000),
+        ]),
+                      ("nord_archer",[(store_troop_gold,":total_money","trp_player"),(ge, ":total_money",7000),
+                       (party_get_free_companions_capacity, ":free_capacity", "p_main_party"),
+                       (ge, ":free_capacity",1),
+],
+       "1 Nord Archers.",
+       [
+           (party_add_members, "p_main_party", "trp_nord_archer", 10),
+           (troop_remove_gold, "trp_player", 7000),
+        ]),
+      ("back_to_town_hire_troops",[],"Go back..",
+       [
+           (jump_to_menu,"mnu_town_hire_troops"),
+        ]),
+        ]
+  ),
+
+  (
+    "town_hire_knights",0,
+    "Wearing shiny armour and swords ready to cut through flesh, they stand in front of you with their honour held high(as long as you pay them.).. 1000 denars each knight.",
+    "none",
+    [],
+    [
+
+              ("swadian_knight1",[(store_troop_gold,":total_money","trp_player"),(ge, ":total_money",1000),
+                       (party_get_free_companions_capacity, ":free_capacity", "p_main_party"),
+                       (ge, ":free_capacity",1),
+],
+
+       "1 Swadian Knight.",
+       [
+           (party_add_members, "p_main_party", "trp_swadian_knight", 1),
+           (troop_remove_gold, "trp_player", 1000),
+        ]),
+                       ("swadian_knight5",[(store_troop_gold,":total_money","trp_player"),(ge, ":total_money",5000),
+                       (party_get_free_companions_capacity, ":free_capacity", "p_main_party"),
+                       (ge, ":free_capacity",1),
+],
+       "5 Swadian Knights.",
+       [
+           (party_add_members, "p_main_party", "trp_swadian_knight", 5),
+           (troop_remove_gold, "trp_player", 5000),
+        ]),
+                       ("swadian_knight10",[(store_troop_gold,":total_money","trp_player"),(ge, ":total_money",10000),
+                       (party_get_free_companions_capacity, ":free_capacity", "p_main_party"),
+                       (ge, ":free_capacity",1),
+],
+       "10 Swadian Knights.",
+       [
+           (party_add_members, "p_main_party", "trp_swadian_knight", 10),
+           (troop_remove_gold, "trp_player", 10000),
+        ]),
+                      ("vaegir_knight1",[(store_troop_gold,":total_money","trp_player"),(ge, ":total_money",1000),
+                       (party_get_free_companions_capacity, ":free_capacity", "p_main_party"),
+                       (ge, ":free_capacity",1),
+],
+       "1 Vaegir Knights.",
+       [
+           (party_add_members, "p_main_party", "trp_Vaegir_knight", 1),
+           (troop_remove_gold, "trp_player", 1000),
+        ]),
+                      ("vaegir_knight5",[(store_troop_gold,":total_money","trp_player"),(ge, ":total_money",5000),
+                       (party_get_free_companions_capacity, ":free_capacity", "p_main_party"),
+                       (ge, ":free_capacity",1),
+],
+       "5 Vaegir Knights.",
+       [
+           (party_add_members, "p_main_party", "trp_vaegir_knight", 5),
+           (troop_remove_gold, "trp_player", 5000),
+        ]),
+                      ("vaegir_knight10",[(store_troop_gold,":total_money","trp_player"),(ge, ":total_money",10000),
+                       (party_get_free_companions_capacity, ":free_capacity", "p_main_party"),
+                       (ge, ":free_capacity",1),
+],
+       "10 Vaegir Knights.",
+       [
+           (party_add_members, "p_main_party", "trp_vaegir_knight", 10),
+           (troop_remove_gold, "trp_player", 10000),
+        ]),
+      ("back_to_town_hire_troops",[],"Go back..",
+       [
+           (jump_to_menu,"mnu_town_hire_troops"),
+        ]),
+        ]
   ),
 
   (
