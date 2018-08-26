@@ -70,3 +70,4 @@ prsnt_faction_troop_tree = 68
 prsnt_troop_note = 69
 prsnt_mod_option = 70
 prsnt_mcc_character_creation = 71
+prsnt_recruit_volunteers = 72
