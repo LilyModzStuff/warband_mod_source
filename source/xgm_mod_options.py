@@ -154,6 +154,7 @@ mod_options = [
         (assign, "$g_dark_hunters_enabled", 1),
       (try_end),
         ],
+	),
 
     ( "keep_companions", xgm_ov_checkbox ,  [], # Don't know how to make this more descriptive without being extra lenghty.
         "Keep Companions:", 0,        
@@ -166,7 +167,6 @@ mod_options = [
         ], 
     ),
 		
-),
     ("camp_realistic_wounding", xgm_ov_checkbox, [], "Realistic Wounding:", 0,
 	  "Toggles realistic wounding", 0,
             [(try_begin),

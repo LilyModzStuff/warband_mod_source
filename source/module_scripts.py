@@ -95,6 +95,7 @@ scripts = [
       (assign, "$fuck_stamina", 1),
       (assign, "$g_sexual_content", 0),
 	  (assign, "$g_nohomo", 1),
+	  (assign, "$g_keep_companions", 0),
       (assign, "$g_dark_hunters_enabled", 0),
       (assign, "$g_realistic_wounding", 0), #new game
       (assign, "$g_polygamy", 0), #new game
@@ -1219,7 +1220,7 @@ scripts = [
 
     #SB : default parameters for post-battle continuation
     (call_script, "script_setup_camera_keys"),
-    (assign, "$g_dplmc_cam_default", camera_keyboard),
+    (assign, "$g_dplmc_cam_default", camera_mouse),
     (assign, "$g_dplmc_player_disguise", disguise_pilgrim),
     (assign, "$g_dplmc_charge_when_dead", 1),
 
@@ -68500,8 +68501,8 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 
         (assign, "$deathcam_total_rotx", 0),
 
-        (assign, "$deathcam_sensitivity_x", 400), #4:3 ratio may be best
-        (assign, "$deathcam_sensitivity_y", 300), #If modified, change values in common_move_deathcam
+        (assign, "$deathcam_sensitivity_x", 200), #4:3 ratio may be best
+        (assign, "$deathcam_sensitivity_y", 150), #If modified, change values in common_move_deathcam
 
         (assign, "$deathcam_prsnt_was_active", 0),
 

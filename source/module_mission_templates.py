@@ -1826,6 +1826,13 @@ common_move_deathcam = (
         (try_end),
 
         (try_begin),
+          (eq, "$g_slowcameramode", 1),
+          (val_div, ":move_x", 8),
+          (val_div, ":move_y", 8),
+          (val_div, ":move_z", 4),
+        (try_end),
+
+        (try_begin),
           (game_key_is_down, gk_zoom),
           (val_mul, ":move_x", 4),
           (val_mul, ":move_y", 4),
@@ -18094,6 +18101,7 @@ mission_templates = [
 			(try_begin),
 			  (eq, "$g_dplmc_cam_activated", 0),
 			  #(store_mission_timer_a, "$g_dplmc_main_hero_fallen_seconds"),
+			  (assign, "$g_slowcameramode", 1),
 			  (assign, "$g_dplmc_cam_activated", "$g_dplmc_cam_default"),
 			  (store_add, ":string", "$g_dplmc_cam_activated", "str_camera_keyboard"),
 			  (val_sub, ":string", 1),
@@ -18246,6 +18254,7 @@ mission_templates = [
       (ti_tab_pressed, 3, 0, [(main_hero_fallen),(eq, "$g_orgasm", 1),(store_mission_timer_a, ":time"),(gt,":time",2)],
        [
        (stop_all_sounds, 1),
+	   (assign, "$g_slowcameramode", 0),
             (try_for_agents, ":agent_no"),
                  (agent_is_human, ":agent_no"),
                  (agent_get_troop_id, ":troop_id", ":agent_no"),

@@ -13152,31 +13152,6 @@ TOTAL:  {reg5}"),
        [
            (jump_to_menu,"mnu_town_pre_hire_troops"),
         ]),
-      ("town_leave",[],"Leave...",
-      [
-        (assign, "$g_permitted_to_center",0),
-        (change_screen_return,0),
-		##diplomacy start+
-		#Porting rubik's autobuy/autosell from Custom Commander
-		(try_begin),
-		  (eq, "$sneaked_into_town", disguise_none), #SB : disable while disguised
-		  (neg|party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
-		  (call_script, "script_dplmc_initialize_autoloot", 0),#argument "0" means this does nothing if deemed unnecessary
-		  (try_begin),
-			(eq, "$g_dplmc_buy_food_when_leaving", 1),
-			(party_get_slot, ":merchant_troop", "$current_town", slot_town_merchant),
-			(gt, ":merchant_troop", 0),
-			(call_script, "script_dplmc_auto_buy_food", "trp_player", ":merchant_troop"),
-		  (try_end),
-		  (try_begin),
-			(eq, "$g_dplmc_sell_items_when_leaving", 1),
-			(call_script, "script_dplmc_player_auto_sell_at_center", "$current_town"),
-		  (try_end),
-		(else_try), #SB : process leaving town guard check
-          (gt, "$sneaked_into_town", disguise_none),
-        (try_end),
-		##diplomacy end+
-      ],"Leave Area."),
 
       #SB : consolidated cheat options
       ("town_cheat", [(ge, "$cheat_mode", 1),],
@@ -13307,6 +13282,32 @@ TOTAL:  {reg5}"),
         # (change_screen_return),
       ]),
 
+	  # For consistency's sake this should always be the bottom option.
+      ("town_leave",[],"Leave...",
+      [
+        (assign, "$g_permitted_to_center",0),
+        (change_screen_return,0),
+		##diplomacy start+
+		#Porting rubik's autobuy/autosell from Custom Commander
+		(try_begin),
+		  (eq, "$sneaked_into_town", disguise_none), #SB : disable while disguised
+		  (neg|party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
+		  (call_script, "script_dplmc_initialize_autoloot", 0),#argument "0" means this does nothing if deemed unnecessary
+		  (try_begin),
+			(eq, "$g_dplmc_buy_food_when_leaving", 1),
+			(party_get_slot, ":merchant_troop", "$current_town", slot_town_merchant),
+			(gt, ":merchant_troop", 0),
+			(call_script, "script_dplmc_auto_buy_food", "trp_player", ":merchant_troop"),
+		  (try_end),
+		  (try_begin),
+			(eq, "$g_dplmc_sell_items_when_leaving", 1),
+			(call_script, "script_dplmc_player_auto_sell_at_center", "$current_town"),
+		  (try_end),
+		(else_try), #SB : process leaving town guard check
+          (gt, "$sneaked_into_town", disguise_none),
+        (try_end),
+		##diplomacy end+
+      ],"Leave Area."),
     ]
    ),
 
