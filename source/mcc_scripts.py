@@ -15,8 +15,8 @@ from header_presentations import *
 # 2) Operation block: This must be a valid operation block. See header_operations.py for reference.
 ####################################################################################################################
 
-scripts = [	 
-# script_mcc_default_settings 
+scripts = [
+# script_mcc_default_settings
 # Establishes the default character creation settings to use upon initializing the presentation or using the default button option.
 # Input: none
 # Output: none
@@ -28,17 +28,17 @@ scripts = [
 		(assign, "$background_answer_3",cb3_squire),
 		(assign, "$background_answer_4", cb4_revenge),
 	]),
-	
-# script_mcc_end_presentation_begin_game 
+
+# script_mcc_end_presentation_begin_game
 # Establishes the default character creation settings to use upon initializing the presentation or using the default button option.
 # Input: none
 # Output: none
 ("mcc_end_presentation_begin_game",
 	[
-		
+
 		# BUILD CHARACTER STATS
 		(call_script, "script_mcc_generate_skill_set", equip_the_player), # This tells the kit to generate the new stat combination AND give the actual equipment to the player vs. display the information.
-			
+
 		# gender
 		(try_begin),
 			(eq,"$character_gender",tf_male),
@@ -47,8 +47,8 @@ scripts = [
 			(eq,"$character_gender",tf_female),
 			(troop_set_type,"trp_player", 1),
 		(try_end),
-		
-		
+
+
 		## mcc 1.1+ ## - Workaround for Warband 1.151 breaking the banner presentation at game start.
 		(try_begin),
 			(eq, "$background_type", cb_noble),
@@ -57,10 +57,10 @@ scripts = [
 			(assign, "$player_needs_a_banner", 0),
 		(try_end),
 	]),
-	
 
-	
-# script_mcc_add_skill_display 
+
+
+# script_mcc_add_skill_display
 # Creates a new display for each skill added and keeps them in order.
 # Input: none
 # Output: none
@@ -69,12 +69,12 @@ scripts = [
 		(store_script_param, ":title", 1),
 		(store_script_param, ":value", 2),
 		(store_script_param, ":line", 3),
-		
+
 		# Determine height to place it at.
 		(assign, ":pos_y", 520), # was 230, but that was causing it to run out of scroll room if too many options were selected.
 		(store_mul, ":line_adjust", ":line", 25),
 		(val_sub, ":pos_y", ":line_adjust"),
-		
+
 		# Value of skill
 		(assign, reg2, ":value"),
 		(create_text_overlay, reg1, "@+{reg2}", tf_right_align),
@@ -85,17 +85,17 @@ scripts = [
 		(position_set_x, pos2, 750),
 		(position_set_y, pos2, 750),
 		(overlay_set_size, reg1, pos2),
-		
+
 		# Label of skill
 		(create_text_overlay, reg1, ":title", tf_left_align),
 		(position_set_x, pos1, 820),
 		(position_set_y, pos1, ":pos_y"),
 		(overlay_set_position, reg1, pos1),
 		(overlay_set_size, reg1, pos2),
-		
+
 	]),
-	
-	
+
+
 # script_mcc_get_character_background_text
 # Generates the story text based on your background descisions.
 # Input: none
@@ -135,7 +135,7 @@ scripts = [
 			(str_store_string,s3,"@A {reg3?daughter:son} that nobody wanted, you were left to the church as a baby, a foundling raised by the priests and nuns to their own traditions.  You were only one of many other foundlings and orphans, but you nonetheless received a lot of attention	as well as many years of study in the church library and before the altar. They taught you many things.  Gradually, faith became such a part of your life that it was no different from the blood coursing through your veins."),
 		(try_end),
 		(str_store_string,s1,"@ You were born years ago, in a land far away. Your father was {s2}. {s3}"),
-	  
+
 		## early life
 		(try_begin),
 			(eq, "$background_answer_2", cb2_page),
@@ -189,7 +189,7 @@ scripts = [
 		(try_end),
 		(str_store_string,s1,"@{s1}^^ You started to learn about the world almost as soon as you could walk and talk.\
 		You spent your early life as {s2}. {s3}"),
-	  
+
 		## later
 		(try_begin),
 			(eq, "$background_answer_3", cb3_squire),
@@ -312,7 +312,7 @@ scripts = [
 		(else_try),
 			(str_store_string, s3, "str_common"),
 		(try_end),
-		  
+
 		(try_begin),
 			(eq, ":difficulty", -1),
 			(str_store_string, s4, "str_may_find_that_you_are_able_to_take_your_place_among_calradias_great_lords_relatively_quickly"),
@@ -325,7 +325,7 @@ scripts = [
 		(try_end),
 		(str_store_string,s1,"@^{s1}^^ As a {s3} {s2}. You {s4}"),
 	]),
-  
+
 # script_mcc_generate_skill_set
 # Generates skills a character starts with based upon their background choices.
 # Input: mode
@@ -333,7 +333,7 @@ scripts = [
 ("mcc_generate_skill_set",
 	[
 		(store_script_param, ":mode", 1),
-		
+
 		# Initialize abilities
 		(assign, ":strength", 0),
 		(assign, ":agility", 0),
@@ -377,7 +377,7 @@ scripts = [
 		(assign, ":gold", 0),
 		(assign, ":renown", 0),
 		(assign, ":honor", 0),
-		
+
 		(try_begin),
 			(eq,"$character_gender",0),		#Male
 			(val_add, ":charisma", 1),
@@ -386,14 +386,14 @@ scripts = [
 			(val_add, ":agility", 1),
 			(val_add, ":intelligence", 1),
 		(try_end),
-		  
+
 		(val_add, ":strength", 1),
 		(val_add, ":agility", 1),
 		(val_add, ":charisma", 1),
-		
+
 		(val_add, ":skill_leadership", 1),
 		(val_add, ":skill_riding", 1),
-		 
+
 		(try_begin), #You father was a...
 			(eq,"$background_type", cb_noble),
 			(eq,"$character_gender", tf_male),
@@ -516,7 +516,7 @@ scripts = [
 			(val_add, ":skill_ironflesh", 1),
 			(val_add, ":prof_polearm", 20),
 		(try_end),
-	  
+
 		(try_begin), #Early life
 			(eq,"$background_answer_2", cb2_page),
 			(val_add, ":strength", 1),
@@ -600,7 +600,7 @@ scripts = [
 			(val_add, ":prof_polearm", 10),
 			(val_add, ":renown", 5),
 		(try_end),
-		
+
 		(try_begin), #Adulthood
 		    (eq,"$background_answer_3", dplmc_cb3_bravo), # Diplomacy addition
 			(val_add, ":strength", 1),
@@ -766,7 +766,7 @@ scripts = [
 			(val_add, ":prof_archery", 10),
 			(val_add, ":gold", 10),
 		(try_end),
-	  
+
 		(try_begin), #Reason for adventuring
 			(eq,"$background_answer_4", cb4_revenge),
 			(val_add, ":strength", 2),
@@ -805,8 +805,8 @@ scripts = [
 			(val_add, ":skill_leadership", 1),
 		(try_end),
 
-		
-		
+
+
 		(try_begin), #Starting region benefits
 			(eq, "$background_answer_5", kingdom_1), # Swadia
 			(val_add, ":prof_polearm", 15),
@@ -864,16 +864,16 @@ scripts = [
 		(else_try),
 		    (display_message, "@ERROR: No valid faction designated."),
 		(try_end),
-		
+
 		# (try_begin),
 			# (eq, "$background_type", cb_noble),
 			# (eq, "$background_answer_2", dplmc_cb2_noble),
 			# (val_add, ":lands", 2),
 		# (try_end),
-		
+
 		##### DEVELOP STAT REPORT #####
 		(try_begin),
-			
+
 			# Update the player's strength
 			(store_add, reg5, ":strength", 4),
 			(overlay_set_text, "$g_presentation_obj_strength", "@{reg5}"),
@@ -1063,21 +1063,21 @@ scripts = [
 				(val_add, ":line_count", 1),
 			(try_end),
 		(try_end),
-		
+
 		##### INCREASE PLAYER SKILLS / LOAD ITEMS INTO INVENTORY #####
-		
-		
+
+
 		(try_begin),
 			(eq, ":mode", equip_the_player),
-			
-			
+
+
 			### UPDATE THE PLAYER'S STATS ###
 			# Update abilties.
 			(troop_raise_attribute, "trp_player",ca_charisma, ":charisma"),
 			(troop_raise_attribute, "trp_player",ca_strength, ":strength"),
 			(troop_raise_attribute, "trp_player",ca_intelligence, ":intelligence"),
 			(troop_raise_attribute, "trp_player",ca_agility, ":agility"),
-			
+
 			# Update skills.
 			(troop_raise_skill, "trp_player", skl_ironflesh, ":skill_ironflesh"),
 			(troop_raise_skill, "trp_player", skl_power_strike, ":skill_powerstrike"),
@@ -1104,7 +1104,7 @@ scripts = [
 			(troop_raise_skill, "trp_player", skl_prisoner_management, ":skill_prisonmanagement"),
 			(troop_raise_skill, "trp_player", skl_leadership, ":skill_leadership"),
 			(troop_raise_skill, "trp_player", skl_trade, ":skill_trade"),
-			
+
 			# Update proficiencies.
 			(troop_raise_proficiency_linear, "trp_player", wpt_one_handed_weapon, ":prof_onehand"),
 			(troop_raise_proficiency_linear, "trp_player", wpt_two_handed_weapon, ":prof_twohand"),
@@ -1112,12 +1112,12 @@ scripts = [
 			(troop_raise_proficiency_linear, "trp_player", wpt_archery, ":prof_archery"),
 			(troop_raise_proficiency_linear, "trp_player", wpt_crossbow, ":prof_crossbow"),
 			(troop_raise_proficiency_linear, "trp_player", wpt_throwing, ":prof_throwing"),
-			
+
 			# Update miscellaneous.
 			(troop_set_slot, "trp_player", slot_troop_renown, ":renown"),
 			(call_script, "script_change_player_honor", ":honor"),
 			(troop_add_gold, "trp_player", ":gold"),
-			
+
 			# Give the player his equipment.
 			(troop_add_item, "trp_player", "itm_leather_boots"),
 			(troop_add_item, "trp_player", "itm_staff"),
@@ -1154,7 +1154,7 @@ scripts = [
 				(eq, "$background_answer_3", cb3_squire),
 				(troop_add_item, "trp_player", "itm_tab_shield_round_a"),
 			(try_end),
-		
+
 			(try_begin),
 				(eq, "$background_answer_5", kingdom_1),
 				(troop_add_item, "trp_player", "itm_nomad_vest"),
@@ -1180,10 +1180,10 @@ scripts = [
 				(troop_add_item, "trp_player", "itm_sarranid_cloth_robe_b"),
 				(troop_add_item, "trp_player", "itm_turban"),
 			(try_end),
-			
-			
-			
-			
+
+
+
+
 			(set_show_messages, 1),
 		(try_end),
 	]),
@@ -1194,13 +1194,13 @@ scripts = [
 from util_wrappers import *
 from util_scripts import *
 
-                
+
 def modmerge_scripts(orig_scripts):
 	# process script directives first
 
 	# add remaining scripts
 	add_scripts(orig_scripts, scripts, True)
-	
+
 # Used by modmerger framework version >= 200 to merge stuff
 # This function will be looked for and called by modmerger if this mod is active
 # Do not rename the function, though you can insert your own merging calls where indicated
@@ -1208,14 +1208,14 @@ def modmerge(var_set):
     try:
         var_name_1 = "scripts"
         orig_scripts = var_set[var_name_1]
-    
-        
+
+
 		# START do your own stuff to do merging
-		
+
         modmerge_scripts(orig_scripts)
 
 		# END do your own stuff
-        
+
     except KeyError:
         errstring = "Variable set does not contain expected variable: \"%s\"." % var_name_1
         raise ValueError(errstring)

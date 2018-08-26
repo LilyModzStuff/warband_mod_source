@@ -30,7 +30,7 @@ simple_triggers = [
 		(map_free),
 		(eq, "$player_needs_a_banner", 1),
 		(assign, "$player_needs_a_banner", 0),
-		(jump_to_menu, "mnu_choose_banner"), #I changed the var all by myself uwu ~Lily
+		(jump_to_menu, "mnu_choose_banner"), 
 	]),
 ## CCP 1.1- ##
 ]
