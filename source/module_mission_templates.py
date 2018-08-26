@@ -2052,7 +2052,8 @@ common_rotate_deathcam = (
 custom_commander_camera = (
   0, 0, 0, [
   (this_or_next|eq, "$g_dplmc_cam_activated", camera_follow),
-  (neg|main_hero_fallen),
+  #(neg|main_hero_fallen), Might break this camera thing, but prevents switching weapons from zooming out so hard your head falls off.
+  (main_hero_fallen),
   ],
   [
     (try_begin),

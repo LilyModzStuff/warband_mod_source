@@ -27,7 +27,8 @@ from xgm_mod_options_header import *
 ############################################################################
 
 mod_options = [
-    ("camp_fuck_setting", xgm_ov_combolabel, ["Disabled", "Consensual", "Consensual and non-consensual"], "Sex settings:", 0,
+
+    ("camp_fuck_setting", xgm_ov_combolabel, ["Disabled", "Consensual Only", "All Enabled"], "Sexual Content:", 0,
 	  "Settings for sexual content in game.", 0,
             [(try_begin),
             (eq, "$g_sexual_content", 0),
@@ -53,27 +54,43 @@ mod_options = [
 
 ),
 
-     ("camp_same_sex_on", xgm_ov_checkbox, [], "Same sex marriage:", 0,
-	  "Toggles same sex marriage", 0,
-        [(try_begin),
-            (eq, "$g_disable_condescending_comments", 0),
-            (assign, reg1, 0),
-                        (else_try),
-            (eq, "$g_disable_condescending_comments", 1),
-            (assign, reg1, 1),
+# Disabled because otherwise we have the same exact option on the page twice.
+#     ("camp_same_sex_on", xgm_ov_checkbox, [], "Same sex marriage:", 0,
+#	  "Toggles same sex marriage", 0,
+#        [(try_begin),
+#            (eq, "$g_disable_condescending_comments", 0),
+#            (assign, reg1, 0),
+#                        (else_try),
+#            (eq, "$g_disable_condescending_comments", 1),
+#            (assign, reg1, 1),
+#                (try_end),
+#             ],
+#     [
+#        (try_begin),
+#        (eq, reg1, 0), 
+#        (assign, "$g_disable_condescending_comments", 0),
+#        (else_try),
+#        (eq, reg1, 1),
+#        (assign, "$g_disable_condescending_comments", 2),
+#        (try_end),
+#        ],
+#	  ),
+
+    ("dplmc_woman_prejudice", xgm_ov_combolabel, ["Historical", "Tolerant", "Progressive"], "Diplomacy - Prejudice:", 0,
+	  "Setting for Diplomacy's prejudice changes.", 0,
+		[
+			(try_begin),
+				(assign, reg1, "$g_disable_condescending_comments"),
                 (try_end),
              ],
      [
         (try_begin),
-        (eq, reg1, 0), 
-        (assign, "$g_disable_condescending_comments", 0),
-        (else_try),
-        (eq, reg1, 1),
-        (assign, "$g_disable_condescending_comments", 2),
+				(assign, "$g_disable_condescending_comments", reg1),   
         (try_end),
         ],
-),
-    ("camp_polygamy", xgm_ov_checkbox, [], "Polygamy settings:", 0,
+	),
+
+    ("camp_polygamy", xgm_ov_checkbox, [], "Polygamy:", 0,
 	  "Toggles polygamy settings", 0,
 
              [(try_begin),
@@ -95,30 +112,18 @@ mod_options = [
         ],
 ), 
 
-    ("camp_nohomobro", xgm_ov_checkbox, [], "Disable Gay", 0,
+    ( "camp_nohomobro", xgm_ov_checkbox ,  [],
+        "Disable Gay:", 0,        
 	  "Disables gay scenes.", 0,
-
-		[
-		(try_begin),
-			(eq, "$g_nohomo", 0),
-			(assign, reg1, 0),
-		(else_try),
-			(eq, "$g_nohomo", 1),
-			(assign, reg1, 1),
-		(try_end),
+        [  # initialization block (set value in reg1)
+            (assign, reg1, "$g_nohomo"),
 		],
-		[
-        (try_begin),
-        (eq, reg1, 0), 
-        (assign, "$g_nohomo", 0),
-        (else_try),
-        (eq, reg1, 1),
-        (assign, "$g_nohomo", 1),
-        (try_end),
+        [  # update block (value is in reg1)
+            (assign, "$g_nohomo", reg1),            
         ],
 	), 
 
-    ("camp_dark_hunters", xgm_ov_checkbox, [], "Enable Black Khergits and Dark Hunters:", 0,
+    ("camp_dark_hunters", xgm_ov_checkbox, [], "Black Khergits and Dark Hunters:", 0,
      "Settings for Dark Hunters and Black Khergits.", 0,
   [
             (try_begin),
@@ -150,8 +155,19 @@ mod_options = [
       (try_end),
         ],
 
+    ( "keep_companions", xgm_ov_checkbox ,  [], # Don't know how to make this more descriptive without being extra lenghty.
+        "Keep Companions:", 0,        
+        "Setting for keeping companions after defeat", 0,
+        [  # initialization block (set value in reg1)
+            (assign, reg1, "$g_keep_companions"),
+        ], 
+        [  # update block (value is in reg1)
+            (assign, "$g_keep_companions", reg1),            
+        ], 
+    ),
+		
 ),
-    ("camp_realistic_wounding", xgm_ov_checkbox, [], "Realistic wounding:", 0,
+    ("camp_realistic_wounding", xgm_ov_checkbox, [], "Realistic Wounding:", 0,
 	  "Toggles realistic wounding", 0,
             [(try_begin),
             (eq, "$g_realistic_wounding", 0),
@@ -172,6 +188,169 @@ mod_options = [
         ],
 
 ),
+    
+    ("horizontal_divide", xgm_ov_line, [], "", 0,"", 0,[],[],),
+	
+    ( "dplmc_horsespeed", xgm_ov_checkbox ,  [],
+        "Diplomacy - Horse Speed:", 0,        
+        "Setting for Diplomacy's horse speed changes", 0,
+        [  # initialization block (set value in reg1)
+			(store_sub,reg1,1,"$g_dplmc_horse_speed"),
+        ], 
+        [  # update block (value is in reg1)
+            (store_sub,"$g_dplmc_horse_speed",1,reg1),
+        ], 
+    ),
+	
+    ( "dplmc_battlecontinue", xgm_ov_checkbox ,  [],
+        "Diplomacy - Battle Continuation:", 0,        
+        "Setting for Diplomacy's battle continuation", 0,
+        [  # initialization block (set value in reg1)
+            (store_sub,reg1,1,"$g_dplmc_battle_continuation"),
+        ], 
+        [  # update block (value is in reg1)
+            (store_sub,"$g_dplmc_battle_continuation",1,reg1),          
+        ], 
+    ),
+	
+    ( "dplmc_disguise", xgm_ov_checkbox ,  [],
+        "Diplomacy - Disguise System:", 0,        
+        "Setting for Diplomacy's disguise system", 0,
+        [  # initialization block (set value in reg1)
+            (assign, reg1, "$g_dplmc_player_disguise"),
+        ], 
+        [  # update block (value is in reg1)
+            (assign, "$g_dplmc_player_disguise", reg1),            
+        ], 
+    ),
+	
+    ( "dplmc_terrain_advantage", xgm_ov_checkbox ,  [],
+        "Diplomacy - Autocalc Terrain Advantage:", 0,        
+        "Setting for Diplomacy's terrain advantage.", 0,
+        [  # initialization block (set value in reg1)
+		(try_begin),
+            (eq, "$g_dplmc_terrain_advantage", DPLMC_TERRAIN_ADVANTAGE_DISABLE),
+            (assign, reg1, 0),
+         (else_try),
+            (eq, "$g_dplmc_terrain_advantage", DPLMC_TERRAIN_ADVANTAGE_ENABLE),
+            (assign, reg1, 1),
+        (try_end),
+        ],
+		[  # update block (value is in reg1)
+        (try_begin),
+        (eq, reg1, 0), 
+        (assign, "$g_dplmc_terrain_advantage", DPLMC_TERRAIN_ADVANTAGE_DISABLE),
+        (else_try),
+        (eq, reg1, 1),
+        (assign, "$g_dplmc_terrain_advantage", DPLMC_TERRAIN_ADVANTAGE_ENABLE),
+        (try_end),
+        ],
+    ),
+	
+    ( "dplmc_lord_recycling", xgm_ov_checkbox ,  [],
+        "Diplomacy - Returning From Exile:", 0,        
+        "Setting for Diplomacy's terrain advantage.", 0,
+        [  # initialization block (set value in reg1)
+		(try_begin),
+            (eq, "$g_dplmc_lord_recycling", DPLMC_LORD_RECYCLING_DISABLE),
+            (assign, reg1, 0),
+         (else_try),
+            (eq, "$g_dplmc_lord_recycling", DPLMC_LORD_RECYCLING_ENABLE),
+            (assign, reg1, 1),
+        (try_end),
+        ],
+		[  # update block (value is in reg1)
+        (try_begin),
+        (eq, reg1, 0), 
+        (assign, "$g_dplmc_lord_recycling", DPLMC_LORD_RECYCLING_DISABLE),
+        (else_try),
+        (eq, reg1, 1),
+        (assign, "$g_dplmc_lord_recycling", DPLMC_LORD_RECYCLING_ENABLE),
+        (try_end),
+        ],
+    ),
+	
+    ("dplmc_ai_changes_a", xgm_ov_combolabel, ["Disabled", "Low", "Medium", "High"], "Diplomacy - AI Changes:", 0,
+	  "Setting for Diplomacy's AI changes.", 0,
+		[
+			(try_begin),
+				(eq, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_DISABLE),
+				(assign, reg1, 0),
+			(else_try),
+				(eq, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_LOW),
+				(assign, reg1, 1),
+			(else_try),
+				(eq, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_MEDIUM),
+				(assign, reg1, 2),
+			(else_try),
+				(eq, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_HIGH),
+				(assign, reg1, 3),
+			(try_end),
+		],
+		[
+			(try_begin),
+				(eq, reg1, 0), 
+				(assign, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_DISABLE),
+			(else_try),
+				(eq, reg1, 1),
+				(assign, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_LOW),
+			(else_try),
+				(eq, reg1, 2), 
+				(assign, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_MEDIUM),
+			(else_try),
+				(eq, reg1, 3), 
+				(assign, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_HIGH),
+			(try_end),
+		],
+	),
+	 
+    ("dplmc_gold_changes", xgm_ov_combolabel, ["Disabled", "Low", "Medium", "High"], "Diplomacy - Economy Changes:", 0,
+	  "Setting for Diplomacy's economy changes.", 0,
+		[
+			(try_begin),
+				(eq, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_DISABLE),
+				(assign, reg1, 0),
+			(else_try),
+				(eq, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_LOW),
+				(assign, reg1, 1),
+			(else_try),
+				(eq, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_MEDIUM),
+				(assign, reg1, 2),
+			(else_try),
+				(eq, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_HIGH),
+				(assign, reg1, 3),
+			(try_end),
+		],
+		[
+			(try_begin),
+				(eq, reg1, 0), 
+				(assign, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_DISABLE),
+			(else_try),
+				(eq, reg1, 1),
+				(assign, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_LOW),
+			(else_try),
+				(eq, reg1, 2), 
+				(assign, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_MEDIUM),
+			(else_try),
+				(eq, reg1, 3), 
+				(assign, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_HIGH),
+			(try_end),
+		],
+	),
+	
+    ("horizontal_divide", xgm_ov_line, [], "", 0,"", 0,[],[],),
+	
+    ( "op_cheatmode", xgm_ov_checkbox ,  [],
+        "Cheat mode:", 0,        
+        "This sets the in-game cheat mode", 0,
+        [  # initialization block (set value in reg1)
+            (assign, reg1, "$cheat_mode"),
+        ], 
+        [  # update block (value is in reg1)
+            (assign, "$cheat_mode", reg1),            
+        ], 
+    ),
+
     
 ] # mod_options
 
