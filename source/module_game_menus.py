@@ -3422,23 +3422,28 @@ TOTAL:  {reg5}"),
         (try_end),
     ],
     [
-      ("camp_action_1",[],"Walk around the campsite.", #dckplmc
-       [(set_jump_mission,"mt_camp"),
-        (call_script, "script_setup_camp_scene"),
-        (change_screen_mission),
+	
+      ("camp_cheat",
+       [(ge, "$cheat_mode", 1)
+        ], "CHEAT MENU!",
+       [(jump_to_menu, "mnu_camp_cheat"),
+        ],
+       ),
+
+      ("camp_action",[],"Take an action.",
+       [(jump_to_menu, "mnu_camp_action"),
         ]
        ),
-       #Fix duplication bug with mod merger by adding it directly to menus
-       ("camp_mod_opition",[],"Dickplomacy Settings.", [(start_presentation, "prsnt_mod_option")]),
-       ("formation_mod_option",[],"Formations mod options.", [(start_presentation, "prsnt_formation_mod_option")]),
 
       #("content_options",[],"Dickplomacy Reloaded Content Options.",[(jump_to_menu, "mnu_content_options")]), Not used anymore, as the mod now uses a presentation
 
-        ("gender_change", [], "Change player gender",
-         #This part of the mod could not be added to the presentation properly. It just changes the gender, so you can't really make it a drop down.
-        [(store_sub, "$character_gender", 1, "$character_gender"),
-         (troop_set_type, "trp_player", "$character_gender"),
-         (display_message, "@Your gender has been changed!"),
+		("dplmc_camp_preferences",
+			[
+			],
+			"Settings", # Global options menu now
+			[
+				(jump_to_menu, "mnu_dplmc_preferences"),
+				(assign, "$g_presentation_next_presentation", -1),
          ]
         ),
 
@@ -3446,51 +3451,6 @@ TOTAL:  {reg5}"),
        [(jump_to_menu, "mnu_fuck"),
         ]
        ),
-
-      ("camp_disembark", [(eq, "$g_player_icon_state", pis_ship),
-        (party_get_position, pos1, "p_main_party"),
-        (map_get_land_position_around_position, pos0, pos1, 3),
-        (get_distance_between_positions_in_meters, ":dist", pos1, pos0),
-        (lt, ":dist", 3),
-      ], "Disembark.",
-       [(assign, "$g_player_icon_state", pis_normal),
-        (party_set_flags, "p_main_party", pf_is_ship, 0),
-        (party_set_position, "p_main_party", pos0),
-        (party_get_slot, ":ship_type", "p_main_party", slot_party_ship_type),
-        (try_begin),
-          (le, "$g_main_ship_party", 0),
-          (set_spawn_radius, 0),
-          (spawn_around_party, "p_main_party", "pt_none"),
-          (assign, "$g_main_ship_party", reg0),
-          (party_set_flags, "$g_main_ship_party", pf_is_static|pf_always_visible|pf_hide_defenders|pf_is_ship, 1),
-          (str_store_troop_name, s1, "trp_player"),
-          (party_set_slot, "$g_main_ship_party", slot_party_ship_type, ":ship_type"),
-          (party_set_name, "$g_main_ship_party", "@{s1}'s Ship"),
-          (party_set_icon, "$g_main_ship_party", "icon_ship"),
-          (party_set_slot, "$g_main_ship_party", slot_party_type, spt_ship),
-
-          (try_begin),
-            (eq, ":ship_type", 1),
-            (party_set_name, "$g_main_ship_party", "@{s1}'s Longship"),
-          (else_try),
-            (eq, ":ship_type", 2),
-            (party_set_name, "$g_main_ship_party", "@{s1}'s Galley"),
-          (else_try),
-            (eq, ":ship_type", 3),
-            (party_set_name, "$g_main_ship_party", "@{s1}'s Cog"),
-          (else_try),
-            (eq, ":ship_type", 4),
-            (party_set_name, "$g_main_ship_party", "@{s1}'s Dhow"),
-          (try_end),
-
-        (try_end),
-        (enable_party, "$g_main_ship_party"),
-        (party_set_position, "$g_main_ship_party", pos0),
-        (party_set_icon, "$g_main_ship_party", "icon_ship_on_land"),
-        (assign, "$g_main_ship_party", -1),
-        (party_set_slot, "p_main_party", slot_party_ship_type, 0),
-        (change_screen_return),
-        ]),
 
        ##diplomacy begin
 ###################################################################################
@@ -3549,22 +3509,62 @@ TOTAL:  {reg5}"),
 ###################################################################################
 # End Autoloot
 ###################################################################################
-    ("dplmc_camp_preferences",
-        [
-        ],
-        "Diplomacy preferences.",
-        [
-            (jump_to_menu, "mnu_dplmc_preferences"),
-            ## SB : global initialization for redefine_keys
-            (assign, "$g_presentation_next_presentation", -1),
-        ]
-    ),
 
 ##diplomacy end
-      ("camp_action",[],"Take an action.",
-       [(jump_to_menu, "mnu_camp_action"),
+
+      ("camp_action_1",[],"Walk around the campsite.", #dckplmc
+       [(set_jump_mission,"mt_camp"),
+        (call_script, "script_setup_camp_scene"),
+        (change_screen_mission),
         ]
        ),
+
+      ("camp_disembark", [(eq, "$g_player_icon_state", pis_ship),
+        (party_get_position, pos1, "p_main_party"),
+        (map_get_land_position_around_position, pos0, pos1, 3),
+        (get_distance_between_positions_in_meters, ":dist", pos1, pos0),
+        (lt, ":dist", 3),
+      ], "Disembark.",
+       [(assign, "$g_player_icon_state", pis_normal),
+        (party_set_flags, "p_main_party", pf_is_ship, 0),
+        (party_set_position, "p_main_party", pos0),
+        (party_get_slot, ":ship_type", "p_main_party", slot_party_ship_type),
+        (try_begin),
+          (le, "$g_main_ship_party", 0),
+          (set_spawn_radius, 0),
+          (spawn_around_party, "p_main_party", "pt_none"),
+          (assign, "$g_main_ship_party", reg0),
+          (party_set_flags, "$g_main_ship_party", pf_is_static|pf_always_visible|pf_hide_defenders|pf_is_ship, 1),
+          (str_store_troop_name, s1, "trp_player"),
+          (party_set_slot, "$g_main_ship_party", slot_party_ship_type, ":ship_type"),
+          (party_set_name, "$g_main_ship_party", "@{s1}'s Ship"),
+          (party_set_icon, "$g_main_ship_party", "icon_ship"),
+          (party_set_slot, "$g_main_ship_party", slot_party_type, spt_ship),
+
+          (try_begin),
+            (eq, ":ship_type", 1),
+            (party_set_name, "$g_main_ship_party", "@{s1}'s Longship"),
+          (else_try),
+            (eq, ":ship_type", 2),
+            (party_set_name, "$g_main_ship_party", "@{s1}'s Galley"),
+          (else_try),
+            (eq, ":ship_type", 3),
+            (party_set_name, "$g_main_ship_party", "@{s1}'s Cog"),
+          (else_try),
+            (eq, ":ship_type", 4),
+            (party_set_name, "$g_main_ship_party", "@{s1}'s Dhow"),
+          (try_end),
+
+        (try_end),
+        (enable_party, "$g_main_ship_party"),
+        (party_set_position, "$g_main_ship_party", pos0),
+        (party_set_icon, "$g_main_ship_party", "icon_ship_on_land"),
+        (assign, "$g_main_ship_party", -1),
+        (party_set_slot, "p_main_party", slot_party_ship_type, 0),
+        (change_screen_return),
+        ]),
+		
+
       ("camp_wait_here",[],"Wait here for some time.",
        [
            (assign,"$g_camp_mode", 1),
@@ -3589,12 +3589,7 @@ TOTAL:  {reg5}"),
            (change_screen_return),
         ]
        ),
-      ("camp_cheat",
-       [(ge, "$cheat_mode", 1)
-        ], "CHEAT MENU!",
-       [(jump_to_menu, "mnu_camp_cheat"),
-        ],
-       ),
+	   
       ("resume_travelling",[],"Resume travelling.",
        [
            (change_screen_return),
@@ -3605,15 +3600,22 @@ TOTAL:  {reg5}"),
   ("camp_cheat",0,
    "Select a cheat:",
    "none",
-   [
+   [ # Character preview
+     (try_begin),
+       (neq, "$g_player_icon_state", pis_ship),
+     (assign, "$g_player_icon_state", pis_normal),
+        (party_get_slot, ":player_party", "$marshalship"),
+        (ge, ":player_party", 0),
+        (set_fixed_point_multiplier, 100),
+        (position_set_x, pos1, 70),
+        (position_set_y, pos1, 5),
+        (position_set_z, pos1, 75),
+        (set_game_menu_tableau_mesh, "tableau_troop_note_mesh", ":player_party", pos1),
+        (try_end),
      ],
     [
       ("camp_cheat_find_item",[], "Find an item...",
        [(jump_to_menu, "mnu_cheat_find_item"),]
-       ),
-
-      ("camp_cheat_weather",[], "Change weather..",
-       [(jump_to_menu, "mnu_cheat_change_weather"),]
        ),
 
       ("camp_cheat_0",[],"{!}Increase player RTR.",
@@ -3652,31 +3654,11 @@ TOTAL:  {reg5}"),
         ]
        ),
 
-      ("camp_cheat_3",[],"{!}Update political notes.",
-       [
-         (try_for_range, ":hero", active_npcs_begin, active_npcs_end),
-           (troop_slot_eq, ":hero", slot_troop_occupation, slto_kingdom_hero),
-           (call_script, "script_update_troop_political_notes", ":hero"),
-         (try_end),
-
-         (try_for_range, ":kingdom", kingdoms_begin, kingdoms_end),
-           (call_script, "script_update_faction_political_notes", ":kingdom"),
-         (try_end),
-        ]
-       ),
-
-      ("camp_cheat_4",[],"{!}Update troop notes.",
-       [
-         (try_for_range, ":hero", active_npcs_begin, active_npcs_end),
-           (troop_slot_eq, ":hero", slot_troop_occupation, slto_kingdom_hero),
-           (call_script, "script_update_troop_notes", ":hero"),
-         (try_end),
-
-         (try_for_range, ":lady", kingdom_ladies_begin, kingdom_ladies_end),
-           (call_script, "script_update_troop_notes", ":lady"),
-           (call_script, "script_update_troop_political_notes", ":lady"),
-           (call_script, "script_update_troop_location_notes", ":lady", 0),
-         (try_end),
+        ("gender_change", [], "Change player gender",
+         #This part of the mod could not be added to the presentation properly. It just changes the gender, so you can't really make it a drop down.
+        [(store_sub, "$character_gender", 1, "$character_gender"),
+         (troop_set_type, "trp_player", "$character_gender"),
+         (display_message, "@Your gender has been changed!"),
         ]
        ),
 
@@ -3783,26 +3765,6 @@ TOTAL:  {reg5}"),
        ),
 	   ##nested diplomacy end+
 
-      ("cheat_faction_orders",[(ge,"$cheat_mode",1)],
-	  "{!}Cheat: Set Debug messages to All.",
-       [(assign,"$cheat_mode",1),
-         (jump_to_menu, "mnu_camp_cheat"),
-        ]
-       ),
-      ("cheat_faction_orders",[
-	  (ge, "$cheat_mode", 1),
-	  (neq,"$cheat_mode",3)],"{!}Cheat: Set Debug messages to Econ Only.",
-       [(assign,"$cheat_mode",3),
-         (jump_to_menu, "mnu_camp_cheat"),
-        ]
-       ),
-      ("cheat_faction_orders",[
-	  (ge, "$cheat_mode", 1),
-	  (neq,"$cheat_mode",4)],"{!}Cheat: Set Debug messages to Political Only.",
-       [(assign,"$cheat_mode",4),
-         (jump_to_menu, "mnu_camp_cheat"),
-        ]
-       ),
       ("camp_cheat_heal",[],"Heal party.",
        [
          (heal_party, "p_main_party"),
@@ -3893,8 +3855,85 @@ TOTAL:  {reg5}"),
          # (jump_to_menu, "mnu_camp_cheat"),
         ]
        ),
-       #do not add more cheat options, no more room in one menu
 
+      ("to_advanced_cheats",[],"{!}Advanced Cheats",
+		[
+         (jump_to_menu, "mnu_camp_cheat_adv"),
+		]
+       ),
+	   
+      ("back_to_camp_menu",[],"{!}Back to camp menu.",
+       [
+         (jump_to_menu, "mnu_camp"),
+        ]
+       ),
+      ]
+  ),
+  
+  ("camp_cheat_adv",0,       # New menu for less used cheats, because old one ran out of space.
+   "Select advanced cheat:", # Fancy name so they feel classy and elite, when in reality they're just never used.
+   "none",
+   [],
+    [
+	
+      ("camp_cheat_weather",[], "Change weather..",
+       [(jump_to_menu, "mnu_cheat_change_weather"),]
+       ),
+
+      ("camp_cheat_3",[],"{!}Update political notes.",
+       [
+         (try_for_range, ":hero", active_npcs_begin, active_npcs_end),
+           (troop_slot_eq, ":hero", slot_troop_occupation, slto_kingdom_hero),
+           (call_script, "script_update_troop_political_notes", ":hero"),
+         (try_end),
+
+         (try_for_range, ":kingdom", kingdoms_begin, kingdoms_end),
+           (call_script, "script_update_faction_political_notes", ":kingdom"),
+         (try_end),
+        ]
+       ),
+
+      ("camp_cheat_4",[],"{!}Update troop notes.",
+       [
+         (try_for_range, ":hero", active_npcs_begin, active_npcs_end),
+           (troop_slot_eq, ":hero", slot_troop_occupation, slto_kingdom_hero),
+           (call_script, "script_update_troop_notes", ":hero"),
+         (try_end),
+
+         (try_for_range, ":lady", kingdom_ladies_begin, kingdom_ladies_end),
+           (call_script, "script_update_troop_notes", ":lady"),
+           (call_script, "script_update_troop_political_notes", ":lady"),
+           (call_script, "script_update_troop_location_notes", ":lady", 0),
+         (try_end),
+        ]
+       ),
+	
+      ("cheat_faction_orders",[(ge,"$cheat_mode",1)],
+	  "{!}Cheat: Set Debug messages to All.",
+       [(assign,"$cheat_mode",1),
+         (jump_to_menu, "mnu_camp_cheat_adv"),
+        ]
+       ),
+      ("cheat_faction_orders",[
+	  (ge, "$cheat_mode", 1),
+	  (neq,"$cheat_mode",3)],"{!}Cheat: Set Debug messages to Econ Only.",
+       [(assign,"$cheat_mode",3),
+         (jump_to_menu, "mnu_camp_cheat_adv"),
+        ]
+       ),
+      ("cheat_faction_orders",[
+	  (ge, "$cheat_mode", 1),
+	  (neq,"$cheat_mode",4)],"{!}Cheat: Set Debug messages to Political Only.",
+       [(assign,"$cheat_mode",4),
+         (jump_to_menu, "mnu_camp_cheat_adv"),
+        ]
+       ),
+
+      ("to_simple_cheats",[],"{!}Simple Cheats",
+		[
+         (jump_to_menu, "mnu_camp_cheat"),
+		]
+       ),
       ("back_to_camp_menu",[],"{!}Back to camp menu.",
        [
          (jump_to_menu, "mnu_camp"),
@@ -6048,7 +6087,12 @@ TOTAL:  {reg5}"),
           (call_script, "script_party_prisoners_add_party_companions", "p_temp_party", "p_main_party"),
           (distribute_party_among_party_group, "p_temp_party", "$g_enemy_party"),
 
-          (assign, "$g_prison_heroes", 1), #Remove this to keep companions on defeat
+		  (try_begin),
+			(neq, "$g_keep_companions", 1), # Setting to keep companions on defeat!
+			(assign, "$g_prison_heroes", 1),
+		  (else_try),
+			(assign, "$g_prison_heroes", 0),
+		  (try_end),
           (call_script, "script_party_remove_all_companions", "p_main_party"),
           (assign, "$g_prison_heroes", 0),
           (assign, "$g_move_heroes", 1),
@@ -20358,238 +20402,17 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 
   (
     "dplmc_preferences",0,
-	##diplomacy start+ alter for PBOD
-    "Diplomacy "+DPLMC_DIPLOMACY_VERSION_STRING+" Preferences{s0}",##"Diplomacy preferences",
-	##diplomacy end+
+    "All Options",## Hijacked this to be the consolidated options menu.
     "none",
+    [],
     [
-            (try_begin),
-            (party_get_slot, ":player_party", "$marshalship"),
-            (ge, ":player_party", 0),
-            (set_fixed_point_multiplier, 100),
-            (position_set_x, pos1, 70),
-            (position_set_y, pos1, 5),
-            (position_set_z, pos1, 75),
-            (set_game_menu_tableau_mesh, "tableau_troop_note_mesh", ":player_party", pos1),
-            (try_end),
-	##diplomacy start+
-	(troop_get_slot, reg0, "trp_dplmc_chamberlain", dplmc_slot_troop_affiliated),
-	(str_clear, s0),
-	(try_begin),
-		#Print a warning message for bad version numbers
-		(neq, reg0, 0),
-		(store_mod, ":verify", reg0, 128),
-		(this_or_next|lt, reg0, 0),
-			(neq, ":verify", DPLMC_VERSION_LOW_7_BITS),
-		(str_store_string, s0, "@{!}{s0}^^ WARNING: Unexpected version value in slot dplmc_slot_troop_affiliated in trp_dplmc_chamberlain: {reg0}"),
-	(else_try),
-		#In cheat mode, print the diplomacy+ version
-		(ge, "$cheat_mode", 1),
-		(val_div, reg0, 128),
-		(str_store_string, s0, "@{!}{s0}^^ DEBUG: Internal update code for current saved game is {reg0}.  Update code for the current release is "+str(DPLMC_CURRENT_VERSION_CODE)+"."),
-	(try_end),
-	##diplomacy end+
-
-    ##SB : enable presentation to be launched again
-    (try_begin),
-      (eq, "$g_presentation_next_presentation", "prsnt_redefine_keys"),
-      (start_presentation, "$g_presentation_next_presentation"),
-    (try_end),
-    ],
-    [
-    #SB : adjust menu options
-      ("dplmc_cheat_mode",[(assign, reg0, "$cheat_mode")],"{reg0?Dis:En}able cheat mode.",
-       [
-           (val_clamp, "$cheat_mode", 0, 2), #in case of other values
-           (store_sub, "$cheat_mode", 1, "$cheat_mode"),
-           # (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),
-        #value = 0 is on by default
-      ("dplmc_horse_speed",[(assign, reg0, "$g_dplmc_horse_speed"),],"{reg0?En:Dis}able Diplomacy horse speed.",
-       [
-           (val_clamp, "$g_dplmc_horse_speed", 0, 2), #in case of other values
-           (store_sub, "$g_dplmc_horse_speed", 1, "$g_dplmc_horse_speed"),
-           # (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),
-      # ("dplmc_enable_horse_speed",[(eq, "$g_dplmc_horse_speed", 1),],"Enable Diplomacy horse speed.",
-       # [
-           # (assign, "$g_dplmc_horse_speed", 0),
-           # (jump_to_menu, "mnu_dplmc_preferences"),
-        # ]),
-        #value = 0 is on by default
-      ("dplmc_battle_continuation",[(assign, reg0, "$g_dplmc_battle_continuation"),],"{reg0?En:Dis}able Diplomacy battle continuation.",
-       [
-           (val_clamp, "$g_dplmc_battle_continuation", 0, 2), #in case of other values
-           (store_sub, "$g_dplmc_battle_continuation", 1, "$g_dplmc_battle_continuation"),
-           (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),
-      #SB : new option
-      ("dplmc_player_disguise",[(assign, reg0, "$g_dplmc_player_disguise"),],"{reg0?Dis:En}able disguise system.",
-       [
-           (val_clamp, "$g_dplmc_player_disguise", 0, 2), #rare bug where disguise has strange values
-           (store_sub, "$g_dplmc_player_disguise", 1, "$g_dplmc_player_disguise"),
-           # (assign, reg1, "$g_dplmc_player_disguise"),
-           # (display_message,"@{reg1}"),
-           (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),
-
-      ## sb : charge + deathcam
-      ("dplmc_charge_when_dead",[ (eq, "$g_dplmc_battle_continuation", 0),(assign, reg0, "$g_dplmc_charge_when_dead"),],
-        "{reg0?Dis:En}able troops charging upon battle continuation.",
-       [
-           (val_clamp, "$g_dplmc_charge_when_dead", 0, 2), #in case of other values
-           (store_sub, "$g_dplmc_charge_when_dead", 1, "$g_dplmc_charge_when_dead"),
-           # (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),
-
-      ("dplmc_deathcam_keys",[ (eq, "$g_dplmc_battle_continuation", 0),],"Redefine camera keys.",
-       [
-           (assign, "$g_presentation_next_presentation", "prsnt_redefine_keys"),
-           (start_presentation, "prsnt_redefine_keys"),
-        ]),
-
-      ##diplomacy start+
-      #toggle terrain advantage
-      ("dplmc_disable_terrain_advantage",[(eq, "$g_dplmc_terrain_advantage", DPLMC_TERRAIN_ADVANTAGE_ENABLE),],"Disable terrain advantage in Autocalc battles (currently this feature is Enabled).",
-       [
-           (assign, "$g_dplmc_terrain_advantage", DPLMC_TERRAIN_ADVANTAGE_DISABLE),
-           (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),
-      ("dplmc_enable_terrain_advantage",[
-		(eq, "$g_dplmc_terrain_advantage", DPLMC_TERRAIN_ADVANTAGE_DISABLE),],"Enable terrain advantage in Autocalc battles (currently this feature is Disabled).",
-       [
-           (assign, "$g_dplmc_terrain_advantage", DPLMC_TERRAIN_ADVANTAGE_ENABLE),
-           (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),
-      ("dplmc_reset_terrain_advantage",[
-		(neq, "$g_dplmc_terrain_advantage", DPLMC_TERRAIN_ADVANTAGE_DISABLE),
-		(neq, "$g_dplmc_terrain_advantage", DPLMC_TERRAIN_ADVANTAGE_ENABLE),
-		(assign, reg0, "$g_dplmc_terrain_advantage")
-		],"You used a saved game from another mod: g_dplmc_terrain_advantage = {reg0} (click to reset)",
-       [
-           (assign, "$g_dplmc_terrain_advantage", 0),
-           (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),
-	#toggle lord recycling
-	  ("dplmc_toggle_lord_recycling_a",[
-		(eq, "$g_dplmc_lord_recycling", DPLMC_LORD_RECYCLING_DISABLE),
-		],"Enable lords returning from exile and spawning without homes (currently disabled)",
-       [
-           (assign, "$g_dplmc_lord_recycling", DPLMC_LORD_RECYCLING_ENABLE),
-        ]),
-	  ("dplmc_toggle_lord_recycling_b",[
-		(this_or_next|eq, "$g_dplmc_lord_recycling", DPLMC_LORD_RECYCLING_FREQUENT),#currently this setting is not distinct
-		(eq, "$g_dplmc_lord_recycling", DPLMC_LORD_RECYCLING_ENABLE),
-		],"Disable lords returning from exile and spawning without homes (currently enabled)",
-       [
-	 	   (assign, "$g_dplmc_lord_recycling", DPLMC_LORD_RECYCLING_DISABLE),
-        ]),
-      ("dplmc_toggle_lord_recycling_reset",
-		[(neq, "$g_dplmc_lord_recycling", DPLMC_LORD_RECYCLING_DISABLE), #SB : fix const
- 		 (neq, "$g_dplmc_lord_recycling", DPLMC_LORD_RECYCLING_ENABLE),
-		 (neq, "$g_dplmc_lord_recycling", DPLMC_LORD_RECYCLING_FREQUENT),
-		 (assign, reg0, "$g_dplmc_lord_recycling"),],
-			"You used a saved game from another mod: g_dplmc_lord_recycling = {reg0} (click to reset)",
-       [
-           (assign, "$g_dplmc_lord_recycling", 0),
-           (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),
-	#toggle AI changes
-	  ("dplmc_toggle_ai_changes_a",[
-		(eq, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_DISABLE),
-		],"Enable AI changes (currently disabled)",
-       [
-           (assign, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_LOW),
-        ]),
-	  ("dplmc_toggle_ai_changes_b",[
-		(eq, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_LOW),
-		],"Increase AI changes (currently low)",
-       [
-	 	   (assign, "$g_dplmc_ai_changes",DPLMC_AI_CHANGES_MEDIUM),
-        ]),
-
-	  ("dplmc_toggle_ai_changes_c",[
-		(eq, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_MEDIUM),
-		],"Increase AI changes (currently medium)",
-       [
-	 	   (assign, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_HIGH),
-        ]),
-	  ("dplmc_toggle_ai_changes_d",[
-		(eq, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_HIGH),
-		],"Disable AI changes (currently high/experimental)",
-       [
-	 	   (assign, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_DISABLE),
-        ]),
-      ("dplmc_reset_ai_changes",
-		[(neq, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_DISABLE),
- 		 (neq, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_LOW),
-		 (neq, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_MEDIUM),
-		 (neq, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_HIGH),
-		 (assign, reg0, "$g_dplmc_ai_changes"),],
-			"You used a saved game from another mod: g_dplmc_ai_changes = {reg0} (click to reset)",
-       [
-           (assign, "$g_dplmc_ai_changes", 0),
-           (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),
-	#toggle economics changes
-	  ("dplmc_toggle_gold_changes_a",[
-		(eq, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_DISABLE),
-		],"Set economic & behavioral changes to low (current mode: disabled)",
-       [
-           (assign, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_LOW),
-        ]),
-	  ("dplmc_toggle_gold_changes_b",[
-		(eq, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_LOW),
-		],"Set economic & behavioral changes to medium (current mode: low)",
-       [
-	 	   (assign, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_MEDIUM),
-        ]),
-	  ("dplmc_toggle_gold_changes_c",[
-		(eq, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_MEDIUM),
-		],"Set economic & behavioral changes to high/experimental (current mode: medium)",
-       [
-	 	   (assign, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_HIGH),
-        ]),
-	  ("dplmc_toggle_gold_changes_d",[
-		(eq, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_HIGH),
-		],"Disable economic & behavioral changes (current mode: high/experimental)",
-       [
-	 	   (assign, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_DISABLE),
-        ]),
-      ("dplmc_reset_gold_changes",
-		[(neq, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_DISABLE),
- 		 (neq, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_LOW),
-		 (neq, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_MEDIUM),
-		 (neq, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_HIGH),
-		 (assign, reg0, "$g_dplmc_gold_changes"),],
-			"You used a saved game from another mod: g_dplmc_gold_changes = {reg0} (click to reset)",
-       [
-           (assign, "$g_dplmc_gold_changes", 0),
-           (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),
-	#Toggle the default anti-woman prejudice.  This uses the already-existing
-	#global variable "$g_disable_condescending_comments", and gives it additional
-	#meaning.
-		("dplmc_switch_woman_prejudice_1", [
-			(this_or_next|eq, "$g_disable_condescending_comments", 0),
-			(eq, "$g_disable_condescending_comments", 1)],
-			"Change prejudice level (current level is default)",
-			[(val_add, "$g_disable_condescending_comments", 2),
-			(jump_to_menu, "mnu_dplmc_preferences"),]),
-		("dplmc_switch_woman_prejudice_2", [
-			(this_or_next|eq, "$g_disable_condescending_comments", 2),
-			(eq, "$g_disable_condescending_comments", 3)],
-			"Change prejudice level (current level is off)",
-			[(val_sub, "$g_disable_condescending_comments", 4),
-			(jump_to_menu, "mnu_dplmc_preferences"),]),
-		("dplmc_switch_woman_prejudice_3", [
-			(this_or_next|eq, "$g_disable_condescending_comments", -1),
-			(eq, "$g_disable_condescending_comments", -2)],
-			"Change prejudice level (current level is high)",
-			[(val_add, "$g_disable_condescending_comments", 2),
-			(jump_to_menu, "mnu_dplmc_preferences"),]),
-##diplomacy end+
-      ("dplmc_back",[],"Back...",
+	  # XGM Mod Menu, contains most basic settings
+      ("camp_mod_opition",[],"Basic Settings", [(start_presentation, "prsnt_mod_option")]),
+	  # Formations Mod Settings
+      ("formation_mod_option",[],"Formations Mod Settings", [(start_presentation, "prsnt_formation_mod_option")]),
+	  # Camera Hotkeys
+      ("dplmc_deathcam_keys",[ (eq, "$g_dplmc_battle_continuation", 0),],"Camera Keys Settings",[(assign, "$g_presentation_next_presentation", "prsnt_redefine_keys"),(start_presentation, "prsnt_redefine_keys"),]),
+      ("dplmc_back",[],"Return",
        [
            (jump_to_menu, "mnu_camp"),
         ]),
@@ -21975,20 +21798,6 @@ goods, and books will never be sold. ^^You can change some settings here freely.
       [
         (change_screen_loot, "$g_talk_troop"),
       ]),
-
-       ("gender",[], "Toggle gender.",
-         [
-           (try_begin),
-             (eq, "$g_talk_troop", "trp_player"),
-             (store_sub, "$character_gender", tf_female, "$character_gender"),
-             (troop_set_type, "trp_player", "$character_gender"),
-           (else_try),
-             (troop_get_type, ":gender", "$g_talk_troop"),
-             (store_sub, ":gender", tf_female, ":gender"),
-             (troop_set_type, "$g_talk_troop", ":gender"),
-           (try_end),
-         ]
-       ),
 
       ("continue",
       [],

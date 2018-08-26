@@ -35,8 +35,8 @@ mods_active = [
         "trees",
         "sort",
         "xgm_mod_options",
-        "mcc",
-				"recruit"
+        "c3",
+	"recruit"
 ]
 
 
