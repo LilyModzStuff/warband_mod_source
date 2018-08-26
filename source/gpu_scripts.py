@@ -169,6 +169,24 @@ scripts = [
 		]
 	),
 	
+	# script_gpu_create_number_box
+	# Creates a number box based on (x,y) position, min value and max value
+	# Input: pos_x, pos_y, min, max
+	# Output: none
+	("gpu_create_number_box",
+		[
+			(store_script_param, ":pos_x", 1),
+			(store_script_param, ":pos_y", 2),
+			(store_script_param, ":min", 3),
+			(store_script_param, ":max", 4),
+			
+			(create_number_box_overlay, reg1, ":min", ":max"),
+			(position_set_x, pos1, ":pos_x"),
+			(position_set_y, pos1, ":pos_y"),
+			(overlay_set_position, reg1, pos1),
+		]
+	),
+	
 # script_gpu_create_checkbox
 # Creates a checkbox based on (x,y) position, text label, slot obj_id is stored in, and slot current value is stored in.
 # Input: pos_x, pos_y, label, storage_slot, value_slot

@@ -36,6 +36,7 @@ mods_active = [
         "sort",
         "xgm_mod_options",
         "mcc",
+				"recruit"
 ]
 
 
