@@ -338,3 +338,5 @@ mnu_desert = 336
 mnu_upgrade_path = 337
 mnu_town_tournament_won = 338
 mnu_town_tournament = 339
+mnu_c3_initialize = 340
+mnu_c3_finalize = 341

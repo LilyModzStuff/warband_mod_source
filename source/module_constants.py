@@ -628,8 +628,13 @@ spt_reinforcement      = 6
 spt_kingdom_caravan    = 11
 ##spt_prisoner_train     = 12
 spt_kingdom_hero_party = 13
+<<<<<<< HEAD
 ##spt_merchant_caravan   = 14s
 spt_reinforcement_party = 14
+=======
+##spt_merchant_caravan   = 14
+spt_reinforcement_party = 14 
+>>>>>>> master
 spt_village_farmer     = 15
 spt_ship               = 16
 spt_cattle_herd        = 17
