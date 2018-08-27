@@ -12385,13 +12385,15 @@ TOTAL:  {reg5}"),
            (try_end),
         ],"Door to the tavern."),
 
-       ("town_bank",
-       [],
-       "Visit the bank.",
-       [
-           (jump_to_menu,"mnu_bank"),
-        ]),
 
+# This was messing all the doors up.
+#
+#       ("town_bank",
+#       [],
+#       "Visit the bank.",
+#       [
+#           (jump_to_menu,"mnu_bank"),
+#        ]),
 #      ("town_smithy",[
 #          (eq,"$entry_to_town_forbidden",0),
 #          (eq,"$town_nighttime",0),
