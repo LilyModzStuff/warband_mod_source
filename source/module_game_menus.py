@@ -13286,7 +13286,13 @@ TOTAL:  {reg5}"),
       ("town_leave",[],"Leave...",
       [
         (assign, "$g_permitted_to_center",0),
+      (try_begin), # Disguise only gets removed from this screen, should probably just copy it to here or make it a script at some point, but this is faster.
+		 (gt, "$sneaked_into_town", disguise_none),
+		 (assign, "$new_encounter", 1),
+		 (jump_to_menu,"mnu_castle_outside"),
+	  (else_try),
         (change_screen_return,0),
+	  (try_end),
 		##diplomacy start+
 		#Porting rubik's autobuy/autosell from Custom Commander
 		(try_begin),
@@ -22715,12 +22721,18 @@ goods, and books will never be sold. ^^You can change some settings here freely.
   ),
   (
     "buy_ship",0,
-    "Which ship do you want to buy?",
+    "{s22}",
     "none",
-    [
+    [  # I'd like to make this a full scene, or at least a dialogue with more to it than a simple menu.
+	(try_begin), # For now I settle with not breaking the disguise feature.
+		(gt, "$sneaked_into_town", disguise_none),
+		(str_store_string, s22, "@After further consideration, a large purchace such as buying an entire ship will certianly attract too much attention..."),
+	(else_try),
+		(str_store_string, s22, "@Which ship do you want to buy?"),
+	(try_end),
 	],
     [
-      ("ship_a",[],"Longship (5000 denars)",[
+      ("ship_a",[(le, "$sneaked_into_town", disguise_none),],"Longship (5000 denars)",[
         (try_begin),
           (store_troop_gold, ":gold", "trp_player"),
           (ge, ":gold", 5000),
@@ -22741,7 +22753,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
           (display_message, "@Not enough money to buy that."),
         (try_end),
       ]),
-      ("ship_b",[],"Galley (7,000 denars)",[
+      ("ship_b",[(le, "$sneaked_into_town", disguise_none),],"Galley (7,000 denars)",[
         (try_begin),
           (store_troop_gold, ":gold", "trp_player"),
           (ge, ":gold", 7000),
@@ -22762,7 +22774,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
           (display_message, "@Not enough money to buy that."),
         (try_end),
       ]),
-      ("ship_c",[],"Cog (10,000 denars)",[
+      ("ship_c",[(le, "$sneaked_into_town", disguise_none),],"Cog (10,000 denars)",[
         (try_begin),
           (store_troop_gold, ":gold", "trp_player"),
           (ge, ":gold", 10000),
@@ -22783,7 +22795,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
           (display_message, "@Not enough money to buy that."),
         (try_end),
       ]),
-      ("ship_d",[],"Dhow (8,000 denars)",[
+      ("ship_d",[(le, "$sneaked_into_town", disguise_none),],"Dhow (8,000 denars)",[
         (try_begin),
           (store_troop_gold, ":gold", "trp_player"),
           (ge, ":gold", 8000),
