@@ -183,7 +183,8 @@ party_templates = [
  ("corsair_ship","Corsairs",icon_galley|carries_goods(2)|pf_is_ship,0,fac_outlaws,bandit_personality,[(trp_sea_raider,40,45)]),
  ("merchant_ship","Merchant Vessel",icon_carrack|carries_goods(50)|pf_is_ship|pf_show_faction,0,fac_commoners,merchant_personality,[(trp_caravan_master,1,1),(trp_mercenary_swordsman,5,10),(trp_mercenary_crossbowman,10,25)]),
  ("pirate_ship","Pirates",icon_dhow|carries_goods(2)|pf_is_ship,0,fac_outlaws,bandit_personality,[(trp_sea_raider,40,45)]),
-
+ ("reinforcements","Reinforcements",icon_axeman|pf_show_faction,0,fac_commoners,soldier_personality,[]),
+  
 ]
 # modmerger_start version=201 type=2
 try:

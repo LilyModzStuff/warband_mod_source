@@ -2795,6 +2795,20 @@ or you won't be able to hang on to a single man you catch.", "ramun_ask_about_ca
 
 
 
+# Reinforcements commenting out to fix duplicate text 
+#  [party_tpl|pt_reinforcements,"start", [(eq,"$talk_context",tc_party_encounter),
+#                                         (party_get_slot, ":ai_object", "$g_encountered_party", slot_party_ai_object),
+#                                         (str_store_party_name,s21,":ai_object"),
+#                                         (str_store_party_name, s20, "$g_encountered_party")],
+#   "Who goes there? We are {s20}.\ We're on our way to {s21}.", "reinforcements_intro",[]],
+#  [anyone|plyr, "reinforcements_intro", [], "I am {playername}. I'm just passing by.", "close_window",[]],
+#  [anyone|plyr, "reinforcements_intro", [], "I am {playername}. And I'm here to stop you from reaching your destination!.", "reinforcement_hostile",[]],
+#  [party_tpl|pt_reinforcements,"reinforcement_hostile", [(faction_get_slot, ":faction_leader", "$g_encountered_party_faction",slot_faction_leader),
+#                                                         (str_store_troop_name, s9, ":faction_leader"),],
+#                                                         "What!? We are under the protection of {s9}!\ Be certain he will take vengance!", "reinforcements_attack",[]],
+#  [anyone|plyr, "reinforcements_attack", [], "Fine let him! I will kill him after I've dealt with you!", "close_window",[(call_script, "script_make_kingdom_hostile_to_player", "$g_encountered_party_faction", -1),
+#                                                                                                                          (encounter_attack,0)]],
+#  [anyone|plyr, "reinforcements_attack", [], "Allright, go! But you have not seen the last of me!", "close_window",[]],
 
 
 ### COMPANIONS

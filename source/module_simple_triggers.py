@@ -2841,6 +2841,17 @@ simple_triggers = [
        (try_end),
     ]),
 
+#Zaitenko's Reinforcement Script
+(0.2,  #Every 0.2 game hours will the game check if there are any reinforcements in the centers.
+   [
+       (try_for_parties, ":party_no"),
+         (party_slot_eq, ":party_no", slot_party_type, spt_reinforcement_party),  #Find parties of the type spt_reinforcement_party
+         (party_is_in_any_town, ":party_no"),  # Is the party in any town?
+         (party_get_cur_town, ":cur_center", ":party_no"), #What town are they in?
+         (call_script, "script_party_add_party_companions", ":cur_center", ":party_no"), #Add the party to the center, which is infact a party ;)
+         (party_clear, ":party_no"), #Not sure if this cleaning up is necessary, but it's a precaution so we don't have a bundle of templates lying around.
+       (try_end),
+    ]),
   #Troop AI: Village farmers thinking
   (8,
    [
