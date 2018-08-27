@@ -16650,6 +16650,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
            (assign, "$g_player_icon_state", pis_normal),
            (set_camera_follow_party, "p_main_party"),
            (rest_for_hours, 0, 0, 0), #stop resting
+		   (call_script, "script_simple_remove_disguise"),
            (change_screen_return),
         ]),
     ]
@@ -16727,6 +16728,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
         (assign, "$g_player_icon_state", pis_normal),
         (set_camera_follow_party, "p_main_party"),
         (rest_for_hours, 0, 0, 0), #stop resting
+		(call_script, "script_simple_remove_disguise"),
         (change_screen_return),
       ]),
       ("captivity_end_ransom_deny",
@@ -22335,8 +22337,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
   (
     "fucked_by_enemy_prison",0,
     "The guards are infuriated by your refusal to pay the ransom.\
-    They tell you that if you are not willing to pay, then there is no longer any reason to treat you humanely.\
-    One of the guards then reaches for the keys to your cell, grins, and says that he is going to teach you a lesson.",
+    They tell you that if you are not willing to pay, then there is no longer any reason to treat you humanely.\One of the guards then reaches for the keys to your cell, grins, and says that he is going to teach you a lesson.",
     "none",
     [
      ],

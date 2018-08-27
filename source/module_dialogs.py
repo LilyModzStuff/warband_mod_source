@@ -37801,7 +37801,9 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 		(try_end),
 		(try_begin),
 			(eq,":has_females", 1),
-			(party_slot_eq, "$current_town", slot_town_has_brothel, -69),
+			(party_slot_eq, "$current_town", slot_town_has_brothel, -69), # Using the brothel slot to keep track of wether or not you've been offered a job at this tavern before.
+																		  # I don't remember doing this but it will almost certianly end in bugs.
+																		  # Let's hope I was a smart cookie and planned for this when I did it.
 			(str_store_string, s3, "@I am back and would like to work here some more."),
 			(else_try),
 			(ge,":has_females", 2),
@@ -37850,13 +37852,12 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 	(troop_set_slot, "trp_temp_array_a", ":fems", 1), #:i_stack starts at 0 but :fems starts at 1, so the last slot in :fems is unused and could contain a crazy value from who-knows-when. So we sanitize it.
 	(store_random_in_range, ":slot",0,":fems"),
 	(troop_get_slot, ":trp", "trp_temp_array_a", ":slot"),
-	(try_begin),
+	(try_begin), # Dumbest idea I've had in a while. Hope the flavor it adds was worth it.
 		(store_random_in_range, ":rand",0,2),
 		(eq, ":rand", 0),
+		(ge,":fems", 2),
+		(str_store_string, s3, "@a couple girls like you two"),
 		(try_begin),
-			(eq,":fems", 2),
-			(str_store_string, s3, "@a couple girls like you two"),
-			(else_try),
 			(eq,":fems", 3),
 			(str_store_string, s3, "@a few girls like you three"),
 			(else_try),
