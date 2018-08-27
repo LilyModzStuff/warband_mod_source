@@ -22557,12 +22557,17 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 
   (
     "town_tavern_prostitution",0,
-    "Your room is nice, if old and worn down. The window holds a dissapointing, but convienent view of a stone wall from the neighboring building. A dim candle lights the otherwise mellow room to provide a somewhat romantic atmosphere.",
+    "{s15}",
     "none",
     [#Auto-exectued
-	(set_background_mesh, "mesh_pic_custom_01"),
+	
 	(party_get_num_companion_stacks, ":num_stacks", "p_main_party"),
+	(str_store_string,s15,"@Your room is nice, if old and worn down. The window holds a dissapointing, but convienent view of a stone wall from the neighboring building. A dim candle lights the otherwise mellow room to provide a somewhat romantic atmosphere."),
+	(set_background_mesh, "mesh_pic_custom_01"),
 	(try_begin),
+		(gt, "$g_currently_soliciting", 0),
+		(str_store_string,s15,"@The hours drag on as you practice your craft..."), # Everything else has the stupid pluralities, this should too at some point.
+		(set_background_mesh, "mesh_pic_custom_02"),
 		(assign, ":fems", 0),
 		(try_for_range, ":i_stack", 0, ":num_stacks"),
 			(party_stack_get_troop_id, ":troop_id", "p_main_party", ":i_stack"),
@@ -22591,11 +22596,20 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 		(try_end),
 	(try_end),
 	],
-
     [
-	 ("just_do_it",[],"Watch {s4} with her customer.",
+	 ("solicit_clients",
+	 [(le, "$g_currently_soliciting", 0),],
+	 "Solicit customers.",
 		[
+		(assign, "$g_currently_soliciting", "$current_town"),
+		(rest_for_hours, 24, 3, 0),
+		(change_screen_return),
+		],
+	 ),
 		
+	 ("just_do_it",[(gt, "$g_currently_soliciting", 0),],"Watch {s4} with her customer.",
+		[
+		(assign, "$g_currently_soliciting", 0),
 		(assign, ":workgirl", "$f_temp_var"),
 
 		(party_get_slot, ":center_faction", "$current_town", slot_center_original_faction),
@@ -22648,10 +22662,15 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 		(try_end),
 		
 		(assign, ":scene", "scn_tavern"),
-		(call_script, "script_start_fucking", ":pos", ":scene"),],
+		(call_script, "script_start_fucking", ":pos", ":scene"),
+		],
 	 ),
 	 
-	 ("back_to_town",[],"Leave the tavern.",
+	 ("back_to_town",
+	 [
+	 #(le, "$g_currently_soliciting", 0),
+	 ]
+	 ,"Leave the tavern.",
 		[
 		(jump_to_menu, "mnu_town"),
 		],
@@ -22664,21 +22683,23 @@ goods, and books will never be sold. ^^You can change some settings here freely.
     "{s10}",
     "none",
     [
-		(set_background_mesh, "mesh_pic_custom_02"),
+		(set_background_mesh, "mesh_pic_custom_01"),
 		(party_get_num_companion_stacks, ":num_stacks", "p_main_party"),
+		(assign, ":fems", 0),
 		(try_for_range, ":i_stack", 0, ":num_stacks"),
 			(party_stack_get_troop_id, ":troop_id", "p_main_party", ":i_stack"),
 			(troop_is_hero, ":troop_id"),
 			(troop_get_type, ":is_female", ":troop_id"),
 			(eq, ":is_female", tf_female),
+			(val_add, ":fems", 1),
 			(str_store_troop_name,s5,":troop_id"),
 		(try_end),
 
 		(try_begin),
-		(gt, ":i_stack", 1),
+		(gt, ":fems", 2),
 		(str_store_string, s10, "@After a hard night's work, everyone returns to your room and pools the earnings..."),
 		(else_try),
-		(eq, ":i_stack", 1),
+		(eq, ":fems", 2),
 		(str_store_string, s10, "@After a hard night's work, {s5} meets you in your room to pool the earnings..."),
 		(else_try),
 		(str_store_string, s10, "@After a hard night's work, you retire to your room to go over the earnings..."),
@@ -22722,6 +22743,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 		),
 	],
   ),
+
   (
     "buy_ship",0,
     "{s22}",

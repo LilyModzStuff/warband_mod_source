@@ -37788,6 +37788,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 		"tavernkeeper_talk",
 		[
 		(neg|party_slot_eq, "$current_town", slot_town_has_brothel, 1),
+		(le, "$sneaked_into_town", disguise_none), # Causes problems, so don't give the player a chance to do it.
 		(eq, "$f_player_prost", 1),
 		(party_get_num_companion_stacks, ":num_stacks", "p_main_party"),
 		(assign,":has_females", 0),
@@ -37829,6 +37830,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 	[
 	(ge, "$g_sexual_content", 1),
 	(party_slot_eq, "$current_town", slot_town_has_brothel, 0),
+	(le, "$sneaked_into_town", disguise_none), # Causes problems, so don't give the player a chance to do it.
 	(try_begin), # 25% chance to give this "quest" unless returning from the previously rejected dialogue
 		(eq, reg50, 4),
 		(assign, ":rand", 4),
@@ -37994,13 +37996,14 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 		[
 		(party_set_slot, "$current_town", slot_town_has_brothel, -69),
 		(assign, "$f_player_prost", 1),
+		(assign, "$g_currently_soliciting", 0),
 		(jump_to_menu, "mnu_town_tavern_prostitution"),
 		(stop_all_sounds, 1),
 		(finish_mission),
 		],
 	],
 	
-	[
+	[  # I think this is depreciated.
 		anyone|plyr,
 		"prostitution_offer_info_resp_accept3",
 		[],
