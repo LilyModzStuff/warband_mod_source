@@ -19517,11 +19517,11 @@ presentations = [
         (presentation_set_duration, 999999),
 		
 #Little Pos Helper by Kuba begin
-		(create_text_overlay, "$g_little_pos_helper", "@00,00"),
-		(overlay_set_color, "$g_little_pos_helper", 0xFFFFFFFF),
-		(position_set_x, pos1, 10),
-		(position_set_y, pos1, 700),
-		(overlay_set_position, "$g_little_pos_helper", pos1),
+#		(create_text_overlay, "$g_little_pos_helper", "@00,00"),
+#		(overlay_set_color, "$g_little_pos_helper", 0xFFFFFFFF),
+#		(position_set_x, pos1, 10),
+#		(position_set_y, pos1, 700),
+#		(overlay_set_position, "$g_little_pos_helper", pos1),
 #Little Pos Helper by Kuba end 
 	  		
 		(assign,"$g_presentation_obj_card1",-1),
@@ -19613,10 +19613,10 @@ presentations = [
       (ti_on_presentation_run,#
        [
 #Little Pos Helper by Kuba begin
-		(mouse_get_position, pos1),
-		(position_get_x, reg1, pos1),
-		(position_get_y, reg2, pos1),
-		(overlay_set_text, "$g_little_pos_helper", "@{reg1},{reg2}"),
+#		(mouse_get_position, pos1),
+#		(position_get_x, reg1, pos1),
+#		(position_get_y, reg2, pos1),
+#		(overlay_set_text, "$g_little_pos_helper", "@{reg1},{reg2}"),
 #Little Pos Helper by Kuba end  
 	    (store_trigger_param_1, ":cur_time"),
         (set_fixed_point_multiplier, 1000),
