@@ -7477,6 +7477,15 @@ simple_triggers = [
        (jump_to_menu,"mnu_debt_interest"),
      (try_end),
     ]),
+	
+  (6, [ # Solicit Clients
+       (gt,"$g_currently_soliciting",0),
+       (rest_for_hours, 0, 0, 0), #stop resting
+       (assign, "$auto_enter_town", "$g_currently_soliciting"),
+       (assign, "$quest_auto_menu", "mnu_town_tavern_prostitution"),
+       ]
+   ),
+
   ##diplomacy end
 ]# modmerger_start version=201 type=2
 try:

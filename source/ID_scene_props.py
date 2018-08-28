@@ -1030,3 +1030,4 @@ spr_mine_a = 1028
 spr_tent = 1029
 spr_sailing_plane = 1030
 spr_boarding_plane = 1031
+spr_physics_head = 1032

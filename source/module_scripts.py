@@ -76911,8 +76911,324 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (try_end),
  ]),
 
+("simple_remove_disguise",
+ [
+	(try_begin),
+		(gt, "$sneaked_into_town", disguise_none),
+		(display_message, "@You retrieve your hidden items.", message_alert),
+		(try_begin),
+			(eq, "$g_dplmc_player_disguise", 1),
+			(set_show_messages, 0),
+		(try_for_range, ":i_slot", ek_item_0, ek_food + 1),
+			(troop_get_inventory_slot, ":item", "trp_player", ":i_slot"),
+			(neq, ":item", -1),
+			(troop_get_inventory_slot_modifier, ":imod", "trp_player", ":i_slot"),
+			(troop_add_item, "trp_random_town_sequence", ":item", ":imod"),
+		(try_end),
+			(call_script, "script_move_inventory_and_gold", "trp_player", "trp_random_town_sequence", 0),
+			(call_script, "script_dplmc_copy_inventory", "trp_random_town_sequence", "trp_player"),
+			(call_script, "script_troop_transfer_gold", "trp_random_town_sequence", "trp_player", 0),
+			(set_show_messages, 1),
+		(try_end),
+		(assign, "$sneaked_into_town", disguise_none),
+	(try_end),
+]),
+
 ### MMC gambler end ###
 ### Dice game ### Three Cards ### END ###
+   #COMBAT OSP BEGIN
+#Shield Bash Script
+("shield_bash",[
+(this_or_next|multiplayer_is_server),
+(neg|game_in_multiplayer_mode),
+(get_player_agent_no,":player_agent"),
+(store_skill_level,":shield_level", "skl_shield", "trp_player"),
+(store_sub, ":player_shield_bash_time", 13, ":shield_level"),
+(store_mission_timer_a, ":current_time"),
+(agent_get_slot, ":slot_last_shield_bash_time", ":player_agent", 27),
+(store_add, ":time_to_shield_bash", ":player_shield_bash_time",":slot_last_shield_bash_time"),
+(try_begin),
+(ge, ":current_time", ":time_to_shield_bash"),
+(try_begin),
+(gt, ":player_agent", 0),
+(agent_get_animation, ":anim", ":player_agent",0),
+(agent_get_horse, ":my_horse", ":player_agent"),
+(agent_get_wielded_item, ":shield_item", ":player_agent", 1),
+(try_begin),
+	(neq, ":anim", "anim_human_shield_bash"),
+	(eq, ":my_horse", -1),
+	(item_get_type, ":item_type", ":shield_item"),
+	(eq, ":item_type", itp_type_shield),
+	(agent_set_animation, ":player_agent","anim_human_shield_bash"),
+	(agent_get_position, pos63,":player_agent"),
+	(position_move_y,pos63,75),#75 cm directly ahead, so it's not a cuboid space around player center
+	(agent_get_troop_id, ":id", ":player_agent"),
+	(troop_get_type, ":type", ":id"),
+	(try_begin),
+		(eq, ":type", tf_male),
+		(agent_play_sound, ":player_agent", "snd_man_yell"),
+		(agent_set_slot, ":player_agent", 27, ":current_time"),
+	(else_try),
+		(agent_play_sound, ":player_agent", "snd_woman_yell"),
+              (agent_set_slot, ":player_agent", 27, ":current_time"),
+	(try_end),
+	(try_for_agents,":agent"),
+		(gt, ":agent", 0),
+		(neg|agent_is_ally,":agent"),#don't bash allies
+		(agent_is_human, ":agent"),#stop if not human
+		(agent_is_active,":agent"),
+		(agent_is_alive,":agent"),
+		(try_begin),
+			(agent_get_position,pos62,":agent"),
+			(get_distance_between_positions,":dist",pos63,pos62),
+			(lt,":dist",100),#Set this to whatever you like- 1 meter radius clears a big section of crowd
+			(agent_get_horse, ":horse", ":agent"),
+			(eq, ":horse", -1),
+			(neq,":agent",":player_agent"),
+			(agent_play_sound, ":player_agent", "snd_wooden_hit_low_armor_high_damage"),
+			(position_move_y,pos62,-25),
+			(agent_set_position, ":agent", pos62),
+			(agent_set_animation, ":agent","anim_shield_strike"),
+		(try_end),
+	(try_end),
+	(try_end),
+(try_end),
+(else_try),
+(display_message, "@You don't have enough shield skill to shield bash again this soon."),
+(try_end),
+]),
+
+
+#RAMARAUNT SCRIPT - with code from Xenoargh's shield bashing OSP.
+#AI shield bashing script
+("agent_shield_bash",[
+(this_or_next|multiplayer_is_server),
+(neg|game_in_multiplayer_mode),
+(store_script_param, ":agent", 1),
+(agent_get_troop_id, ":troop_id", ":agent"),
+(store_skill_level,":shield_level", "skl_shield", ":troop_id"),
+(store_sub, ":agent_shield_bash_time", 13, ":shield_level"),
+(store_mission_timer_a, ":current_time"),
+(try_begin),
+(agent_get_wielded_item, ":shield_item", ":agent", 1),
+(neq, ":shield_item", -1),
+(neq, ":shield_item", 0),
+(item_get_type, ":item_type", ":shield_item"),
+(eq, ":item_type", itp_type_shield),
+(agent_get_slot, ":slot_last_shield_bash_time", ":agent", 27),
+(store_add, ":time_to_shield_bash", ":agent_shield_bash_time",":slot_last_shield_bash_time"),
+(try_begin),
+(ge, ":current_time", ":time_to_shield_bash"),
+(try_begin),
+(gt, ":agent", 0),
+(agent_get_animation, ":anim", ":agent",0),
+(agent_get_horse, ":my_horse", ":agent"),
+(try_begin),
+	(neq, ":anim", "anim_human_shield_bash"),
+	(eq, ":my_horse", -1),
+	(agent_set_animation, ":agent","anim_human_shield_bash"),
+	(agent_get_position, pos63,":agent"),
+	(position_move_y,pos63,75),#75 cm directly ahead, so it's not a cuboid space around player center
+	(agent_get_troop_id, ":id", ":agent"),
+	(troop_get_type, ":type", ":id"),
+	(try_begin),
+		(eq, ":type", tf_male),
+		(agent_play_sound, ":agent", "snd_man_yell"),
+		(agent_set_slot, ":agent", 27, ":current_time"),
+	    #(display_message, "@{s2} has shield bashed!"),
+	(else_try),
+		(agent_play_sound, ":agent", "snd_woman_yell"),
+        (agent_set_slot, ":agent", 27, ":current_time"),
+		#(display_message, "@{s2} has shield bashed!"),
+	(try_end),
+	(try_for_agents,":victims"),
+		(gt, ":victims", 0),
+		(agent_get_team, ":victim_team", ":victims"),
+		(agent_get_team, ":agent_team", ":agent"),
+		(teams_are_enemies, ":victim_team", ":agent_team"), #don't bash allies
+		(agent_is_human, ":victims"),#stop if not human
+		(agent_is_active,":victims"),
+		(agent_is_alive,":victims"),
+		(try_begin),
+			(get_player_agent_no,":player"),
+			(eq,":victims",":player"),
+			(display_message, "@You have been shield bashed!"),
+		(try_end),
+		(try_begin),
+			(agent_get_position,pos62,":victims"),
+			(get_distance_between_positions,":dist",pos63,pos62),
+			(lt,":dist",100),#Set this to whatever you like- 1 meter radius clears a big section of crowd
+			(agent_get_horse, ":horse", ":victims"),
+			(eq, ":horse", -1),
+			(neq,":agent",":victims"),
+			(agent_play_sound, ":victims", "snd_wooden_hit_low_armor_high_damage"),
+			(position_move_y,pos62,-25),
+			(agent_set_position, ":victims", pos62),
+			(agent_set_animation, ":victims","anim_shield_strike"),
+		(try_end),
+	(try_end),
+	(try_end),
+(try_end),
+(try_end),
+(try_end),
+]),
+#End Shield Bash Script
+
+#VIKING CONQUEST DECAP STUFF - NOTE THIS CODE IS SLIGHTLY ALTERED CODE FROM VC, WHICH IS LEGAL AS LONG AS YOU GIVE CREDIT - Ramaraunt
+("cf_vc_decap_check_if_possible",
+	[(store_script_param_1, ":inflicted_agent_id"),
+	(store_script_param_2, ":damage"),
+	(store_script_param, ":weapon_id",3),
+	(store_script_param, ":attacker_id", 4),
+
+	# Can't be: player, hero or horse nor female
+	(agent_is_non_player, ":inflicted_agent_id"),
+	(agent_get_troop_id, ":troop_inflicted", ":inflicted_agent_id"),
+	(neg | troop_is_hero,":troop_inflicted"),
+	(agent_is_human, ":inflicted_agent_id"),
+	(troop_get_type, ":is_female", ":troop_inflicted"),
+	(val_mod, ":is_female", 2),
+	(neq, ":is_female", 1),
+
+	#test if head hit
+	(agent_get_position, pos1, ":inflicted_agent_id"),
+	(get_distance_between_positions, ":distance", pos1, pos0),
+	(is_between, ":distance", 90, 185), # *zing*
+
+	#test if within melee range (this stops most ranged decaps unless they are SUPER close, which doesnt happen often so its ok)
+	(agent_get_position, pos2, ":attacker_id"),
+	(get_distance_between_positions, ":distance", pos2, pos1),
+	(is_between, ":distance", 0, 200),
+
+
+	# test weapon: cutting damage from a weapon (no missiles)
+	(gt, ":weapon_id", 0),
+	(item_get_swing_damage_type, ":damage_type", ":weapon_id"),
+	(eq, ":damage_type", cut),
+
+	# test if agent is dying from the hit
+	(store_agent_hit_points, ":inflicted_hp", ":inflicted_agent_id", 1),
+	(store_sub, ":inflicted_new_hp", ":inflicted_hp", ":damage"),
+	(le, ":inflicted_new_hp", 0),
+
+
+      ]),
+
+("cf_vc_decap_probability",
+    [(store_script_param_1, ":inflicted_agent_id"),
+      (store_script_param_2, ":attacker_agent_id"),
+      (store_script_param, ":weapon_id",3),
+
+      (agent_is_human, ":inflicted_agent_id"),
+      (agent_is_human, ":attacker_agent_id"),
+      (gt, ":weapon_id", 0),
+	  (get_player_agent_no,":player"),
+
+      ### Probability ###
+      #BASE: 5
+      #IF PLAYER
+      #	BASE: +5
+      #	IF MOUNTED +30
+      #	IF STR>15 : +10
+      #	IF PS>7 : +10
+      #IF BOT
+      #	IF MOUNTED +10
+      #IF AXE +5
+      #IF HAS HELMET -5
+      #MIN CHANCE: 5
+      (assign, ":base_chance", 5),
+
+      (try_begin),
+
+        # Mounted bot
+        (agent_get_horse, ":horse_id", ":attacker_agent_id"),
+        (try_begin),
+          (agent_is_non_player, ":attacker_agent_id"),
+
+          (try_begin),
+            (neq, ":horse_id", -1),
+            (val_add, ":base_chance", 10),
+          (try_end),
+
+          #Player bonus
+        (else_try),
+		  (eq,":attacker_agent_id",":player"),
+		  (store_attribute_level, ":skill", ":player", ca_strength),
+          (val_add, ":base_chance", ":skill"),
+          (try_begin),
+            (neq, ":horse_id", -1),
+            (val_add, ":base_chance", 30),
+          (try_end),
+        (try_end),
+
+
+        # Helmet
+        (try_begin),
+          (agent_get_item_slot, ":head_gear", ":inflicted_agent_id", ek_head),
+          (ge, ":head_gear", 1),
+          (item_get_head_armor, ":armor", ":head_gear"),
+          (gt, ":armor", 20),
+          (val_sub, ":base_chance", 5),
+        (try_end),
+
+        (val_max, ":base_chance", 5),
+      (try_end),
+
+      (store_random_in_range, ":rand", 0, 101),
+
+      #(val_div, ":base_chance", 2),#VC-3296
+      # Debugging
+      (ge, ":base_chance", ":rand"),]),
+
+  # Description: for decapitation -> blood, helmet, spawn head
+  # Input: inflicted_agent_id, head_position
+  # Output: none
+  ("vc_decap_special_effects",
+    [(store_script_param_1, ":inflicted_agent_id"),
+
+      # Checks if agent was using a helmet
+      (try_begin),
+        (agent_get_item_slot, ":head_gear", ":inflicted_agent_id", ek_head),
+        (ge, ":head_gear", 1),
+        (assign, ":spawn_for_timer", 60),
+
+        # helmet on the ground
+        (copy_position, pos2, pos1),
+        (position_move_x, pos2, 20, 0),
+        (position_move_z, pos2, -30, 0),
+        (store_random_in_range, ":rot_x", 10, 40),
+        (store_random_in_range, ":rot_z", 15, 75),
+        (position_rotate_x, pos2, ":rot_x", 1),
+        (position_rotate_z, pos2, ":rot_z", 1),
+        (position_set_z_to_ground_level, pos2),
+        (position_move_y, pos2, -5, 1),
+        (set_spawn_position, pos2),
+        (spawn_item, ":head_gear", 0, ":spawn_for_timer"),
+
+        (agent_unequip_item, ":inflicted_agent_id", ":head_gear"),
+      (try_end),
+
+      # equip invisible head on agent
+      (agent_equip_item, ":inflicted_agent_id", "itm_untitled"),
+
+      # blood
+      (copy_position, pos2, pos0),
+      (set_spawn_position, pos2),
+      (particle_system_burst, "psys_game_blood", pos2, 5),
+
+      # fake head
+      (spawn_scene_prop, "spr_physics_head"),
+      (assign, ":head_id", reg0),
+
+      (prop_instance_enable_physics, ":head_id", 1),
+
+      # makes sure the agent dies
+      (agent_set_hit_points,":inflicted_agent_id", 0, 1),]),
+
+
+#VIKING CONQUEST END
+#COMBAT OSP END
+
 
 # script_pos_helper
 # Description: Little Pos Helper by Kuba
