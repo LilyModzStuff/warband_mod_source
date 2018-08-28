@@ -642,7 +642,7 @@ dialogs = [
         (troop_is_hero, "$g_talk_troop"),
 		(call_script, "script_troop_change_relation_with_troop", "trp_player", "$g_talk_troop", 5),
      (try_end),
-     
+
     (try_begin),
         (is_between, "$g_talk_troop", kingdom_ladies_begin, kingdom_ladies_end),
         (neg|troop_slot_eq, "$g_talk_troop", slot_troop_spouse, "trp_player"),
@@ -800,7 +800,7 @@ dialogs = [
 
 	 (assign, "$f_cons1", 0), #Con
 	 (assign, "$f_cons1", -1), #Non-con
-     
+
      (store_random_in_range, ":r", 0, 2),
      (assign, "$g_sex_position", ":r"),
      ]],
@@ -818,7 +818,7 @@ dialogs = [
 
 	 (assign, "$f_cons1", -1), #Non-con
 	 (assign, "$f_cons2", 0), #Con
-     
+
      (store_random_in_range, ":r", 0, 2),
      (assign, "$g_sex_position", ":r"),
 ]],
@@ -880,7 +880,7 @@ dialogs = [
 	 (assign, "$f_cons2", 0), #Con
 	 (assign, "$f_cons3", 0), #Con
 	 (assign, "$f_cons4", 0), #Con
-     
+
      (assign, "$g_sex_position", 2),
 ]],
   [anyone|plyr,"camp_prisoner_talk", [],
@@ -2795,7 +2795,7 @@ or you won't be able to hang on to a single man you catch.", "ramun_ask_about_ca
 
 
 
-# Reinforcements commenting out to fix duplicate text 
+# Reinforcements commenting out to fix duplicate text
 #  [party_tpl|pt_reinforcements,"start", [(eq,"$talk_context",tc_party_encounter),
 #                                         (party_get_slot, ":ai_object", "$g_encountered_party", slot_party_ai_object),
 #                                         (str_store_party_name,s21,":ai_object"),
@@ -14719,9 +14719,9 @@ What kind of recruits do you want?", "dplmc_constable_recruit_select",
 #    ]],
 #
 [anyone|plyr, "companion_quitting_response", [
-      (ge, "$cheat_mode", 1),#only enable in cheat mode
+      #(ge, "$cheat_mode", 1), #We hang deserters in THIS company :3  ~ Lily
       (eq, "$player_can_refuse_npc_quitting", 1),
-], "CHEAT -- We hang deserters in this company.", "companion_quitting_no", [
+], "We hang deserters in this company.", "companion_quitting_no", [
     ]],
 
 #Add a response with a slightly different flavor for less mild personalities.
@@ -34687,7 +34687,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 	"lady_entertainer_question_response",
 	[],
    ],
-   
+
 	[
 	anyone|plyr,
 	"lady_entertainer_question_response",
@@ -37780,7 +37780,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
   (neq, "$g_encountered_party_faction", "fac_player_supporters_faction"),
   ],
    "Do you know who in this realm might have a job for a {man/woman} like myself?", "tavernkeeper_job_ask",[]],
-   
+
 ########################################################################################
 
 	[#!@#$
@@ -37886,7 +37886,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 	"prostitution_offer",
 	[],
    ],
-   
+
 	[
 		anyone|plyr,
 		"prostitution_offer",
@@ -37938,10 +37938,10 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 		"prostitution_offer_decline_b",
 		[(party_set_slot, "$current_town", slot_town_has_brothel, -1),],
 	],
-	
+
 	[anyone,"prostitution_offer_decline_b", [], "Of course madam, I didn't mean to imply. I shan't bring it up again.", "prostitution_offer_decline_b2",[]],
 	[anyone,"prostitution_offer_decline_b2", [], "I take it, then, you're asking about sword's work and the like?", "tavernkeeper_job_ask",[]],
-	
+
 	[
 		anyone|plyr,
 		"prostitution_offer",
@@ -37961,7 +37961,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 		"prostitution_offer_info",
 		[],
 	],
-	
+
 	[anyone,"prostitution_offer_info", [
 		(try_begin),
 			(eq,"$f_temp_var", 1),
@@ -37984,7 +37984,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 		[
 		],
 	],
-	
+
 	[anyone,"prostitution_offer_info_resp_accept", [], "Fantastic, I'm so glad we can help each other with this arrangement.", "prostitution_offer_info_resp_accept2",[]],
 
 	[
@@ -38002,7 +38002,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 		(finish_mission),
 		],
 	],
-	
+
 	[  # I think this is depreciated.
 		anyone|plyr,
 		"prostitution_offer_info_resp_accept3",
@@ -38033,9 +38033,9 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 		"prostitution_offer_info_resp_price",
 		[(assign, reg50, 2),],
 	],
-	
+
 	[anyone,"prostitution_offer_info_resp_price", [], "I'm wounded, that is a generous offer and a standard fare for this area. Sadly, my tavern might have to endure on it's own if this is too much for you.", "prostitution_offer_info_resp",[]],
-	
+
 	[
 		anyone|plyr,
 		"prostitution_offer_info_resp",
@@ -38044,7 +38044,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 		"prostitution_offer_info_resp_decline",
 		[],
 	],
-	
+
 	[
 		anyone|plyr,
 		"prostitution_offer",
@@ -38053,9 +38053,9 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 		"prostitution_offer_decline_c",
 		[],
 	],
-	
+
 	[anyone,"prostitution_offer_decline_c", [], "Ah, of course. In that case I can certainly get you pointed in the right direction.", "tavernkeeper_job_ask",[(party_set_slot, "$current_town", slot_town_has_brothel, -2),]],
-	
+
 	[anyone,"prostitution_offer_info_resp_decline", [
 	(try_begin),
 		(eq,"$f_temp_var", 1),
@@ -38180,9 +38180,9 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
   [anyone,"tavernkeeper_job_result_2", [], "I'll keep my ears open for other opportunities. You may want to ask again from time to time.", "tavernkeeper_job_result_followon",[]],
 
   [anyone|plyr,"tavernkeeper_job_result_followon",[(neg|party_slot_eq, "$current_town", slot_town_has_brothel, -69),(this_or_next|party_slot_eq, "$current_town", slot_town_has_brothel, -1),(party_slot_eq, "$current_town", slot_town_has_brothel, -2),],"Um, about what you said earlier. The job you had...","tavernkeeper_job_result_followon2",[],],
-  
+
   [anyone,"tavernkeeper_job_result_followon2", [], "Huh? But didn't you say you...? Eh, never mind.^^Uh, right the job. Let's see here...", "tavernkeeper_job_ask",[(party_set_slot, "$current_town", slot_town_has_brothel, 0),(assign, reg50, 4),]],
-	
+
   [anyone|plyr,"tavernkeeper_job_result_followon",[],"Thank you, that's all I needed.","close_window",[],],
 
 ### Three Cards ### Find the Lady ###
