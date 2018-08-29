@@ -1769,14 +1769,16 @@ AI_kick =  (
 
 
 common_shield_bash = (0,0,0,[
-(key_clicked, key_left_control),
-(get_player_agent_no,":player_agent"),
-(agent_get_wielded_item, ":shield_item", ":player_agent", 1),
-(neq, ":shield_item", -1),
-(neq, ":shield_item", 0),
-(item_get_type, ":item_type", ":shield_item"),
-(eq, ":item_type", itp_type_shield),
-(neg|main_hero_fallen),
+	#(key_clicked, key_left_control),
+	(key_is_down, key_right_mouse_button), # Shield bash like Skyrim
+	(key_clicked, key_left_mouse_button),
+	(get_player_agent_no,":player_agent"),
+	(agent_get_wielded_item, ":shield_item", ":player_agent", 1),
+	(neq, ":shield_item", -1),
+	(neq, ":shield_item", 0),
+	(item_get_type, ":item_type", ":shield_item"),
+	(eq, ":item_type", itp_type_shield),
+	(neg|main_hero_fallen),
 ],
 [
 
