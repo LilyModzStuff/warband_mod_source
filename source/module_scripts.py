@@ -76951,7 +76951,9 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 
 (store_add, ":shieldstat", 1, ":shield_level"),
 (store_mul, ":bash_distance", 8, ":shieldstat"),
-(store_mul, ":bash_radius", 13, ":shieldstat"),
+(store_mul, ":bash_radius", 11, ":shieldstat"),
+(val_add, ":bash_distance", 20),
+(val_add, ":bash_radius", 30),
 (try_begin),
 (ge, ":current_time", ":time_to_shield_bash"),
 (try_begin),
