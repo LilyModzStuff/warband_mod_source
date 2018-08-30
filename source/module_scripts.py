@@ -76944,9 +76944,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 (get_player_agent_no,":player_agent"),
 (store_skill_level,":shield_level", "skl_shield", "trp_player"),
 (store_sub, ":player_shield_bash_time", 13, ":shield_level"),
+(val_div,":player_shield_bash_time",3),
 (store_mission_timer_a, ":current_time"),
 (agent_get_slot, ":slot_last_shield_bash_time", ":player_agent", 27),
 (store_add, ":time_to_shield_bash", ":player_shield_bash_time",":slot_last_shield_bash_time"),
+
+(store_add, ":shieldstat", 1, ":shield_level"),
+(store_mul, ":bash_distance", 8, ":shieldstat"),
+(store_mul, ":bash_radius", 13, ":shieldstat"),
 (try_begin),
 (ge, ":current_time", ":time_to_shield_bash"),
 (try_begin),
@@ -76961,15 +76966,15 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	(eq, ":item_type", itp_type_shield),
 	(agent_set_animation, ":player_agent","anim_human_shield_bash"),
 	(agent_get_position, pos63,":player_agent"),
-	(position_move_y,pos63,75),#75 cm directly ahead, so it's not a cuboid space around player center
+	(position_move_y,pos63,":bash_distance"),# Now based on shield skill, not doing this for NPCs because that might get expensive.
 	(agent_get_troop_id, ":id", ":player_agent"),
 	(troop_get_type, ":type", ":id"),
 	(try_begin),
 		(eq, ":type", tf_male),
-		(agent_play_sound, ":player_agent", "snd_man_yell"),
+		(agent_play_sound, ":player_agent", "snd_man_grunt"), # Keep it down, this is a library.
 		(agent_set_slot, ":player_agent", 27, ":current_time"),
 	(else_try),
-		(agent_play_sound, ":player_agent", "snd_woman_yell"),
+		(agent_play_sound, ":player_agent", "snd_woman_grunt"),	# Shhh...
               (agent_set_slot, ":player_agent", 27, ":current_time"),
 	(try_end),
 	(try_for_agents,":agent"),
@@ -76981,7 +76986,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 		(try_begin),
 			(agent_get_position,pos62,":agent"),
 			(get_distance_between_positions,":dist",pos63,pos62),
-			(lt,":dist",100),#Set this to whatever you like- 1 meter radius clears a big section of crowd
+			(lt,":dist",":bash_radius"),# Now based on shield skill, not doing this for NPCs because that might get expensive.
 			(agent_get_horse, ":horse", ":agent"),
 			(eq, ":horse", -1),
 			(neq,":agent",":player_agent"),
@@ -76994,7 +76999,8 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	(try_end),
 (try_end),
 (else_try),
-(display_message, "@You don't have enough shield skill to shield bash again this soon."),
+#(display_message, "@You don't have enough shield skill to shield bash again this soon."),
+# This message is super spammy and it's absolutely useless after the first time the palyer ever sees it.
 (try_end),
 ]),
 

@@ -76,7 +76,7 @@ mod_options = [
 #        ],
 #	  ),
 
-    ("dplmc_woman_prejudice", xgm_ov_combolabel, ["Historical", "Tolerant", "Progressive"], "Diplomacy - Prejudice:", 0,
+    ("dplmc_woman_prejudice", xgm_ov_combolabel, ["Historical", "Tolerant", "Utopian"], "Diplomacy - Prejudice:", 0,
 	  "Setting for Diplomacy's prejudice changes.", 0,
 		[
 			(try_begin),

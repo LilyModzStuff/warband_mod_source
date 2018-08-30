@@ -22727,7 +22727,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 				(try_end),
 				
 				(store_attribute_level, ":cha", ":troop_id", ca_charisma),
-				(val_mul, ":cha", 3.5),
+				(val_mul, ":cha", 1.2),
 				(assign, reg5, ":cha"),
 				(val_add, ":cash", ":cha"),
 				(str_store_troop_name,s4,":troop_id"),
@@ -22751,7 +22751,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
     [  # I'd like to make this a full scene, or at least a dialogue with more to it than a simple menu.
 	(try_begin), # For now I settle with not breaking the disguise feature.
 		(gt, "$sneaked_into_town", disguise_none),
-		(str_store_string, s22, "@After further consideration, a large purchace such as buying an entire ship will certianly attract too much attention..."),
+		(str_store_string, s22, "@After further consideration, a large purchace such as commisioning an entire ship will certianly attract too much attention..."),
 	(else_try),
 		(str_store_string, s22, "@Which ship do you want to buy?"),
 	(try_end),

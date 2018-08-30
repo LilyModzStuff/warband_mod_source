@@ -1937,8 +1937,8 @@ animations = [
 	[1.9, "dancer_3", 0, 18, arf_use_stand_progress|arf_cyclic, 0, (0, 0, 0), 0.25],],
 
    #Ramaraunt Begin
- ["human_shield_bash", 0, amf_priority_defend_parry|amf_play|amf_restart|amf_client_prediction,
-   [defend_parry_duration_3, "Shield_bash_13", defend+2321, defend+2330, arf_blend_in_1],
+ ["human_shield_bash", acf_enforce_all, amf_priority_defend_parry|amf_play|amf_restart|amf_client_prediction,
+   [0.7, "Shield_bash_13", 0, 29, arf_blend_in_1], 
  ],
 
 

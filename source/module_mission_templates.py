@@ -2191,8 +2191,8 @@ common_rotate_deathcam = (
 custom_commander_camera = (
   0, 0, 0, [
   (this_or_next|eq, "$g_dplmc_cam_activated", camera_follow),
-  #(neg|main_hero_fallen), Might break this camera thing, but prevents switching weapons from zooming out so hard your head falls off.
   (main_hero_fallen),
+  (neg|main_hero_fallen),
   ],
   [
     (try_begin),
@@ -2256,6 +2256,7 @@ custom_commander_camera = (
     (try_end),
     (try_begin), #any key pressed, immediate update
       (eq, ":continue", 1),
+      (set_camera_in_first_person, 0),
       (assign, ":duration", 0),
       (mission_cam_set_mode, 1),
     (try_end),
@@ -2285,8 +2286,8 @@ custom_commander_camera = (
     (try_end),
 
     (try_begin), #if we don't cancel during first person, head disappears
+	  (neg|main_hero_fallen),
       (call_script, "script_cf_cancel_camera_keys"),
-      (neg|main_hero_fallen),
     (else_try),
       (gt, ":duration", 0), #if 0, won't animate at all
       # (eq, "$dmod_move_camera", 1),
