@@ -4914,9 +4914,23 @@ One may memorize the placement of selected divisions relative to the player by p
 - NO FORMATION^^\
 Even in the last case, the player can make formations up to four lines by ordering Stand Closer enough times."),
 
+  ("january_reg1_reg2_v2", "January {reg1}, {reg2}"),
+  ("february_reg1_reg2_v2", "February {reg1}, {reg2}"),
+  ("march_reg1_reg2_v2", "March {reg1}, {reg2}"),
+  ("april_reg1_reg2_v2", "April {reg1}, {reg2}"),
+  ("may_reg1_reg2_v2", "May {reg1}, {reg2}"),
+  ("june_reg1_reg2_v2", "June {reg1}, {reg2}"),
+  ("july_reg1_reg2_v2", "July {reg1}, {reg2}"),
+  ("august_reg1_reg2_v2", "August {reg1}, {reg2}"),
+  ("september_reg1_reg2_v2", "September {reg1}, {reg2}"),
+  ("october_reg1_reg2_v2", "October {reg1}, {reg2}"),
+  ("november_reg1_reg2_v2", "November {reg1}, {reg2}"),
+  ("december_reg1_reg2_v2", "December {reg1}, {reg2}"),
+
 #utility for skill names
 ]+[
 ("skl_"+skills[x][0], skills[x][1]) for x in range(0, len(skills))]
+
 # modmerger_start version=201 type=2
 try:
     component_name = "strings"
