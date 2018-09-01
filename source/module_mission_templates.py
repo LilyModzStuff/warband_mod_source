@@ -1770,6 +1770,7 @@ AI_kick =  (
 
 common_shield_bash = (0,0,0,[
 	#(key_clicked, key_left_control),
+	(gt, "$g_enable_shield_bash", 0),
 	(key_is_down, key_right_mouse_button), # Shield bash like Skyrim
 	(key_clicked, key_left_mouse_button),
 	(get_player_agent_no,":player_agent"),
@@ -1789,6 +1790,7 @@ common_shield_bash = (0,0,0,[
 ai_shield_bash = (
                  0, 0,  0,
 				[], [
+				(gt, "$g_enable_shield_bash", 1),
 			(get_player_agent_no, ":player"),
 			(try_for_agents, ":agent"),
 			    (neq, ":agent", ":player"),
@@ -1818,9 +1820,9 @@ ai_shield_bash = (
 		        (get_distance_between_positions, ":distance", pos1, pos2),
 				(get_distance_between_positions, ":distance", pos1, pos2),
 		        (le, ":distance", ":maximum_distance"),
-				(store_random_in_range,":bashchance", 1, 2),
+				(store_random_in_range,":bashchance", 1, 3),
 				(try_begin),
-			        (eq,":bashchance",1), #50% chance per check
+			        (eq,":bashchance",1), #33% chance per check
 					(str_store_agent_name, s2, ":agent"),
 				    (call_script, "script_agent_shield_bash", ":agent"), #suspect not needed anymore because the bash effects multiple agents.
 			    (try_end),
@@ -2191,8 +2193,8 @@ common_rotate_deathcam = (
 custom_commander_camera = (
   0, 0, 0, [
   (this_or_next|eq, "$g_dplmc_cam_activated", camera_follow),
-  #(neg|main_hero_fallen), Might break this camera thing, but prevents switching weapons from zooming out so hard your head falls off.
   (main_hero_fallen),
+  (neg|main_hero_fallen),
   ],
   [
     (try_begin),
@@ -2256,6 +2258,7 @@ custom_commander_camera = (
     (try_end),
     (try_begin), #any key pressed, immediate update
       (eq, ":continue", 1),
+      (set_camera_in_first_person, 0),
       (assign, ":duration", 0),
       (mission_cam_set_mode, 1),
     (try_end),
@@ -2285,8 +2288,8 @@ custom_commander_camera = (
     (try_end),
 
     (try_begin), #if we don't cancel during first person, head disappears
+	  (neg|main_hero_fallen),
       (call_script, "script_cf_cancel_camera_keys"),
-      (neg|main_hero_fallen),
     (else_try),
       (gt, ":duration", 0), #if 0, won't animate at all
       # (eq, "$dmod_move_camera", 1),
