@@ -1928,43 +1928,30 @@ animations = [
  ["female_cum", acf_enforce_all, amf_priority_die|amf_play,
 	[0.6, "male_fucked", 0, 9, arf_use_stand_progress|arf_cyclic, 0, (0, 0, 0), 0.25],],
  ["dancer", acf_enforce_all, amf_priority_die|amf_play,
-	[2.4, "dancer", 0, 23, arf_use_stand_progress|arf_cyclic, 0, (0, 0, 0), 0.25],],
- ["dancer_1", acf_enforce_all, amf_priority_die|amf_play,
-	[1.9, "dancer_1", 0, 18, arf_use_stand_progress|arf_cyclic, 0, (0, 0, 0), 0.25],],
- ["dancer_2", acf_enforce_all, amf_priority_die|amf_play,
-	[1.8, "dancer_2", 0, 17, arf_use_stand_progress|arf_cyclic, 0, (0, 0, 0), 0.25],],
- ["dancer_3", acf_enforce_all, amf_priority_die|amf_play,
-	[1.9, "dancer_3", 0, 18, arf_use_stand_progress|arf_cyclic, 0, (0, 0, 0), 0.25],],
+	[2.4, "dancer", 0, 23, arf_use_stand_progress|arf_cyclic, 0, (0, 0, 0), 0.25],
+	[1.9, "dancer_1", 0, 18, arf_use_stand_progress|arf_cyclic, 0, (0, 0, 0), 0.25],
+	[1.8, "dancer_2", 0, 17, arf_use_stand_progress|arf_cyclic, 0, (0, 0, 0), 0.25],
+	[1.9, "dancer_3", 0, 18, arf_use_stand_progress|arf_cyclic, 0, (0, 0, 0), 0.25],
+ ],
 
    #Ramaraunt Begin
  ["human_shield_bash", acf_enforce_all, amf_priority_defend_parry|amf_play|amf_restart|amf_client_prediction,
    [0.7, "Shield_bash_13", 0, 29, arf_blend_in_1], 
  ],
 
-
-
   ["shield_strike", acf_enforce_all|acf_align_with_ground, amf_priority_striked|amf_play|amf_accurate_body|amf_restart,
-	[1.0, "anim_human", blow+5000, blow+5010, arf_blend_in_3|arf_make_custom_sound],
+	#[1.0, "anim_human", blow+5000, blow+5010, arf_blend_in_3|arf_make_custom_sound],  
 	[1.7, "anim_human", blow+5400, blow+5453, arf_blend_in_2|arf_make_custom_sound],
 	[1.44, "anim_human", blow+5400, blow+5445, arf_blend_in_2|arf_make_custom_sound],
    ],
  #Ramaraunt End
 
-####################################################################################################################
-#  There are two animation arrays (one for human and one for horse). Each animation in these arrays contains the following fields:
-#  1) Animation id (string): used for referencing animations in other files. The prefix anim_ is automatically added before each animation-id .
-#  2) Animation flags: could be anything beginning with acf_ defined in header_animations.py
-#  3) Animation master flags: could be anything beginning with amf_ defined in header_animations.py
-#  4) Animation sequences (list).
-#  4.1) Duration of the sequence.
-#  4.2) Name of the animation resource.
-#  4.3) Beginning frame of the sequence within the animation resource.
-#  4.4) Ending frame of the sequence within the animation resource.
-#  4.5) Sequence flags: could be anything beginning with arf_ defined in header_animations.py
-#
-####################################################################################################################
-# ["unused_human_anim_67", 0, 0, [1.0, "anim_human", 0, 1, 0]],
-# ["unused_human_anim_68", 0, 0, [1.0, "anim_human", 0, 1, 0]],
+  ["shield_strike_small", acf_enforce_all|acf_align_with_ground, amf_priority_striked|amf_play|amf_accurate_body|amf_restart,
+	[1.0, "anim_human", blow+5000, blow+5010, arf_blend_in_3|arf_make_custom_sound],  
+  ],
+
+ ["unused_human_anim_67", 0, 0, [1.0, "anim_human", 0, 1, 0]],
+ ["unused_human_anim_68", 0, 0, [1.0, "anim_human", 0, 1, 0]],
  ["unused_human_anim_69", 0, 0, [1.0, "anim_human", 0, 1, 0]],
  ["unused_human_anim_70", 0, 0, [1.0, "anim_human", 0, 1, 0]],
  ["unused_human_anim_71", 0, 0, [1.0, "anim_human", 0, 1, 0]],

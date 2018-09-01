@@ -99,6 +99,7 @@ scripts = [
       (assign, "$g_dark_hunters_enabled", 0),
       (assign, "$g_realistic_wounding", 0), #new game
       (assign, "$g_polygamy", 0), #new game
+	  (assign, "$g_enable_shield_bash", 3),
 	  (assign, "$f_con", 0),
 	  (assign, "$f_player_prost", 0),
       (store_add, "$g_player_debt",0,0), #bank starting script
@@ -76943,17 +76944,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 (neg|game_in_multiplayer_mode),
 (get_player_agent_no,":player_agent"),
 (store_skill_level,":shield_level", "skl_shield", "trp_player"),
-(store_sub, ":player_shield_bash_time", 13, ":shield_level"),
+(store_sub, ":player_shield_bash_time", 15, ":shield_level"),
 (val_div,":player_shield_bash_time",3),
 (store_mission_timer_a, ":current_time"),
 (agent_get_slot, ":slot_last_shield_bash_time", ":player_agent", 27),
 (store_add, ":time_to_shield_bash", ":player_shield_bash_time",":slot_last_shield_bash_time"),
 
 (store_add, ":shieldstat", 1, ":shield_level"),
-(store_mul, ":bash_distance", 8, ":shieldstat"),
-(store_mul, ":bash_radius", 11, ":shieldstat"),
-(val_add, ":bash_distance", 20),
-(val_add, ":bash_radius", 30),
+(store_mul, ":bash_radius", 13, ":shieldstat"),
 (try_begin),
 (ge, ":current_time", ":time_to_shield_bash"),
 (try_begin),
@@ -76968,7 +76966,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	(eq, ":item_type", itp_type_shield),
 	(agent_set_animation, ":player_agent","anim_human_shield_bash"),
 	(agent_get_position, pos63,":player_agent"),
-	(position_move_y,pos63,":bash_distance"),# Now based on shield skill, not doing this for NPCs because that might get expensive.
+	(position_move_y,pos63,50),
 	(agent_get_troop_id, ":id", ":player_agent"),
 	(troop_get_type, ":type", ":id"),
 	(try_begin),
@@ -76995,7 +76993,13 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 			(agent_play_sound, ":player_agent", "snd_wooden_hit_low_armor_high_damage"),
 			(position_move_y,pos62,-25),
 			(agent_set_position, ":agent", pos62),
+			(try_begin),
+				(store_random_in_range, ":rand", 3, 10), # No chance for critical strike unless shield skill +3
+				(gt, ":shield_level", ":rand"),
 			(agent_set_animation, ":agent","anim_shield_strike"),
+			(else_try),
+				(agent_set_animation, ":agent", "anim_shield_strike_small"),
+			(try_end),
 		(try_end),
 	(try_end),
 	(try_end),
@@ -77015,6 +77019,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 (store_script_param, ":agent", 1),
 (agent_get_troop_id, ":troop_id", ":agent"),
 (store_skill_level,":shield_level", "skl_shield", ":troop_id"),
+(gt, ":shield_level", 5),
 (store_sub, ":agent_shield_bash_time", 13, ":shield_level"),
 (store_mission_timer_a, ":current_time"),
 (try_begin),
@@ -77041,11 +77046,11 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	(troop_get_type, ":type", ":id"),
 	(try_begin),
 		(eq, ":type", tf_male),
-		(agent_play_sound, ":agent", "snd_man_yell"),
+		(agent_play_sound, ":agent", "snd_man_grunt"),
 		(agent_set_slot, ":agent", 27, ":current_time"),
 	    #(display_message, "@{s2} has shield bashed!"),
 	(else_try),
-		(agent_play_sound, ":agent", "snd_woman_yell"),
+		(agent_play_sound, ":agent", "snd_woman_grunt"),	
         (agent_set_slot, ":agent", 27, ":current_time"),
 		#(display_message, "@{s2} has shield bashed!"),
 	(try_end),
@@ -77072,7 +77077,13 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 			(agent_play_sound, ":victims", "snd_wooden_hit_low_armor_high_damage"),
 			(position_move_y,pos62,-25),
 			(agent_set_position, ":victims", pos62),
-			(agent_set_animation, ":victims","anim_shield_strike"),
+			(try_begin),
+				(store_random_in_range, ":rand", 6, 10), # No chance for critical strike unless shield skill +3
+				(gt, ":shield_level", ":rand"),
+				(agent_set_animation, ":agent","anim_shield_strike"),
+			(else_try),
+				(agent_set_animation, ":agent", "anim_shield_strike_small"),
+			(try_end),
 		(try_end),
 	(try_end),
 	(try_end),
@@ -77114,6 +77125,9 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	(item_get_swing_damage_type, ":damage_type", ":weapon_id"),
 	(eq, ":damage_type", cut),
 
+	# test to make sure it's a huge hit
+	(ge, ":damage", 40),
+	
 	# test if agent is dying from the hit
 	(store_agent_hit_points, ":inflicted_hp", ":inflicted_agent_id", 1),
 	(store_sub, ":inflicted_new_hp", ":inflicted_hp", ":damage"),

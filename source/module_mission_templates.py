@@ -1770,6 +1770,7 @@ AI_kick =  (
 
 common_shield_bash = (0,0,0,[
 	#(key_clicked, key_left_control),
+	(gt, "$g_enable_shield_bash", 0),
 	(key_is_down, key_right_mouse_button), # Shield bash like Skyrim
 	(key_clicked, key_left_mouse_button),
 	(get_player_agent_no,":player_agent"),
@@ -1789,6 +1790,7 @@ common_shield_bash = (0,0,0,[
 ai_shield_bash = (
                  0, 0,  0,
 				[], [
+				(gt, "$g_enable_shield_bash", 1),
 			(get_player_agent_no, ":player"),
 			(try_for_agents, ":agent"),
 			    (neq, ":agent", ":player"),
