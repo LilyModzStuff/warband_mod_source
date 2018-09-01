@@ -1820,9 +1820,9 @@ ai_shield_bash = (
 		        (get_distance_between_positions, ":distance", pos1, pos2),
 				(get_distance_between_positions, ":distance", pos1, pos2),
 		        (le, ":distance", ":maximum_distance"),
-				(store_random_in_range,":bashchance", 1, 2),
+				(store_random_in_range,":bashchance", 1, 3),
 				(try_begin),
-			        (eq,":bashchance",1), #50% chance per check
+			        (eq,":bashchance",1), #33% chance per check
 					(str_store_agent_name, s2, ":agent"),
 				    (call_script, "script_agent_shield_bash", ":agent"), #suspect not needed anymore because the bash effects multiple agents.
 			    (try_end),

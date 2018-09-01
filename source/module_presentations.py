@@ -20339,7 +20339,7 @@ presentations = [
           (try_end),
         (else_try),
           (eq, ":object", "$g_presentation_obj_13"),#no
-		  (call_script, "script_troop_add_gold", "trp_player", reg51),
+		  #(call_script, "script_troop_add_gold", "trp_player", reg51),
           (assign,reg1,0),#
           (assign, reg51, 1),
           (presentation_set_duration, 0),
