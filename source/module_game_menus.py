@@ -756,6 +756,10 @@ game_menus = [
         ]
        ),
 
+		# Moneylending
+		("view_bank_report",[],"View Financial Report",
+			[(start_presentation, "prsnt_bank_quickview"),]),
+
 #NPC companion changes end
 
 	   ##diplomacy begin
@@ -13089,6 +13093,16 @@ TOTAL:  {reg5}"),
       [
         (jump_to_menu, "mnu_collect_taxes"),
       ]),
+	  
+	#	Floris Bank Overhaul	//	Original Idea by Lazeras
+	("town_bank",
+       [(party_slot_eq, "$current_town", slot_party_type, spt_town)],
+       "Visit the landlords and moneylenders.",
+       [	
+			(assign, reg10, 0),
+			(start_presentation, "prsnt_bank"),
+        ]),
+	  
     ##diplomacy begin
       ("dplmc_guild_master_meeting",
        [(party_slot_eq,"$current_town",slot_party_type, spt_town),
@@ -13145,6 +13159,30 @@ TOTAL:  {reg5}"),
        [
            (jump_to_menu,"mnu_town_pre_hire_troops"),
         ]),
+
+      ("sail_from_port",
+      [
+        # (party_slot_eq,"$current_town",slot_party_type, spt_town),
+        # (party_get_position, pos1, "$current_town"),
+        # (map_get_water_position_around_position, pos2, pos1, 8),
+        # (get_distance_between_positions_in_meters, ":dist", pos1, pos2),
+        # (lt, ":dist", 8),
+        #(party_set_position, "p_main_party", pos2),
+        # (ge, "$cheat_mode", 1),
+        #(party_slot_eq,"$current_town",slot_town_near_shore, 1),
+        (party_slot_ge, "$current_town", slot_town_port, "p_port_1"),
+      ],
+      "Visit the Shipyard.",
+      [
+        (jump_to_menu, "mnu_buy_ship"),
+        # (assign, "$g_player_icon_state", pis_ship),
+        # (party_set_flags, "p_main_party", pf_is_ship, 1),
+        # #(party_get_position, pos1, "p_main_party"),
+        # #(map_get_water_position_around_position, pos2, pos1, 6),
+        # (party_set_position, "p_main_party", pos2),
+        # (assign, "$g_main_ship_party", -1),
+        # (change_screen_return),
+      ]),
 
       #SB : consolidated cheat options
       ("town_cheat", [(ge, "$cheat_mode", 1),],
@@ -13250,30 +13288,6 @@ TOTAL:  {reg5}"),
         # (assign, "$g_main_ship_party", -1),
         # (change_screen_return),
       # ]),
-
-      ("sail_from_port",
-      [
-        # (party_slot_eq,"$current_town",slot_party_type, spt_town),
-        # (party_get_position, pos1, "$current_town"),
-        # (map_get_water_position_around_position, pos2, pos1, 8),
-        # (get_distance_between_positions_in_meters, ":dist", pos1, pos2),
-        # (lt, ":dist", 8),
-        #(party_set_position, "p_main_party", pos2),
-        # (ge, "$cheat_mode", 1),
-        #(party_slot_eq,"$current_town",slot_town_near_shore, 1),
-        (party_slot_ge, "$current_town", slot_town_port, "p_port_1"),
-      ],
-      "Visit the Shipyard.",
-      [
-        (jump_to_menu, "mnu_buy_ship"),
-        # (assign, "$g_player_icon_state", pis_ship),
-        # (party_set_flags, "p_main_party", pf_is_ship, 1),
-        # #(party_get_position, pos1, "p_main_party"),
-        # #(map_get_water_position_around_position, pos2, pos1, 6),
-        # (party_set_position, "p_main_party", pos2),
-        # (assign, "$g_main_ship_party", -1),
-        # (change_screen_return),
-      ]),
 
 	  # For consistency's sake this should always be the bottom option.
       ("town_leave",[],"Leave...",
