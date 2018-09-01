@@ -76,17 +76,13 @@ mod_options = [
 #        ],
 #	  ),
 
-    ("dplmc_woman_prejudice", xgm_ov_combolabel, ["Historical", "Tolerant", "Progressive"], "Diplomacy - Prejudice:", 0,
+    ("dplmc_woman_prejudice", xgm_ov_combolabel, ["Historical", "Tolerant", "Utopian"], "Diplomacy - Prejudice:", 0,
 	  "Setting for Diplomacy's prejudice changes.", 0,
 		[
-			(try_begin),
 				(assign, reg1, "$g_disable_condescending_comments"),
-                (try_end),
              ],
      [
-        (try_begin),
 				(assign, "$g_disable_condescending_comments", reg1),   
-        (try_end),
         ],
 	),
 
@@ -189,6 +185,16 @@ mod_options = [
 
 ),
     
+    ("enable_shield_bash", xgm_ov_combolabel, ["Disabled", "Player Only", "All Combatants"], "Shield Bash:", 0,
+	  "Setting for Diplomacy's prejudice changes.", 0,
+		[
+			(assign, reg1, "$g_enable_shield_bash"),
+		],
+		[
+			(assign, "$g_enable_shield_bash", reg1),   
+		],
+	),
+
     ("horizontal_divide", xgm_ov_line, [], "", 0,"", 0,[],[],),
 	
     ( "dplmc_horsespeed", xgm_ov_checkbox ,  [],

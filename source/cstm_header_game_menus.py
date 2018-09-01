@@ -20,7 +20,7 @@ class Menu:
 				
 				option_id = new_option_id
 			
-			self.options[option_id] = MenuOption(*option_tuple[0:4])
+			self.options[option_id] = MenuOption(*option_tuple[0:5])
 	
 	def __eq__(self, other):
 		return (isinstance(other, self.__class__) and self.id == other.id)
@@ -71,11 +71,12 @@ class Menu:
 			self.options[option_id] = old_options[option_id]
 
 class MenuOption:
-	def __init__(self, id, conditions = [], text = "", consequences = []):
+	def __init__(self, id, conditions = [], text = "", consequences = [], doortext = ""):
 		self.id = id
 		self.conditions = conditions
 		self.text = text
 		self.consequences = consequences
+		self.doortext = doortext
 	
 	def convert_to_tuple(self):
-		return (self.id, self.conditions, self.text, self.consequences)
+		return (self.id, self.conditions, self.text, self.consequences, self.doortext)
