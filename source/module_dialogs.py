@@ -3230,12 +3230,15 @@ Still I am sorry that I'll leave you soon. You must promise me, you'll come visi
 [anyone|plyr,"member_talk", [],
 
 "Let me see your equipment.", "member_trade",[]],
-[anyone,"member_trade", [], "Very well, it's all here...", "do_member_trade",[(set_player_troop, "trp_player"),(change_screen_equip_other)]], #set back to trp_player before open equipment or you get two screens of the NPCs equipment.
+[anyone,"member_trade", [], "Very well, it's all here...", "do_member_trade",[
+#      (change_screen_trade)
+(change_screen_equip_other),
+]],
 
 [anyone,"do_member_trade", [], "Anything else?", "member_talk",[]],
 
 [anyone|plyr,"member_talk", [], "What can you tell me about your skills?", "view_member_char_requested",[]],
-[anyone,"view_member_char_requested", [], "All right, let me tell you...", "do_member_view_char", [(set_player_troop,"$g_talk_troop"),[change_screen_view_character]]],
+[anyone,"view_member_char_requested", [], "All right, let me tell you...", "do_member_view_char",[(change_screen_view_character)]],
 
 ##diplomacy start+
 ##Allow wife to join as companion, by Lathrael (modified)
@@ -3375,7 +3378,7 @@ Still I am sorry that I'll leave you soon. You must promise me, you'll come visi
   #(troop_slot_eq, "$g_talk_troop", slot_troop_occupation, slto_player_companion),
 ], "I'd like to ask you something.", "member_question",[]],
 
-[anyone|plyr,"member_talk", [], "Never mind.", "close_window",[(set_player_troop, "trp_player")]], #set back to trp_player at the end or you'll become the troop.
+[anyone|plyr,"member_talk", [], "Never mind.", "close_window",[]],
 
 [anyone,"member_question", [], "Very well. What did you want to ask?", "member_question_2",[]],
 

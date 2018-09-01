@@ -73,11 +73,6 @@ meshes = [
   ("pic_custom_01", 0, "pic_custom_01", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("pic_custom_02", 0, "pic_custom_02", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("pic_custom_03", 0, "pic_custom_03", 0, 0, 0, 0, 0, 0, 1, 1, 1),
-  
-  ## Companions Overview, by Jedediah Q, modified by lazeras
-  ("companion_overview", 0, "companion_overview", 0, 0, 0, 0, 0, 0, 1, 1, 1),
-  ("companion_overview_details", 0, "companion_overview_details", 0, 0, 0, 0, 0, 0, 1, 1, 1),
-  ##
 
   ("mp_score_a", 0, "mp_score_a", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("mp_score_b", 0, "mp_score_b", 0, 0, 0, 0, 0, 0, 1, 1, 1),

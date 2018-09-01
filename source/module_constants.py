@@ -2117,17 +2117,6 @@ dplmc_slot_town_trade_route_last_arrivals_end      = dplmc_slot_town_trade_route
 
 ##diplomacy end+
 
-# Floris Bank System
-slot_town_acres = 456
-slot_acres_needed = 457
-slot_player_acres = 458
-slot_center_population = 459
-slot_rent = 460
-slot_upkeep = 461
-slot_assets = 462
-slot_debt = 463
-slot_deadline = 464
-
 dplmc_spt_spouse                              = 19
 dplmc_spt_gift_caravan                        = 21
 spt_messenger                                 = 8 #no prefix since its outcommented in native
