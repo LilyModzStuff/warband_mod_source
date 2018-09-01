@@ -102,8 +102,6 @@ scripts = [
 	  (assign, "$g_enable_shield_bash", 3),
 	  (assign, "$f_con", 0),
 	  (assign, "$f_player_prost", 0),
-      (store_add, "$g_player_debt",0,0), #bank starting script
-      (store_add, "$g_player_deposit",0,0),
 
       (try_for_range, ":edible", "itm_raw_date_fruit", food_end),
         (neq, ":edible", "itm_furs"),

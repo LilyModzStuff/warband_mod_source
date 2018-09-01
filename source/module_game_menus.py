@@ -12385,15 +12385,6 @@ TOTAL:  {reg5}"),
            (try_end),
         ],"Door to the tavern."),
 
-
-# This was messing all the doors up.
-#
-#       ("town_bank",
-#       [],
-#       "Visit the bank.",
-#       [
-#           (jump_to_menu,"mnu_bank"),
-#        ]),
 #      ("town_smithy",[
 #          (eq,"$entry_to_town_forbidden",0),
 #          (eq,"$town_nighttime",0),
@@ -22842,99 +22833,6 @@ goods, and books will never be sold. ^^You can change some settings here freely.
         (try_end),
       ]),
       ("leave",[],"Leave the shipyard.",[(jump_to_menu, "mnu_town")]),
-    ]
-  ),
-  (
-    "debt_interest",mnf_scale_picture|mnf_disable_all_keys,
-    "{s2}",
-    "none",
-    [
-
-	  (store_div, ":debt_interest","$g_player_debt",25),
-          (assign, reg11, ":debt_interest"),
-          (store_troop_gold, ":player_wealth", "trp_player"),
-          (assign, reg8, ":player_wealth"),
-	(try_begin),
-	  (ge,"$g_player_debt",1),
-	  (try_begin),
-            (ge, ":player_wealth", ":debt_interest"),
-            (troop_remove_gold, "trp_player",":debt_interest"),
-            (store_sub, reg9, reg8, reg11),
-            (str_store_string, s2, "@You paid {reg11} of your {reg8} denars in interest on your debt. You have {reg9} denars left."),
-          (else_try),
-	    (gt, ":debt_interest",":player_wealth"),
-	    (gt, ":player_wealth",0),
-	    (store_sub, ":unpaid_interest", ":debt_interest",":player_wealth"),
-            (troop_remove_gold, "trp_player",":player_wealth"),
-            (assign, reg10, ":unpaid_interest"),
-            (val_add, "$g_player_debt",":unpaid_interest"),
-            (str_store_string, s2, "@You paid all of your {reg8} denars in interest on your debt.  There were still {reg10} denars of the interest unpaid, which has been added to your debt.  You have 0 denars left."),
-          (else_try),
-	    (gt, "$g_player_debt",0),
-	    (eq, ":player_wealth",0),
-	    (store_sub, ":unpaid_interest", ":debt_interest",":player_wealth"),
-            (val_add, "$g_player_debt",":unpaid_interest"),
-            (str_store_string, s2, "@You had 0 denars left to pay the interest on your debt.  The interest of {reg10} denars has been added to your debt."),
-          (else_try),
-            (str_store_string, s2, "@You have no debts to pay interest on."),
-	  (try_end),
-	(try_end),
-    ],
-    [
-      ("continue",[],"Continue...",
-       [
-        (change_screen_return,0),
-        ]
-       ),
-    ]
-  ),
-  (
-    "bank",0,
-    "You visit the bank.\
- Here you can deposit money and earn interest over time, or take a loan.\
- You currently have {reg6} denars deposited here.\
- You currently have {reg7} denars borrowed from the bank.",
-    "none",
-    [
-    (assign, reg6, "$g_player_deposit"),
-    (assign, reg7, "$g_player_debt"),
-    ],
-    [
-      ("take_loan",[(store_troop_gold, ":player_wealth", "trp_player"),(store_sub, ":player_real_wealth", ":player_wealth", "$g_player_debt"),(gt,":player_real_wealth",100)],"Take a loan of 1000 denars.",
-       [
-	   (troop_remove_gold, "trp_player", 100),
-           (troop_add_gold, "trp_player", 1000),
-           (val_add, "$g_player_debt", 1000),
-        ]),
-      ("give_loan",[(store_troop_gold, ":player_wealth", "trp_player"),(gt,":player_wealth",1000),(gt,"$g_player_debt",1000)],"Repay 1000 denars of your debt.",
-       [
-	   (troop_remove_gold, "trp_player", 1000),
-           (val_sub, "$g_player_debt", 1000),
-        ]),
-      ("give_loan_all",[(store_troop_gold, ":player_wealth", "trp_player"),(gt,":player_wealth","$g_player_debt"),(gt,"$g_player_debt",0)],"Repay all of your debt.",
-       [
-	   (troop_remove_gold, "trp_player", "$g_player_debt"),
-           (val_sub, "$g_player_debt", "$g_player_debt"),
-        ]),
-      ("give_deposit",[(store_troop_gold, ":player_wealth", "trp_player"),(gt,":player_wealth",1000)],"Deposit 1000 denars in the bank.",
-       [
-	   (troop_remove_gold, "trp_player", 1000),
-           (val_add, "$g_player_deposit", 1000),
-        ]),
-      ("take_deposit",[(ge,"$g_player_deposit",1000)],"Withdraw 1000 denars from your deposit.",
-       [
-	   (troop_add_gold, "trp_player", 1000),
-           (val_sub, "$g_player_deposit", 1000),
-        ]),
-      ("take_deposit_all",[(ge,"$g_player_deposit",1)],"Withdraw your entire deposit.",
-       [
-	   (troop_add_gold, "trp_player", reg6),
-           (val_sub, "$g_player_deposit", reg6),
-        ]),
-      ("back_to_town_menu",[],"Head back.",
-       [
-           (jump_to_menu,"mnu_town"),
-        ]),
     ]
   ),
 

@@ -7459,24 +7459,6 @@ simple_triggers = [
         (party_set_slot, ":faction1", ":faction1_to_faction2_slot", ":attitude_change"),
       (try_end),
     ]),
-
-  #Interest on deposits.
-  (24 * 7,
-   [
-    (try_begin),
-       (gt, "$g_player_deposit", 0),
-       (store_div,":interest_deposit","$g_player_deposit",250),
-       (troop_add_gold, "trp_player",":interest_deposit"),
-    (try_end),
-    ]),
-  #Interest on debts.
-  (24 * 7,
-   [
-     (try_begin),
-       (gt, "$g_player_debt", 0),
-       (jump_to_menu,"mnu_debt_interest"),
-     (try_end),
-    ]),
 	
   (6, [ # Solicit Clients
        (gt,"$g_currently_soliciting",0),
