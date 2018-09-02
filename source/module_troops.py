@@ -924,7 +924,7 @@ troops = [
   ["npc3","Ymira","Ymira",tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved, fac_commoners,[itm_dress,itm_woolen_hose,itm_knife],
    str_6|agi_9|int_11|cha_6|level(1),wp(20),knows_merchant_npc|
    knows_wound_treatment_1|knows_trade_1|knows_first_aid_3|knows_surgery_1|knows_athletics_1|knows_riding_1,
-   0x0000000083040041583b6db8dec5925b00000000001d80980000000000000000],
+   0x000000000004008d0000000000000e0000000000000000000000000000000000],
   ["npc4","Rolf","Rolf",tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_leather_jerkin,itm_nomad_boots, itm_sword_medieval_a],
    str_10|agi_9|int_13|cha_10|level(10),wp(110),knows_warrior_npc|
    knows_weapon_master_2|knows_power_strike_2|knows_riding_2|knows_athletics_2|knows_power_throw_2|knows_first_aid_1|knows_surgery_1|knows_tactics_2|knows_leadership_2,
@@ -942,11 +942,11 @@ troops = [
   ["npc7","Deshavi","Deshavi",tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_ragged_outfit,itm_wrapping_boots, itm_hunting_bow, itm_arrows, itm_quarter_staff],
    str_8|agi_9|int_10|cha_6|level(2),wp(80),knows_tracker_npc|
    knows_tracking_2|knows_athletics_2|knows_spotting_1|knows_pathfinding_1|knows_power_draw_2,
-   0x00000001fc08404533a15297634d44f400000000001e02db0000000000000000],
+   0x00000001c50840500000000000000e0a00000000000000000000000000000000],
   ["npc8","Matheld","Matheld",tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_tribal_warrior_outfit,itm_nomad_boots, itm_sword_viking_1],
    str_9|agi_10|int_9|cha_10|level(7),wp(90),knows_warrior_npc|
    knows_weapon_master_3|knows_power_strike_2|knows_athletics_2|knows_leadership_3|knows_tactics_1,
-   0x00000005800c004637db8314e331e76e00000000001c46db0000000000000000],
+   0x00000006460c000b0000000000000e0400000000000000000000000000000000],
   ["npc9","Alayen","Alayen",tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_tabard,itm_nomad_boots, itm_sword_medieval_b_small],
    str_11|agi_8|int_7|cha_8|level(2),wp(100),knows_warrior_npc|
    knows_weapon_master_1|knows_riding_1|knows_athletics_1|knows_leadership_1|knows_tactics_1|knows_power_strike_1,
@@ -959,7 +959,7 @@ troops = [
   ["npc11","Katrin","Katrin",tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_leather_apron, itm_falchion, itm_wrapping_boots],
    str_8|agi_11|int_10|cha_10|level(8),wp(70),knows_merchant_npc|
    knows_weapon_master_1|knows_first_aid_1|knows_wound_treatment_2|knows_ironflesh_3|knows_inventory_management_5,
-   0x0000000d7f0400435915aa226b4d975200000000001ea49e0000000000000000],
+   0x00000008760400490000000000000e5b00000000000000000000000000000000],
   ["npc12","Jeremus","Jeremus",tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_pilgrim_disguise,itm_nomad_boots, itm_staff],
    str_8|agi_7|int_13|cha_7|level(4),wp(30),   knows_merchant_npc|
    knows_ironflesh_1|knows_power_strike_1|knows_surgery_4|knows_wound_treatment_3|knows_first_aid_3,
@@ -981,7 +981,7 @@ troops = [
   ["npc16","Klethi","Klethi",tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_peasant_dress,itm_nomad_boots, itm_dagger, itm_throwing_knives],
    str_7|agi_11|int_8|cha_7|level(2),wp(80),knows_tracker_npc|
    knows_power_throw_3|knows_athletics_2|knows_power_strike_1,
-   0x00000000000c104739ce9c805d2f381300000000001cc7ad0000000000000000],
+   0x00000000020c104a0000000000000e2200000000000000000000000000000000],
 #NPC system changes end
 
 
@@ -2439,6 +2439,64 @@ troops = [
 # recruiter kit end
   ##diplomacy end
   
+####################################################################################################################################
+# TOURNAMENT PLAY ENHANCEMENTS (BEGIN)
+####################################################################################################################################
+# TPE 1.3 Additions
+["tpe_presobj","{!}Local Merchant","{!}Local Merchant",0,0,0, fac_commoners,[],def_attrib|level(5),wp(40),knows_power_strike_1, 0],
+# Why: To remove needing so many global variables to track presentation objects.
+#["tpe_array_troop_joined", "{!}Local Merchant","{!}Local Merchant",0,0,0, fac_commoners,[],def_attrib|level(5),wp(40),knows_power_strike_1, 0],
+# Why: So that I can track who is actually fighting in a round so that those who weren't picked get averaged points added to them to be competitive.
+["tpe_xp_table","{!}Local Merchant","{!}Local Merchant",0,0,0, fac_commoners,[],def_attrib|level(1),wp(40),knows_power_strike_1, 0],
+# Why: So that I can track who is actually fighting in a round so that those who weren't picked get averaged points added to them to be competitive.
+["tpe_array_static_troops","{!}Local Merchant","{!}Local Merchant",0,0,0, fac_commoners,[],def_attrib|level(5),wp(40),knows_power_strike_1, 0],
+# Why: This keeps the same static list of troop_ids throughout tournament.Ie -> slot 1 = trp_somebody (throughout tournament rounds)
+["tpe_array_sorted_troops","{!}Local Merchant","{!}Local Merchant",0,0,0, fac_commoners,[],def_attrib|level(5),wp(40),knows_power_strike_1, 0],
+# Why: Sorting array for showing rankings without changing static troops.Ie -> slot 1 = rank 1 = troop # associated with first agent
+["tpe_array_tournament_stats", "{!}Local Merchant","{!}Local Merchant",0,0,0, fac_commoners,[],def_attrib|level(5),wp(40),knows_power_strike_1, 0],
+# Why: So I can track stats going on in a round without the use of global variables for special awards.
+["tpe_settings", "TPE Persistent Settings", "TPE Scaled Troops", 0,0,0, fac_kingdom_6,[],str_15|agi_14|int_8|cha_16|level(1),wp(1),knows_power_strike_1, 0x000000000000710004820c24204c000200000000001d16100000000000000000, 0x000000003f00714049fefe393fffc7ff00000000001ef96f0000000000000000],
+["tpe_appearance","TPE Appearance Settings", "TPE Scaled Troops", 0,0,0, fac_kingdom_6,[],str_15|agi_14|int_8|cha_16|level(1),wp(1),knows_power_strike_1, 0x000000000000710004820c24204c000200000000001d16100000000000000000, 0x000000003f00714049fefe393fffc7ff00000000001ef96f0000000000000000],
+["tpe_weapons","TPE Weapon Definitions","TPE Scaled Troops", 0,0,0, fac_kingdom_6,[],str_15|agi_14|int_8|cha_16|level(1),wp(1),knows_power_strike_1, 0x000000000000710004820c24204c000200000000001d16100000000000000000, 0x000000003f00714049fefe393fffc7ff00000000001ef96f0000000000000000],
+["tpe_center_menus","TPE Appearance Menu Choices", "TPE Scaled Troops", 0,0,0, fac_kingdom_6,[],str_15|agi_14|int_8|cha_16|level(1),wp(1),knows_power_strike_1, 0x000000000000710004820c24204c000200000000001d16100000000000000000, 0x000000003f00714049fefe393fffc7ff00000000001ef96f0000000000000000],
+["tpe_options","TPE Player Settings","TPE Scaled Troops", 0,0,0, fac_kingdom_6,[],str_15|agi_14|int_8|cha_16|level(1),wp(1),knows_power_strike_1, 0x000000000000710004820c24204c000200000000001d16100000000000000000, 0x000000003f00714049fefe393fffc7ff00000000001ef96f0000000000000000],
+# Level Scaled Troops
+["tpe_generic_troop_1", "TPE Scaled Troop 01","TPE Scaled Troops", 0,0,0, fac_commoners,[],def_attrib|level(1),wp(1),knows_power_strike_1, 0x0000000000002001355335371861249200000000001c96520000000000000000, 0x000000001d001141044c21928821245200000000001d22190000000000000000],
+["tpe_generic_troop_2", "TPE Scaled Troop 02","TPE Scaled Troops", 0,0,0, fac_commoners,[],def_attrib|level(1),wp(1),knows_power_strike_1, 0x0000000000002001355335371861249200000000001c96520000000000000000, 0x000000001d001141044c21928821245200000000001d22190000000000000000],
+["tpe_generic_troop_3", "TPE Scaled Troop 03","TPE Scaled Troops", 0,0,0, fac_commoners,[],def_attrib|level(1),wp(1),knows_power_strike_1, 0x0000000000002001355335371861249200000000001c96520000000000000000, 0x000000001d001141044c21928821245200000000001d22190000000000000000],
+["tpe_generic_troop_4", "TPE Scaled Troop 04","TPE Scaled Troops", 0,0,0, fac_commoners,[],def_attrib|level(1),wp(1),knows_power_strike_1, 0x000000001d001141044c21928821245200000000001d22190000000000000000, 0x0000000037002189497e97cb5fb27fff00000000001ff8370000000000000000],
+["tpe_generic_troop_5", "TPE Scaled Troop 05","TPE Scaled Troops", 0,0,0, fac_commoners,[],def_attrib|level(1),wp(1),knows_power_strike_1, 0x000000001d001141044c21928821245200000000001d22190000000000000000, 0x0000000037002189497e97cb5fb27fff00000000001ff8370000000000000000],
+["tpe_generic_troop_6", "TPE Scaled Troop 06","TPE Scaled Troops", 0,0,0, fac_commoners,[],def_attrib|level(1),wp(1),knows_power_strike_1, 0x000000001d001141044c21928821245200000000001d22190000000000000000, 0x0000000037002189497e97cb5fb27fff00000000001ff8370000000000000000],
+["tpe_generic_troop_7", "TPE Scaled Troop 07","TPE Scaled Troops", 0,0,0, fac_commoners,[],def_attrib|level(1),wp(1),knows_power_strike_1, 0x0000000037002189497e97cb5fb27fff00000000001ff8370000000000000000, 0x00000000190830ca209d69b4100906da00000000001e10e30000000000000000],
+["tpe_generic_troop_8", "TPE Scaled Troop 08","TPE Scaled Troops", 0,0,0, fac_commoners,[],def_attrib|level(1),wp(1),knows_power_strike_1, 0x0000000037002189497e97cb5fb27fff00000000001ff8370000000000000000, 0x00000000190830ca209d69b4100906da00000000001e10e30000000000000000],
+["tpe_generic_troop_9", "TPE Scaled Troop 09","TPE Scaled Troops", 0,0,0, fac_commoners,[],def_attrib|level(1),wp(1),knows_power_strike_1, 0x0000000037002189497e97cb5fb27fff00000000001ff8370000000000000000, 0x00000000190830ca209d69b4100906da00000000001e10e30000000000000000],
+["tpe_generic_troop_10","TPE Scaled Troop 10","TPE Scaled Troops", 0,0,0, fac_commoners,[],def_attrib|level(1),wp(1),knows_power_strike_1, 0x00000000190830ca209d69b4100906da00000000001e10e30000000000000000, 0x0000000fc0000001124000000020000000000000001c00800000000000000000],
+["tpe_generic_troop_11","TPE Scaled Troop 11","TPE Scaled Troops", 0,0,0, fac_commoners,[],def_attrib|level(1),wp(1),knows_power_strike_1, 0x00000000190830ca209d69b4100906da00000000001e10e30000000000000000, 0x0000000fc0000001124000000020000000000000001c00800000000000000000],
+["tpe_generic_troop_12","TPE Scaled Troop 12","TPE Scaled Troops", 0,0,0, fac_commoners,[],def_attrib|level(1),wp(1),knows_power_strike_1, 0x00000000190830ca209d69b4100906da00000000001e10e30000000000000000, 0x0000000fc0000001124000000020000000000000001c00800000000000000000],
+["tpe_generic_troop_13","TPE Scaled Troop 13","TPE Scaled Troops", 0,0,0, fac_commoners,[],def_attrib|level(1),wp(1),knows_power_strike_1, 0x0000000000002001355335371861249200000000001c96520000000000000000, 0x0000000fc0000001124000000020000000000000001c00800000000000000000],
+["tpe_generic_troop_14","TPE Scaled Troop 14","TPE Scaled Troops", 0,0,0, fac_commoners,[],def_attrib|level(1),wp(1),knows_power_strike_1, 0x0000000000002001355335371861249200000000001c96520000000000000000, 0x0000000fc0000001124000000020000000000000001c00800000000000000000],
+["tpe_generic_troop_15","TPE Scaled Troop 15","TPE Scaled Troops", 0,0,0, fac_commoners,[],def_attrib|level(1),wp(1),knows_power_strike_1, 0x0000000000002001355335371861249200000000001c96520000000000000000, 0x0000000fc0000001124000000020000000000000001c00800000000000000000],
+["tpe_generic_troop_16","TPE Scaled Troop 16","TPE Scaled Troops", 0,0,0, fac_commoners,[],def_attrib|level(1),wp(1),knows_power_strike_1, 0x0000000037002189497e97cb5fb27fff00000000001ff8370000000000000000, 0x0000000000002001355335371861249200000000001c96520000000000000000],
+["tpe_generic_troop_17","TPE Scaled Troop 17","TPE Scaled Troops", 0,0,0, fac_commoners,[],def_attrib|level(1),wp(1),knows_power_strike_1, 0x0000000037002189497e97cb5fb27fff00000000001ff8370000000000000000, 0x0000000000002001355335371861249200000000001c96520000000000000000],
+["tpe_generic_troop_18","TPE Scaled Troop 18","TPE Scaled Troops", 0,0,0, fac_commoners,[],def_attrib|level(1),wp(1),knows_power_strike_1, 0x0000000037002189497e97cb5fb27fff00000000001ff8370000000000000000, 0x0000000000002001355335371861249200000000001c96520000000000000000],
+["tpe_generic_troop_19","TPE Scaled Troop 19","TPE Scaled Troops", 0,0,0, fac_commoners,[],def_attrib|level(1),wp(1),knows_power_strike_1, 0x0000000037002189497e97cb5fb27fff00000000001ff8370000000000000000, 0x0000000fc0000001124000000020000000000000001c00800000000000000000],
+["tpe_generic_troop_20","TPE Scaled Troop 20","TPE Scaled Troops", 0,0,0, fac_commoners,[],def_attrib|level(1),wp(1),knows_power_strike_1, 0x0000000037002189497e97cb5fb27fff00000000001ff8370000000000000000, 0x0000000fc0000001124000000020000000000000001c00800000000000000000],
+["tpe_generic_troop_21","TPE Scaled Troop 21","TPE Scaled Troops", 0,0,0, fac_commoners,[],def_attrib|level(1),wp(1),knows_power_strike_1, 0x0000000037002189497e97cb5fb27fff00000000001ff8370000000000000000, 0x0000000fc0000001124000000020000000000000001c00800000000000000000],
+["tpe_generic_troop_22","TPE Scaled Troop 22","TPE Scaled Troops", 0,0,0, fac_commoners,[],def_attrib|level(1),wp(1),knows_power_strike_1, 0x00000000190830ca209d69b4100906da00000000001e10e30000000000000000, 0x0000000fc0000001124000000020000000000000001c00800000000000000000],
+["tpe_generic_troop_23","TPE Scaled Troop 23","TPE Scaled Troops", 0,0,0, fac_commoners,[],def_attrib|level(1),wp(1),knows_power_strike_1, 0x00000000190830ca209d69b4100906da00000000001e10e30000000000000000, 0x0000000fc0000001124000000020000000000000001c00800000000000000000],
+["tpe_generic_troop_24","TPE Scaled Troop 24","TPE Scaled Troops", 0,0,0, fac_commoners,[],def_attrib|level(1),wp(1),knows_power_strike_1, 0x00000000190830ca209d69b4100906da00000000001e10e30000000000000000, 0x0000000fc0000001124000000020000000000000001c00800000000000000000],
+["tpe_generic_troop_25","TPE Scaled Troop 25","TPE Scaled Troops", 0,0,0, fac_commoners,[],def_attrib|level(1),wp(1),knows_power_strike_1, 0x0000000037002189497e97cb5fb27fff00000000001ff8370000000000000000, 0x0000000fc0000001124000000020000000000000001c00800000000000000000],
+["tpe_generic_troop_26","TPE Scaled Troop 26","TPE Scaled Troops", 0,0,0, fac_commoners,[],def_attrib|level(1),wp(1),knows_power_strike_1, 0x0000000037002189497e97cb5fb27fff00000000001ff8370000000000000000, 0x0000000fc0000001124000000020000000000000001c00800000000000000000],
+["tpe_generic_troop_27","TPE Scaled Troop 27","TPE Scaled Troops", 0,0,0, fac_commoners,[],def_attrib|level(1),wp(1),knows_power_strike_1, 0x0000000037002189497e97cb5fb27fff00000000001ff8370000000000000000, 0x0000000fc0000001124000000020000000000000001c00800000000000000000],
+["tpe_generic_troop_28","TPE Scaled Troop 28","TPE Scaled Troops", 0,0,0, fac_commoners,[],def_attrib|level(1),wp(1),knows_power_strike_1, 0x000000003f0052064deeffffffffffff00000000001efff90000000000000000, 0x0000000fc0000001124000000020000000000000001c00800000000000000000],
+["tpe_generic_troop_29","TPE Scaled Troop 29","TPE Scaled Troops", 0,0,0, fac_commoners,[],def_attrib|level(1),wp(1),knows_power_strike_1, 0x000000003f0052064deeffffffffffff00000000001efff90000000000000000, 0x0000000fc0000001124000000020000000000000001c00800000000000000000],
+["tpe_generic_troop_30","TPE Scaled Troop 30","TPE Scaled Troops", 0,0,0, fac_commoners,[],def_attrib|level(1),wp(1),knows_power_strike_1, 0x000000003f0052064deeffffffffffff00000000001efff90000000000000000, 0x0000000fc0000001124000000020000000000000001c00800000000000000000],
+["tpe_generic_troop_31","TPE Scaled Troop 31","TPE Scaled Troops", 0,0,0, fac_commoners,[],def_attrib|level(1),wp(1),knows_power_strike_1, 0x000000003f0052064deeffffffffffff00000000001efff90000000000000000, 0x0000000fc0000001124000000020000000000000001c00800000000000000000],
+["tpe_generic_troop_32","TPE Scaled Troop 31","TPE Scaled Troops", 0,0,0, fac_commoners,[],def_attrib|level(1),wp(1),knows_power_strike_1, 0x000000003f0052064deeffffffffffff00000000001efff90000000000000000, 0x0000000fc0000001124000000020000000000000001c00800000000000000000],
+
+####################################################################################################################################
+# TOURNAMENT PLAY ENHANCEMENTS (END)
+####################################################################################################################################  
 
  ["black_khergit_guard","Black Khergit Guard","Black Khergit Guard",tf_mounted|tf_guarantee_ranged|tf_guarantee_shield|tf_guarantee_boots|tf_guarantee_helmet|tf_guarantee_armor|tf_guarantee_horse,0,0,fac_black_khergits,
   [itm_khergit_arrows,itm_sword_khergit_1,itm_scimitar,itm_winged_mace,itm_lance,itm_khergit_bow,itm_khergit_guard_helmet,itm_khergit_cavalry_helmet,itm_khergit_guard_boots,itm_khergit_guard_armor,itm_plate_covered_round_shield,itm_warhorse_steppe],
@@ -2547,7 +2605,6 @@ troops = [
   [itm_spear,itm_great_sword,itm_sword_of_war,itm_morningstar,itm_great_axe,itm_steel_shield,itm_shield_kite_g,itm_steel_shield,itm_shield_heater_d,itm_black_armor,itm_black_greaves,itm_bascinet,itm_guard_helmet,itm_saddle_horse,itm_warhorse,itm_leather_gloves],
    def_attrib|level(33),wp(160),knows_common|knows_riding_6|knows_shield_5|knows_ironflesh_7|knows_power_strike_7,swadian_face_middle_1, swadian_face_older_2], 
 ]
-
 
 #Troop upgrade declarations
 

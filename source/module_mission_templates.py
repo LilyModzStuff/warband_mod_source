@@ -4749,6 +4749,7 @@ mission_templates = [
          ]),
 
       common_arena_fight_tab_press,
+	  AI_kick,
 
       (ti_question_answered, 0, 0, [],
        [
@@ -4850,7 +4851,7 @@ mission_templates = [
 				(agent_unequip_item, ":agent_no", "itm_red_tourney_armor"),
 				(agent_equip_item, ":agent_no", "itm_red_tourney_helmet"),
 				(agent_unequip_item, ":agent_no", "itm_red_tourney_helmet"),
-				(assign, ":anim", "anim_dancer"),
+				(assign, ":anim", "anim_dancer_good"),
 				(agent_set_stand_animation, ":agent_no", ":anim"),
 				(agent_set_animation, ":agent_no", ":anim"),
 				(store_random_in_range,":r",0,100),
@@ -6546,6 +6547,9 @@ mission_templates = [
       (ti_before_mission_start, 0, 0, [], [(call_script, "script_change_banners_and_chest")]),
 
       common_arena_fight_tab_press,
+	  AI_kick,
+	  ai_shield_bash,
+      common_shield_bash,
 
       #SB : player override items
       (ti_on_agent_spawn, 0, ti_once, [
@@ -6754,6 +6758,10 @@ mission_templates = [
          (call_script, "script_change_banners_and_chest")]),
 
       common_arena_fight_tab_press,
+	  AI_kick,
+	  ai_shield_bash,
+	  common_shield_bash,
+	  
 
       (ti_question_answered, 0, 0, [],
        [
@@ -18288,11 +18296,15 @@ mission_templates = [
       (ti_tab_pressed, 0, ti_once, [(main_hero_fallen),(store_mission_timer_a, ":time"),
         (eq, "$g_orgasm", 0),
         (try_begin),
-            (le, ":time", 10),
-            (store_sub, reg2, 10, ":time"),
+            (this_or_next|le, ":time", 10),
+			(gt,"$cheat_mode", 0),
+			(le, ":time", 1),
+            (store_sub, reg2, 1, ":time"),
             (display_message, "@Still need some more time to finish."),
         (try_end),
-        (gt, ":time", 10),
+			(this_or_next|gt, ":time", 10),
+			(eq,"$cheat_mode", 1),
+			(gt, ":time", 1),
         ],
        [
        (reset_mission_timer_a),
@@ -18415,7 +18427,7 @@ mission_templates = [
         (display_message, "@Press Tab again to finish."),
         ]),
 
-      (ti_tab_pressed, 3, 0, [(main_hero_fallen),(eq, "$g_orgasm", 1),(store_mission_timer_a, ":time"),(gt,":time",2)],
+      (ti_tab_pressed, 3, 0, [(main_hero_fallen),(eq, "$g_orgasm", 1),(store_mission_timer_a, ":time"),(gt,":time",1)],
        [
        (stop_all_sounds, 1),
 	   (assign, "$g_slowcameramode", 0),

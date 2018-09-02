@@ -1,17 +1,11 @@
-# Tournament Play Enhancements (1.2) by Windyplains
-# Released 9/22/2011
+# Tournament Play Enhancements (1.5) by Windyplains
 
 # WHAT THIS FILE DOES:
-# Replaces "town_tournament" menu.
-# Replaces "town_tournament_won" menu.
+# Creates alternate "town_tournament" menu.
+# Creates alternate "town_tournament_won" menu.
 
 # INSTALLATION INSTRUCTIONS:
-# 1) In module_game_menus.py you need to do the following:
-#    a) Rename "town_tournament_won" to "orig_town_tournament_won".
-#    b) Rename "town_tournament" to "orig_town_tournament".
-#
-# Note: The new name isn't as important as simply changing the old names so that these menus below replace them on compile.  Yes, I am aware Modmerger should do this itself,
-# but that feature doesn't appear to function properly.  It simply doesn't add the menus if they are duplicate instead of replacing the old ones.
+
 
 from header_game_menus import *
 from header_parties import *
@@ -51,340 +45,557 @@ from module_constants import *
 ####################################################################################################################
 
 game_menus = [
-## REPLACEMENT MENU - menu_town_tournament_won
-(
-    "town_tournament_won",mnf_disable_all_keys,
-    "You have won the tournament of {s3}! You are filled with pride as the crowd cheers your name.\
- In addition to honour, fame and glory, you earn a prize of {reg9} denars. {s8}",
-    "none",
-    [
-        ## TOURNAMENT PLAY ENHANCEMENTS (1.0) begin - Windyplains
-		# Determine scaled renown
-		(call_script, "script_tpe_determine_scaled_renown"),
-		(assign, ":sr_renown", reg0),
-
-		# Determines relation gain based on repeated wins in the same town.
-		(str_store_party_name, s3, "$current_town"),
-		(party_get_slot, ":total_wins", "$current_town", slot_center_tournament_wins),
-		(val_add, ":total_wins", 1),
-		(party_set_slot, "$current_town", slot_center_tournament_wins, ":total_wins"),
-		
-		(try_begin),
-			(eq, "$g_wp_tpe_renown_scaling", 1),
-			(call_script, "script_change_troop_renown", "trp_player", ":sr_renown"),
-			(call_script, "script_change_player_relation_with_center", "$current_town", ":total_wins"),
-			
-			# Raises relation with Lords that are (present) AND (friendly).  Enemies lose relation.
-			(call_script, "script_tpe_rep_gain_lords"),
-			
-			# Raises relation with Ladies that are (present).  More so if in courtship.
-			(call_script, "script_tpe_rep_gain_ladies"),
-		(else_try),
-			# Everything in this grouping leaves the settings as they would be in the Native game.
-			(call_script, "script_change_troop_renown", "trp_player", 20),
-			(call_script, "script_change_player_relation_with_center", "$current_town", 1),
-		(try_end),
-		#(str_store_party_name, s3, "$current_town"),                                      # original script removed by Renown Scaling.
-		#(call_script, "script_change_troop_renown", "trp_player", 20),                    # original script removed by Renown Scaling.
-        #(call_script, "script_change_player_relation_with_center", "$current_town", 1),   # original script removed by Renown Scaling.
-		## TOURNAMENT PLAY ENHANCEMENTS end
-		
-        (assign, reg9, 2000), # Was 200
-        (add_xp_to_troop, 2500, "trp_player"), # Was 250
-        (troop_add_gold, "trp_player", reg9),
-        (str_clear, s8),
-        (store_add, ":total_win", "$g_tournament_bet_placed", "$g_tournament_bet_win_amount"),
-        (try_begin),
-          (gt, "$g_tournament_bet_win_amount", 0),
-          (assign, reg8, ":total_win"),
-          (str_store_string, s8, "@Moreover, you earn {reg8} denars from the clever bets you placed on yourself..."),
-        (try_end),
-		(try_begin),
-			(this_or_next|neq, "$players_kingdom", "$g_encountered_party_faction"),
-				(neg|troop_slot_ge, "trp_player", slot_troop_renown, 70),
-			(neg|troop_slot_ge, "trp_player", slot_troop_renown, 145),
-
-			(faction_slot_eq, "$g_encountered_party_faction", slot_faction_ai_state, sfai_feast),
-			(faction_slot_eq, "$g_encountered_party_faction", slot_faction_ai_object, "$g_encountered_party"),
-			(str_store_string, s8, "str_s8_you_are_also_invited_to_attend_the_ongoing_feast_in_the_castle"),
-		(try_end),
-        (troop_add_gold, "trp_player", ":total_win"),
-        (assign, ":player_odds_sub", 0),
-        (store_div, ":player_odds_sub", "$g_tournament_bet_win_amount", 5),
-        (party_get_slot, ":player_odds", "$current_town", slot_town_player_odds),
-        (val_sub, ":player_odds", ":player_odds_sub"),
-        (val_max, ":player_odds", 250),
-        (party_set_slot, "$current_town", slot_town_player_odds, ":player_odds"),
-        (call_script, "script_play_victorious_sound"),
-        
-        (unlock_achievement, ACHIEVEMENT_MEDIEVAL_TIMES),
-		# TPE 1.2 + Added ability to auto-activate TPE.
-		(try_begin),
-			(eq, wp_tpe_player_can_disable, 0),
-			(assign, "$g_wp_tpe_active", 1),
-		(try_end),
-		# TPE 1.2 -
-        ],
-    [
-      ("continue", [], "Continue...",
-       [(jump_to_menu, "mnu_town"),
-        ]),
-    ]
-  ),
-  
- ## REPLACEMENT MENU - menu_town_tournament
  (
-    "town_tournament",mnf_disable_all_keys,
-    "{s1}You are at tier {reg0} of the tournament, with {reg1} participants remaining. In the next round, there will be {reg2} teams with {reg3} {reg4?fighters:fighter} each.",
+    "tpe_town_tournament",mnf_disable_all_keys,
+    "Tournament of {s25}^^^STATUS:^You are on the {s23} round of the tournament.{s21}^^SETTINGS:^{reg21} teams with {reg22} {reg23?fighters:fighter} each.{s20}^^CURRENT WAGER:^{s26}",
     "none",
     [
-        (party_set_slot, "$current_town", slot_town_has_tournament, 0), #No way to return back if this menu is left
-        (call_script, "script_sort_tournament_participant_troops"),#Moving trp_player to the top of the list
-        (call_script, "script_get_num_tournament_participants"),
-        (assign, ":num_participants", reg0),
+		(set_background_mesh, "mesh_tournament_menu"),
+		###### TOURNAMENT INITIALIZE #####
+		(str_clear, s20),
+		(str_clear, s21),
+		(str_store_party_name, s25, "$current_town"),
+		# (store_current_hours, ":cur_hours"),
+		# (call_script, "script_game_get_date_text", 1, ":cur_hours"),
+		# (str_store_date, s24, s1),
+	
+		(try_begin),
+			(eq, "$g_tournament_cur_tier", 0),
+			# QUEST INSERT #1: qst_floris_active_tournament
+		    (call_script, "script_quest_floris_active_tournament_hook_1"),
+			(call_script, "script_tpe_copy_array", tpe_tournament_roster, "trp_tournament_participants", wp_tpe_max_tournament_participants),
+			(troop_set_slot, "trp_tpe_presobj", tpe_val_cumulative_diff, 0),
+			(call_script, "script_tpe_setup_loot_table"), # Initialize loot table.
+			# Changes +
+			(troop_get_slot, ":value", TPE_OPTIONS, tpe_val_diff_setting),
+			(call_script, "script_tpe_difficulty_slider_effects", ":value"),
+			# Changes -
+		(else_try),
+			# figure out player's ranking
+			#(store_add, reg21, wp_tpe_max_tournament_participants, 1),
+			(assign, reg21, 1),
+			(troop_get_slot, ":player_points", "trp_player", slot_troop_tournament_total_points),
+			(try_for_range, ":rank", 0, wp_tpe_max_tournament_participants),
+				(troop_get_slot, ":troop_no", tpe_tournament_roster, ":rank"),
+				(troop_slot_ge, ":troop_no", slot_troop_tournament_total_points, ":player_points"),
+				(neg|troop_slot_eq, ":troop_no", slot_troop_tournament_total_points, ":player_points"),
+				(val_add, reg21, 1),
+			(try_end),
+			(lt, reg21, wp_tpe_max_tournament_participants),
+			(assign, reg22, wp_tpe_max_tournament_participants),
+			(str_store_string, s21, "@^You are currently rank {reg21} of {reg22} participants."),
+			(try_begin),
+				(le, reg21, 3),
+				(store_add, ":string_no", "str_tpe_rank_1", reg21),
+				(val_sub, ":string_no", 1),
+				(str_store_string, s27, ":string_no"),
+			(else_try),
+				(is_between, reg21, 4, 11),
+				(str_store_string, s27, "str_tpe_rank_4"),
+			(else_try),
+				(str_store_string, s27, "str_tpe_rank_5"),
+			(try_end),
+			(str_store_string, s29, "@^'{s27}'"),
+			(str_store_string, s21, "@{s21}{s29}"),
+		(try_end),
+		
+		# (call_script, "script_tpe_sort_troops_and_points_without_player", slot_troop_tournament_total_points),
+		
+		###### PRESET INFORMATION #####
+		(party_set_slot, "$current_town", slot_town_has_tournament, 0), #No way to return back if this menu is left
+		(troop_set_slot, TPE_OPTIONS, tpe_val_window_mode, 0), # Should setup a default redirection towards round ranking if tpe_jump_to_rankings called.
         (try_begin),
-          (neg|troop_slot_eq, "trp_tournament_participants", 0, 0),#Player is defeated
-
-          (assign, ":player_odds_add", 0),
-          (store_div, ":player_odds_add", "$g_tournament_bet_placed", 5),
-          (party_get_slot, ":player_odds", "$current_town", slot_town_player_odds),
-          (val_add, ":player_odds", ":player_odds_add"),
-          (val_min, ":player_odds", 4000),
-          (party_set_slot, "$current_town", slot_town_player_odds, ":player_odds"),
-
-          (jump_to_menu, "mnu_town_tournament_lost"),
-        (else_try),
-          (eq, ":num_participants", 1),#Tournament won
-          (jump_to_menu, "mnu_town_tournament_won"),
-        (else_try),
+			### END OF TOURNAMENT CONDITIONS ###
+			(ge, "$g_tournament_cur_tier", wp_tpe_max_tournament_tiers),
+			(troop_set_slot, TPE_OPTIONS, tpe_val_window_mode, 2), # Final presentation of top 3 ranked players.
+			(jump_to_menu, "mnu_tpe_jump_to_rankings"),
+		(else_try),
           (try_begin),
             (le, "$g_tournament_next_num_teams", 0),
             (call_script, "script_get_random_tournament_team_amount_and_size"),
             (assign, "$g_tournament_next_num_teams", reg0),
             (assign, "$g_tournament_next_team_size", reg1),
           (try_end),
-          (assign, reg2, "$g_tournament_next_num_teams"),
-          (assign, reg3, "$g_tournament_next_team_size"),
-          (store_sub, reg4, reg3, 1),
-          (str_clear, s1),
-          (try_begin),
-            (eq, "$g_tournament_player_team_won", 1),
-            (str_store_string, s1, "@Victory is yours! You have won this melee, but now you must prepare yourself for the next round. "),
-          (else_try),
-            (eq, "$g_tournament_player_team_won", 0),
-            (str_store_string, s1, "@You have been bested in this melee, but the master of ceremonies declares a recognition of your skill and bravery, allowing you to take part in the next round. "),
-          (try_end),
-          (assign, reg1, ":num_participants"),
-          (store_add, reg0, "$g_tournament_cur_tier", 1),
+          (assign, reg21, "$g_tournament_next_num_teams"),
+          (assign, reg22, "$g_tournament_next_team_size"),
+          (store_sub, reg23, reg22, 1),
+          #(store_add, reg0, "$g_tournament_cur_tier", 1),
         (try_end),
-        ],
-    [
-      ("tournament_view_participants", [], "View participants.",
-       [(jump_to_menu, "mnu_tournament_participants"),
-        ]),
+		##### PRESET INFORMATION #####
 		
-	  ## TOURNAMENT PLAY ENHANCEMENTS (1.0) begin - Windyplains
-	  ("tournament_options_panel", [(eq, "$g_wp_tpe_active", 1),], "Change tournament options.",
+		# Round Information
+		(store_add, ":round_string", "str_tpe_round_1", "$g_tournament_cur_tier"),
+		(str_store_string, s23, ":round_string"),
+		
+		###### DETERMINE PLAYER'S TEAM ######
+		(try_begin),
+			# Figure out what team the player will be on.
+			(troop_get_slot, ":player_team", "trp_player", slot_troop_tournament_team_request),
+			(try_begin),
+				(eq, ":player_team", 4), # Random option
+				(store_random_in_range, ":player_team", 0, "$g_tournament_next_num_teams"),
+			(try_end),
+			(store_sub, ":max_teams", "$g_tournament_next_num_teams", 1),
+			(val_min, ":player_team", ":max_teams"), # To prevent player from picking a team not available.
+			(troop_set_slot, TPE_OPTIONS, tpe_random_team_request, ":player_team"),
+		(try_end),
+		
+		# (try_begin),
+			# (troop_get_slot, ":difficulty", TPE_OPTIONS, tpe_val_diff_setting),
+			# (store_div, ":odds", ":difficulty", 6),
+			# (store_sub, ":min_limit", "$g_tournament_next_num_teams", 1),
+			# (val_add, ":odds", ":min_limit"),
+			# (val_min, ":odds", wp_tpe_maximum_odds),
+			# (assign, reg21, ":odds"),
+			# (troop_set_slot, "trp_tpe_presobj", tpe_val_bet_odds_num, ":odds"),
+			# (troop_set_slot, "trp_tpe_presobj", tpe_val_bet_odds_den, 1),
+			# (str_store_string, s20, "@Odds are {reg21} : 1 against you."),
+		# (try_end),
+		
+		# Update difficulty score.
+		(call_script, "script_tpe_get_difficulty_value"),
+		(str_store_string, s20, "@^{reg1}% Difficulty"),	
+		
+		# Update betting information.
+		(troop_get_slot, ":bid", TPE_OPTIONS, tpe_val_bet_bid),
+		(troop_get_slot, ":wager", TPE_OPTIONS, tpe_val_bet_wager),
+		(str_clear, s36),
+		(try_begin),
+			(ge, ":bid", 1),
+			(ge, ":wager", 1),
+			(assign, reg31, ":bid"),
+			(try_begin),
+				(ge, ":bid", 2),
+				(str_store_string, s28, "@points"),
+			(else_try),
+				(str_store_string, s28, "@point"),
+			(try_end),
+			(assign, reg32, ":wager"),
+			(try_begin),
+				(ge, ":wager", 2),
+				(str_store_string, s27, "@denars"),
+			(else_try),
+				(str_store_string, s27, "@denar"),
+			(try_end),
+			(str_store_string, s26, "@{reg32} {s27} that you will earn {reg31} {s28} this round."),
+		(else_try),
+			(str_store_string, s26, "@You have not placed a bet for this round."),
+		(try_end),
+    ],
+    [
+      ("tpe_credits", [], "Instructions & Credits",	
+		[
+			(change_screen_return),
+			(troop_set_slot, tci_objects, tci_val_information_mode, 0),
+			(start_presentation, "prsnt_tpe_credits"),
+		]),
+		
+	  ("tournament_options_panel", [(eq, "$g_wp_tpe_active", 1),], "Change tournament options",
        [
 	    (change_screen_return),
 		(assign, "$g_wp_tpe_troop", "trp_player"),
+		(troop_set_slot, "trp_tpe_presobj", tpe_options_display_mode, wp_tpe_combat_settings),
 	    (start_presentation, "prsnt_tournament_options_panel"),
         ]),
-
-      ("tournament_bet", [(neq, "$g_tournament_cur_tier", "$g_tournament_last_bet_tier"),(troop_slot_eq, "trp_player", slot_troop_tournament_bet_option, 0)], "Place a bet on yourself.",
-       [(jump_to_menu, "mnu_tournament_bet"),
-        ]), # WP_TPE changes this to disappear if the persistent bet option is set.
-		
-      ("tournament_join_next_fight", [], "Fight in the next round.",
+	  
+	  ("tournament_design_panel", [(eq, "$g_wp_tpe_active", 1),], "Edit tournament design",
        [
-		   # continued TPE enhancements.  This inputs your persistent bet.
+	    (change_screen_return),
+		(assign, "$tournament_town", "$current_town"),
+		(start_presentation, "prsnt_tpe_design_settings"),
+        ]),
+
+      ("tournament_bet", [(neq, "$g_wp_tpe_active", 1),], "Place a bet on yourself",
+       [(jump_to_menu, "mnu_tournament_bet"),
+        ]), # TPE+ 1.3 - Betting menu removed if TPE is active.
+		
+      ("tournament_join_next_fight", [], "Fight in the next round",
+       [
+		    (call_script, "script_tpe_set_bet"), # TPE+ 1.3 Change
+			
+			###### CONTINUE NEXT FIGHT - BEGIN #####
+			(str_clear, s35), # Point Tracking
+			
 			(try_begin),
-				(eq, "$g_wp_tpe_active", 1),
-				(troop_get_slot, ":bet_amount", "trp_player", slot_troop_tournament_bet_amount),
-				(store_troop_gold,":current_gold","trp_player"),
+				(party_slot_eq, "$current_town", slot_town_arena_option, 1),
+				# Player wants the native scene used.
+				(party_get_slot, ":arena_scene", "$current_town", slot_town_arena_alternate),
+			(else_try),
+				# Default: Adorno's Overhaul Scene
+				(party_get_slot, ":arena_scene", "$current_town", slot_town_arena),
+			(try_end),
+			(modify_visitors_at_site, ":arena_scene"),
+			(reset_visitors),
+			#Assuming that there are enough participants for the teams
+			(assign, "$g_player_tournament_placement", "$g_tournament_cur_tier"),
+			(try_begin),
+				(gt, "$g_player_tournament_placement", 4),
+				(assign, "$g_player_eligible_feast_center_no", "$current_town"),
+			(try_end),
+			(val_add, "$g_tournament_cur_tier", 1),
+			
+			
+			(store_mul, "$g_tournament_num_participants_for_fight", "$g_tournament_next_num_teams", "$g_tournament_next_team_size"),
+			#(troop_set_slot, "trp_tournament_participants", 0, -1),#Removing trp_player from the list
+			(troop_set_slot, "trp_temp_array_a", 0, "trp_player"),
+			(call_script, "script_tpe_sort_troops_and_points_without_player", slot_troop_tournament_total_points),
+			(try_for_range, ":slot", 0, wp_tpe_max_tournament_participants),
+				(troop_get_slot, ":troop_info", tpe_ranking_array, ":slot"),
+				(str_store_troop_name, s1, ":troop_info"),
+				(assign, reg1, ":slot"),
+				(ge, DEBUG_TPE_general, 2),
+				(display_message, "@DEBUG (TPE): tpe_ranking_array, slot #{reg1} = {s1}"),
+			(try_end),
+		
+			# Clean out points from the last round.
+			(try_for_range, ":slot_no", 1, wp_tpe_max_tournament_participants),
+				(troop_get_slot, ":troop_no", tpe_tournament_roster, ":slot_no"),
+				(troop_set_slot, ":troop_no", slot_troop_tournament_round_points, 0),
+				(troop_set_slot, ":troop_no", slot_troop_tournament_participating, 0),
+			(try_end),
+			
+			# Figure out who is going to be in this round.
+			(try_for_range, ":slot_no", 1, "$g_tournament_num_participants_for_fight"),
 				(try_begin),
-					(ge, ":current_gold", ":bet_amount"),
-					(call_script, "script_tournament_place_bet", ":bet_amount"),
-					(store_troop_gold,":current_gold","trp_player"),
-					(assign, reg1, ":current_gold"),
-					(assign, reg0, ":bet_amount"),
-					(display_message, "@You place a bet of {reg0} denars before starting the round.  You have {reg1} denars remaining."),
+					(eq, "$g_tournament_cur_tier", 0),
+					#(lt, wp_tpe_released_version, 200),
+					#(call_script, "script_get_random_tournament_participant"),
+					#(troop_set_slot, "trp_temp_array_a", ":slot_no", reg0),
+					(troop_get_slot, ":troop_no", tpe_tournament_roster, ":slot_no"),
+					(troop_set_slot, "trp_temp_array_a", ":slot_no", ":troop_no"),
+					
+					(ge, DEBUG_TPE_general, 2),
+					(str_store_troop_name, s1, ":troop_no"),
+					(assign, reg1, ":slot_no"),
+					(display_message, "@DEBUG (TPE): {s1} placed in slot #{reg1} for tournament.  TPE 1.3"),
 				(else_try),
-					(assign, reg0, ":bet_amount"),
-					(display_message, "@You were unable to cover a bet of {reg0} denars."),
+					(troop_get_slot, ":troop_info", tpe_ranking_array, ":slot_no"),
+					(troop_set_slot, "trp_temp_array_a", ":slot_no", ":troop_info"),
+					(eq, DEBUG_TPE_general, 2),
+					(str_store_troop_name, s1, ":troop_info"),
+					(assign, reg1, ":slot_no"),
+					(display_message, "@DEBUG (TPE): {s1} placed in slot #{reg1} for tournament.  TPE 2.0"),
 				(try_end),
 			(try_end),
-      ## TOURNAMENT PLAY ENHANCEMENTS end
-	  
-		   (party_get_slot, ":arena_scene", "$current_town", slot_town_arena),
-           (modify_visitors_at_site, ":arena_scene"),
-           (reset_visitors),
-           #Assuming that there are enough participants for the teams
-		   (assign, "$g_player_tournament_placement", "$g_tournament_cur_tier"),
-		   (try_begin),
-		     (gt, "$g_player_tournament_placement", 4),
-		     (assign, "$g_player_eligible_feast_center_no", "$current_town"),
-		   (try_end),
-           (val_add, "$g_tournament_cur_tier", 1),
-		   
-           (store_mul, "$g_tournament_num_participants_for_fight", "$g_tournament_next_num_teams", "$g_tournament_next_team_size"),
-           (troop_set_slot, "trp_tournament_participants", 0, -1),#Removing trp_player from the list
-           (troop_set_slot, "trp_temp_array_a", 0, "trp_player"),
-           (try_for_range, ":slot_no", 1, "$g_tournament_num_participants_for_fight"),
-             (call_script, "script_get_random_tournament_participant"),
-             (troop_set_slot, "trp_temp_array_a", ":slot_no", reg0),
-           (try_end),
-           (call_script, "script_shuffle_troop_slots", "trp_temp_array_a", 0, "$g_tournament_num_participants_for_fight"),
-           
-           (assign, "$g_mt_mode", abm_tournament),
+			#(troop_set_slot, "trp_tournament_participants", 0, "trp_player"),
+			
+			###### FILTER CHECK FOR MULTIPLE PLAYER BUG ######
+			(assign, ":player_found", 0),
+			(try_for_range, ":slot_no", 0, wp_tpe_max_tournament_participants),
+				(troop_get_slot, ":troop_no", "trp_temp_array_a", ":slot_no"),
+				(try_begin),
+					# Troop is the player.
+					(eq, ":troop_no", "trp_player"),
+					(eq, ":player_found", 0),
+					# Troop is the first valid player.
+					(assign, ":player_found", 1),
+				(else_try),
+					# Troop slot filled by lord, companion or scaled troop.
+					(this_or_next|is_between, ":troop_no", active_npcs_begin, active_npcs_end),
+					(is_between, ":troop_no", tpe_scaled_troops_begin, tpe_scaled_troops_end),
+				(else_try),
+					# No valid troop found.
+					(call_script, "script_tpe_pick_random_participant"),
+					(troop_set_slot, "trp_temp_array_a", ":slot_no", reg0),
+					(ge, DEBUG_TPE_general, 1),
+					(str_store_troop_name, s1, reg0),
+					(assign, reg0, ":slot_no"),
+					(display_message, "@DEBUG (TPE): Discovered invalid troop.  Replaced with {s1} in slot {reg0}."),
+				(try_end),
+			(try_end),
+			
+			(assign, "$g_mt_mode", abm_tournament),
 
-           (party_get_slot, ":town_original_faction", "$current_town", slot_center_original_faction),
-           (assign, ":town_index_within_faction", 0),
-           (assign, ":end_cond", towns_end),
-           (try_for_range, ":cur_town", towns_begin, ":end_cond"),
-             (try_begin),
-               (eq, ":cur_town", "$current_town"),
-               (assign, ":end_cond", 0), #break
-             (else_try),
-               (party_slot_eq, ":cur_town", slot_center_original_faction, ":town_original_faction"),
-               (val_add, ":town_index_within_faction", 1),
-             (try_end),
-           (try_end),
-           
-           (set_jump_mission, "mt_arena_melee_fight"),
-           
-		    ## TOURNAMENT PLAY ENHANCEMENTS (1.0) begin - Windyplains - Tournament Teams
+			(party_get_slot, ":town_original_faction", "$current_town", slot_center_original_faction),
+			(assign, ":town_index_within_faction", 0),
+			(assign, ":end_cond", towns_end),
+			(try_for_range, ":cur_town", towns_begin, ":end_cond"),
+				(try_begin),
+					(eq, ":cur_town", "$current_town"),
+					(assign, ":end_cond", 0), #break
+				(else_try),
+					(party_slot_eq, ":cur_town", slot_center_original_faction, ":town_original_faction"),
+					(val_add, ":town_index_within_faction", 1),
+				(try_end),
+			(try_end),
+		   
+			(try_begin),
+				(eq, "$g_wp_tpe_active", 1),
+				(eq, wp_tpe_mod_opt_actual_gear, 0),
+				(assign, ":mission_template", "mt_tpe_tournament_standard"),
+			(else_try),
+				(eq, "$g_wp_tpe_active", 1),
+				(eq, wp_tpe_mod_opt_actual_gear, 1),
+				(assign, ":mission_template", "mt_tpe_tournament_native_gear"),
+			(else_try),
+				(assign, ":mission_template", "mt_arena_melee_fight"),
+			(try_end),
+			
+			(set_jump_mission, ":mission_template"), # TPE+ 1.3 - To divorce TPE tournament from native template entirely.
+			
+			(troop_get_slot, ":player_team", TPE_OPTIONS, tpe_random_team_request),
+			# (store_sub, ":max_teams", "$g_tournament_next_num_teams", 1),
+			# (val_min, ":player_team", ":max_teams"), # To prevent player from picking a team not available.
+			
+			(assign, ":player_joined", 1), # Persistent team
 			(assign, ":player_tally", 0),
-			(call_script, "script_copy_inventory", "trp_temp_troop", "trp_temp_array_a"),
-		    (try_for_range, ":team", 0, "$g_tournament_next_num_teams"),
+			(call_script, "script_tpe_copy_array", "trp_temp_troop", "trp_temp_array_a", wp_tpe_max_tournament_participants),
+			(try_for_range, ":team", 0, "$g_tournament_next_num_teams"),
 				(try_for_range, ":teammate", 0, "$g_tournament_next_team_size"),
 					(store_mul, ":slot_no", ":team", 8),
 					(val_add, ":slot_no", ":teammate"),
-					(troop_get_slot, ":troop_no", "trp_temp_array_a", ":player_tally"),
-					(troop_set_slot, "trp_temp_troop", ":slot_no", ":troop_no"),
-					(troop_set_slot, "trp_temp_array_b", ":slot_no", ":team"),
-					(troop_set_slot, "trp_temp_array_c", ":slot_no", ":slot_no"),
-					(set_visitor, ":slot_no", ":troop_no"),
-					(call_script, "script_tpe_set_items_for_tournament", ":troop_no", ":team", ":slot_no"),
+					(try_begin),
+						(eq, ":player_team", ":team"),
+						(eq, ":player_joined", 1),
+						(assign, ":player_joined", 0),
+						(assign, ":new_troop", "trp_player"),
+					(else_try),
+						(store_add, ":temp_slot", ":player_tally", ":player_joined"),
+						(troop_get_slot, ":new_troop", "trp_temp_array_a", ":temp_slot"),
+						# (call_script, "script_tpe_pick_random_participant"),
+						# (assign, ":new_troop", reg0),
+					(try_end),
+					(try_begin),
+						(eq, DEBUG_TPE_general, 2),
+						(assign, reg1, ":team"),
+						(assign, reg2, ":slot_no"),
+						(str_store_troop_name, s1, ":new_troop"),
+						(display_message, "@DEBUG (TPE): Entry #{reg2} / Team #{reg1} = {s1}"),
+					(try_end),
+					(troop_set_slot, "trp_temp_troop", ":slot_no", ":new_troop"),  # Stores actual troop information.
+					(troop_set_slot, "trp_temp_array_b", ":slot_no", ":team"),    # Stores which team troop is on.
+					(troop_set_slot, "trp_temp_array_c", ":slot_no", ":slot_no"), # Stores which entry spot troop gets.
+					(set_visitor, ":slot_no", ":new_troop"),
+					(call_script, "script_tpe_set_items_for_tournament", ":new_troop", ":team", ":slot_no"),
 					(val_add, ":player_tally", 1),
+					# Check to see if native gear option is being used instead.
+					(eq, wp_tpe_mod_opt_actual_gear, 1),
+					(mission_tpl_entry_clear_override_items, "mt_tpe_tournament_native_gear", ":slot_no"),
 				(try_end),
 			(try_end),
-			(call_script, "script_copy_inventory", "trp_temp_array_a", "trp_temp_troop"),
-
-		   (assign, "$g_tournament_next_num_teams", 0),
-           (assign, "$g_tournament_next_team_size", 0),
-           
-		   ## TPE 1.2 + Added native town tournament styles back.
-		   (try_begin),
-				(eq, "$g_wp_tpe_active", 0),
-			   (try_begin),
-				 (eq, ":town_original_faction", "fac_kingdom_1"),
-				 #Swadia
-				 (store_mod, ":mod", ":town_index_within_faction", 4),
-				 (try_begin),
-				   (eq, ":mod", 0),
-				   (call_script, "script_set_items_for_tournament", 40, 80, 50, 20, 0, 0, 0, 0, "itm_arena_armor_red", "itm_tourney_helm_red"),
-				 (else_try),
-				   (eq, ":mod", 1),
-				   (call_script, "script_set_items_for_tournament", 100, 100, 0, 0, 0, 0, 0, 0, "itm_arena_armor_red", "itm_tourney_helm_red"),
-				 (else_try),
-				   (eq, ":mod", 2),
-				   (call_script, "script_set_items_for_tournament", 100, 0, 100, 0, 0, 0, 0, 0, "itm_arena_armor_red", "itm_tourney_helm_red"),
-				 (else_try),
-				   (eq, ":mod", 3),
-				   (call_script, "script_set_items_for_tournament", 40, 80, 50, 20, 40, 0, 0, 0, "itm_arena_armor_red", "itm_tourney_helm_red"),
-				 (try_end),
-			   (else_try),
-				 (eq, ":town_original_faction", "fac_kingdom_2"),
-				 #Vaegirs
-				 (store_mod, ":mod", ":town_index_within_faction", 4),
-				 (try_begin),
-				   (eq, ":mod", 0),
-				   (call_script, "script_set_items_for_tournament", 40, 80, 50, 20, 0, 0, 0, 0, "itm_arena_armor_red", "itm_steppe_helmet_red"),
-				 (else_try),
-				   (eq, ":mod", 1),
-				   (call_script, "script_set_items_for_tournament", 100, 50, 0, 0, 0, 20, 30, 0, "itm_arena_armor_red", "itm_steppe_helmet_red"),
-				 (else_try),
-				   (eq, ":mod", 2),
-				   (call_script, "script_set_items_for_tournament", 100, 0, 50, 0, 0, 20, 30, 0, "itm_arena_armor_red", "itm_steppe_helmet_red"),
-				 (else_try),
-				   (eq, ":mod", 3),
-				   (call_script, "script_set_items_for_tournament", 40, 80, 50, 20, 30, 0, 60, 0, "itm_arena_armor_red", "itm_steppe_helmet_red"),
-				 (try_end),
-			   (else_try),
-				 (eq, ":town_original_faction", "fac_kingdom_3"),
-				 #Khergit
-				 (store_mod, ":mod", ":town_index_within_faction", 2),
-				 (try_begin),
-				   (eq, ":mod", 0),
-				   (call_script, "script_set_items_for_tournament", 100, 0, 0, 0, 0, 40, 60, 0, "itm_arena_tunic_red", "itm_steppe_helmet_red"),
-				 (else_try),
-				   (eq, ":mod", 1),
-				   (call_script, "script_set_items_for_tournament", 100, 50, 25, 0, 0, 30, 50, 0, "itm_arena_tunic_red", "itm_steppe_helmet_red"),
-				 (try_end),
-			   (else_try),
-				 (eq, ":town_original_faction", "fac_kingdom_4"),
-				 #Nords
-				 (store_mod, ":mod", ":town_index_within_faction", 3),
-				 (try_begin),
-				   (eq, ":mod", 0),
-				   (call_script, "script_set_items_for_tournament", 0, 0, 50, 80, 0, 0, 0, 0, "itm_arena_armor_red", -1),
-				 (else_try),
-				   (eq, ":mod", 1),
-				   (call_script, "script_set_items_for_tournament", 0, 0, 50, 80, 50, 0, 0, 0, "itm_arena_armor_red", -1),
-				 (else_try),
-				   (eq, ":mod", 2),
-				   (call_script, "script_set_items_for_tournament", 40, 0, 0, 100, 0, 0, 0, 0, "itm_arena_armor_red", -1),
-				 (try_end),
-			   (else_try),
-				 #Rhodoks
-				 (eq, ":town_original_faction", "fac_kingdom_5"),
-				 (call_script, "script_set_items_for_tournament", 25, 100, 60, 0, 30, 0, 30, 50, "itm_arena_tunic_red", "itm_tourney_helm_red"), # TPE Change itm_arena_helmet_red
-			   (else_try),
-				 #Sarranids
-				 (store_mod, ":mod", ":town_index_within_faction", 2),
-				 (try_begin),
-				   (eq, ":mod", 0),
-				   (call_script, "script_set_items_for_tournament", 100, 40, 60, 0, 30, 30, 0, 0, "itm_arena_tunic_red", "itm_arena_turban_red"),
-				 (else_try),
-				   (call_script, "script_set_items_for_tournament", 50, 0, 60, 0, 30, 30, 0, 0, "itm_arena_tunic_red", "itm_arena_turban_red"),
-				 (try_end),
-			   (try_end),
-		   (try_end),
-		   ## TPE 1.2 -
-		   
-           (jump_to_scene, ":arena_scene"),
-           (change_screen_mission),
+			(call_script, "script_tpe_copy_array", "trp_temp_array_a", "trp_temp_troop", wp_tpe_max_tournament_participants),
+			
+			(assign, "$g_wp_tpe_team_size", "$g_tournament_next_team_size"),
+			(assign, "$g_wp_tpe_timer", 0),
+			   
+			(jump_to_scene, ":arena_scene"),
+			(change_screen_mission),
+			###### CONTINUE NEXT FIGHT - END ######
         ]),
       ("leave_tournament",[],"Withdraw from the tournament.",
        [
-           (jump_to_menu, "mnu_tournament_withdraw_verify"),
+           (jump_to_menu, "mnu_tpe_tournament_withdraw_verify"),
         ]),
 
 ###########################################################################################################################
 #####                                                TPE 1.1 Additions                                                #####
 ###########################################################################################################################
 
-	 ("debug_leave_tournament",[(eq, wp_tpe_debug, 1),],"DEBUG: Exit the tournament.",
+	  ("debug_leave_tournament",[(ge, DEBUG_TPE_general, 1),],"DEBUG: Exit the tournament.",
        [
            (party_set_slot, "$current_town", slot_town_has_tournament, 1), # To allow re-entry for testing.
 		   (jump_to_menu, "mnu_town"),
         ]),
-		
-###########################################################################################################################
-#####                                                TPE 1.2 Additions                                                #####
-###########################################################################################################################
 
-	  ("tpe_enable",[(eq, "$g_wp_tpe_active", 0), (eq, wp_tpe_player_can_disable, 1),],"Enable tournament enhancements.",
-       [(assign, "$g_wp_tpe_active", 1),]),
-		
-	  ("tpe_disable",[(eq, "$g_wp_tpe_active", 1), (eq, wp_tpe_player_can_disable, 1),],"Disable tournament enhancements.",
-       [(assign, "$g_wp_tpe_active", 0),]),
-		
-    ]
-  ),
- ]
+    ]), # End of town_tournament
+###########################################################################################################################
+#####                                           END OF TPE_TOWN_TOURNAMENT                                            #####
+###########################################################################################################################
 	
+	("tpe_jump_to_rankings", mnf_scale_picture|mnf_disable_all_keys,
+		"I shouldn't see this.  This should automatically be covered by the ranking display.",
+		"none",
+		[
+			(try_begin),
+				(troop_slot_eq, TPE_OPTIONS, tpe_val_window_mode, 0),
+				(change_screen_return),
+				(start_presentation, "prsnt_tpe_ranking_display"),
+			(else_try),
+				(troop_slot_eq, TPE_OPTIONS, tpe_val_window_mode, 1),
+				(change_screen_return),
+				(assign, "$g_wp_tpe_troop", "trp_player"),
+				(troop_set_slot, "trp_tpe_presobj", tpe_options_display_mode, wp_tpe_combat_settings),
+				(start_presentation, "prsnt_tournament_options_panel"),
+			(else_try),
+				(troop_slot_eq, TPE_OPTIONS, tpe_val_window_mode, 2), # Tournament Ending
+				(change_screen_return),
+				(start_presentation, "prsnt_tpe_final_display"),
+			(try_end),
+		],
+		[
+			("continue",[], "View Rankings...",	[]),
+		]),
+		
+	("tpe_tournament_withdraw_verify",0,
+		"Are you sure you want to withdraw from the tournament?",
+		"none",
+		[],
+		[
+			("tournament_withdraw_yes", [], "Yes. This is a pointless affectation.",
+				[(jump_to_menu, "mnu_tpe_town_tournament_won_by_another"),]),
+			  
+			("tournament_withdraw_no", [], "No, not as long as there is a chance of victory!",
+				[(jump_to_menu, "mnu_tpe_town_tournament"),]),
+		]),
+  
+    ("tpe_town_tournament_won_by_another",mnf_disable_all_keys,
+		"As the only {reg3?fighter:man} to remain undefeated this day, {s1} wins the lists and the glory of this tournament.",
+		"none",
+		[
+			(call_script, "script_tpe_sort_troops_and_points_without_player", slot_troop_tournament_total_points),
+			(assign, ":winner_found", 0),
+			(try_for_range, ":rank", 1, 5),
+				(eq, ":winner_found", 0),
+				(troop_get_slot, ":troop_winner", tpe_ranking_array, ":rank"),
+				(neq, ":troop_winner", "trp_player"),
+				(assign, ":winner_found", 1),
+			(try_end),
+			(call_script, "script_change_troop_renown", ":troop_winner", 20),
+			(troop_get_type, reg3, ":troop_winner"),
+			(str_store_troop_name, s1, ":troop_winner"),
+		],
+		[
+			("continue", [], "Continue...",
+				[(jump_to_menu, "mnu_town"),]),
+		]),
+		
+	# TPE+ 1.4
+	# Adds in configuration menu to access tournament settings outside of tournaments.
+	("tpe_tournament_config",mnf_disable_all_keys,
+		"This is the Tournament Play Enhancement configuration menu.  Here you can alter tournament settings to function as you wish.",
+		"none",
+		[
+			(this_or_next|eq, MOD_FLORIS_INSTALLED, 0),
+			(this_or_next|ge, DEBUG_TPE_general, 1),
+			(this_or_next|ge, DEBUG_TPE_ai_behavior, 1),
+			(ge, DEBUG_TPE_DESIGN, 1),
+		],
+		[
+			("tpe_enable_tourny", [(eq, "$g_wp_tpe_active", 0),], "Enable Tournament Enhancements",	
+				[
+					(assign, "$g_wp_tpe_active", 1),
+					(jump_to_menu, "mnu_tpe_tournament_config"),
+				]),
+			
+			("tpe_disable_tourny", [(eq, "$g_wp_tpe_active", 1),], "Disable Tournament Enhancements",	
+				[
+					(assign, "$g_wp_tpe_active", 0),
+					(assign, "$tpe_quests_active", 0),
+					(jump_to_menu, "mnu_tpe_tournament_config"),
+				]),
+			
+			("tpe_enable_quests", 
+				[
+					(eq, "$tpe_quests_active", 0),
+					(eq, "$g_wp_tpe_active", 1),
+				], "Enable Automatic Tournament Quests",	
+				[
+					(assign, "$tpe_quests_active", 1),
+					(jump_to_menu, "mnu_tpe_tournament_config"),
+				]),
+			
+			("tpe_disable_quests", [(eq, "$tpe_quests_active", 1),], "Disable Automatic Tournament Quests",	
+				[
+					(assign, "$tpe_quests_active", 0),
+					# Disable quest if anything is active.
+					(try_begin),
+						(this_or_next|check_quest_active, "qst_floris_active_tournament"),
+						(neg|quest_slot_eq, "qst_floris_active_tournament", slot_quest_current_state, 0),
+						(complete_quest, "qst_floris_active_tournament"),
+						(display_message, "@Quest ended due to tournament system quests being disabled."),
+						(quest_set_slot, "qst_floris_active_tournament", slot_quest_current_state, 0),
+					(try_end),
+					# Back to tournament system settings menu.
+					(jump_to_menu, "mnu_tpe_tournament_config"),
+				]),
+			
+			("tpe_quest_setting_low", 
+				[
+					(eq, "$tpe_quests_active", 1),
+					(eq, "$tpe_quest_reactions", TPE_QUEST_REACTIONS_LOW),
+				], "Set Quest Reactions to Medium (Current: Low)",	
+				[
+					(assign, "$tpe_quest_reactions", TPE_QUEST_REACTIONS_MEDIUM),
+					(jump_to_menu, "mnu_tpe_tournament_config"),
+				]),
+			
+			("tpe_quest_setting_med", 
+				[
+					(eq, "$tpe_quests_active", 1),
+					(eq, "$tpe_quest_reactions", TPE_QUEST_REACTIONS_MEDIUM),
+				], "Set Quest Reactions to High (Current: Medium)",	
+				[
+					(assign, "$tpe_quest_reactions", TPE_QUEST_REACTIONS_HIGH),
+					(jump_to_menu, "mnu_tpe_tournament_config"),
+				]),
+			
+			("tpe_quest_setting_high", 
+				[
+					(eq, "$tpe_quests_active", 1),
+					(eq, "$tpe_quest_reactions", TPE_QUEST_REACTIONS_HIGH),
+				], "Set Quest Reactions to Low (Current: High)",	
+				[
+					(assign, "$tpe_quest_reactions", TPE_QUEST_REACTIONS_LOW),
+					(jump_to_menu, "mnu_tpe_tournament_config"),
+				]),
+			
+			("tpe_jump_to_options", [(eq, "$g_wp_tpe_active", 1),], "Display Tournament Player Options",	
+				[
+					(change_screen_return),
+					(assign, "$g_wp_tpe_troop", "trp_player"),
+					(troop_set_slot, "trp_tpe_presobj", tpe_options_display_mode, wp_tpe_combat_settings),
+					(start_presentation, "prsnt_tournament_options_panel"),
+				]),
+				
+			("tpe_jump_to_design", [(eq, "$g_wp_tpe_active", 1),], "Display Tournament Design Options",	
+				[
+					(change_screen_return),
+					(assign, "$tournament_town", "p_town_1"), # Just picking a default.
+					(start_presentation, "prsnt_tpe_design_settings"),
+				]),
+				
+			("tpe_credits", [], "Credits & Information",	
+				[
+					(change_screen_return),
+					(troop_set_slot, tci_objects, tci_val_information_mode, 0),
+					(start_presentation, "prsnt_tpe_credits"),
+				]),
+				
+			# ("tpe_loot_table", [], "Sort TPE Loot Table",	
+				# [
+					# (try_for_range, ":item_slot", 201, 242),
+						# (troop_get_slot, ":item_no", tpe_xp_table, ":item_slot"),
+						# (store_sub, reg31, ":item_slot", 200),
+						# (str_store_item_name, s31, ":item_no"),
+						# (store_item_value, reg32, ":item_no"),
+						# (display_message, "@Item #{reg31} - '{s31}' is worth {reg32} denars."),
+						# (eq, ":item_slot", 24),
+						# (display_message, "@END OF NON-SCALING LOOT"),
+					# (try_end),
+				# ]),
+				
+			("continue", [], "Return",	[(jump_to_menu, "mnu_camp"),]),
+		]),
+ ]
+
+tpe_join = [
+	(else_try),
+	(eq, "$g_wp_tpe_active", 1),
+	(call_script, "script_tpe_fill_tournament_participants_troop", "$current_town", 1),
+	(assign, "$g_tournament_cur_tier", 0),
+	(assign, "$g_tournament_player_team_won", -1),
+	(assign, "$g_tournament_bet_placed", 0),
+	(assign, "$g_tournament_bet_win_amount", 0),
+	(assign, "$g_tournament_last_bet_tier", -1),
+	(assign, "$g_tournament_next_num_teams", 0),
+	(assign, "$g_tournament_next_team_size", 0),
+	(jump_to_menu, "mnu_tpe_town_tournament"),
+	(try_end),
+]
+
+from util_common import *
+from util_wrappers import *
+
 def modmerge_game_menus(orig_game_menus, check_duplicates = False):
     if( not check_duplicates ):
         orig_game_menus.extend(game_menus) # Use this only if there are no replacements (i.e. no duplicated item names)
@@ -396,13 +607,24 @@ def modmerge_game_menus(orig_game_menus, check_duplicates = False):
             orig_game_menus.append(game_menus[i])
           else:
             orig_game_menus[find_index] = game_menus[i]
-
+	
+	# splice this into dplmc_preferences menu to call the tournament options menu
+    find_index = find_object(orig_game_menus, "dplmc_preferences")
+    orig_game_menus[find_index][5].insert(2,
+            ("camp_mod_opition",[],"Tournament System Settings", [(jump_to_menu, "mnu_tpe_tournament_config")]),
+          )
+		  
 # Used by modmerger framework version >= 200 to merge stuff
 def modmerge(var_set):
     try:
         var_name_1 = "game_menus"
         orig_game_menus = var_set[var_name_1]
         modmerge_game_menus(orig_game_menus)
+        find_i = list_find_first_match_i( orig_game_menus, "town" )
+        menuoption = GameMenuWrapper(orig_game_menus[find_i]).GetMenuOption("join_tournament")
+        codeblock = menuoption.GetConsequenceBlock()
+        codeblock.InsertBefore(0, [(try_begin), (eq, "$g_wp_tpe_active", 0),])
+        codeblock.Append(tpe_join)
     except KeyError:
         errstring = "Variable set does not contain expected variable: \"%s\"." % var_name_1
         raise ValueError(errstring)

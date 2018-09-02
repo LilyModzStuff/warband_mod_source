@@ -591,3 +591,6 @@ mesh_mmc_dice_6 = 589
 mesh_pic_soldier_world_map = 590
 mesh_pic_soldier_rebel = 591
 mesh_pic_soldier_desert = 592
+mesh_tpe_golden_coins = 593
+mesh_tournament_design_panel = 594
+mesh_tournament_menu = 595

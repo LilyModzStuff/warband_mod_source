@@ -91,4 +91,5 @@ qst_save_town_from_bandits = 89
 qst_freelancer_enlisted = 90
 qst_freelancer_vacation = 91
 qst_freelancer_captured = 92
-qst_quests_end = 93
+qst_floris_active_tournament = 93
+qst_quests_end = 94

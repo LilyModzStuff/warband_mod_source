@@ -1,5 +1,4 @@
-# Tournament Play Enhancements (1.2) by Windyplains
-# Released 9/22/2011
+# Tournament Play Enhancements (1.5) by Windyplains
 
 from header_meshes import *
 
@@ -20,12 +19,13 @@ from header_meshes import *
 ####################################################################################################################
 
 meshes = [
-####################################################################################################################################
-# TPE 1.2 Additions
-####################################################################################################################################
-  ("drop_button_child", 0, "button_drop_child", 0, 0, 0, 0, 0, 0, 1.0, 0.5, 0.5),
+  # ("town_button", 0, "button_drop_child", 0, 0, 0, 0, 0, 0, 1.0, 0.5, 0.5),
+  # ("town_button_highlight", 0, "button_drop_child_hl", 0, 0, 0, 0, 0, 0, 1.0, 0.5, 0.5),
+  # ("town_button_selected", 0, "button_drop_child_clicked", 0, 0, 0, 0, 0, 0, 1.0, 0.5, 0.5),
   ("face_gen_window", 0, "face_gen_window", 0, 0, 0, 0, 0, 0, 1, 1, 1),
-
+  ("tpe_golden_coins", 0, "mp_ico_gold", 0, 0, 0, 0, 0, 0, 1.0, 0.76, 0.5),
+  ("tournament_design_panel", 0, "game_log_window", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("tournament_menu", 0, "pic_mb_warrior_3", 0, 0, 0, 0, 0, 0, 1, 1, 1),
 ]
 
 from util_common import *
