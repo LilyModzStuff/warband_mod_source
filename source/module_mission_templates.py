@@ -4749,6 +4749,7 @@ mission_templates = [
          ]),
 
       common_arena_fight_tab_press,
+	  AI_kick,
 
       (ti_question_answered, 0, 0, [],
        [
@@ -6546,6 +6547,9 @@ mission_templates = [
       (ti_before_mission_start, 0, 0, [], [(call_script, "script_change_banners_and_chest")]),
 
       common_arena_fight_tab_press,
+	  AI_kick,
+	  ai_shield_bash,
+      common_shield_bash,
 
       #SB : player override items
       (ti_on_agent_spawn, 0, ti_once, [
@@ -6754,6 +6758,10 @@ mission_templates = [
          (call_script, "script_change_banners_and_chest")]),
 
       common_arena_fight_tab_press,
+	  AI_kick,
+	  ai_shield_bash,
+	  common_shield_bash,
+	  
 
       (ti_question_answered, 0, 0, [],
        [
