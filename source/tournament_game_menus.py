@@ -574,7 +574,7 @@ game_menus = [
 					# (try_end),
 				# ]),
 				
-			("continue", [], "Continue...",	[(jump_to_menu, "mnu_camp"),]),
+			("continue", [], "Return",	[(jump_to_menu, "mnu_camp"),]),
 		]),
  ]
 
@@ -608,9 +608,9 @@ def modmerge_game_menus(orig_game_menus, check_duplicates = False):
           else:
             orig_game_menus[find_index] = game_menus[i]
 	
-	# splice this into camp menu to call the tournament options menu
-    find_index = find_object(orig_game_menus, "camp")
-    orig_game_menus[find_index][5].insert(9,
+	# splice this into dplmc_preferences menu to call the tournament options menu
+    find_index = find_object(orig_game_menus, "dplmc_preferences")
+    orig_game_menus[find_index][5].insert(2,
             ("camp_mod_opition",[],"Tournament System Settings", [(jump_to_menu, "mnu_tpe_tournament_config")]),
           )
 		  
