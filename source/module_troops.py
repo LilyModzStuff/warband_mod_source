@@ -924,7 +924,7 @@ troops = [
   ["npc3","Ymira","Ymira",tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved, fac_commoners,[itm_dress,itm_woolen_hose,itm_knife],
    str_6|agi_9|int_11|cha_6|level(1),wp(20),knows_merchant_npc|
    knows_wound_treatment_1|knows_trade_1|knows_first_aid_3|knows_surgery_1|knows_athletics_1|knows_riding_1,
-   0x0000000083040041583b6db8dec5925b00000000001d80980000000000000000],
+   0x000000000004008d0000000000000e0000000000000000000000000000000000],
   ["npc4","Rolf","Rolf",tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_leather_jerkin,itm_nomad_boots, itm_sword_medieval_a],
    str_10|agi_9|int_13|cha_10|level(10),wp(110),knows_warrior_npc|
    knows_weapon_master_2|knows_power_strike_2|knows_riding_2|knows_athletics_2|knows_power_throw_2|knows_first_aid_1|knows_surgery_1|knows_tactics_2|knows_leadership_2,
@@ -942,11 +942,11 @@ troops = [
   ["npc7","Deshavi","Deshavi",tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_ragged_outfit,itm_wrapping_boots, itm_hunting_bow, itm_arrows, itm_quarter_staff],
    str_8|agi_9|int_10|cha_6|level(2),wp(80),knows_tracker_npc|
    knows_tracking_2|knows_athletics_2|knows_spotting_1|knows_pathfinding_1|knows_power_draw_2,
-   0x00000001fc08404533a15297634d44f400000000001e02db0000000000000000],
+   0x00000001c50840500000000000000e0a00000000000000000000000000000000],
   ["npc8","Matheld","Matheld",tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_tribal_warrior_outfit,itm_nomad_boots, itm_sword_viking_1],
    str_9|agi_10|int_9|cha_10|level(7),wp(90),knows_warrior_npc|
    knows_weapon_master_3|knows_power_strike_2|knows_athletics_2|knows_leadership_3|knows_tactics_1,
-   0x00000005800c004637db8314e331e76e00000000001c46db0000000000000000],
+   0x00000006460c000b0000000000000e0400000000000000000000000000000000],
   ["npc9","Alayen","Alayen",tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_tabard,itm_nomad_boots, itm_sword_medieval_b_small],
    str_11|agi_8|int_7|cha_8|level(2),wp(100),knows_warrior_npc|
    knows_weapon_master_1|knows_riding_1|knows_athletics_1|knows_leadership_1|knows_tactics_1|knows_power_strike_1,
@@ -959,7 +959,7 @@ troops = [
   ["npc11","Katrin","Katrin",tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_leather_apron, itm_falchion, itm_wrapping_boots],
    str_8|agi_11|int_10|cha_10|level(8),wp(70),knows_merchant_npc|
    knows_weapon_master_1|knows_first_aid_1|knows_wound_treatment_2|knows_ironflesh_3|knows_inventory_management_5,
-   0x0000000d7f0400435915aa226b4d975200000000001ea49e0000000000000000],
+   0x00000008760400490000000000000e5b00000000000000000000000000000000],
   ["npc12","Jeremus","Jeremus",tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_pilgrim_disguise,itm_nomad_boots, itm_staff],
    str_8|agi_7|int_13|cha_7|level(4),wp(30),   knows_merchant_npc|
    knows_ironflesh_1|knows_power_strike_1|knows_surgery_4|knows_wound_treatment_3|knows_first_aid_3,
@@ -981,7 +981,7 @@ troops = [
   ["npc16","Klethi","Klethi",tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_peasant_dress,itm_nomad_boots, itm_dagger, itm_throwing_knives],
    str_7|agi_11|int_8|cha_7|level(2),wp(80),knows_tracker_npc|
    knows_power_throw_3|knows_athletics_2|knows_power_strike_1,
-   0x00000000000c104739ce9c805d2f381300000000001cc7ad0000000000000000],
+   0x00000000020c104a0000000000000e2200000000000000000000000000000000],
 #NPC system changes end
 
 
