@@ -13425,7 +13425,7 @@ TOTAL:  {reg5}"),
   ),
 
   (
-    "orig_town_tournament_won",mnf_disable_all_keys,
+    "town_tournament_won",mnf_disable_all_keys,
     "You have won the tournament of {s3}! You are filled with pride as the crowd cheers your name.\
  In addition to honour, fame and glory, you earn a prize of {reg9} denars, as well as one mystery prize. {s8}",
     "none",
@@ -13517,7 +13517,7 @@ TOTAL:  {reg5}"),
   ),
 
   (
-    "orig_town_tournament",mnf_disable_all_keys,
+    "town_tournament",mnf_disable_all_keys,
     "{s1}You are at tier {reg0} of the tournament, with {reg1} participants remaining. In the next round, there will be {reg2} teams with {reg3} {reg4?fighters:fighter} each.",
     "none",
     [
