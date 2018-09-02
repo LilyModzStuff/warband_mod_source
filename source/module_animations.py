@@ -1933,6 +1933,9 @@ animations = [
 	[1.8, "dancer_2", 0, 17, arf_use_stand_progress|arf_cyclic, 0, (0, 0, 0), 0.25],
 	[1.9, "dancer_3", 0, 18, arf_use_stand_progress|arf_cyclic, 0, (0, 0, 0), 0.25],
  ],
+["dancer_good", acf_enforce_all, amf_priority_die|amf_play,
+	[17.8, "dancer_stand", 0, 177, arf_use_stand_progress|arf_cyclic, 0, (0, 0, 0), 0.25],
+ ],
 
    #Ramaraunt Begin
  ["human_shield_bash", acf_enforce_all, amf_priority_defend_parry|amf_play|amf_restart|amf_client_prediction,
@@ -1950,7 +1953,6 @@ animations = [
 	[1.0, "anim_human", blow+5000, blow+5010, arf_blend_in_3|arf_make_custom_sound],  
   ],
 
- ["unused_human_anim_67", 0, 0, [1.0, "anim_human", 0, 1, 0]],
  ["unused_human_anim_68", 0, 0, [1.0, "anim_human", 0, 1, 0]],
  ["unused_human_anim_69", 0, 0, [1.0, "anim_human", 0, 1, 0]],
  ["unused_human_anim_70", 0, 0, [1.0, "anim_human", 0, 1, 0]],

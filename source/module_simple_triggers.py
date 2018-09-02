@@ -1710,8 +1710,11 @@ simple_triggers = [
   # Process vassal ai
    (2,
    [
-   (assign, "$fuck_stamina", 1), #fucking
-
+   (assign, "$fuck_stamina", 1), #This should actually be based on stats probably
+   (try_begin),
+   (eq, "$cheat_mode", 1),
+   (assign, "$fuck_stamina", 6),
+   (try_end),
    # (try_begin),
        # (neq, "$g_fix_rebel_ladies", 1),
        # (try_for_range, ":cur_troop", kingdom_ladies_begin, kingdom_ladies_end),
