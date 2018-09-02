@@ -52,3 +52,5 @@ mt_fucking = 50
 mt_brothel = 51
 mt_ship_battle = 52
 mt_ship_battle_reversed = 53
+mt_tpe_tournament_standard = 54
+mt_tpe_tournament_native_gear = 55

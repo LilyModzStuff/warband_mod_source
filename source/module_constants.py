@@ -1039,7 +1039,7 @@ slot_troop_relations_begin				= 0 #this creates an array for relations between t
 											#Right now, lords start at 165 and run to around 290, including pretenders
 
                                             
-slot_troop_courtesan                    = 200
+slot_troop_courtesan                    = 158 # The above probably means the previous value of 200 was stepping on someone's toes.
 
 
 ########################################################
