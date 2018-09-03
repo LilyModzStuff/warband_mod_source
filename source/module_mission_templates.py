@@ -4864,8 +4864,8 @@ mission_templates = [
 				(agent_equip_item, ":agent_no", "itm_red_tourney_helmet"),
 				(agent_unequip_item, ":agent_no", "itm_red_tourney_helmet"),
 				(try_begin),
-					(this_or_next|troop_slot_eq, "$troop_id", slot_lord_reputation_type, lrep_ambitious),
-					(troop_slot_eq, "$troop_id", slot_lord_reputation_type, lrep_conventional),
+					(this_or_next|troop_slot_eq, ":troop_id", slot_lord_reputation_type, lrep_ambitious),
+					(troop_slot_eq, ":troop_id", slot_lord_reputation_type, lrep_conventional),
 					(assign, ":anim", "anim_dancer_good"), # I guess they're just more into it.
 				(else_try),
 					(assign, ":anim", "anim_dancer"),

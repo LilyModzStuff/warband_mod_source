@@ -899,38 +899,6 @@ slot_troop_met_previously        = 80
 slot_troop_turned_down_twice     = 81
 slot_troop_playerparty_history   = 82
 
-
-kt_slot_troop_1hprof = 200
-kt_slot_troop_2hprof = 201
-kt_slot_troop_poleprof = 202
-kt_slot_troop_archprof = 203
-kt_slot_troop_xbowprof = 204
-kt_slot_troop_thrwprof = 205
-kt_slot_troop_str = 206
-kt_slot_troop_agi = 207
-kt_slot_troop_int = 208
-kt_slot_troop_cha = 209
-kt_slot_troop_pstrike = 210
-kt_slot_troop_pdraw = 211
-kt_slot_troop_pthrow = 212
-kt_slot_troop_shield = 213
-kt_slot_troop_atheltics = 214
-kt_slot_troop_ironflesh = 215
-kt_slot_troop_o_val = 230
-kt_slot_troop_d_val = 231
-kt_slot_troop_h_val = 232
-kt_slot_troop_type = 233
-
-# kt_slot_troop_type values
-kt_troop_type_footsoldier = 0   # !tf_guarantee_horse AND !tf_guarantee_ranged
-kt_troop_type_cavalry = 1      # !tf_guarantee_ranged AND tf_guarantee_horse
-kt_troop_type_archer = 2      # tf_guarantee_ranged AND !tf_guarnatee_horse
-kt_troop_type_mtdarcher = 3   # tf_guarantee_ranged AND tf_guarantee_horse
-
-
-
-
-
 pp_history_scattered         = 1
 pp_history_dismissed         = 2
 pp_history_quit              = 3
