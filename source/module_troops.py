@@ -284,6 +284,17 @@ troops = [
    [itm_hide_boots],
    str_12|agi_11|level(22),wp(140),knows_common|knows_ironflesh_4|knows_power_strike_3|knows_athletics_3|knows_riding_3|knows_shield_4,mercenary_face_1, mercenary_face_2],
 
+   #Queensblade
+#  ["arena_training_fighter_1","Novice Fighter","Novice Fighters",tf_female|tf_guarantee_boots|tf_guarantee_armor,no_scene,reserved,fac_commoners,
+#   [itm_hide_boots, itm_loincloth],#DtheHun tf_female
+#   str_6|agi_6|level(5),wp(60),knows_common,woman_d_face_1, woman_d_face_2],
+#  ["arena_training_fighter_5","Regular Fighter","Regular Fighters",tf_female|tf_guarantee_boots|tf_guarantee_armor,no_scene,reserved,fac_commoners,
+#   [itm_hide_boots, itm_loincloth],#DtheHun tf_female
+#   str_9|agi_8|level(13),wp(100),knows_common,woman_d_face_1,woman_d_face_2],
+#  ["arena_training_fighter_10","Champion Fighter","Champion Fighters",tf_female|tf_guarantee_boots|tf_guarantee_armor,no_scene,reserved,fac_commoners,
+#   [itm_hide_boots, itm_loincloth],#DtheHun tf_female
+#   str_12|agi_12|level(23),wp(150),knows_common,woman_d_face_1, woman_d_face_2],
+   
   ["arena_training_fighter_1","Novice Fighter","Novice Fighters",tf_guarantee_boots|tf_guarantee_armor,no_scene,reserved,fac_commoners,
    [itm_hide_boots],
    str_6|agi_6|level(5),wp(60),knows_common,mercenary_face_1, mercenary_face_2],
@@ -347,6 +358,12 @@ troops = [
   ["mercenary_cavalry","Mercenary Cavalry","Mercenary Cavalry",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse|tf_guarantee_shield,no_scene,reserved,fac_commoners,
    [itm_heavy_lance,itm_bastard_sword_a,itm_sword_medieval_b,itm_tab_shield_heater_c,itm_cuir_bouilli,itm_banded_armor,itm_hide_boots,itm_kettle_hat,itm_mail_coif,itm_flat_topped_helmet,itm_helmet_with_neckguard,itm_warhorse,itm_hunter],
    def_attrib|level(25),wp(130),knows_common|knows_riding_5|knows_ironflesh_4|knows_shield_5|knows_power_strike_4,mercenary_face_1, mercenary_face_2],
+
+   #Queensblade
+#  ["mercenary_woman","Mercenary Woman","Mercenary Women",tf_female|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet,0,0,fac_commoners,
+#   [itm_bastard_sword_a,itm_sword_medieval_b,itm_sword_medieval_b_small, itm_javelin, itm_plate_covered_round_shield, itm_tab_shield_small_round_c, itm_custom_armor2, itm_scale_armor_dthun, itm_sonja_armor, itm_plate_boots_dthun, itm_angela_boots, itm_diabassa_boots, itm_leather_boots, itm_magyar_helmet_a, itm_shahi, itm_helmet_with_neckguard, itm_angela_helm, itm_leather_gloves],
+#   def_attrib|level(19),wp(100),knows_common|knows_riding_1|knows_shield_3|knows_power_strike_4|knows_power_throw_3|knows_athletics_4|knows_ironflesh_2,woman_d_face_1,woman_d_face_2],
+
   ["mercenaries_end","mercenaries_end","mercenaries_end",0,no_scene,reserved,fac_commoners,
    [],
    def_attrib|level(4),wp(60),knows_common,mercenary_face_1, mercenary_face_2],
@@ -656,7 +673,13 @@ troops = [
   ["looter","Looter","Looters",0,0,0,fac_outlaws,
    [itm_hatchet,itm_club,itm_butchering_knife,itm_falchion,itm_rawhide_coat,itm_stones,itm_nomad_armor,itm_nomad_armor,itm_woolen_cap,itm_woolen_cap,itm_nomad_boots,itm_wrapping_boots],
    def_attrib|level(4),wp(20),knows_common,bandit_face1, bandit_face2],
-  ["bandit","Bandit","Bandits",tf_guarantee_armor,0,0,fac_outlaws,
+
+   #Queensblade
+#  ["looter_woman","Looter Woman","Looter Women",tf_female|tf_guarantee_armor,0,0,fac_outlaws,
+#   [itm_hatchet,itm_club,itm_butchering_knife,itm_falchion,itm_loincloth,itm_loincloth,itm_loin_skirt,itm_stones,itm_woolen_cap, itm_leather_boots, itm_nomad_boots, itm_wrapping_boots],
+#   def_attrib|level(4),wp(20),knows_common,woman_d_face_1,woman_d_face_2],
+
+   ["bandit","Bandit","Bandits",tf_guarantee_armor,0,0,fac_outlaws,
    [itm_arrows,itm_spiked_mace,itm_sword_viking_1,itm_short_bow,itm_falchion,itm_nordic_shield,itm_rawhide_coat,itm_leather_cap,itm_leather_jerkin,itm_nomad_armor,itm_nomad_boots,itm_wrapping_boots,itm_saddle_horse],
    def_attrib|level(10),wp(60),knows_common|knows_power_draw_1,bandit_face1, bandit_face2],
   ["brigand","Brigand","Brigands",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_ranged|tf_guarantee_horse,0,0,fac_outlaws,
@@ -750,6 +773,20 @@ troops = [
    [itm_bolts,itm_sword_medieval_b,itm_sword_khergit_3,itm_plate_covered_round_shield,itm_tab_shield_small_round_c, itm_crossbow,itm_plate_armor,itm_coat_of_plates,itm_plate_boots,itm_guard_helmet,itm_helmet_with_neckguard,itm_courser,itm_leather_gloves],
    def_attrib|level(22),wp(140),knows_common|knows_power_strike_3|knows_riding_5|knows_athletics_3|knows_ironflesh_2|knows_shield_2,refugee_face1,refugee_face2],
 
+	#Queensblade
+  # #DtheHun
+  #["warrior_woman","Warrior Woman","Warrior Women",tf_female|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_ranged|tf_guarantee_shield,0,0,fac_commoners,
+  # [itm_throwing_daggers,itm_fur_covered_shield,itm_hide_covered_round_shield,itm_morningstar,itm_military_cleaver_b,itm_military_cleaver_c, itm_custom_armor1, itm_sonja_armor, itm_khergit_cavalry_helmet, itm_diabassa_boots, itm_leather_boots],
+  # str_14 | agi_14 | int_4 | cha_4|level(16),wp(120),knows_common|knows_riding_1|knows_shield_3|knows_power_strike_4|knows_power_throw_3|knows_athletics_4|knows_ironflesh_4,woman_d_face_1,woman_d_face_2],
+  #["amazon_warrior","Amazon Warrior","Amazon Warriors",tf_female|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield|tf_guarantee_helmet,0,0,fac_commoners,
+  # [itm_sword_medieval_b, itm_sword_khergit_3, itm_javelin, itm_jarid, itm_plate_covered_round_shield, itm_tab_shield_small_round_c, itm_plate_armor_dthun, itm_custom_armor3, itm_plate_boots_dthun, itm_diabassa_boots, itm_angela_boots, itm_lamellar_gauntlets, itm_angela_helm, itm_plate_helm_dthun, itm_helmet_with_neckguard, itm_leather_gloves],
+  # def_attrib|level(28),wp(140),knows_common|knows_power_strike_6|knows_power_throw_6|knows_riding_2|knows_athletics_6|knows_ironflesh_6|knows_shield_6,woman_d_face_1,woman_d_face_2],
+  #["amazon_cavalry","Amazon Cavalry","Amazon Cavalry",tf_female|tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_horse|tf_guarantee_shield,0,0,fac_commoners,
+  # [itm_heavy_lance,itm_bastard_sword_a,itm_sword_medieval_b,itm_tab_shield_heater_c, itm_custom_armor2, itm_scale_armor_dthun, itm_plate_boots_dthun, itm_diabassa_boots, itm_angela_boots, itm_khergit_cavalry_helmet,itm_plate_helm_dthun, itm_angela_helm, itm_arabian_horse_a,itm_hunter],
+  # def_attrib|level(25),wp(130),knows_common|knows_riding_5|knows_athletics_2|knows_ironflesh_4|knows_shield_5|knows_power_strike_4,woman_d_face_1,woman_d_face_2],
+  #/DtheHun   
+  
+  
   ["refugee","Refugee","Refugees",tf_female|tf_guarantee_armor,0,0,fac_commoners,
    [itm_knife,itm_pitch_fork,itm_sickle,itm_hatchet,itm_club,itm_dress,itm_robe,itm_woolen_dress, itm_headcloth, itm_woolen_hood, itm_wrapping_boots],
    def_attrib|level(1),wp(45),knows_common,refugee_face1,refugee_face2],
@@ -939,8 +976,8 @@ troops = [
    knows_riding_2|knows_weapon_master_2|knows_power_strike_2|knows_athletics_3|knows_trainer_1|knows_leadership_1,
 #  0x00000002050052036a1895d0748f3ca30000000000000f0b0000000000000000],
   0x00000002210122036a2895d4648dbca300000000001c0b0b0000000000000000],
-  ["npc7","Deshavi","Deshavi",tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_ragged_outfit,itm_wrapping_boots, itm_hunting_bow, itm_arrows, itm_quarter_staff],
-   str_8|agi_9|int_10|cha_6|level(2),wp(80),knows_tracker_npc|
+  ["npc7","Deshavi","Deshavi",tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_tabard,itm_wrapping_boots, itm_hunting_bow, itm_arrows, itm_quarter_staff],
+   str_8|agi_9|int_10|cha_6|level(2),wp(80),knows_tracker_npc| #itm_loincloth
    knows_tracking_2|knows_athletics_2|knows_spotting_1|knows_pathfinding_1|knows_power_draw_2,
    0x00000001c50840500000000000000e0a00000000000000000000000000000000],
   ["npc8","Matheld","Matheld",tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_tribal_warrior_outfit,itm_nomad_boots, itm_sword_viking_1],
@@ -2604,6 +2641,14 @@ troops = [
  ["new_troops_end","Dark Knight","Dark Knights",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_helmet|tf_guarantee_horse,0,0,fac_dark_knights,
   [itm_spear,itm_great_sword,itm_sword_of_war,itm_morningstar,itm_great_axe,itm_steel_shield,itm_shield_kite_g,itm_steel_shield,itm_shield_heater_d,itm_black_armor,itm_black_greaves,itm_bascinet,itm_guard_helmet,itm_saddle_horse,itm_warhorse,itm_leather_gloves],
    def_attrib|level(33),wp(160),knows_common|knows_riding_6|knows_shield_5|knows_ironflesh_7|knows_power_strike_7,swadian_face_middle_1, swadian_face_older_2], 
+   
+   ["coop_companion_equipment_ui_0","{!}multiplayer_end","{!}multiplayer_end", 0, 0, 0, fac_kingdom_5, [], 0, 0, 0, 0, 0],
+   ["coop_companion_equipment_ui_0_f","{!}multiplayer_end","{!}multiplayer_end", tf_female, 0, 0, fac_kingdom_5, [], 0, 0, 0, 0, 0],
+   ["coop_companion_equipment_ui_1","{!}multiplayer_end","{!}multiplayer_end", 0, 0, 0, fac_kingdom_5, [], 0, 0, 0, 0, 0],
+   ["coop_companion_equipment_ui_1_f","{!}multiplayer_end","{!}multiplayer_end", tf_female, 0, 0, fac_kingdom_5, [], 0, 0, 0, 0, 0],
+   ["coop_companion_equipment_sets_end","{!}multiplayer_end","{!}multiplayer_end", 0, 0, 0, fac_kingdom_5, [], 0, 0, 0, 0, 0],
+
+   
 ]
 
 #Troop upgrade declarations
@@ -2705,6 +2750,14 @@ upgrade(troops,"refugee","follower_woman")
 upgrade(troops,"peasant_woman","follower_woman")
 upgrade(troops,"hunter_woman","fighter_woman")
 upgrade(troops,"fighter_woman","sword_sister")
+
+#upgrade(troops,"follower_woman","hunter_woman")
+#upgrade2(troops,"hunter_woman","fighter_woman", "warrior_woman")
+#upgrade(troops,"looter_woman","warrior_woman")
+#upgrade(troops,"fighter_woman","sword_sister")
+#upgrade2(troops,"warrior_woman","amazon_cavalry","amazon_warrior")
+#upgrade2(troops,"mercenary_woman","amazon_cavalry","amazon_warrior")
+
 # modmerger_start version=201 type=2
 try:
     component_name = "troops"

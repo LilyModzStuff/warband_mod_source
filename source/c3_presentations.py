@@ -53,7 +53,7 @@ presentations = [
 		(try_begin),(lt,reg33,reg29),(val_sub,reg29,reg33),(val_add,reg5,reg29),(assign,reg29,reg33),(try_end),
 		
 		## title
-        (create_text_overlay, reg63, "@Custom Character Creation", tf_center_justify),
+        (create_text_overlay, reg63, "@Dickplomacy Reloaded", tf_center_justify),
         (position_set_x, pos1, 250),
         (position_set_y, pos1, 690),
         (overlay_set_position, reg63, pos1),
@@ -62,7 +62,7 @@ presentations = [
         (overlay_set_size, reg63, pos1),
 		
 		## intro
-		(create_text_overlay, reg63,	"@Welcome, adventurer, to Mount and Blade: Warband."
+		(create_text_overlay, reg63,	"@Welcome, adventurer, to Dickplomacy Reloaded."
 										"^To begin the game you must first create your character."
 										"^In the traditional medieval society depicted in the game,"
 										"^war and politics are usually dominated by noble men."

@@ -356,6 +356,29 @@ skins = [
      "skel_human_female", 1.0, psys_game_blood, psys_game_blood_2,
         
  ),
+ 
+  (
+    "calfwoman", skf_use_morph_key_10,
+    "calfwoman",  "calfwoman_calf_l", "f_handL",
+    "female_head", woman_face_keys,
+    ["woman_hair_p","woman_hair_n","woman_hair_o","woman_hair_q","woman_hair_r","woman_hair_t","woman_hair_s","red_sonja_hair","angela_hair"], #woman_hair_meshes 2/2
+#    ["woman_hair_a","woman_hair_b","woman_hair_c","woman_hair_d","woman_hair_e","woman_hair_f","woman_hair_g"], #woman_hair_meshes
+    [],
+    ["hair_blonde", "hair_red", "hair_brunette", "hair_black", "hair_white"], #hair textures
+    [],
+    [("womanface_young",0xffe3e8ef,["hair_blonde"],[0xffffffff, 0xffb04717, 0xff502a19, 0xff19100c]),
+     ("womanface_b",0xffdfdfdf,["hair_blonde"],[0xffa5481f, 0xff502a19, 0xff19100c, 0xff0c0d19]),
+     ("womanface_a",0xffe8dfe5,["hair_blonde"],[0xff502a19, 0xff19100c, 0xff0c0d19]),
+     ("womanface_brown",0xffd5a777,["hair_blonde"],[0xff19100c, 0xff0c0d19, 0xff007080c]),
+     ("womanface_african",0xff9f8380,["hair_blonde"],[0xff120808, 0xff007080c]),
+	 ("womanface_jolie",0xffe3e8ef,["hair_blonde"],[0xffffffff, 0xffb04717, 0xff502a19, 0xff19100c, 0xff007080c]),
+	 ("womanface_turner",0xffe3e8ef,["hair_blonde"],[0xffffffff, 0xffb04717, 0xff502a19, 0xff19100c, 0xff007080c]),
+#     ("womanface_midage",0xffe5eaf0,["hair_black","hair_brunette","hair_red","hair_white"],[0xffffcded, 0xffbbcded, 0xff99eebb]),
+     ],#woman_face_textures
+    [(voice_die,"snd_woman_die"),(voice_hit,"snd_woman_hit"),(voice_yell,"snd_woman_yell")], #voice sounds
+    "skel_human", 1.0,
+    psys_game_blood,psys_game_blood_2,
+  ),
   
 ##  (
 ##    "undead", 0,

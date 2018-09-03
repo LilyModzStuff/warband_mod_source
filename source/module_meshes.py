@@ -672,6 +672,11 @@ meshes = [
   ("mmc_dice_6", 0, "mmc_dice_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),
 # dices game end 
 ### Dice game ### Dice game ### END ### 
+  
+  ("custom_bg", 0, "meeting_window", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("custom_button_up", 0, "button1_up", 0, 0, 0, 0, 0, 0, 1.4, 1.4, 1.4),
+  ("custom_button_down", 0, "button1_down", 0, 0, 0, 0, 0, 0, 1.4, 1.4, 1.4),
+
 ]
 # modmerger_start version=201 type=2
 try:

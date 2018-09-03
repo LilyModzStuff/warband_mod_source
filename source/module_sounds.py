@@ -230,6 +230,11 @@ sounds = [
  ("dice_roll",sf_priority_10|sf_vol_10, ["dice_roll.wav"]),
 ### Dice game ### Dice game ### END ###
 
+ 
+#DtheHun
+ ("woman_lose_armor",sf_priority_8|sf_vol_9, ["woman_hit_2.ogg","woman_hit_3.ogg","woman_hit_b_7.ogg","woman_yell_1.ogg","woman_yell_2.ogg"]),
+#/DtheHun
+
 ]
 # modmerger_start version=201 type=2
 try:
