@@ -5837,20 +5837,20 @@ simple_triggers = [
    []),
   (24,
    []),
-  (24,
+  (96, # Dummy trigger because removing it crashes saves.
    [
-    (eq, "$g_player_banner_granted", 1),
+    #(eq, "$g_player_banner_granted", 1),
     #(neq, "$g_custom_banner_new_game", 1),
     #(assign, "$g_custom_banner_new_game", 1),
-    (le,"$auto_menu",0),
-    (troop_get_slot, ":flag_spr", "trp_player", slot_troop_custom_banner_flag_type),
-    (lt, ":flag_spr", 0),
-#normal_banner_begin
-#    (start_presentation, "prsnt_banner_selection"),
-#custom_banner_begin
-#    (start_presentation, "prsnt_custom_banner"),
-     (assign, "$g_edit_banner_troop", "trp_player"),
-     (jump_to_menu, "mnu_choose_banner"),
+    #(le,"$auto_menu",0),
+    #(troop_get_slot, ":flag_spr", "trp_player", slot_troop_custom_banner_flag_type),
+    #(lt, ":flag_spr", 0),
+	#normal_banner_begin
+	#    (start_presentation, "prsnt_banner_selection"),
+	#custom_banner_begin
+	#    (start_presentation, "prsnt_custom_banner"),
+    #(assign, "$g_edit_banner_troop", "trp_player"),
+    #(jump_to_menu, "mnu_choose_banner"),
    ]),
   ##diplomacy begin
   #Troop AI Spouse: Spouse thinking

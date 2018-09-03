@@ -163,7 +163,7 @@ def modmerge(var_set):
 		menus[menu_tuple[0]] = Menu(*menu_tuple)
 	
 	# Add customise troops option to town menu in capital
-	menus["town"].insert_option_after(customise_troops_town_option, "castle_station_troops")
+	menus["center_manage"].insert_option_after(customise_troops_town_option, "walled_center_move_court")
 	
 	# Add custom troop menus
 	menus[choose_troop_tree_menu.id] = choose_troop_tree_menu

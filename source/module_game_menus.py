@@ -3451,7 +3451,7 @@ TOTAL:  {reg5}"),
          ]
         ),
 
-      ("camp_fuck_1",[(ge, "$cheat_mode", 1)],"Fuck Test",
+      ("camp_fuck_1",[(ge, "$cheat_mode", 1),(ge, "$g_sexual_content", 1)],"Fuck Test", # Even in cheat mode we should respect content preferances.
        [(jump_to_menu, "mnu_fuck"),
         ]
        ),
@@ -10649,6 +10649,33 @@ TOTAL:  {reg5}"),
      (try_end),
     ],
     [
+      ("walled_center_move_court",
+      [ #SB : move conditions around
+		(neg|party_slot_eq, "$g_encountered_party", slot_party_type, spt_village), # Because it says walled in the name
+        (neg|party_slot_eq, "$current_town", slot_village_state, svs_under_siege),
+        (party_slot_eq, "$current_town", slot_town_lord, "trp_player"),
+        (eq, "$g_encountered_party_faction", "$players_kingdom"),
+        (neq, "$g_player_court", "$current_town"),
+        ##diplomacy start+ Handle player is co-ruler of kingdom
+        (assign, ":is_coruler", 0),
+        (try_begin),
+          (is_between, "$players_kingdom", npc_kingdoms_begin, npc_kingdoms_end),
+          (call_script, "script_dplmc_get_troop_standing_in_faction", "trp_player", "$players_kingdom"),
+          (ge, reg0, DPLMC_FACTION_STANDING_LEADER_SPOUSE),
+          (assign, ":is_coruler", 1),
+        (else_try),
+          (faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
+          (eq, "$g_encountered_party_faction", "fac_player_supporters_faction"),
+          (assign, ":is_coruler", 1),
+        (try_end),
+        (eq, ":is_coruler", 1),
+        
+      ],
+      "Move your court here.",
+      [
+        (jump_to_menu, "mnu_establish_court"),
+      ]),
+
       ("center_build_manor",[(eq, reg6, 0),
                              (party_slot_eq, "$g_encountered_party", slot_party_type, spt_village),
                              (party_slot_eq, "$g_encountered_party", slot_center_has_manor, 0),
@@ -12406,6 +12433,8 @@ TOTAL:  {reg5}"),
            (eq,"$town_nighttime",0),
            (this_or_next|eq,"$entry_to_town_forbidden",0),
            (gt, "$sneaked_into_town", disguise_none),
+		   (eq, 1, 0), # Disabled for now because we're running out of space.
+					   # Can still get here from the town scene.
 #           (party_get_slot, ":scene", "$current_town", slot_town_store),
 #           (scene_slot_eq, ":scene", slot_scene_visited, 1), #check if scene has been visited before to allow entry from menu. Otherwise scene will only be accessible from the town center.
            ],
@@ -12462,8 +12491,8 @@ TOTAL:  {reg5}"),
            (try_end),
         ],"Door to the arena."),
       ("town_dungeon",
-       [(party_slot_eq, "$current_town", slot_town_lord, "trp_player"), #dckplmc: add quick access to dungeon for owner
-        ],
+       #[(party_slot_eq, "$current_town", slot_town_lord, "trp_player"), #dckplmc: add quick access to dungeon for owner
+	   [(eq, 1, 0),], # This was nice but we're running out of menus here.
        "Enter the prison.",
        [
            (try_begin),
@@ -12879,32 +12908,6 @@ TOTAL:  {reg5}"),
            (jump_to_menu, "mnu_center_manage"),
        ]),
 
-      ("walled_center_move_court",
-      [ #SB : move conditions around
-        (neg|party_slot_eq, "$current_town", slot_village_state, svs_under_siege),
-        (party_slot_eq, "$current_town", slot_town_lord, "trp_player"),
-        (eq, "$g_encountered_party_faction", "$players_kingdom"),
-        (neq, "$g_player_court", "$current_town"),
-        ##diplomacy start+ Handle player is co-ruler of kingdom
-        (assign, ":is_coruler", 0),
-        (try_begin),
-          (is_between, "$players_kingdom", npc_kingdoms_begin, npc_kingdoms_end),
-          (call_script, "script_dplmc_get_troop_standing_in_faction", "trp_player", "$players_kingdom"),
-          (ge, reg0, DPLMC_FACTION_STANDING_LEADER_SPOUSE),
-          (assign, ":is_coruler", 1),
-        (else_try),
-          (faction_slot_eq, "fac_player_supporters_faction", slot_faction_leader, "trp_player"),
-          (eq, "$g_encountered_party_faction", "fac_player_supporters_faction"),
-          (assign, ":is_coruler", 1),
-        (try_end),
-        (eq, ":is_coruler", 1),
-
-      ],
-      "Move your court here.",
-      [
-        (jump_to_menu, "mnu_establish_court"),
-      ]),
-
       ("castle_station_troops",
       [
 		(party_get_slot, ":town_lord", "$current_town", slot_town_lord),
@@ -13094,15 +13097,6 @@ TOTAL:  {reg5}"),
         (jump_to_menu, "mnu_collect_taxes"),
       ]),
 	  
-	#	Floris Bank Overhaul	//	Original Idea by Lazeras
-	("town_bank",
-       [(party_slot_eq, "$current_town", slot_party_type, spt_town)],
-       "Visit the landlords and moneylenders.",
-       [	
-			(assign, reg10, 0),
-			(start_presentation, "prsnt_bank"),
-        ]),
-	  
     ##diplomacy begin
       ("dplmc_guild_master_meeting",
        [(party_slot_eq,"$current_town",slot_party_type, spt_town),
@@ -13153,12 +13147,6 @@ TOTAL:  {reg5}"),
 #     ]),
 	 ##nested diplomacy end+
 	  ##diplomacy end
-
-      ("hire_troops",[],
-       "Hire troops.",## You have added a new menu.
-       [
-           (jump_to_menu,"mnu_town_pre_hire_troops"),
-        ]),
 
       ("sail_from_port",
       [
@@ -14603,7 +14591,7 @@ TOTAL:  {reg5}"),
 
   (
     "town_trade",0,
-    "You head towards the marketplace.",
+    "The marketplace is home to shops, inns, warehouses, and merchant hubs. Coming upon the main plaza, you decide where you will go...",
     "none",
     [],
     [
@@ -14618,7 +14606,9 @@ TOTAL:  {reg5}"),
           (jump_to_menu,"mnu_dplmc_trade_auto_sell_begin"),
         ]),
 
-      ("auto_buy_food",[],
+      ("auto_buy_food",[
+	  (eq,1,0), #Disabled because, again, running out of space. Also this is pretty pointless who uses it.
+	  ],
        "Buy food automatically.",
        [
           (assign, "$g_next_menu", "mnu_town"),
@@ -14639,6 +14629,21 @@ TOTAL:  {reg5}"),
            (jump_to_menu,"mnu_town_trade_assessment_begin"),
         ]),
 
+	#	Floris Bank Overhaul	//	Original Idea by Lazeras
+	("town_bank",
+       [(party_slot_eq, "$current_town", slot_party_type, spt_town)],
+       "Visit the landlords and moneylenders.",
+       [	
+			(assign, reg10, 0),
+			(start_presentation, "prsnt_bank"),
+        ]), 
+		
+      ("hire_troops",[],
+       "Look to hire some mercenaries.",## You have added a new menu.
+       [
+           (jump_to_menu,"mnu_town_pre_hire_troops"),
+        ]),
+        
       ("trade_with_arms_merchant",[(party_slot_ge, "$current_town", slot_town_weaponsmith, 1)],
        "Trade with the arms merchant.",
        [
@@ -14811,7 +14816,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
   ),
       (
     "town_pre_hire_troops",0,
-    "You enter a building with several mercenaries, cut-throuts, poor and adventerous warriors. You ask about to gather a overview of who's available for hire.. (this takes 1 hours)",
+    "Upon entering a seedy tavern you note the assortment of mercenaries, cut-throuts, refugees, and adventerous warriors. With some time and a little investigation, they could give you an overview of who's available for hire..^(this takes 1 hours)",
     "none",
     [],
     [
@@ -19082,7 +19087,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 		(assign, "$g_player_court", "$current_town"),
 	    (troop_remove_item, "trp_player", "itm_tools"),
 	    (troop_remove_item, "trp_player", "itm_velvet"),
-        (jump_to_menu, "mnu_town"),
+        (jump_to_menu, "mnu_center_manage"),
        ]),
 
     ("capital_exists",
@@ -19099,7 +19104,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 
       ("continue",[],"Hold off...",
        [
-         (jump_to_menu, "mnu_town"),
+         (jump_to_menu, "mnu_center_manage"),
        ]),
     ]
   ),
