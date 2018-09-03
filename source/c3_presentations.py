@@ -23,7 +23,7 @@ presentations = [
       [
         (presentation_set_duration, 999999),
         (set_fixed_point_multiplier, 1000),
-		
+
 		(assign,reg46,4),
 		(assign,reg30,reg1),(assign,reg31,reg2),(assign,reg32,reg3),(assign,reg33,reg4),
 		(val_div,reg30,3),  (val_div,reg31,3),  (val_div,reg32,3),  (val_div,reg33,3),
@@ -51,18 +51,18 @@ presentations = [
 		(try_begin),(lt,reg33,reg27),(val_sub,reg27,reg33),(val_add,reg5,reg27),(assign,reg27,reg33),(try_end),
 		(try_begin),(lt,reg33,reg28),(val_sub,reg28,reg33),(val_add,reg5,reg28),(assign,reg28,reg33),(try_end),
 		(try_begin),(lt,reg33,reg29),(val_sub,reg29,reg33),(val_add,reg5,reg29),(assign,reg29,reg33),(try_end),
-		
+
 		## title
-        (create_text_overlay, reg63, "@Custom Character Creation", tf_center_justify),
+        (create_text_overlay, reg63, "@Dickplomacy Reloaded", tf_center_justify),
         (position_set_x, pos1, 250),
         (position_set_y, pos1, 690),
         (overlay_set_position, reg63, pos1),
         (position_set_x, pos1, 1500),
         (position_set_y, pos1, 1500),
         (overlay_set_size, reg63, pos1),
-		
+
 		## intro
-		(create_text_overlay, reg63,	"@Welcome, adventurer, to Mount and Blade: Warband."
+		(create_text_overlay, reg63,	"@Welcome, adventurer, to Dickplomacy Reloaded."
 										"^To begin the game you must first create your character."
 										"^In the traditional medieval society depicted in the game,"
 										"^war and politics are usually dominated by noble men."
@@ -81,7 +81,7 @@ presentations = [
         (position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
         (overlay_set_size, reg63, pos1),
-		
+
 		## Gender
         (create_text_overlay, reg63, "@Gender", tf_center_justify),
 		(position_set_x, pos1, 250),
@@ -90,7 +90,7 @@ presentations = [
         (position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
         (overlay_set_size, reg63, pos1),
-		
+
         (create_combo_button_overlay, "$c3_presentation_gender", tf_center_justify),
 		(position_set_x, pos1, 275),
 		(position_set_y, pos1, 370),
@@ -101,7 +101,7 @@ presentations = [
         (overlay_add_item, "$c3_presentation_gender", "@Man"),
 		(overlay_add_item, "$c3_presentation_gender", "@Woman"),
         (overlay_set_val, "$c3_presentation_gender", "$character_gender"),
-		
+
 		## Status
 		(create_text_overlay, reg63, "@Status", tf_center_justify),
 		(position_set_x, pos1, 250),
@@ -110,7 +110,7 @@ presentations = [
         (position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
         (overlay_set_size, reg63, pos1),
-		
+
 		(create_combo_button_overlay, "$c3_presentation_status"),
 		(position_set_x, pos1, 275),
 		(position_set_y, pos1, 310),
@@ -124,7 +124,7 @@ presentations = [
         (overlay_add_item, "$c3_presentation_status", "@Noble (free)"), #2 now 3
         (overlay_add_item, "$c3_presentation_status", "@Commoner"), #3 now 4
 		(overlay_set_val, "$c3_presentation_status", "$c3_status"),
-		
+
 		## Start?
 		(create_text_overlay, "$status_response", "@Traveling to?", tf_center_justify),
 		(position_set_x, pos1, 250),
@@ -133,7 +133,7 @@ presentations = [
         (position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
         (overlay_set_size, "$status_response", pos1),
-		
+
         (create_combo_button_overlay, "$c3_start_option"),
 		(position_set_x, pos1, 275),
 		(position_set_y, pos1, 250),
@@ -148,7 +148,7 @@ presentations = [
 		(overlay_add_item, "$c3_start_option", "@Kingdom of Vaegir"), #4
         (overlay_add_item, "$c3_start_option", "@Kingdom of Swadia"), #5
 		(overlay_set_val, "$c3_start_option", "$c3_start"),
-		
+
 		#status text response
 		(try_begin), # if vassal noble or monarch (kingdom)
 			(this_or_next|eq, "$c3_status", 0),
@@ -158,11 +158,11 @@ presentations = [
 			(eq, "$c3_status", 1),
 			(overlay_set_text, "$status_response", "@Of which culture?"),
 		(try_end),
-		
+
 		####################################################
 		####              Attributes					####
 		####################################################
-		
+
 		(create_text_overlay, reg63, "@Attributes", tf_center_justify),
 		(position_set_x, pos1, 1100),
         (position_set_y, pos1, 1100),
@@ -171,7 +171,7 @@ presentations = [
         (position_set_y, pos1, 680),
         (overlay_set_position, reg63, pos1),
 		(overlay_set_color, reg63, 0x000040),
-		
+
 		##########################
 		####      strength    ####
 		(create_button_overlay, "$strength_label", "@Str:", tf_left_align),
@@ -183,7 +183,7 @@ presentations = [
         (overlay_set_position, "$strength_label", pos1),
 		#(overlay_set_color, "$strength_label", 0x000020),
 		(overlay_set_hilight_color, "$strength_label", 0x0000FF),
-		
+
 		(create_text_overlay, reg63, "@{reg1}", tf_right_align),
         (position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -191,7 +191,7 @@ presentations = [
 		(position_set_x, pos1, 708),
         (position_set_y, pos1, 660), #change
         (overlay_set_position, reg63, pos1),
-		
+
 		(create_game_button_overlay,"$strength_add","@+"),
 		(position_set_x, pos1, 14),
         (position_set_y, pos1, 14),
@@ -199,7 +199,7 @@ presentations = [
 		(position_set_x, pos1, 721),
         (position_set_y, pos1, 665), #+5
         (overlay_set_position, "$strength_add", pos1),
-		
+
 		(create_text_overlay, "$strength_+", "@+", tf_center_justify),
 		(position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
@@ -207,7 +207,7 @@ presentations = [
 		(position_set_x, pos1, 719),
         (position_set_y, pos1, 660), #same
         (overlay_set_position, "$strength_+", pos1),
-		
+
 		(create_text_overlay, "$strength_desc", "@Strength: Every point adds +1 to^hit points. The following skills can^not be developed beyond 1/3 of^Strength: Ironflesh, Power Strike,^Power Throw, Power Draw.", tf_left_align),
         (position_set_x, pos1, 800),
         (position_set_y, pos1, 800),
@@ -216,7 +216,7 @@ presentations = [
         (position_set_y, pos1, 467),
         (overlay_set_position, "$strength_desc", pos1),
 		(overlay_set_display, "$strength_desc", 0),
-		
+
 		#############################
 		######      agility		#####
 		(create_button_overlay, "$agility_label", "@Agi:", tf_left_align),
@@ -228,7 +228,7 @@ presentations = [
         (overlay_set_position, "$agility_label", pos1),
 		#(overlay_set_color, "$agility_label", 0x000020),
 		(overlay_set_hilight_color, "$agility_label", 0x0000FF),
-		
+
 		(create_text_overlay, reg63, "@{reg2}", tf_right_align),
         (position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -236,7 +236,7 @@ presentations = [
 		(position_set_x, pos1, 708),
         (position_set_y, pos1, 640), #change
         (overlay_set_position, reg63, pos1),
-		
+
 		(create_game_button_overlay,"$agility_add","@+"),
 		(position_set_x, pos1, 14),
         (position_set_y, pos1, 14),
@@ -244,7 +244,7 @@ presentations = [
 		(position_set_x, pos1, 721),
         (position_set_y, pos1, 645), #+5
         (overlay_set_position, "$agility_add", pos1),
-		
+
 		(create_text_overlay, "$agility_+", "@+", tf_center_justify),
 		(position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
@@ -252,7 +252,7 @@ presentations = [
 		(position_set_x, pos1, 719),
         (position_set_y, pos1, 640), #same
         (overlay_set_position, "$agility_+", pos1),
-		
+
 		(create_text_overlay, "$agility_desc", "@Agility: Each point gives five^weapon points and slightly^increases movement speed. The^following skills can not be^developed beyond 1/3 of Agility:^Weapon Master, Shield, Athletics,^Riding, Horse Archery, Looting.", tf_left_align),
         (position_set_x, pos1, 800),
         (position_set_y, pos1, 800),
@@ -261,7 +261,7 @@ presentations = [
         (position_set_y, pos1, 438),
         (overlay_set_position, "$agility_desc", pos1),
 		(overlay_set_display, "$agility_desc", 0),
-		
+
 		#############################
 		######   intelligence	#####
 		(create_button_overlay, "$intelligence_label", "@Int:", tf_left_align),
@@ -273,7 +273,7 @@ presentations = [
         (overlay_set_position, "$intelligence_label", pos1),
 		#(overlay_set_color, "$intelligence_label", 0x000020),
 		(overlay_set_hilight_color, "$intelligence_label", 0x0000FF),
-		
+
 		(create_text_overlay, reg63, "@{reg3}", tf_right_align),
         (position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -281,7 +281,7 @@ presentations = [
 		(position_set_x, pos1, 708),
         (position_set_y, pos1, 620), #change
         (overlay_set_position, reg63, pos1),
-		
+
 		(create_game_button_overlay,"$intelligence_add","@+"),
 		(position_set_x, pos1, 14),
         (position_set_y, pos1, 14),
@@ -289,7 +289,7 @@ presentations = [
 		(position_set_x, pos1, 721),
         (position_set_y, pos1, 625), #+5
         (overlay_set_position, "$intelligence_add", pos1),
-		
+
 		(create_text_overlay, "$intelligence_+", "@+", tf_center_justify),
 		(position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
@@ -297,7 +297,7 @@ presentations = [
 		(position_set_x, pos1, 719),
         (position_set_y, pos1, 620), #same
         (overlay_set_position, "$intelligence_+", pos1),
-		
+
 		(create_text_overlay, "$intelligence_desc", "@Intelligence: Every point gives one^extra skill point. The following^skills can not be developed^beyond 1/3 of Intelligence: Trainer,^Tracking, Tactics, Path-finding,^Spotting, Inventory Management,^Wount Treatment, Surgery,^First Aid, Engineer, Persuasion.^^*extra skill points will be given^on next screen", tf_left_align),
         (position_set_x, pos1, 800),
         (position_set_y, pos1, 800),
@@ -306,7 +306,7 @@ presentations = [
         (position_set_y, pos1, 381),
         (overlay_set_position, "$intelligence_desc", pos1),
 		(overlay_set_display, "$intelligence_desc", 0),
-		
+
 		#############################
 		######    charisma		#####
 		(create_button_overlay, "$charisma_label", "@Cha:", tf_left_align),
@@ -318,7 +318,7 @@ presentations = [
         (overlay_set_position, "$charisma_label", pos1),
 		#(overlay_set_color, "$charisma_label", 0x000020),
 		(overlay_set_hilight_color, "$charisma_label", 0x0000FF),
-		
+
 		(create_text_overlay, reg63, "@{reg4}", tf_right_align),
         (position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -326,7 +326,7 @@ presentations = [
 		(position_set_x, pos1, 708),
         (position_set_y, pos1, 600), #change
         (overlay_set_position, reg63, pos1),
-		
+
 		(create_game_button_overlay,"$charisma_add","@+"),
 		(position_set_x, pos1, 14),
         (position_set_y, pos1, 14),
@@ -334,7 +334,7 @@ presentations = [
 		(position_set_x, pos1, 721),
         (position_set_y, pos1, 605), #+5
         (overlay_set_position, "$charisma_add", pos1),
-		
+
 		(create_text_overlay, "$charisma_+", "@+", tf_center_justify),
 		(position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
@@ -342,7 +342,7 @@ presentations = [
 		(position_set_x, pos1, 719),
         (position_set_y, pos1, 600), #same
         (overlay_set_position, "$charisma_+", pos1),
-		
+
 		(create_text_overlay, "$charisma_desc", "@Charisma: Each point increases^party size limit by +1. The^following skills can not be^developed beyond 1/3 of Charisma:^Prisoner Management, Leadership,^Trade.", tf_left_align),
         (position_set_x, pos1, 800),
         (position_set_y, pos1, 800),
@@ -351,7 +351,7 @@ presentations = [
         (position_set_y, pos1, 452),
         (overlay_set_position, "$charisma_desc", pos1),
 		(overlay_set_display, "$charisma_desc", 0),
-		
+
 		#############################
 		######      points		#####
 		(create_text_overlay, reg63, "@points:", tf_center_justify),
@@ -362,7 +362,7 @@ presentations = [
         (position_set_y, pos1, 580),
         (overlay_set_position, reg63, pos1),
 		#(overlay_set_color, reg63, 0x000020),
-		
+
 		(create_text_overlay, reg63, "@{reg0}", tf_left_align),
 		(position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -370,11 +370,11 @@ presentations = [
 		(position_set_x, pos1, 631),
         (position_set_y, pos1, 580),
         (overlay_set_position, reg63, pos1),
-		
+
 		####################################################
 		####              Skills						####
 		####################################################
-		
+
 		(create_text_overlay, reg63, "@Skills", tf_center_justify),
 		(position_set_x, pos1, 1100),
         (position_set_y, pos1, 1100),
@@ -383,7 +383,7 @@ presentations = [
         (position_set_y, pos1, 680),
         (overlay_set_position, reg63, pos1),
 		(overlay_set_color, reg63, 0x004000),
-		
+
 		#############################
 		######    ironflesh		#####
 		(create_button_overlay, "$ironflesh_label", "@Ironflesh", tf_left_align),
@@ -395,7 +395,7 @@ presentations = [
         (overlay_set_position, "$ironflesh_label", pos1),
 		#(overlay_set_color, "$ironflesh_label", 0x002000),
 		(overlay_set_hilight_color, "$ironflesh_label", 0x00FF00),
-		
+
 		(create_text_overlay, reg63, "@{reg6}", tf_right_align),
         (position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -403,7 +403,7 @@ presentations = [
 		(position_set_x, pos1, 945),
         (position_set_y, pos1, 660), #change
         (overlay_set_position, reg63, pos1),
-		
+
 		(create_game_button_overlay,"$ironflesh_add","@+"),
 		(position_set_x, pos1, 14),
         (position_set_y, pos1, 14),
@@ -411,7 +411,7 @@ presentations = [
 		(position_set_x, pos1, 960),
         (position_set_y, pos1, 665), #+5
         (overlay_set_position, "$ironflesh_add", pos1),
-		
+
 		(create_text_overlay, "$ironflesh_+", "@+", tf_center_justify),
 		(position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
@@ -419,7 +419,7 @@ presentations = [
 		(position_set_x, pos1, 958),
         (position_set_y, pos1, 660), #same
         (overlay_set_position, "$ironflesh_+", pos1),
-		
+
 		(create_text_overlay, "$ironflesh_desc", "@Each point to this skill increases ^hit points by +2.^(Personal skill)^^^^^^^^Base Attribute: Strength", tf_left_align),
         (position_set_x, pos1, 800),
         (position_set_y, pos1, 800),
@@ -428,7 +428,7 @@ presentations = [
         (position_set_y, pos1, 380),
         (overlay_set_position, "$ironflesh_desc", pos1),
 		(overlay_set_display, "$ironflesh_desc", 0),
-		
+
 		# power strike
 		(create_button_overlay, "$power_strike_label", "@Power Strike", tf_left_align),
         (position_set_x, pos1, 900),
@@ -439,7 +439,7 @@ presentations = [
         (overlay_set_position, "$power_strike_label", pos1),
 		#(overlay_set_color, "$power_strike_label", 0x002000),
 		(overlay_set_hilight_color, "$power_strike_label", 0x00FF00),
-		
+
 		(create_text_overlay, reg63, "@{reg7}", tf_right_align),
         (position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -447,7 +447,7 @@ presentations = [
 		(position_set_x, pos1, 945),
         (position_set_y, pos1, 640), #change
         (overlay_set_position, reg63, pos1),
-		
+
 		(create_game_button_overlay,"$power_strike_add","@+"),
 		(position_set_x, pos1, 14),
         (position_set_y, pos1, 14),
@@ -455,7 +455,7 @@ presentations = [
 		(position_set_x, pos1, 960),
         (position_set_y, pos1, 645), #+5
         (overlay_set_position, "$power_strike_add", pos1),
-		
+
 		(create_text_overlay, "$power_strike_+", "@+", tf_center_justify),
 		(position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
@@ -463,7 +463,7 @@ presentations = [
 		(position_set_x, pos1, 958),
         (position_set_y, pos1, 640), #same
         (overlay_set_position, "$power_strike_+", pos1),
-		
+
 		(create_text_overlay, "$power_strike_desc", "@Each point to this skill increases ^melee damage by 8%.^(Personal skill)^^^^^^^^Base Attribute: Strength", tf_left_align),
         (position_set_x, pos1, 800),
         (position_set_y, pos1, 800),
@@ -472,7 +472,7 @@ presentations = [
         (position_set_y, pos1, 380),
         (overlay_set_position, "$power_strike_desc", pos1),
 		(overlay_set_display, "$power_strike_desc", 0),
-		
+
 		#power throw
 		(create_button_overlay, "$power_throw_label", "@Power Throw", tf_left_align),
         (position_set_x, pos1, 900),
@@ -483,7 +483,7 @@ presentations = [
         (overlay_set_position, "$power_throw_label", pos1),
 		#(overlay_set_color, "$power_throw_label", 0x002000),
 		(overlay_set_hilight_color, "$power_throw_label", 0x00FF00),
-		
+
 		(create_text_overlay, reg63, "@{reg8}", tf_right_align),
         (position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -491,7 +491,7 @@ presentations = [
 		(position_set_x, pos1, 945),
         (position_set_y, pos1, 620), #change
         (overlay_set_position, reg63, pos1),
-		
+
 		(create_game_button_overlay,"$power_throw_add","@+"),
 		(position_set_x, pos1, 14),
         (position_set_y, pos1, 14),
@@ -499,7 +499,7 @@ presentations = [
 		(position_set_x, pos1, 960),
         (position_set_y, pos1, 625), #+5
         (overlay_set_position, "$power_throw_add", pos1),
-		
+
 		(create_text_overlay, "$power_throw_+", "@+", tf_center_justify),
 		(position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
@@ -507,7 +507,7 @@ presentations = [
 		(position_set_x, pos1, 958),
         (position_set_y, pos1, 620), #same
         (overlay_set_position, "$power_throw_+", pos1),
-		
+
 		(create_text_overlay, "$power_throw_desc", "@Each point to this skill increases ^throwing damage by 10%.^(Personal skill)^^^^^^^^Base Attribute: Strength", tf_left_align),
         (position_set_x, pos1, 800),
         (position_set_y, pos1, 800),
@@ -516,7 +516,7 @@ presentations = [
         (position_set_y, pos1, 380),
         (overlay_set_position, "$power_throw_desc", pos1),
 		(overlay_set_display, "$power_throw_desc", 0),
-		
+
 		#power draw
 		(create_button_overlay, "$power_draw_label", "@Power Draw", tf_left_align),
         (position_set_x, pos1, 900),
@@ -527,7 +527,7 @@ presentations = [
         (overlay_set_position, "$power_draw_label", pos1),
 		#(overlay_set_color, "$power_draw_label", 0x002000),
 		(overlay_set_hilight_color, "$power_draw_label", 0x00FF00),
-		
+
 		(create_text_overlay, reg63, "@{reg9}", tf_right_align),
         (position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -535,7 +535,7 @@ presentations = [
 		(position_set_x, pos1, 945),
         (position_set_y, pos1, 600), #change
         (overlay_set_position, reg63, pos1),
-		
+
 		(create_game_button_overlay,"$power_draw_add","@+"),
 		(position_set_x, pos1, 14),
         (position_set_y, pos1, 14),
@@ -543,7 +543,7 @@ presentations = [
 		(position_set_x, pos1, 960),
         (position_set_y, pos1, 605), #+5
         (overlay_set_position, "$power_draw_add", pos1),
-		
+
 		(create_text_overlay, "$power_draw_+", "@+", tf_center_justify),
 		(position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
@@ -551,7 +551,7 @@ presentations = [
 		(position_set_x, pos1, 958),
         (position_set_y, pos1, 600), #same
         (overlay_set_position, "$power_draw_+", pos1),
-		
+
 		(create_text_overlay, "$power_draw_desc", "@Lets character use more powerful ^bows. Each point to this skill (up^to four plus power-draw^requirement of the bow)^increases bow damage by 14%.^(Personal skill)^^^^^Base Attribute: Strength", tf_left_align),
         (position_set_x, pos1, 800),
         (position_set_y, pos1, 800),
@@ -560,7 +560,7 @@ presentations = [
         (position_set_y, pos1, 380),
         (overlay_set_position, "$power_draw_desc", pos1),
 		(overlay_set_display, "$power_draw_desc", 0),
-		
+
 		#weapon master
 		(create_button_overlay, "$weapon_master_label", "@Weapon Master", tf_left_align),
         (position_set_x, pos1, 900),
@@ -571,7 +571,7 @@ presentations = [
         (overlay_set_position, "$weapon_master_label", pos1),
 		#(overlay_set_color, "$weapon_master_label", 0x002000),
 		(overlay_set_hilight_color, "$weapon_master_label", 0x00FF00),
-		
+
 		(create_text_overlay, reg63, "@{reg10}", tf_right_align),
         (position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -579,7 +579,7 @@ presentations = [
 		(position_set_x, pos1, 945),
         (position_set_y, pos1, 580), #change
         (overlay_set_position, reg63, pos1),
-		
+
 		(create_game_button_overlay,"$weapon_master_add","@+"),
 		(position_set_x, pos1, 14),
         (position_set_y, pos1, 14),
@@ -587,7 +587,7 @@ presentations = [
 		(position_set_x, pos1, 960),
         (position_set_y, pos1, 585), #+5
         (overlay_set_position, "$weapon_master_add", pos1),
-		
+
 		(create_text_overlay, "$weapon_master_+", "@+", tf_center_justify),
 		(position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
@@ -595,7 +595,7 @@ presentations = [
 		(position_set_x, pos1, 958),
         (position_set_y, pos1, 580), #same
         (overlay_set_position, "$weapon_master_+", pos1),
-		
+
 		(create_text_overlay, "$weapon_master_desc", "@Makes it easier to learn weapon^proficiencies and increases the^proficiency limits. Limits go as:^60, 100, 140, 180, 220, 260, 300,^340, 380, 420.^(Personal skill)^^^^^Base Attribute: Agility", tf_left_align),
         (position_set_x, pos1, 800),
         (position_set_y, pos1, 800),
@@ -604,7 +604,7 @@ presentations = [
         (position_set_y, pos1, 380),
         (overlay_set_position, "$weapon_master_desc", pos1),
 		(overlay_set_display, "$weapon_master_desc", 0),
-		
+
 		#shield
 		(create_button_overlay, "$shield_label", "@Shield", tf_left_align),
         (position_set_x, pos1, 900),
@@ -615,7 +615,7 @@ presentations = [
         (overlay_set_position, "$shield_label", pos1),
 		#(overlay_set_color, "$shield_label", 0x002000),
 		(overlay_set_hilight_color, "$shield_label", 0x00FF00),
-		
+
 		(create_text_overlay, reg63, "@{reg11}", tf_right_align),
         (position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -623,7 +623,7 @@ presentations = [
 		(position_set_x, pos1, 945),
         (position_set_y, pos1, 560), #change
         (overlay_set_position, reg63, pos1),
-		
+
 		(create_game_button_overlay,"$shield_add","@+"),
 		(position_set_x, pos1, 14),
         (position_set_y, pos1, 14),
@@ -631,7 +631,7 @@ presentations = [
 		(position_set_x, pos1, 960),
         (position_set_y, pos1, 565), #+5
         (overlay_set_position, "$shield_add", pos1),
-		
+
 		(create_text_overlay, "$shield_+", "@+", tf_center_justify),
 		(position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
@@ -639,7 +639,7 @@ presentations = [
 		(position_set_x, pos1, 958),
         (position_set_y, pos1, 560), #same
         (overlay_set_position, "$shield_+", pos1),
-		
+
 		(create_text_overlay, "$shield_desc", "@Reduces damage to shields (by 8%^per skill level) and improves^shield speed and coverage.^(Personal skill)^^^^^^^Base Attribute: Agility", tf_left_align),
         (position_set_x, pos1, 800),
         (position_set_y, pos1, 800),
@@ -648,7 +648,7 @@ presentations = [
         (position_set_y, pos1, 380),
         (overlay_set_position, "$shield_desc", pos1),
 		(overlay_set_display, "$shield_desc", 0),
-		
+
 		#athletics
 		(create_button_overlay, "$athletics_label", "@Athletics", tf_left_align),
         (position_set_x, pos1, 900),
@@ -659,7 +659,7 @@ presentations = [
         (overlay_set_position, "$athletics_label", pos1),
 		#(overlay_set_color, "$athletics_label", 0x002000),
 		(overlay_set_hilight_color, "$athletics_label", 0x00FF00),
-		
+
 		(create_text_overlay, reg63, "@{reg12}", tf_right_align),
         (position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -667,7 +667,7 @@ presentations = [
 		(position_set_x, pos1, 945),
         (position_set_y, pos1, 540), #change
         (overlay_set_position, reg63, pos1),
-		
+
 		(create_game_button_overlay,"$athletics_add","@+"),
 		(position_set_x, pos1, 14),
         (position_set_y, pos1, 14),
@@ -675,7 +675,7 @@ presentations = [
 		(position_set_x, pos1, 960),
         (position_set_y, pos1, 545), #+5
         (overlay_set_position, "$athletics_add", pos1),
-		
+
 		(create_text_overlay, "$athletics_+", "@+", tf_center_justify),
 		(position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
@@ -683,7 +683,7 @@ presentations = [
 		(position_set_x, pos1, 958),
         (position_set_y, pos1, 540), #same
         (overlay_set_position, "$athletics_+", pos1),
-		
+
 		(create_text_overlay, "$athletics_desc", "@Improves your running speed.^(Personal skill)^^^^^^^^^Base Attribute: Agility", tf_left_align),
         (position_set_x, pos1, 800),
         (position_set_y, pos1, 800),
@@ -692,7 +692,7 @@ presentations = [
         (position_set_y, pos1, 380),
         (overlay_set_position, "$athletics_desc", pos1),
 		(overlay_set_display, "$athletics_desc", 0),
-		
+
 		#riding
 		(create_button_overlay, "$riding_label", "@Riding", tf_left_align),
         (position_set_x, pos1, 900),
@@ -703,7 +703,7 @@ presentations = [
         (overlay_set_position, "$riding_label", pos1),
 		#(overlay_set_color, "$riding_label", 0x002000),
 		(overlay_set_hilight_color, "$riding_label", 0x00FF00),
-		
+
 		(create_text_overlay, reg63, "@{reg13}", tf_right_align),
         (position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -711,7 +711,7 @@ presentations = [
 		(position_set_x, pos1, 945),
         (position_set_y, pos1, 520), #change
         (overlay_set_position, reg63, pos1),
-		
+
 		(create_game_button_overlay,"$riding_add","@+"),
 		(position_set_x, pos1, 14),
         (position_set_y, pos1, 14),
@@ -719,7 +719,7 @@ presentations = [
 		(position_set_x, pos1, 960),
         (position_set_y, pos1, 525), #+5
         (overlay_set_position, "$riding_add", pos1),
-		
+
 		(create_text_overlay, "$riding_+", "@+", tf_center_justify),
 		(position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
@@ -727,7 +727,7 @@ presentations = [
 		(position_set_x, pos1, 958),
         (position_set_y, pos1, 520), #same
         (overlay_set_position, "$riding_+", pos1),
-		
+
 		(create_text_overlay, "$riding_desc", "@Enables you to ride horses of^higher difficulty levels and^increases your riding speed and^manuever.^(Personal skill)^^^^^^Base Attribute: Agility", tf_left_align),
         (position_set_x, pos1, 800),
         (position_set_y, pos1, 800),
@@ -736,7 +736,7 @@ presentations = [
         (position_set_y, pos1, 380),
         (overlay_set_position, "$riding_desc", pos1),
 		(overlay_set_display, "$riding_desc", 0),
-		
+
 		#horse archery
 		(create_button_overlay, "$horse_archery_label", "@Horse Archery", tf_left_align),
         (position_set_x, pos1, 900),
@@ -747,7 +747,7 @@ presentations = [
         (overlay_set_position, "$horse_archery_label", pos1),
 		#(overlay_set_color, "$horse_archery_label", 0x002000),
 		(overlay_set_hilight_color, "$horse_archery_label", 0x00FF00),
-		
+
 		(create_text_overlay, reg63, "@{reg14}", tf_right_align),
         (position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -755,7 +755,7 @@ presentations = [
 		(position_set_x, pos1, 945),
         (position_set_y, pos1, 500), #change
         (overlay_set_position, reg63, pos1),
-		
+
 		(create_game_button_overlay,"$horse_archery_add","@+"),
 		(position_set_x, pos1, 14),
         (position_set_y, pos1, 14),
@@ -763,7 +763,7 @@ presentations = [
 		(position_set_x, pos1, 960),
         (position_set_y, pos1, 505), #+5
         (overlay_set_position, "$horse_archery_add", pos1),
-		
+
 		(create_text_overlay, "$horse_archery_+", "@+", tf_center_justify),
 		(position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
@@ -771,7 +771,7 @@ presentations = [
 		(position_set_x, pos1, 958),
         (position_set_y, pos1, 500), #same
         (overlay_set_position, "$horse_archery_+", pos1),
-		
+
 		(create_text_overlay, "$horse_archery_desc", "@Reduces damage and accuracy^penalties for archery and^throwing from horseback.^(Personal skill)^^^^^^^Base Attribute: Agility", tf_left_align),
         (position_set_x, pos1, 800),
         (position_set_y, pos1, 800),
@@ -780,7 +780,7 @@ presentations = [
         (position_set_y, pos1, 380),
         (overlay_set_position, "$horse_archery_desc", pos1),
 		(overlay_set_display, "$horse_archery_desc", 0),
-		
+
 		#looting
 		(create_button_overlay, "$looting_label", "@Looting", tf_left_align),
         (position_set_x, pos1, 900),
@@ -791,7 +791,7 @@ presentations = [
         (overlay_set_position, "$looting_label", pos1),
 		#(overlay_set_color, "$looting_label", 0x002000),
 		(overlay_set_hilight_color, "$looting_label", 0x00FF00),
-		
+
 		(create_text_overlay, reg63, "@{reg15}", tf_right_align),
         (position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -799,7 +799,7 @@ presentations = [
 		(position_set_x, pos1, 945),
         (position_set_y, pos1, 480), #change
         (overlay_set_position, reg63, pos1),
-		
+
 		(create_game_button_overlay,"$looting_add","@+"),
 		(position_set_x, pos1, 14),
         (position_set_y, pos1, 14),
@@ -807,7 +807,7 @@ presentations = [
 		(position_set_x, pos1, 960),
         (position_set_y, pos1, 485), #+5
         (overlay_set_position, "$looting_add", pos1),
-		
+
 		(create_text_overlay, "$looting_+", "@+", tf_center_justify),
 		(position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
@@ -815,7 +815,7 @@ presentations = [
 		(position_set_x, pos1, 958),
         (position_set_y, pos1, 480), #same
         (overlay_set_position, "$looting_+", pos1),
-		
+
 		(create_text_overlay, "$looting_desc", "@This skill increases the amount^of loot obtained by 10% per^skill level.^(Party skill)^^^^^^^Base Attribute: Agility", tf_left_align),
         (position_set_x, pos1, 800),
         (position_set_y, pos1, 800),
@@ -824,7 +824,7 @@ presentations = [
         (position_set_y, pos1, 380),
         (overlay_set_position, "$looting_desc", pos1),
 		(overlay_set_display, "$looting_desc", 0),
-		
+
 		#trainer
 		(create_button_overlay, "$trainer_label", "@Trainer", tf_left_align),
         (position_set_x, pos1, 900),
@@ -835,7 +835,7 @@ presentations = [
         (overlay_set_position, "$trainer_label", pos1),
 		#(overlay_set_color, "$trainer_label", 0x002000),
 		(overlay_set_hilight_color, "$trainer_label", 0x00FF00),
-		
+
 		(create_text_overlay, reg63, "@{reg16}", tf_right_align),
         (position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -843,7 +843,7 @@ presentations = [
 		(position_set_x, pos1, 945),
         (position_set_y, pos1, 460), #change
         (overlay_set_position, reg63, pos1),
-		
+
 		(create_game_button_overlay,"$trainer_add","@+"),
 		(position_set_x, pos1, 14),
         (position_set_y, pos1, 14),
@@ -851,7 +851,7 @@ presentations = [
 		(position_set_x, pos1, 960),
         (position_set_y, pos1, 465), #+5
         (overlay_set_position, "$trainer_add", pos1),
-		
+
 		(create_text_overlay, "$trainer_+", "@+", tf_center_justify),
 		(position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
@@ -859,7 +859,7 @@ presentations = [
 		(position_set_x, pos1, 958),
         (position_set_y, pos1, 460), #same
         (overlay_set_position, "$trainer_+", pos1),
-		
+
 		(create_text_overlay, "$trainer_desc", "@Every day, each hero with this^skill adds some experience to^every other member of the party^whose level is lower than his/hers.^Experience gained goes as: (0,4,10,^16,23,30,38,46,55,65,80)^(Personal skill)^^^^Base Attribute: Intelligence", tf_left_align),
         (position_set_x, pos1, 800),
         (position_set_y, pos1, 800),
@@ -868,7 +868,7 @@ presentations = [
         (position_set_y, pos1, 380),
         (overlay_set_position, "$trainer_desc", pos1),
 		(overlay_set_display, "$trainer_desc", 0),
-		
+
 		#tracking
 		(create_button_overlay, "$tracking_label", "@Tracking", tf_left_align),
         (position_set_x, pos1, 900),
@@ -879,7 +879,7 @@ presentations = [
         (overlay_set_position, "$tracking_label", pos1),
 		#(overlay_set_color, "$tracking_label", 0x002000),
 		(overlay_set_hilight_color, "$tracking_label", 0x00FF00),
-		
+
 		(create_text_overlay, reg63, "@{reg17}", tf_right_align),
         (position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -887,7 +887,7 @@ presentations = [
 		(position_set_x, pos1, 945),
         (position_set_y, pos1, 440), #change
         (overlay_set_position, reg63, pos1),
-		
+
 		(create_game_button_overlay,"$tracking_add","@+"),
 		(position_set_x, pos1, 14),
         (position_set_y, pos1, 14),
@@ -895,7 +895,7 @@ presentations = [
 		(position_set_x, pos1, 960),
         (position_set_y, pos1, 445), #+5
         (overlay_set_position, "$tracking_add", pos1),
-		
+
 		(create_text_overlay, "$tracking_+", "@+", tf_center_justify),
 		(position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
@@ -903,7 +903,7 @@ presentations = [
 		(position_set_x, pos1, 958),
         (position_set_y, pos1, 440), #same
         (overlay_set_position, "$tracking_+", pos1),
-		
+
 		(create_text_overlay, "$tracking_desc", "@Tracks become more informative.^(Party skill)^^^^^^^^^Base Attribute: Intelligence", tf_left_align),
         (position_set_x, pos1, 800),
         (position_set_y, pos1, 800),
@@ -912,7 +912,7 @@ presentations = [
         (position_set_y, pos1, 380),
         (overlay_set_position, "$tracking_desc", pos1),
 		(overlay_set_display, "$tracking_desc", 0),
-		
+
 		#tactics
 		(create_button_overlay, "$tactics_label", "@Tactics", tf_left_align),
         (position_set_x, pos1, 900),
@@ -923,7 +923,7 @@ presentations = [
         (overlay_set_position, "$tactics_label", pos1),
 		#(overlay_set_color, "$tactics_label", 0x002000),
 		(overlay_set_hilight_color, "$tactics_label", 0x00FF00),
-		
+
 		(create_text_overlay, reg63, "@{reg18}", tf_right_align),
         (position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -931,7 +931,7 @@ presentations = [
 		(position_set_x, pos1, 945),
         (position_set_y, pos1, 420), #change
         (overlay_set_position, reg63, pos1),
-		
+
 		(create_game_button_overlay,"$tactics_add","@+"),
 		(position_set_x, pos1, 14),
         (position_set_y, pos1, 14),
@@ -939,7 +939,7 @@ presentations = [
 		(position_set_x, pos1, 960),
         (position_set_y, pos1, 425), #+5
         (overlay_set_position, "$tactics_add", pos1),
-		
+
 		(create_text_overlay, "$tactics_+", "@+", tf_center_justify),
 		(position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
@@ -947,7 +947,7 @@ presentations = [
 		(position_set_x, pos1, 958),
         (position_set_y, pos1, 420), #same
         (overlay_set_position, "$tactics_+", pos1),
-		
+
 		(create_text_overlay, "$tactics_desc", "@Every two levels of this skill^increases starting battle^advantage by 1.^(Party skill)^^^^^^^Base Attribute: Intelligence", tf_left_align),
         (position_set_x, pos1, 800),
         (position_set_y, pos1, 800),
@@ -956,7 +956,7 @@ presentations = [
         (position_set_y, pos1, 380),
         (overlay_set_position, "$tactics_desc", pos1),
 		(overlay_set_display, "$tactics_desc", 0),
-		
+
 		#path finding
 		(create_button_overlay, "$path_finding_label", "@Path-finding", tf_left_align),
         (position_set_x, pos1, 900),
@@ -967,7 +967,7 @@ presentations = [
         (overlay_set_position, "$path_finding_label", pos1),
 		#(overlay_set_color, "$path_finding_label", 0x002000),
 		(overlay_set_hilight_color, "$path_finding_label", 0x00FF00),
-		
+
 		(create_text_overlay, reg63, "@{reg19}", tf_right_align),
         (position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -975,7 +975,7 @@ presentations = [
 		(position_set_x, pos1, 945),
         (position_set_y, pos1, 400), #change
         (overlay_set_position, reg63, pos1),
-		
+
 		(create_game_button_overlay,"$pathfinding_add","@+"),
 		(position_set_x, pos1, 14),
         (position_set_y, pos1, 14),
@@ -983,7 +983,7 @@ presentations = [
 		(position_set_x, pos1, 960),
         (position_set_y, pos1, 405), #+5
         (overlay_set_position, "$pathfinding_add", pos1),
-		
+
 		(create_text_overlay, "$pathfinding_+", "@+", tf_center_justify),
 		(position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
@@ -991,7 +991,7 @@ presentations = [
 		(position_set_x, pos1, 958),
         (position_set_y, pos1, 400), #same
         (overlay_set_position, "$pathfinding_+", pos1),
-		
+
 		(create_text_overlay, "$path_finding_desc", "@Party map speed is increased by^3% per skill level.^(Party skill)^^^^^^^^Base Attribute: Intelligence", tf_left_align),
         (position_set_x, pos1, 800),
         (position_set_y, pos1, 800),
@@ -1000,7 +1000,7 @@ presentations = [
         (position_set_y, pos1, 380),
         (overlay_set_position, "$path_finding_desc", pos1),
 		(overlay_set_display, "$path_finding_desc", 0),
-		
+
 		#spotting
 		(create_button_overlay, "$spotting_label", "@Spotting", tf_left_align),
         (position_set_x, pos1, 900),
@@ -1011,7 +1011,7 @@ presentations = [
         (overlay_set_position, "$spotting_label", pos1),
 		#(overlay_set_color, "$spotting_label", 0x002000),
 		(overlay_set_hilight_color, "$spotting_label", 0x00FF00),
-		
+
 		(create_text_overlay, reg63, "@{reg20}", tf_right_align),
         (position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -1019,7 +1019,7 @@ presentations = [
 		(position_set_x, pos1, 945),
         (position_set_y, pos1, 380), #change
         (overlay_set_position, reg63, pos1),
-		
+
 		(create_game_button_overlay,"$spotting_add","@+"),
 		(position_set_x, pos1, 14),
         (position_set_y, pos1, 14),
@@ -1027,7 +1027,7 @@ presentations = [
 		(position_set_x, pos1, 960),
         (position_set_y, pos1, 385), #+5
         (overlay_set_position, "$spotting_add", pos1),
-		
+
 		(create_text_overlay, "$spotting_+", "@+", tf_center_justify),
 		(position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
@@ -1035,7 +1035,7 @@ presentations = [
 		(position_set_x, pos1, 958),
         (position_set_y, pos1, 380), #same
         (overlay_set_position, "$spotting_+", pos1),
-		
+
 		(create_text_overlay, "$spotting_desc", "@Party seeing range is increased by^10% per skill level.^(Party skill)^^^^^^^^Base Attribute: Intelligence", tf_left_align),
         (position_set_x, pos1, 800),
         (position_set_y, pos1, 800),
@@ -1044,7 +1044,7 @@ presentations = [
         (position_set_y, pos1, 380),
         (overlay_set_position, "$spotting_desc", pos1),
 		(overlay_set_display, "$spotting_desc", 0),
-		
+
 		#inventory management
 		(create_button_overlay, "$inventory_management_label", "@Inventory Management", tf_left_align),
         (position_set_x, pos1, 900),
@@ -1055,7 +1055,7 @@ presentations = [
         (overlay_set_position, "$inventory_management_label", pos1),
 		#(overlay_set_color, "$inventory_management_label", 0x002000),
 		(overlay_set_hilight_color, "$inventory_management_label", 0x00FF00),
-		
+
 		(create_text_overlay, reg63, "@{reg21}", tf_right_align),
         (position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -1063,7 +1063,7 @@ presentations = [
 		(position_set_x, pos1, 945),
         (position_set_y, pos1, 360), #change
         (overlay_set_position, reg63, pos1),
-		
+
 		(create_game_button_overlay,"$inventory_management_add","@+"),
 		(position_set_x, pos1, 14),
         (position_set_y, pos1, 14),
@@ -1071,7 +1071,7 @@ presentations = [
 		(position_set_x, pos1, 960),
         (position_set_y, pos1, 365), #+5
         (overlay_set_position, "$inventory_management_add", pos1),
-		
+
 		(create_text_overlay, "$inventory_management_+", "@+", tf_center_justify),
 		(position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
@@ -1079,7 +1079,7 @@ presentations = [
 		(position_set_x, pos1, 958),
         (position_set_y, pos1, 360), #same
         (overlay_set_position, "$inventory_management_+", pos1),
-		
+
 		(create_text_overlay, "$inventory_management_desc", "@Increases inventory capacity^by +6 per skill level.^(Leader skill)^^^^^^^^Base Attribute: Intelligence", tf_left_align),
         (position_set_x, pos1, 800),
         (position_set_y, pos1, 800),
@@ -1088,7 +1088,7 @@ presentations = [
         (position_set_y, pos1, 380),
         (overlay_set_position, "$inventory_management_desc", pos1),
 		(overlay_set_display, "$inventory_management_desc", 0),
-		
+
 		# wound treatment
 		(create_button_overlay, "$wound_treatment_label", "@Wound Treatment", tf_left_align),
         (position_set_x, pos1, 900),
@@ -1099,7 +1099,7 @@ presentations = [
         (overlay_set_position, "$wound_treatment_label", pos1),
 		#(overlay_set_color, "$wound_treatment_label", 0x002000),
 		(overlay_set_hilight_color, "$wound_treatment_label", 0x00FF00),
-		
+
 		(create_text_overlay, reg63, "@{reg22}", tf_right_align),
         (position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -1107,7 +1107,7 @@ presentations = [
 		(position_set_x, pos1, 945),
         (position_set_y, pos1, 340), #change
         (overlay_set_position, reg63, pos1),
-		
+
 		(create_game_button_overlay,"$wound_treatment_add","@+"),
 		(position_set_x, pos1, 14),
         (position_set_y, pos1, 14),
@@ -1115,7 +1115,7 @@ presentations = [
 		(position_set_x, pos1, 960),
         (position_set_y, pos1, 345), #+5
         (overlay_set_position, "$wound_treatment_add", pos1),
-		
+
 		(create_text_overlay, "$wound_treatment_+", "@+", tf_center_justify),
 		(position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
@@ -1123,7 +1123,7 @@ presentations = [
 		(position_set_x, pos1, 958),
         (position_set_y, pos1, 340), #same
         (overlay_set_position, "$wound_treatment_+", pos1),
-		
+
 		(create_text_overlay, "$wound_treatment_desc", "@Party healing speed is increased^by 20% per level of this skill.^(Party skill)^^^^^^^^Base Attribute: Intelligence", tf_left_align),
         (position_set_x, pos1, 800),
         (position_set_y, pos1, 800),
@@ -1132,7 +1132,7 @@ presentations = [
         (position_set_y, pos1, 380),
         (overlay_set_position, "$wound_treatment_desc", pos1),
 		(overlay_set_display, "$wound_treatment_desc", 0),
-		
+
 		# surgery
 		(create_button_overlay, "$surgery_label", "@Surgery", tf_left_align),
         (position_set_x, pos1, 900),
@@ -1143,7 +1143,7 @@ presentations = [
         (overlay_set_position, "$surgery_label", pos1),
 		#(overlay_set_color, "$surgery_label", 0x002000),
 		(overlay_set_hilight_color, "$surgery_label", 0x00FF00),
-		
+
 		(create_text_overlay, reg63, "@{reg23}", tf_right_align),
         (position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -1151,7 +1151,7 @@ presentations = [
 		(position_set_x, pos1, 945),
         (position_set_y, pos1, 320), #change
         (overlay_set_position, reg63, pos1),
-		
+
 		(create_game_button_overlay,"$surgery_add","@+"),
 		(position_set_x, pos1, 14),
         (position_set_y, pos1, 14),
@@ -1159,7 +1159,7 @@ presentations = [
 		(position_set_x, pos1, 960),
         (position_set_y, pos1, 325), #+5
         (overlay_set_position, "$surgery_add", pos1),
-		
+
 		(create_text_overlay, "$surgery_+", "@+", tf_center_justify),
 		(position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
@@ -1167,7 +1167,7 @@ presentations = [
 		(position_set_x, pos1, 958),
         (position_set_y, pos1, 320), #same
         (overlay_set_position, "$surgery_+", pos1),
-		
+
 		(create_text_overlay, "$surgery_desc", "@Each point to this skill gives a 4%^chance that a mortally struck^party member will be wounded^rather than killed.^(Party skill)^^^^^^Base Attribute: Intelligence", tf_left_align),
         (position_set_x, pos1, 800),
         (position_set_y, pos1, 800),
@@ -1176,7 +1176,7 @@ presentations = [
         (position_set_y, pos1, 380),
         (overlay_set_position, "$surgery_desc", pos1),
 		(overlay_set_display, "$surgery_desc", 0),
-		
+
 		#first aid
 		(create_button_overlay, "$first_aid_label", "@First Aid", tf_left_align),
         (position_set_x, pos1, 900),
@@ -1187,7 +1187,7 @@ presentations = [
         (overlay_set_position, "$first_aid_label", pos1),
 		#(overlay_set_color, "$first_aid_label", 0x002000),
 		(overlay_set_hilight_color, "$first_aid_label", 0x00FF00),
-		
+
 		(create_text_overlay, reg63, "@{reg24}", tf_right_align),
         (position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -1195,7 +1195,7 @@ presentations = [
 		(position_set_x, pos1, 945),
         (position_set_y, pos1, 300), #change
         (overlay_set_position, reg63, pos1),
-		
+
 		(create_game_button_overlay,"$first_aid_add","@+"),
 		(position_set_x, pos1, 14),
         (position_set_y, pos1, 14),
@@ -1203,7 +1203,7 @@ presentations = [
 		(position_set_x, pos1, 960),
         (position_set_y, pos1, 305), #+5
         (overlay_set_position, "$first_aid_add", pos1),
-		
+
 		(create_text_overlay, "$first_aid_+", "@+", tf_center_justify),
 		(position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
@@ -1211,7 +1211,7 @@ presentations = [
 		(position_set_x, pos1, 958),
         (position_set_y, pos1, 300), #same
         (overlay_set_position, "$first_aid_+", pos1),
-		
+
 		(create_text_overlay, "$first_aid_desc", "@Heroes regain 5% per skill level of^hit-points lost during mission.^(Party skill)^^^^^^^^Base Attribute: Intelligence", tf_left_align),
         (position_set_x, pos1, 800),
         (position_set_y, pos1, 800),
@@ -1220,7 +1220,7 @@ presentations = [
         (position_set_y, pos1, 380),
         (overlay_set_position, "$first_aid_desc", pos1),
 		(overlay_set_display, "$first_aid_desc", 0),
-		
+
 		# engineer
 		(create_button_overlay, "$engineer_label", "@Engineer", tf_left_align),
         (position_set_x, pos1, 900),
@@ -1231,7 +1231,7 @@ presentations = [
         (overlay_set_position, "$engineer_label", pos1),
 		#(overlay_set_color, "$engineer_label", 0x002000),
 		(overlay_set_hilight_color, "$engineer_label", 0x00FF00),
-		
+
 		(create_text_overlay, reg63, "@{reg25}", tf_right_align),
         (position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -1239,7 +1239,7 @@ presentations = [
 		(position_set_x, pos1, 945),
         (position_set_y, pos1, 280), #change
         (overlay_set_position, reg63, pos1),
-		
+
 		(create_game_button_overlay,"$engineer_add","@+"),
 		(position_set_x, pos1, 14),
         (position_set_y, pos1, 14),
@@ -1247,7 +1247,7 @@ presentations = [
 		(position_set_x, pos1, 960),
         (position_set_y, pos1, 285), #+5
         (overlay_set_position, "$engineer_add", pos1),
-		
+
 		(create_text_overlay, "$engineer_+", "@+", tf_center_justify),
 		(position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
@@ -1255,7 +1255,7 @@ presentations = [
 		(position_set_x, pos1, 958),
         (position_set_y, pos1, 280), #same
         (overlay_set_position, "$engineer_+", pos1),
-		
+
 		(create_text_overlay, "$engineer_desc", "@This skill allows you to construct^siege equipment and fief^improvements more efficiently.^(Party skill)^^^^^^^Base Attribute: Intelligence", tf_left_align),
         (position_set_x, pos1, 800),
         (position_set_y, pos1, 800),
@@ -1264,7 +1264,7 @@ presentations = [
         (position_set_y, pos1, 380),
         (overlay_set_position, "$engineer_desc", pos1),
 		(overlay_set_display, "$engineer_desc", 0),
-		
+
 		#persuasion
 		(create_button_overlay, "$persuasion_label", "@Persuasion", tf_left_align),
         (position_set_x, pos1, 900),
@@ -1275,7 +1275,7 @@ presentations = [
         (overlay_set_position, "$persuasion_label", pos1),
 		#(overlay_set_color, "$persuasion_label", 0x002000),
 		(overlay_set_hilight_color, "$persuasion_label", 0x00FF00),
-		
+
 		(create_text_overlay, reg63, "@{reg26}", tf_right_align),
         (position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -1283,7 +1283,7 @@ presentations = [
 		(position_set_x, pos1, 945),
         (position_set_y, pos1, 260), #change
         (overlay_set_position, reg63, pos1),
-		
+
 		(create_game_button_overlay,"$persuasion_add","@+"),
 		(position_set_x, pos1, 14),
         (position_set_y, pos1, 14),
@@ -1291,7 +1291,7 @@ presentations = [
 		(position_set_x, pos1, 960),
         (position_set_y, pos1, 265), #+5
         (overlay_set_position, "$persuasion_add", pos1),
-		
+
 		(create_text_overlay, "$persuasion_+", "@+", tf_center_justify),
 		(position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
@@ -1299,7 +1299,7 @@ presentations = [
 		(position_set_x, pos1, 958),
         (position_set_y, pos1, 260), #same
         (overlay_set_position, "$persuasion_+", pos1),
-		
+
 		(create_text_overlay, "$persuasion_desc", "@This skill helps you make other^people accept your point of view.^It also lowers the minimum level^of relationship needed to get^NPCs to do what you want.^(Personal skill)^^^^^Base Attribute: Intelligence", tf_left_align),
         (position_set_x, pos1, 800),
         (position_set_y, pos1, 800),
@@ -1308,7 +1308,7 @@ presentations = [
         (position_set_y, pos1, 380),
         (overlay_set_position, "$persuasion_desc", pos1),
 		(overlay_set_display, "$persuasion_desc", 0),
-		
+
 		#prisoner management
 		(create_button_overlay, "$prisoner_management_label", "@Prisoner Management", tf_left_align),
         (position_set_x, pos1, 900),
@@ -1319,7 +1319,7 @@ presentations = [
         (overlay_set_position, "$prisoner_management_label", pos1),
 		#(overlay_set_color, "$prisoner_management_label", 0x002000),
 		(overlay_set_hilight_color, "$prisoner_management_label", 0x00FF00),
-		
+
 		(create_text_overlay, reg63, "@{reg27}", tf_right_align),
         (position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -1327,7 +1327,7 @@ presentations = [
 		(position_set_x, pos1, 945),
         (position_set_y, pos1, 240), #change
         (overlay_set_position, reg63, pos1),
-		
+
 		(create_game_button_overlay,"$prisoner_management_add","@+"),
 		(position_set_x, pos1, 14),
         (position_set_y, pos1, 14),
@@ -1335,7 +1335,7 @@ presentations = [
 		(position_set_x, pos1, 960),
         (position_set_y, pos1, 245), #+5
         (overlay_set_position, "$prisoner_management_add", pos1),
-		
+
 		(create_text_overlay, "$prisoner_management_+", "@+", tf_center_justify),
 		(position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
@@ -1343,7 +1343,7 @@ presentations = [
 		(position_set_x, pos1, 958),
         (position_set_y, pos1, 240), #same
         (overlay_set_position, "$prisoner_management_+", pos1),
-		
+
 		(create_text_overlay, "$prisoner_management_desc", "@Every level of this skill increases^maximum number of prisoners^by 5.^(Leader skill)^^^^^^^Base Attribute: Charisma", tf_left_align),
         (position_set_x, pos1, 800),
         (position_set_y, pos1, 800),
@@ -1352,7 +1352,7 @@ presentations = [
         (position_set_y, pos1, 380),
         (overlay_set_position, "$prisoner_management_desc", pos1),
 		(overlay_set_display, "$prisoner_management_desc", 0),
-		
+
 		# leadership
 		(create_button_overlay, "$leadership_label", "@Leadership", tf_left_align),
         (position_set_x, pos1, 900),
@@ -1363,7 +1363,7 @@ presentations = [
         (overlay_set_position, "$leadership_label", pos1),
 		#(overlay_set_color, "$leadership_label", 0x002000),
 		(overlay_set_hilight_color, "$leadership_label", 0x00FF00),
-		
+
 		(create_text_overlay, reg63, "@{reg28}", tf_right_align),
         (position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -1371,7 +1371,7 @@ presentations = [
 		(position_set_x, pos1, 945),
         (position_set_y, pos1, 220), #change
         (overlay_set_position, reg63, pos1),
-		
+
 		(create_game_button_overlay,"$leadership_add","@+"),
 		(position_set_x, pos1, 14),
         (position_set_y, pos1, 14),
@@ -1379,7 +1379,7 @@ presentations = [
 		(position_set_x, pos1, 960),
         (position_set_y, pos1, 225), #+5
         (overlay_set_position, "$leadership_add", pos1),
-		
+
 		(create_text_overlay, "$leadership_+", "@+", tf_center_justify),
 		(position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
@@ -1387,7 +1387,7 @@ presentations = [
 		(position_set_x, pos1, 958),
         (position_set_y, pos1, 220), #same
         (overlay_set_position, "$leadership_+", pos1),
-		
+
 		(create_text_overlay, "$leadership_desc", "@Every point increases maximum^number of troops you can^command by 5, increases your^party morale and reduces troop^wages by 5%.^(Leader skill)^^^^^Base Attribute: Charisma", tf_left_align),
         (position_set_x, pos1, 800),
         (position_set_y, pos1, 800),
@@ -1396,7 +1396,7 @@ presentations = [
         (position_set_y, pos1, 380),
         (overlay_set_position, "$leadership_desc", pos1),
 		(overlay_set_display, "$leadership_desc", 0),
-		
+
 		#trade
 		(create_button_overlay, "$trade_label", "@Trade", tf_left_align),
         (position_set_x, pos1, 900),
@@ -1407,7 +1407,7 @@ presentations = [
         (overlay_set_position, "$trade_label", pos1),
 		#(overlay_set_color, "$trade_label", 0x002000),
 		(overlay_set_hilight_color, "$trade_label", 0x00FF00),
-		
+
 		(create_text_overlay, reg63, "@{reg29}", tf_right_align),
         (position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -1415,7 +1415,7 @@ presentations = [
 		(position_set_x, pos1, 945),
         (position_set_y, pos1, 200), #change
         (overlay_set_position, reg63, pos1),
-		
+
 		(create_game_button_overlay,"$trade_add","@+"),
 		(position_set_x, pos1, 14),
         (position_set_y, pos1, 14),
@@ -1423,7 +1423,7 @@ presentations = [
 		(position_set_x, pos1, 960),
         (position_set_y, pos1, 205), #+5
         (overlay_set_position, "$trade_add", pos1),
-		
+
 		(create_text_overlay, "$trade_+", "@+", tf_center_justify),
 		(position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
@@ -1431,7 +1431,7 @@ presentations = [
 		(position_set_x, pos1, 958),
         (position_set_y, pos1, 200), #same
         (overlay_set_position, "$trade_+", pos1),
-		
+
 		(create_text_overlay, "$trade_desc", "@Every level of this skill reduces^your trade penalty by 5%.^(Party skill)^^^^^^^^Base Attribute: Charisma", tf_left_align),
         (position_set_x, pos1, 800),
         (position_set_y, pos1, 800),
@@ -1440,7 +1440,7 @@ presentations = [
         (position_set_y, pos1, 380),
         (overlay_set_position, "$trade_desc", pos1),
 		(overlay_set_display, "$trade_desc", 0),
-		
+
 		#####    skill points     #####
 		(create_text_overlay, reg63, "@points:", tf_center_justify),
 		(position_set_x, pos1, 900),
@@ -1450,7 +1450,7 @@ presentations = [
         (position_set_y, pos1, 180),
         (overlay_set_position, reg63, pos1),
 		#(overlay_set_color, reg63, 0x004000),
-		
+
 		(create_text_overlay, reg63, "@{reg5}", tf_left_align),
 		(position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -1458,10 +1458,10 @@ presentations = [
 		(position_set_x, pos1, 870),
         (position_set_y, pos1, 180),
         (overlay_set_position, reg63, pos1),
-		
+
 		################################
 		### increase attribute notes ###
-		
+
 		### strength ###
 		(create_text_overlay, "$strength_note", "@(Raise Strength to raise this skill)", tf_left_align),
 		(position_set_x, pos1, 750),
@@ -1502,11 +1502,11 @@ presentations = [
         (overlay_set_position, "$charisma_note", pos1),
 		(overlay_set_color, "$charisma_note", 0x800000),
 		(overlay_set_display, "$charisma_note", 0),
-		
+
 		####################################################
 		####             Proficiencies					####
 		####################################################
-		
+
 		(create_text_overlay, reg63, "@Proficiencies", tf_center_justify),
 		(position_set_x, pos1, 1100),
         (position_set_y, pos1, 1100),
@@ -1515,7 +1515,7 @@ presentations = [
         (position_set_y, pos1, 320),
         (overlay_set_position, reg63, pos1),
 		(overlay_set_color, reg63, 0x400000),
-		
+
 		# one handed weapons
 		(create_button_overlay, "$one_hand_label", "@One Handed Weapons", tf_left_align),
         (position_set_x, pos1, 900),
@@ -1526,7 +1526,7 @@ presentations = [
         (overlay_set_position, "$one_hand_label", pos1),
 		#(overlay_set_color, "$one_hand_label", 0x200000),
 		(overlay_set_hilight_color, "$one_hand_label", 0xFF0000),
-		
+
 		(create_text_overlay, reg63, "@{reg35}", tf_right_align),
         (position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -1534,7 +1534,7 @@ presentations = [
 		(position_set_x, pos1, 708),
         (position_set_y, pos1, 300), #change
         (overlay_set_position, reg63, pos1),
-		
+
 		(create_game_button_overlay,"$one_hand_add","@+"),
 		(position_set_x, pos1, 14),
         (position_set_y, pos1, 14),
@@ -1542,7 +1542,7 @@ presentations = [
 		(position_set_x, pos1, 721),
         (position_set_y, pos1, 305), #+5
         (overlay_set_position, "$one_hand_add", pos1),
-		
+
 		(create_text_overlay, "$one_hand_+", "@+", tf_center_justify),
 		(position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
@@ -1550,7 +1550,7 @@ presentations = [
 		(position_set_x, pos1, 719),
         (position_set_y, pos1, 300), #same
         (overlay_set_position, "$one_hand_+", pos1),
-		
+
 		(create_text_overlay, "$one_handed_desc", "@Covers usage of one handed ^weapons", tf_left_align),
         (position_set_x, pos1, 800),
         (position_set_y, pos1, 800),
@@ -1559,7 +1559,7 @@ presentations = [
         (position_set_y, pos1, 510),
         (overlay_set_position, "$one_handed_desc", pos1),
 		(overlay_set_display, "$one_handed_desc", 0),
-		
+
 		# two handed weapons
 		(create_button_overlay, "$two_hand_label", "@Two Handed Weapons", tf_left_align),
         (position_set_x, pos1, 900),
@@ -1570,7 +1570,7 @@ presentations = [
         (overlay_set_position, "$two_hand_label", pos1),
 		#(overlay_set_color, "$two_hand_label", 0x200000),
 		(overlay_set_hilight_color, "$two_hand_label", 0xFF0000),
-		
+
 		(create_text_overlay, reg63, "@{reg36}", tf_right_align),
         (position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -1578,7 +1578,7 @@ presentations = [
 		(position_set_x, pos1, 708),
         (position_set_y, pos1, 280), #change
         (overlay_set_position, reg63, pos1),
-		
+
 		(create_game_button_overlay,"$two_hand_add","@+"),
 		(position_set_x, pos1, 14),
         (position_set_y, pos1, 14),
@@ -1586,7 +1586,7 @@ presentations = [
 		(position_set_x, pos1, 721),
         (position_set_y, pos1, 285), #+5
         (overlay_set_position, "$two_hand_add", pos1),
-		
+
 		(create_text_overlay, "$two_hand_+", "@+", tf_center_justify),
 		(position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
@@ -1594,7 +1594,7 @@ presentations = [
 		(position_set_x, pos1, 719),
         (position_set_y, pos1, 280), #same
         (overlay_set_position, "$two_hand_+", pos1),
-		
+
 		(create_text_overlay, "$two_handed_desc", "@Covers usage of two handed ^weapons", tf_left_align),
         (position_set_x, pos1, 800),
         (position_set_y, pos1, 800),
@@ -1603,7 +1603,7 @@ presentations = [
         (position_set_y, pos1, 510),
         (overlay_set_position, "$two_handed_desc", pos1),
 		(overlay_set_display, "$two_handed_desc", 0),
-		
+
 		# polearms
 		(create_button_overlay, "$polearms_label", "@Polearms", tf_left_align),
         (position_set_x, pos1, 900),
@@ -1614,7 +1614,7 @@ presentations = [
         (overlay_set_position, "$polearms_label", pos1),
 		#(overlay_set_color, "$polearms_label", 0x200000),
 		(overlay_set_hilight_color, "$polearms_label", 0xFF0000),
-		
+
 		(create_text_overlay, reg63, "@{reg37}", tf_right_align),
         (position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -1622,7 +1622,7 @@ presentations = [
 		(position_set_x, pos1, 708),
         (position_set_y, pos1, 260), #change
         (overlay_set_position, reg63, pos1),
-		
+
 		(create_game_button_overlay,"$polearms_add","@+"),
 		(position_set_x, pos1, 14),
         (position_set_y, pos1, 14),
@@ -1630,7 +1630,7 @@ presentations = [
 		(position_set_x, pos1, 721),
         (position_set_y, pos1, 265), #+5
         (overlay_set_position, "$polearms_add", pos1),
-		
+
 		(create_text_overlay, "$polearms_+", "@+", tf_center_justify),
 		(position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
@@ -1638,7 +1638,7 @@ presentations = [
 		(position_set_x, pos1, 719),
         (position_set_y, pos1, 260), #same
         (overlay_set_position, "$polearms_+", pos1),
-		
+
 		(create_text_overlay, "$polearms_desc", "@Covers usage of pole weapons", tf_left_align),
         (position_set_x, pos1, 800),
         (position_set_y, pos1, 800),
@@ -1647,7 +1647,7 @@ presentations = [
         (position_set_y, pos1, 524),
         (overlay_set_position, "$polearms_desc", pos1),
 		(overlay_set_display, "$polearms_desc", 0),
-		
+
 		#archery
 		(create_button_overlay, "$archery_label", "@Archery", tf_left_align),
         (position_set_x, pos1, 900),
@@ -1658,7 +1658,7 @@ presentations = [
         (overlay_set_position, "$archery_label", pos1),
 		#(overlay_set_color, "$archery_label", 0x200000),
 		(overlay_set_hilight_color, "$archery_label", 0xFF0000),
-		
+
 		(create_text_overlay, reg63, "@{reg38}", tf_right_align),
         (position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -1666,7 +1666,7 @@ presentations = [
 		(position_set_x, pos1, 708),
         (position_set_y, pos1, 240), #change
         (overlay_set_position, reg63, pos1),
-		
+
 		(create_game_button_overlay,"$archery_add","@+"),
 		(position_set_x, pos1, 14),
         (position_set_y, pos1, 14),
@@ -1674,7 +1674,7 @@ presentations = [
 		(position_set_x, pos1, 721),
         (position_set_y, pos1, 245), #+5
         (overlay_set_position, "$archery_add", pos1),
-		
+
 		(create_text_overlay, "$archery_+", "@+", tf_center_justify),
 		(position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
@@ -1682,7 +1682,7 @@ presentations = [
 		(position_set_x, pos1, 719),
         (position_set_y, pos1, 240), #same
         (overlay_set_position, "$archery_+", pos1),
-		
+
 		(create_text_overlay, "$archery_desc", "@Covers usage of bows", tf_left_align),
         (position_set_x, pos1, 800),
         (position_set_y, pos1, 800),
@@ -1691,7 +1691,7 @@ presentations = [
         (position_set_y, pos1, 524),
         (overlay_set_position, "$archery_desc", pos1),
 		(overlay_set_display, "$archery_desc", 0),
-		
+
 		# crossbows
 		(create_button_overlay, "$crossbows_label", "@Crossbows", tf_left_align),
         (position_set_x, pos1, 900),
@@ -1702,7 +1702,7 @@ presentations = [
         (overlay_set_position, "$crossbows_label", pos1),
 		#(overlay_set_color, "$crossbows_label", 0x200000),
 		(overlay_set_hilight_color, "$crossbows_label", 0xFF0000),
-		
+
 		(create_text_overlay, reg63, "@{reg39}", tf_right_align),
         (position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -1710,7 +1710,7 @@ presentations = [
 		(position_set_x, pos1, 708),
         (position_set_y, pos1, 220), #change
         (overlay_set_position, reg63, pos1),
-		
+
 		(create_game_button_overlay,"$crossbows_add","@+"),
 		(position_set_x, pos1, 14),
         (position_set_y, pos1, 14),
@@ -1718,7 +1718,7 @@ presentations = [
 		(position_set_x, pos1, 721),
         (position_set_y, pos1, 225), #+5
         (overlay_set_position, "$crossbows_add", pos1),
-		
+
 		(create_text_overlay, "$crossbows_+", "@+", tf_center_justify),
 		(position_set_x, pos1, 1000),
         (position_set_y, pos1, 1000),
@@ -1726,7 +1726,7 @@ presentations = [
 		(position_set_x, pos1, 719),
         (position_set_y, pos1, 220), #same
         (overlay_set_position, "$crossbows_+", pos1),
-		
+
 		(create_text_overlay, "$crossbows_desc", "@Covers usage of crossbows", tf_left_align),
         (position_set_x, pos1, 800),
         (position_set_y, pos1, 800),
@@ -1735,7 +1735,7 @@ presentations = [
         (position_set_y, pos1, 524),
         (overlay_set_position, "$crossbows_desc", pos1),
 		(overlay_set_display, "$crossbows_desc", 0),
-		
+
 		#throwing
 		(create_button_overlay, "$throwing_label", "@Throwing", tf_left_align),
         (position_set_x, pos1, 900),
@@ -1746,7 +1746,7 @@ presentations = [
         (overlay_set_position, "$throwing_label", pos1),
 		#(overlay_set_color, "$throwing_label", 0x200000),
 		(overlay_set_hilight_color, "$throwing_label", 0xFF0000),
-		
+
 		(create_text_overlay, reg63, "@{reg40}", tf_right_align),
         (position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -1770,7 +1770,7 @@ presentations = [
 		(position_set_x, pos1, 719),
         (position_set_y, pos1, 200), #same
         (overlay_set_position, "$throwing_+", pos1),
-		
+
 		(create_text_overlay, "$throwing_desc", "@Covers usage of thrown weapons", tf_left_align),
         (position_set_x, pos1, 800),
         (position_set_y, pos1, 800),
@@ -1779,7 +1779,7 @@ presentations = [
         (position_set_y, pos1, 524),
         (overlay_set_position, "$throwing_desc", pos1),
 		(overlay_set_display, "$throwing_desc", 0),
-		
+
 		#weapon points
 		(create_text_overlay, reg63, "@points:", tf_center_justify),
 		(position_set_x, pos1, 900),
@@ -1789,7 +1789,7 @@ presentations = [
         (position_set_y, pos1, 180),
         (overlay_set_position, reg63, pos1),
 		#(overlay_set_color, reg63, 0x200000),
-		
+
 		(create_text_overlay, reg63, "@{reg34}", tf_left_align),
 		(position_set_x, pos1, 900),
         (position_set_y, pos1, 900),
@@ -1807,19 +1807,19 @@ presentations = [
         (position_set_y, pos1, 140),
         (overlay_set_position, "$reset_button", pos1),
 		(overlay_set_display, "$reset_button", 0),
-		
+
 		## Done button
 		(create_game_button_overlay, "$done_button", "@Done"),
         (position_set_x, pos1, 875),
         (position_set_y, pos1, 35),
         (overlay_set_position, "$done_button", pos1),
-		
+
 		## Back button
 		(create_game_button_overlay, "$back_button", "@Back"),
         (position_set_x, pos1, 125),
         (position_set_y, pos1, 35),
         (overlay_set_position, "$back_button", pos1),
-		
+
 	(try_begin), ### reset button appears/disappears appropriately ###
 		(this_or_next|gt, reg1, 4),
 		(this_or_next|gt, reg2, 4),
@@ -1857,7 +1857,7 @@ presentations = [
 		(gt, reg40, 15),
 		(overlay_set_display, "$reset_button", 1),
 	(try_end),
-		
+
 	(try_begin), ### add buttons disappear if no points ###
 		##################
 		### attributes ###
@@ -1875,7 +1875,7 @@ presentations = [
 		(overlay_set_display, "$charisma_+", 0),
 		(overlay_set_display, "$charisma_add", 0),
 	(try_end),
-	
+
 	(try_begin), ### add buttons disappear if no points ###
 		##############
 		### skills ###
@@ -1953,7 +1953,7 @@ presentations = [
 		(overlay_set_display, "$trade_+", 0),
 		(overlay_set_display, "$trade_add", 0),
 	(try_end),
-	
+
 	(try_begin), ### add buttons disappear if no points ###
 	#####################
 	### proficiencies ###
@@ -1977,7 +1977,7 @@ presentations = [
 		(overlay_set_display, "$throwing_+", 0),
 		(overlay_set_display, "$throwing_add", 0),
 	(try_end),
-	
+
 	(try_begin), ### skill add buttons disappear if level is maxed ###
 		# ironflesh buttons
 		(eq,reg6,reg30),
@@ -2122,7 +2122,7 @@ presentations = [
 		(overlay_set_display, "$trade_+", 0),
 		(overlay_set_display, "$trade_add", 0),
 	(try_end),
-	
+
 	### proficiency buttons disappear if maxed ###
 	(try_begin), # one hand buttons
 		(eq,reg35,reg41),
@@ -2155,19 +2155,19 @@ presentations = [
 		(overlay_set_display, "$throwing_add", 0),
 	(try_end),
     ]),
-	 
 
-	 
-	 
-	 
+
+
+
+
 	(ti_on_presentation_mouse_enter_leave,
 		[
 			(store_trigger_param_1, ":object"),
 			(store_trigger_param_2, ":enter_leave"),
-			
+
 			#############################
 			######    attributes	#####
-			
+
 			(try_begin), ## strength description
 				(this_or_next|eq, ":object", "$strength_add"),
 				(eq, ":object", "$strength_label"),
@@ -2208,10 +2208,10 @@ presentations = [
 				(eq, ":object", "$charisma_label"),
 				(eq, ":enter_leave", 1),
 				(overlay_set_display, "$charisma_desc", 0),
-				
+
 			#############################
 			######     Skills		#####
-			
+
 			(else_try), ## ironflesh description
 				(this_or_next|eq, ":object", "$ironflesh_add"),
 				(eq, ":object", "$ironflesh_label"),
@@ -2452,7 +2452,7 @@ presentations = [
 				(eq, ":object", "$trade_label"),
 				(eq, ":enter_leave", 1),
 				(overlay_set_display, "$trade_desc", 0),
-				
+
 			#############################
 			######  proficiencies	#####
 			(else_try), ## one handed description
@@ -2516,7 +2516,7 @@ presentations = [
 				(eq, ":enter_leave", 1),
 				(overlay_set_display, "$throwing_desc", 0),
 			(try_end),
-			
+
 			### display skill note if level is maxed ###
 			(try_begin), # ironflesh buttons
 				(eq, ":object", "$ironflesh_label"),
@@ -2759,20 +2759,20 @@ presentations = [
 				(eq,reg29,reg33),
 				(overlay_set_display, "$charisma_note", 0),
 			(try_end),
-			
+
 		]),
 
 
 
-		
+
    (ti_on_presentation_event_state_change,
       [
         (store_trigger_param_1, ":object"),
         (store_trigger_param_2, ":value"),
-		
+
 		(try_begin), ####### DONE BUTTON #######
 			(eq, ":object", "$done_button"),
-			
+
 			#Attributes
 			# first, clear previous levels
 			(troop_raise_attribute, "$g_talk_troop", ca_strength, -63),
@@ -2850,219 +2850,219 @@ presentations = [
 			(troop_raise_proficiency_linear, "$g_talk_troop",wpt_archery,reg38),
 			(troop_raise_proficiency_linear, "$g_talk_troop",wpt_crossbow,reg39),
 			(troop_raise_proficiency_linear, "$g_talk_troop",wpt_throwing,reg40),
-			
+
 			(try_begin), #route to menu, for better behavior
 				(presentation_set_duration, 0),
 				(jump_to_menu, "mnu_c3_finalize"),
 			(try_end),
-			
+
 		(else_try), ####### back #######
 			(eq, ":object", "$back_button"),
 			(assign, "$quit_status", 1),
 			(jump_to_menu, "mnu_start_game_0"),
-			(presentation_set_duration, 0),			
-			
+			(presentation_set_duration, 0),
+
 		(else_try), ####### gender #######
 			(eq, ":object", "$c3_presentation_gender"),
 			(assign, "$character_gender", ":value"),
 			(start_presentation, "prsnt_custom_character_creation"),
 			(assign, "$c3_presentation_gender", ":value"),
-			
+
 		(else_try), ####### status #######
 			(eq, ":object", "$c3_presentation_status"),
 			(assign, "$c3_status", ":value"),
 			(start_presentation, "prsnt_custom_character_creation"),
 			(assign, "$c3_presentation_status", ":value"),
-			
-			
+
+
 		(else_try), ####### start option #######
 			(eq, ":object", "$c3_start_option"),
 			(assign, "$c3_start", ":value"),
 			(start_presentation, "prsnt_custom_character_creation"),
 			(assign, "$c3_start_option", ":value"),
-			
+
 		####################################################
 		####              Attributes					####
 		####################################################
-			
+
 		(else_try), ####### strength #######
 			(eq, ":object", "$strength_add"),
 			(gt,reg0,0),(lt,reg1,63),(val_sub,reg0,1),(val_add,reg1,1),
 			(start_presentation, "prsnt_custom_character_creation"),
-			
+
 		(else_try), ####### agility #######
 			(eq, ":object", "$agility_add"),
 			(gt,reg0,0),(lt,reg2,63),(val_sub,reg0,1),(val_add,reg2,1),(val_add,reg34,5), #last one adds +5 to wp's
 			(start_presentation, "prsnt_custom_character_creation"),
-			
+
 		(else_try), ####### intelligence #######
 			(eq, ":object", "$intelligence_add"),
 			(gt,reg0,0),(lt,reg3,63),(val_sub,reg0,1),(val_add,reg3,1),
 			(start_presentation, "prsnt_custom_character_creation"),
-			
+
 		(else_try), ####### charisma #######
 			(eq, ":object", "$charisma_add"),
 			(gt,reg0,0),(lt,reg4,63),(val_sub,reg0,1),(val_add,reg4,1),
-			(start_presentation, "prsnt_custom_character_creation"),		
-			
+			(start_presentation, "prsnt_custom_character_creation"),
+
 		####################################################
 		####              Skills						####
 		####################################################
-			
+
 		(else_try), ####### ironflesh #######
 			(eq, ":object", "$ironflesh_add"),
 			(gt,reg5,0),(lt,reg6,reg30),(lt,reg6,10),(val_sub,reg5,1),(val_add,reg6,1),
 			(start_presentation, "prsnt_custom_character_creation"),
-			
+
 		(else_try), ####### power strike #######
 			(eq, ":object", "$power_strike_add"),
 			(gt,reg5,0),(lt,reg7,reg30),(lt,reg7,10),(val_sub,reg5,1),(val_add,reg7,1),
 			(start_presentation, "prsnt_custom_character_creation"),
-			
+
 		(else_try), ####### power throw #######
 			(eq, ":object", "$power_throw_add"),
 			(gt,reg5,0),(lt,reg8,reg30),(lt,reg8,10),(val_sub,reg5,1),(val_add,reg8,1),
 			(start_presentation, "prsnt_custom_character_creation"),
-			
+
 		(else_try), ####### power draw #######
 			(eq, ":object", "$power_draw_add"),
 			(gt,reg5,0),(lt,reg9,reg30),(lt,reg9,10),(val_sub,reg5,1),(val_add,reg9,1),
 			(start_presentation, "prsnt_custom_character_creation"),
-			
+
 		(else_try), ####### Weapon Master #######
 			(eq, ":object", "$weapon_master_add"),
 			(gt,reg5,0),(lt,reg10,reg31),(lt,reg10,10),(val_sub,reg5,1),(val_add,reg10,1),(val_add,reg41,40),
 			(start_presentation, "prsnt_custom_character_creation"),
-			
+
 		(else_try), ####### shield #######
 			(eq, ":object", "$shield_add"),
 			(gt,reg5,0),(lt,reg11,reg31),(lt,reg11,10),(val_sub,reg5,1),(val_add,reg11,1),
 			(start_presentation, "prsnt_custom_character_creation"),
-			
+
 		(else_try), ####### athletics #######
 			(eq, ":object", "$athletics_add"),
 			(gt,reg5,0),(lt,reg12,reg31),(lt,reg12,10),(val_sub,reg5,1),(val_add,reg12,1),
 			(start_presentation, "prsnt_custom_character_creation"),
-			
+
 		(else_try), ####### riding #######
 			(eq, ":object", "$riding_add"),
 			(gt,reg5,0),(lt,reg13,reg31),(lt,reg13,10),(val_sub,reg5,1),(val_add,reg13,1),
 			(start_presentation, "prsnt_custom_character_creation"),
-			
+
 		(else_try), ####### horse archery #######
 			(eq, ":object", "$horse_archery_add"),
 			(gt,reg5,0),(lt,reg14,reg31),(lt,reg14,10),(val_sub,reg5,1),(val_add,reg14,1),
 			(start_presentation, "prsnt_custom_character_creation"),
-			
+
 		(else_try), ####### looting #######
 			(eq, ":object", "$looting_add"),
 			(gt,reg5,0),(lt,reg15,reg31),(lt,reg15,10),(val_sub,reg5,1),(val_add,reg15,1),
 			(start_presentation, "prsnt_custom_character_creation"),
-			
+
 		(else_try), ####### trainer #######
 			(eq, ":object", "$trainer_add"),
 			(gt,reg5,0),(lt,reg16,reg32),(lt,reg16,10),(val_sub,reg5,1),(val_add,reg16,1),
 			(start_presentation, "prsnt_custom_character_creation"),
-			
+
 		(else_try), ####### tracking #######
 			(eq, ":object", "$tracking_add"),
 			(gt,reg5,0),(lt,reg17,reg32),(lt,reg17,10),(val_sub,reg5,1),(val_add,reg17,1),
 			(start_presentation, "prsnt_custom_character_creation"),
-			
+
 		(else_try), ####### tactics #######
 			(eq, ":object", "$tactics_add"),
 			(gt,reg5,0),(lt,reg18,reg32),(lt,reg18,10),(val_sub,reg5,1),(val_add,reg18,1),
 			(start_presentation, "prsnt_custom_character_creation"),
-			
+
 		(else_try), ####### pathfinding #######
 			(eq, ":object", "$pathfinding_add"),
 			(gt,reg5,0),(lt,reg19,reg32),(lt,reg19,10),(val_sub,reg5,1),(val_add,reg19,1),
 			(start_presentation, "prsnt_custom_character_creation"),
-			
+
 		(else_try), ####### spotting #######
 			(eq, ":object", "$spotting_add"),
 			(gt,reg5,0),(lt,reg20,reg32),(lt,reg20,10),(val_sub,reg5,1),(val_add,reg20,1),
 			(start_presentation, "prsnt_custom_character_creation"),
-			
+
 		(else_try), ####### inventory management #######
 			(eq, ":object", "$inventory_management_add"),
 			(gt,reg5,0),(lt,reg21,reg32),(lt,reg21,10),(val_sub,reg5,1),(val_add,reg21,1),
 			(start_presentation, "prsnt_custom_character_creation"),
-			
+
 		(else_try), ####### wound treatment #######
 			(eq, ":object", "$wound_treatment_add"),
 			(gt,reg5,0),(lt,reg22,reg32),(lt,reg22,10),(val_sub,reg5,1),(val_add,reg22,1),
 			(start_presentation, "prsnt_custom_character_creation"),
-			
+
 		(else_try), ####### surgery #######
 			(eq, ":object", "$surgery_add"),
 			(gt,reg5,0),(lt,reg23,reg32),(lt,reg23,10),(val_sub,reg5,1),(val_add,reg23,1),
 			(start_presentation, "prsnt_custom_character_creation"),
-			
+
 		(else_try), ####### first aid #######
 			(eq, ":object", "$first_aid_add"),
 			(gt,reg5,0),(lt,reg24,reg32),(lt,reg24,10),(val_sub,reg5,1),(val_add,reg24,1),
 			(start_presentation, "prsnt_custom_character_creation"),
-			
+
 		(else_try), ####### engineer #######
 			(eq, ":object", "$engineer_add"),
 			(gt,reg5,0),(lt,reg25,reg32),(lt,reg25,10),(val_sub,reg5,1),(val_add,reg25,1),
 			(start_presentation, "prsnt_custom_character_creation"),
-			
+
 		(else_try), ####### persuasion #######
 			(eq, ":object", "$persuasion_add"),
 			(gt,reg5,0),(lt,reg26,reg32),(lt,reg26,10),(val_sub,reg5,1),(val_add,reg26,1),
 			(start_presentation, "prsnt_custom_character_creation"),
-			
+
 		(else_try), ####### prisoner management #######
 			(eq, ":object", "$prisoner_management_add"),
 			(gt,reg5,0),(lt,reg27,reg33),(lt,reg27,10),(val_sub,reg5,1),(val_add,reg27,1),
 			(start_presentation, "prsnt_custom_character_creation"),
-			
+
 		(else_try), ####### leadership #######
 			(eq, ":object", "$leadership_add"),
 			(gt,reg5,0),(lt,reg28,reg33),(lt,reg28,10),(val_sub,reg5,1),(val_add,reg28,1),
 			(start_presentation, "prsnt_custom_character_creation"),
-			
+
 		(else_try), ####### trade #######
 			(eq, ":object", "$trade_add"),
 			(gt,reg5,0),(lt,reg29,reg33),(lt,reg29,10),(val_sub,reg5,1),(val_add,reg29,1),
 			(start_presentation, "prsnt_custom_character_creation"),
-			
+
 		####################################################
 		####             Proficiencies					####
 		####################################################
-			
+
 		(else_try), ####### one handed weapons #######
 			(eq, ":object", "$one_hand_add"),
 			(gt,reg34,0),(lt,reg35,reg41),(call_script,"script_c3_increase_proficiency",reg35),(assign,reg35,reg58),
 			(start_presentation, "prsnt_custom_character_creation"),
-			
+
 		(else_try), ####### two handed weapons #######
 			(eq, ":object", "$two_hand_add"),
 			(gt,reg34,0),(lt,reg36,reg41),(call_script,"script_c3_increase_proficiency",reg36),(assign,reg36,reg58),
 			(start_presentation, "prsnt_custom_character_creation"),
-			
+
 		(else_try), ####### polearms #######
 			(eq, ":object", "$polearms_add"),
 			(gt,reg34,0),(lt,reg37,reg41),(call_script,"script_c3_increase_proficiency",reg37),(assign,reg37,reg58),
 			(start_presentation, "prsnt_custom_character_creation"),
-			
+
 		(else_try), ####### archery #######
 			(eq, ":object", "$archery_add"),
 			(gt,reg34,0),(lt,reg38,reg41),(call_script,"script_c3_increase_proficiency",reg38),(assign, reg38,reg58),
 			(start_presentation, "prsnt_custom_character_creation"),
-			
+
 		(else_try), ####### crossbows #######
 			(eq, ":object", "$crossbows_add"),
 			(gt,reg34,0),(lt,reg39,reg41),(call_script,"script_c3_increase_proficiency",reg39),(assign,reg39,reg58),
 			(start_presentation, "prsnt_custom_character_creation"),
-			
+
 		(else_try), ####### throwing #######
 			(eq, ":object", "$throwing_add"),
 			(gt,reg34,0),(lt,reg40,reg41),(call_script,"script_c3_increase_proficiency",reg40),(assign,reg40,reg58),
 			(start_presentation, "prsnt_custom_character_creation"),
-			
+
 		(else_try), ####### reset button #######
 			(eq, ":object", "$reset_button"),
 			#attributes
@@ -3102,24 +3102,24 @@ presentations = [
 			(try_begin),(call_script, "script_c3_reset_profiency", reg38), (val_add, reg34, reg60), (assign, reg38, reg61), (try_end),
 			(try_begin),(call_script, "script_c3_reset_profiency", reg39), (val_add, reg34, reg60), (assign, reg39, reg61), (try_end),
 			(try_begin),(call_script, "script_c3_reset_profiency", reg40), (val_add, reg34, reg60), (assign, reg40, reg61), (try_end),
-			
+
 			(start_presentation, "prsnt_custom_character_creation"),
 		(try_end),
       ]),
 	]),
-	
+
 	("c3_kingdom_finalize",0,mesh_load_window,
 		[
 			(ti_on_presentation_load,
-				[	
+				[
 					(presentation_set_duration, 999999),
 					(set_fixed_point_multiplier, 1000),
-					
+
 					#assign Lezalit as minister
 					(assign,"$g_player_minister","trp_npc14"),
 					(troop_set_faction,"trp_npc14","fac_player_supporters_faction"),
 					(str_store_troop_name,s10,"$g_player_minister"),
-					
+
 					#find players court
 					(try_for_range,":town",towns_begin,towns_end),
 						(store_faction_of_party,":town_faction",":town"),
@@ -3128,13 +3128,13 @@ presentations = [
 						(assign,"$g_player_court",":town"),
 						(str_store_party_name,s12,":town"),
 					(try_end),
-					
+
 					#king intro
 					(create_text_overlay, reg1, "@As king, your first priority should be to establish a right to rule by marrying into a high-born family, recruiting new lords, governing your lands, treating with other kings, or dispatching your companions on missions. {s10}, your minister, can be found at your court in {s12}. Consult often, to avoid accumulating unresolved issues.", tf_center_justify),
 					(position_set_x, pos1, 500),
 					(position_set_y, pos1, 550),
 					(overlay_set_position, reg1, pos1),
-					
+
 					#banner display right
 					(create_mesh_overlay_with_tableau_material, reg1, -1, "tableau_faction_note_mesh_banner","fac_player_supporters_faction"),
 					(position_set_x,pos1,690),
@@ -3143,7 +3143,7 @@ presentations = [
 					(position_set_x, pos1, 1300),
 					(position_set_y, pos1, 2000),
 					(overlay_set_size, reg1, pos1),
-					
+
 					#banner display left
 					(create_mesh_overlay_with_tableau_material, reg1, -1, "tableau_faction_note_mesh_banner","fac_player_supporters_faction"),
 					(position_set_x,pos1,50),
@@ -3152,7 +3152,7 @@ presentations = [
 					(position_set_x, pos1, 1300),
 					(position_set_y, pos1, 2000),
 					(overlay_set_size, reg1, pos1),
-				
+
 					#kingdom name
 					(create_text_overlay, reg1, "@Name your kingdom", tf_center_justify),
 					(position_set_x, pos1, 500),
@@ -3161,13 +3161,13 @@ presentations = [
 					(position_set_x, pos1, 1200),
 					(position_set_y, pos1, 1200),
 					(overlay_set_size, reg1, pos1),
-					
+
 					#kingdom name input
 					(create_simple_text_box_overlay, "$g_presentation_obj_name_kingdom_1"),
 					(position_set_x, pos1, 400),
 					(position_set_y, pos1, 420),
 					(overlay_set_position, "$g_presentation_obj_name_kingdom_1", pos1),
-				
+
 					#stores faction name from either the input or from player name if no input
 					(try_begin),
 					  (eq, "$players_kingdom_name_set", 1),
@@ -3178,7 +3178,7 @@ presentations = [
 					  (overlay_set_text, "$g_presentation_obj_name_kingdom_1", "str_default_kingdom_name"),
 					  (str_store_string, s7, "str_default_kingdom_name"),
 					(try_end),
-					
+
 					#exit button
 					(create_button_overlay, "$g_presentation_obj_name_kingdom_2", "@Continue...", tf_center_justify),
 					(position_set_x, pos1, 500),
@@ -3186,12 +3186,12 @@ presentations = [
 					(overlay_set_position, "$g_presentation_obj_name_kingdom_2", pos1),
 				]
 			),
-		
+
 			(ti_on_presentation_event_state_change,
 				[
 					(store_trigger_param_1, ":object"),
-					
-					(try_begin), 
+
+					(try_begin),
 						(eq, ":object", "$g_presentation_obj_name_kingdom_1"),
 						(str_store_string, s7, s0),
 					(else_try),
@@ -3207,7 +3207,7 @@ presentations = [
 		]
 	),
 ]
- 
+
 def modmerge_presentations(orig_presentations, check_duplicates = False):
     if( not check_duplicates ):
         orig_presentations.extend(presentations) # Use this only if there are no replacements (i.e. no duplicated item names)
