@@ -2494,6 +2494,18 @@ dplmc_battle_mode_triggers = [
     dplmc_death_camera, ai_crouch, ai_crouch2, realistic_wounding,
   ]
 ##diplomacy end
+extra_arena_triggers = [
+	AI_kick,
+	ai_shield_bash,
+	common_shield_bash,
+	dplmc_horse_speed,
+	common_move_deathcam,
+	common_rotate_deathcam,
+	custom_commander_camera,
+	deathcam_cycle_forwards,
+	deathcam_cycle_backwards,
+	dplmc_death_camera,
+  ]
 
 multiplayer_server_check_belfry_movement = (
   0, 0, 0, [],
@@ -4851,7 +4863,13 @@ mission_templates = [
 				(agent_unequip_item, ":agent_no", "itm_red_tourney_armor"),
 				(agent_equip_item, ":agent_no", "itm_red_tourney_helmet"),
 				(agent_unequip_item, ":agent_no", "itm_red_tourney_helmet"),
-				(assign, ":anim", "anim_dancer_good"),
+				(try_begin),
+					(this_or_next|troop_slot_eq, "$troop_id", slot_lord_reputation_type, lrep_ambitious),
+					(troop_slot_eq, "$troop_id", slot_lord_reputation_type, lrep_conventional),
+					(assign, ":anim", "anim_dancer_good"), # I guess they're just more into it.
+				(else_try),
+					(assign, ":anim", "anim_dancer"),
+				(try_end),
 				(agent_set_stand_animation, ":agent_no", ":anim"),
 				(agent_set_animation, ":agent_no", ":anim"),
 				(store_random_in_range,":r",0,100),
@@ -7278,7 +7296,7 @@ mission_templates = [
       (56, mtef_visitor_source|mtef_team_0, af_override_all, aif_start_alarmed, 1, [itm_practice_sword, itm_practice_shield, itm_padded_cloth, itm_segmented_helmet]),
       (57, mtef_visitor_source|mtef_team_0, af_override_all, aif_start_alarmed, 1, [itm_practice_sword, itm_practice_shield, itm_padded_cloth, itm_segmented_helmet]),
     ],
-    tournament_triggers
+    tournament_triggers + extra_arena_triggers
   ),
 
   (
