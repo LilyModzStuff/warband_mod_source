@@ -68,12 +68,12 @@ meshes = [
   ("pic_vaegir", 0, "pic_vaegir", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("pic_villageriot", 0, "pic_villageriot", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("pic_sarranid_encounter", 0, "pic_sarranid_encounter", 0, 0, 0, 0, 0, 0, 1, 1, 1),
-  
+
   #Custom Pictures
   ("pic_custom_01", 0, "pic_custom_01", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("pic_custom_02", 0, "pic_custom_02", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("pic_custom_03", 0, "pic_custom_03", 0, 0, 0, 0, 0, 0, 1, 1, 1),
-  
+
   ## Companions Overview, by Jedediah Q, modified by lazeras
   ("companion_overview", 0, "companion_overview", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("companion_overview_details", 0, "companion_overview_details", 0, 0, 0, 0, 0, 0, 1, 1, 1),
@@ -630,7 +630,7 @@ meshes = [
   ("drop_button_child", 0, "button_drop_child", 0, 0, 0, 0, 0, 0, 1.0, 0.5, 0.5),
   ("drop_button_child_down", 0, "button_drop_child_clicked", 0, 0, 0, 0, 0, 0, 1.0, 0.5, 0.5),
   ("drop_button_child_hl", 0, "button_drop_child_hl", 0, 0, 0, 0, 0, 0, 1.0, 0.5, 0.5),
-  
+
   ("inventory_equipment_panel", 0, "inventory_equipment_panel", 0, 0, 0, 0, 0, 0, 1, 1, 1),
 ##diplomacy start+
     #old pictures
@@ -642,7 +642,7 @@ meshes = [
   ("icon_lance", 0, "ico_couchedlance", 0, 0, 0, 0, 0, 0, 0.3, 0.3, 0.3),
   ("icon_spear", 0, "ico_spear", 0, 0, 0, 0, 0, 0, 0.3, 0.3, 0.3),
   ("icon_bardiche", 0, "ico_axetwo", 0, 0, 0, 0, 0, 0, 0.3, 0.3, 0.3),
-  
+
   #form
   ("order_frame", 0, "mp_ui_order_button", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("flag_spears", 0, "flag_spears", 0, 0, 0, 0, 0, 0, 1, 1, 1),
@@ -651,27 +651,30 @@ meshes = [
   ("flag_d7", 0, "flag_d7", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("flag_d8", 0, "flag_d8", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("flag_d9", 0, "flag_d9", 0, 0, 0, 0, 0, 0, 1, 1, 1),
-  
+
   ("tableau_mesh_wse_charger", 0, "tableau_mesh_wse_charger",  0, 0, 0, 0, 0, 0, 1, 1, 1),
 ### Dice game ### Dice game ###
-# 3 cards  
+# 3 cards
   ("3card_back", 0, "mmc_3c_back", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("3card_qoh", 0, "mmc_3c_qh", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("3card_kos", 0, "mmc_3c_ks", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("3card_koc", 0, "mmc_3c_kc", 0, 0, 0, 0, 0, 0, 1, 1, 1),
-  ("3card_table", 0, "mmc_3c_table", 0, 0, 0, 0, 0, 0, 1, 1, 1),  
-#  ("3card_textbar", 0, "mmc_3c_textbar", 0, 0, 0, 0, 0, 0, 1, 1, 1), 
-  ("3card_window", 0, "mmc_3c_window", 0, 0, 0, 0, 0, 0, 1, 1, 1),  
-# 3 cards end  
-# dices game 
+  ("3card_table", 0, "mmc_3c_table", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+#  ("3card_textbar", 0, "mmc_3c_textbar", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("3card_window", 0, "mmc_3c_window", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+# 3 cards end
+# dices game
   ("mmc_dice_1", 0, "mmc_dice_1", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("mmc_dice_2", 0, "mmc_dice_2", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("mmc_dice_3", 0, "mmc_dice_3", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("mmc_dice_4", 0, "mmc_dice_4", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("mmc_dice_5", 0, "mmc_dice_5", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("mmc_dice_6", 0, "mmc_dice_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),
-# dices game end 
-### Dice game ### Dice game ### END ### 
+# dices game end
+### Dice game ### Dice game ### END ###
+#Troop Ratio Bar
+ ("status_troop_ratio_bar", 0, "slider_hor", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("status_troop_ratio_bar_button", 0, "handle_hor", 0, 0, 0, 0, 0, 0, 1, 1, 1),
 ]
 # modmerger_start version=201 type=2
 try:
