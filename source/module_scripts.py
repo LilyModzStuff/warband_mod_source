@@ -104,7 +104,8 @@ scripts = [
 	  (assign, "$f_player_prost", 0),
 
 	  (assign, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_HIGH),
-
+	  (assign, "$g_dplmc_ai_changes", DPLMC_GOLD_CHANGES_HIGH),
+      
       (try_for_range, ":edible", "itm_raw_date_fruit", food_end),
         (neq, ":edible", "itm_furs"),
         (item_set_slot, ":edible", slot_item_edible, 1),
@@ -425,7 +426,7 @@ scripts = [
       (party_set_slot,"p_port_19", slot_port_town, "p_town_19"),
 
   #Duh Town Population for Land required // Linked to bank system
-
+ 
 	  (try_for_range, ":town_no", towns_begin, towns_end),
 		(this_or_next|eq,":town_no","p_town_1"),
 		(this_or_next|eq,":town_no","p_town_5"),
@@ -441,9 +442,9 @@ scripts = [
 		(store_random_in_range, ":amount", 8000, 12000),
 		(party_set_slot, ":town_no", slot_center_population, ":amount"),
 		(val_div, ":amount", 200),
-		(party_set_slot, ":town_no", slot_town_acres, ":amount"),
+		(party_set_slot, ":town_no", slot_town_acres, ":amount"),		
 	  (try_end),
-
+	 
 	  #Duh Over
 
 # Castles
@@ -3492,16 +3493,16 @@ scripts = [
           (store_div, ":attacker_strength", ":attacker_strength", 20),
           (val_min, ":attacker_strength", 50),
           (val_add, ":attacker_strength", 1),
-           (try_begin),
+          (try_begin),
             #For sieges increase attacker casualties and reduce defender casualties.
-             (this_or_next|party_slot_eq, ":root_defender_party", slot_party_type, spt_castle),
-             (party_slot_eq, ":root_defender_party", slot_party_type, spt_town),
+            (this_or_next|party_slot_eq, ":root_defender_party", slot_party_type, spt_castle),
+            (party_slot_eq, ":root_defender_party", slot_party_type, spt_town),
             (val_mul, ":defender_strength", 123), #it was 1.5 in old version, now it is only 1.23
             (val_div, ":defender_strength", 100),
 
             (val_mul, ":attacker_strength", 100), #it was 0.5 in old version, now it is only 1 / 1.23
             (val_div, ":attacker_strength", 123),
-           (try_end),
+          (try_end),
 
           ##diplomacy begin
           (assign, ":defender_percent", 100),
@@ -3521,7 +3522,7 @@ scripts = [
           (val_div, ":defender_strength", 100),
 
           (assign, ":attacker_percent", 100),
-           (try_begin),
+          (try_begin),
             (faction_get_slot, ":serfdom", ":attacker_faction", dplmc_slot_faction_serfdom),
             (neq, ":serfdom", 0),
             (val_mul, ":serfdom", -2),
@@ -3540,22 +3541,22 @@ scripts = [
           (call_script, "script_party_count_fit_for_battle", "p_collective_ally", 0),
           (assign, ":old_defender_strength", reg0),
 
-           (try_begin),
+          (try_begin),
             (neg|is_currently_night), #Don't fight at night
             (inflict_casualties_to_party_group, ":root_attacker_party", ":defender_strength", "p_temp_casualties"),
-             (party_collect_attachments_to_party, ":root_attacker_party", "p_collective_enemy"),
-           (try_end),
-           (call_script, "script_party_count_fit_for_battle", "p_collective_enemy", 0),
-           (assign, ":new_attacker_strength", reg0),
+            (party_collect_attachments_to_party, ":root_attacker_party", "p_collective_enemy"),
+          (try_end),
+          (call_script, "script_party_count_fit_for_battle", "p_collective_enemy", 0),
+          (assign, ":new_attacker_strength", reg0),
 
-           (try_begin),
-             (gt, ":new_attacker_strength", 0),
+          (try_begin),
+            (gt, ":new_attacker_strength", 0),
             (neg|is_currently_night), #Don't fight at night
             (inflict_casualties_to_party_group, ":root_defender_party", ":attacker_strength", "p_temp_casualties"),
-             (party_collect_attachments_to_party, ":root_defender_party", "p_collective_ally"),
-           (try_end),
-           (call_script, "script_party_count_fit_for_battle", "p_collective_ally", 0),
-           (assign, ":new_defender_strength", reg0),
+            (party_collect_attachments_to_party, ":root_defender_party", "p_collective_ally"),
+          (try_end),
+          (call_script, "script_party_count_fit_for_battle", "p_collective_ally", 0),
+          (assign, ":new_defender_strength", reg0),
 
           (try_begin),
             (this_or_next|eq, ":new_attacker_strength", 0),
@@ -5497,7 +5498,7 @@ scripts = [
 			(eq, ":cur_month", 12),
 			(str_store_string, s1, "str_december_reg1_reg2_v2"),
 		  (try_end),
-		(else_try),
+		(else_try),	  
       (try_begin),
         (eq, ":cur_month", 1),
         (str_store_string, s1, "str_january_reg1_reg2"),
@@ -77115,7 +77116,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 		(agent_set_slot, ":agent", 27, ":current_time"),
 	    #(display_message, "@{s2} has shield bashed!"),
 	(else_try),
-		(agent_play_sound, ":agent", "snd_woman_grunt"),
+		(agent_play_sound, ":agent", "snd_woman_grunt"),	
         (agent_set_slot, ":agent", 27, ":current_time"),
 		#(display_message, "@{s2} has shield bashed!"),
 	(try_end),
@@ -77192,7 +77193,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 
 	# test to make sure it's a huge hit
 	(ge, ":damage", 40),
-
+	
 	# test if agent is dying from the hit
 	(store_agent_hit_points, ":inflicted_hp", ":inflicted_agent_id", 1),
 	(store_sub, ":inflicted_new_hp", ":inflicted_hp", ":damage"),

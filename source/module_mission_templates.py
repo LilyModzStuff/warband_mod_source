@@ -500,6 +500,12 @@ battle_panel_triggers = [ #4 triggers
       (try_end),
   ]),
 
+(0, 0, ti_once,
+    [],
+    [
+      (start_presentation, "prsnt_troop_ratio_bar"),
+    ]),
+
   # (0.1, 0, 0, [ this is left from Native code
       # (is_presentation_active, "prsnt_battle")
   # ],[
@@ -1785,7 +1791,13 @@ common_shield_bash = (0,0,0,[
 
 (call_script, "script_shield_bash"),
 ])
-
+#Troop ratio bar expansion script to call it through left ctrl
+common_troop_ratio = (0,0,0,[
+(key_clicked, key_left_control),
+],
+[
+(start_presentation, "prsnt_troop_ratio_bar"),
+])
 #AI BASHING OSP BEGIN
 ai_shield_bash = (
                  0, 0,  0,
@@ -2491,7 +2503,8 @@ dplmc_battle_mode_triggers = [
     dplmc_horse_speed,
     common_move_deathcam, common_rotate_deathcam,
     custom_commander_camera, deathcam_cycle_forwards, deathcam_cycle_backwards,
-    dplmc_death_camera, ai_crouch, ai_crouch2, realistic_wounding,
+    dplmc_death_camera, ai_crouch, ai_crouch2, realistic_wounding,	player_dance,
+	grant_body_start, grant_body_after_inventory, lose_armor_parts,
   ]
 ##diplomacy end
 extra_arena_triggers = [
@@ -2505,6 +2518,7 @@ extra_arena_triggers = [
 	deathcam_cycle_forwards,
 	deathcam_cycle_backwards,
 	dplmc_death_camera,
+	player_dance,
   ]
 
 multiplayer_server_check_belfry_movement = (
@@ -3476,6 +3490,11 @@ common_battle_order_panel_tick = (
   [
     (call_script, "script_update_order_panel_statistics_and_map"),
     ])
+(0, 0, ti_once,
+    [],
+    [
+      (start_presentation, "prsnt_troop_ratio_bar"),
+    ]),
 
 common_battle_inventory = (
   ti_inventory_key_pressed, 0, 0, [],
@@ -5140,6 +5159,7 @@ mission_templates = [
       	  ai_shield_bash,
       	  common_shield_bash,
       	  common_gore,
+          common_troop_ratio,
 
       (ti_question_answered, 0, 0, [],
        [(store_trigger_param_1,":answer"),
@@ -5342,6 +5362,7 @@ mission_templates = [
       	  ai_shield_bash,
       	  common_shield_bash,
       	  common_gore,
+          common_troop_ratio,
       common_battle_init_banner,
 
 
@@ -5471,6 +5492,7 @@ mission_templates = [
       	  ai_shield_bash,
       	  common_shield_bash,
       	  common_gore,
+          common_troop_ratio,
       common_battle_init_banner,
 
       (ti_question_answered, 0, 0, [],
@@ -5792,6 +5814,7 @@ mission_templates = [
       	  ai_shield_bash,
       	  common_shield_bash,
       	  common_gore,
+          common_troop_ratio,
       common_battle_init_banner,
 
       (ti_question_answered, 0, 0, [],
@@ -5990,6 +6013,7 @@ mission_templates = [
       	  ai_shield_bash,
       	  common_shield_bash,
       	  common_gore,
+          common_troop_ratio,
       common_battle_init_banner,
 
       killed_or_wounded,
@@ -6093,6 +6117,7 @@ mission_templates = [
       	  ai_shield_bash,
       	  common_shield_bash,
       	  common_gore,
+          common_troop_ratio,
       common_battle_init_banner,
       common_siege_question_answered,
       common_siege_init,
@@ -6195,6 +6220,7 @@ mission_templates = [
  	  ai_shield_bash,
  	  common_shield_bash,
  	  common_gore,
+      common_troop_ratio,
       common_battle_init_banner,
       common_siege_question_answered,
       common_siege_init,
@@ -6568,6 +6594,7 @@ mission_templates = [
 	  AI_kick,
 	  ai_shield_bash,
       common_shield_bash,
+      #not adding troop ratio bar here but it might work I don't hponestly know.
 
       #SB : player override items
       (ti_on_agent_spawn, 0, ti_once, [
@@ -6779,7 +6806,7 @@ mission_templates = [
 	  AI_kick,
 	  ai_shield_bash,
 	  common_shield_bash,
-	  
+
 
       (ti_question_answered, 0, 0, [],
        [
