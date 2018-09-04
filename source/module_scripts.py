@@ -104,6 +104,7 @@ scripts = [
 	  (assign, "$f_player_prost", 0),
 
 	  (assign, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_HIGH),
+	  (assign, "$g_dplmc_ai_changes", DPLMC_GOLD_CHANGES_HIGH),
       
       (try_for_range, ":edible", "itm_raw_date_fruit", food_end),
         (neq, ":edible", "itm_furs"),

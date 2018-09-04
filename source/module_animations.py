@@ -1933,9 +1933,10 @@ animations = [
 	[1.8, "dancer_3", 0, 17, arf_use_stand_progress|arf_cyclic, 0, (0, 0, 0), 0.25],
 	[1.9, "dancer_4", 0, 18, arf_use_stand_progress|arf_cyclic, 0, (0, 0, 0), 0.25],
  ],
-["dancer_good", acf_enforce_all, amf_priority_die|amf_play,
-	#[17.8, "dancer_stand", 0, 177, arf_use_stand_progress|arf_cyclic, 0, (0, 0, 0), 0.25],
-	[12.0, "dancer_stand", 0, 177, arf_use_stand_progress|arf_cyclic, 0, (0, 0, 0), 0.25],
+  #dTheHun
+ ["dancer_good", 0, amf_play|amf_priority_mount|amf_keep, 
+   [8.0, "dancer_stand", 0, 177, arf_cyclic|arf_blend_in_5],
+   [10.0, "dancer_stand", 0, 177, arf_cyclic|arf_blend_in_5],
  ],
 	
    #Ramaraunt Begin
