@@ -1562,7 +1562,7 @@ items = [
 
 #DtheHun BOOTS
 ["risty_sandals", "Risty's sandals", [("risty_sandals",0)], itp_merchandise| itp_type_foot_armor | itp_attach_armature  ,0,
- 1000 , weight(2)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(24)|difficulty(0) ,imodbits_armor,
+ 1000 , weight(2)|abundance(0)|head_armor(0)|body_armor(0)|leg_armor(24)|difficulty(0) ,imodbits_armor,
   [(ti_on_init_item, 
 	[
 		(store_trigger_param_1, ":agent_no"), # -1 if not in scene 
@@ -1576,7 +1576,7 @@ items = [
 ["diabassa_boots", "Assassin Boots", [("diabassa_boots",0)], itp_merchandise| itp_type_foot_armor | itp_attach_armature  ,0,
 1666 , weight(1.5)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(28)|difficulty(0) ,imodbits_armor ],
 ["sonja_boots", "Hyrcanian Boots", [("sonja_boots",0)], itp_merchandise| itp_type_foot_armor | itp_attach_armature  ,0,
-2100 , weight(2.5)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(31)|difficulty(0) ,imodbits_armor,
+2100 , weight(2.5)|abundance(0)|head_armor(0)|body_armor(0)|leg_armor(31)|difficulty(0) ,imodbits_armor,
   [(ti_on_init_item, 
 	[
 		(store_trigger_param_1, ":agent_no"), # -1 if not in scene 

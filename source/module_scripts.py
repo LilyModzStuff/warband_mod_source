@@ -104,7 +104,8 @@ scripts = [
 	  (assign, "$f_player_prost", 0),
 
 	  (assign, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_HIGH),
-	  (assign, "$g_dplmc_ai_changes", DPLMC_GOLD_CHANGES_HIGH),
+	  (assign, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_HIGH),
+	  (call_script, "script_set_custom_armor_slots"), # Custom armor init
       
       (try_for_range, ":edible", "itm_raw_date_fruit", food_end),
         (neq, ":edible", "itm_furs"),
@@ -78008,6 +78009,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	]
   ),
  
+  # Should use this to make all customizable armor remove underwear
   #script_set_calves - This is for SANDALS!!!
   # INPUT: 	1:agent_no, 2:troop_no,2, reg1(:troop_item_slots_begin), reg2(:agent_item_slots_begin)
   # OUTPUT:	NONE
@@ -78022,19 +78024,19 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	(try_begin),
 		(troop_get_type, ":troop_type", ":troop_no"),
 		(try_begin),
-			(this_or_next|eq, ":troop_type", 1), #female || calfwoman (don't change male!)
-			(eq, ":troop_type", 3),
+			(this_or_next|eq, ":troop_type", tf_female), #female || calfwoman (don't change male!)
+			(eq, ":troop_type", tf_calfwoman),
 			(try_begin),
-				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_risty_sandals"), #3 and has sandals on -> no change
+				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_risty_sandals"), #tf_calfwoman and has sandals on -> no change
 				(troop_has_item_equipped , ":troop_no", "itm_sonja_boots"),
 				(try_begin),
-					(eq, ":troop_type", 1),
-					(troop_set_type, ":troop_no", 3),
+					(eq, ":troop_type", tf_female),
+					(troop_set_type, ":troop_no", tf_calfwoman),
 					(assign, ":troop_changed", 1),
 				(try_end),
 			(else_try),
-				(eq, ":troop_type", 3),
-				(troop_set_type, ":troop_no", 1),
+				(eq, ":troop_type", tf_calfwoman),
+				(troop_set_type, ":troop_no", tf_female),
 				(assign, ":troop_changed", 1),
 			(try_end),
 			(ge, ":agent_no", 0), # in scene - warnings from map else
