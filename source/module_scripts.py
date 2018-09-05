@@ -105,7 +105,7 @@ scripts = [
 
 	  (assign, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_HIGH),
 	  (assign, "$g_dplmc_ai_changes", DPLMC_GOLD_CHANGES_HIGH),
-      
+
       (try_for_range, ":edible", "itm_raw_date_fruit", food_end),
         (neq, ":edible", "itm_furs"),
         (item_set_slot, ":edible", slot_item_edible, 1),
@@ -426,7 +426,7 @@ scripts = [
       (party_set_slot,"p_port_19", slot_port_town, "p_town_19"),
 
   #Duh Town Population for Land required // Linked to bank system
- 
+
 	  (try_for_range, ":town_no", towns_begin, towns_end),
 		(this_or_next|eq,":town_no","p_town_1"),
 		(this_or_next|eq,":town_no","p_town_5"),
@@ -442,9 +442,9 @@ scripts = [
 		(store_random_in_range, ":amount", 8000, 12000),
 		(party_set_slot, ":town_no", slot_center_population, ":amount"),
 		(val_div, ":amount", 200),
-		(party_set_slot, ":town_no", slot_town_acres, ":amount"),		
+		(party_set_slot, ":town_no", slot_town_acres, ":amount"),
 	  (try_end),
-	 
+
 	  #Duh Over
 
 # Castles
@@ -5498,7 +5498,7 @@ scripts = [
 			(eq, ":cur_month", 12),
 			(str_store_string, s1, "str_december_reg1_reg2_v2"),
 		  (try_end),
-		(else_try),	  
+		(else_try),
       (try_begin),
         (eq, ":cur_month", 1),
         (str_store_string, s1, "str_january_reg1_reg2"),
@@ -40262,6 +40262,16 @@ scripts = [
          (troop_is_hero, ":troop_no"),
          (cur_tableau_add_troop, ":troop_no", pos2, ":animation", -1),
        (else_try),
+       #################################################
+   (store_random_in_range, ":gender", 0, 2),
+    (try_begin),
+    (eq, ":gender", 0),
+    (troop_set_type, ":troop_no", 0),
+    (else_try),
+    (eq, ":gender", 1),
+    (troop_set_type, ":troop_no", 1),
+    (try_end),
+#################################################
          (store_mul, ":random_seed", ":troop_no", 126233),
          (val_mod, ":random_seed", 1000),
          (val_add, ":random_seed", 1),
@@ -77116,7 +77126,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 		(agent_set_slot, ":agent", 27, ":current_time"),
 	    #(display_message, "@{s2} has shield bashed!"),
 	(else_try),
-		(agent_play_sound, ":agent", "snd_woman_grunt"),	
+		(agent_play_sound, ":agent", "snd_woman_grunt"),
         (agent_set_slot, ":agent", 27, ":current_time"),
 		#(display_message, "@{s2} has shield bashed!"),
 	(try_end),
@@ -77193,7 +77203,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 
 	# test to make sure it's a huge hit
 	(ge, ":damage", 40),
-	
+
 	# test if agent is dying from the hit
 	(store_agent_hit_points, ":inflicted_hp", ":inflicted_agent_id", 1),
 	(store_sub, ":inflicted_new_hp", ":inflicted_hp", ":damage"),
