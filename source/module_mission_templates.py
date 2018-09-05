@@ -1798,6 +1798,21 @@ common_troop_ratio = (0,0,0,[
 [
 (start_presentation, "prsnt_troop_ratio_bar"),
 ])
+#Mixed gender troops by Dusk Voyager (OSP)
+random_mixed_gender = (ti_on_agent_spawn, 0, 0, [],
+  [
+   (store_trigger_param_1, ":agent_no"),
+   (agent_get_troop_id, ":troop_no", ":agent_no"),
+   (neg|troop_is_hero, ":troop_no"),
+   (store_random_in_range, ":gender", 0, 2),
+    (try_begin),
+    (eq, ":gender", 0),
+    (troop_set_type, ":troop_no", 0),
+    (else_try),
+    (eq, ":gender", 1),
+    (troop_set_type, ":troop_no", 1),
+    (try_end),
+  ])
 #AI BASHING OSP BEGIN
 ai_shield_bash = (
                  0, 0,  0,
@@ -5160,6 +5175,7 @@ mission_templates = [
       	  common_shield_bash,
       	  common_gore,
           common_troop_ratio,
+          random_mixed_gender,
 
       (ti_question_answered, 0, 0, [],
        [(store_trigger_param_1,":answer"),
@@ -5363,6 +5379,7 @@ mission_templates = [
       	  common_shield_bash,
       	  common_gore,
           common_troop_ratio,
+          random_mixed_gender,
       common_battle_init_banner,
 
 
@@ -5493,6 +5510,7 @@ mission_templates = [
       	  common_shield_bash,
       	  common_gore,
           common_troop_ratio,
+          random_mixed_gender,
       common_battle_init_banner,
 
       (ti_question_answered, 0, 0, [],
@@ -5815,6 +5833,7 @@ mission_templates = [
       	  common_shield_bash,
       	  common_gore,
           common_troop_ratio,
+          random_mixed_gender,
       common_battle_init_banner,
 
       (ti_question_answered, 0, 0, [],
@@ -6014,6 +6033,7 @@ mission_templates = [
       	  common_shield_bash,
       	  common_gore,
           common_troop_ratio,
+          random_mixed_gender,
       common_battle_init_banner,
 
       killed_or_wounded,
@@ -6118,6 +6138,7 @@ mission_templates = [
       	  common_shield_bash,
       	  common_gore,
           common_troop_ratio,
+          random_mixed_gender,
       common_battle_init_banner,
       common_siege_question_answered,
       common_siege_init,
@@ -6221,6 +6242,7 @@ mission_templates = [
  	  common_shield_bash,
  	  common_gore,
       common_troop_ratio,
+      random_mixed_gender,
       common_battle_init_banner,
       common_siege_question_answered,
       common_siege_init,
