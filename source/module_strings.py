@@ -4926,7 +4926,7 @@ Even in the last case, the player can make formations up to four lines by orderi
   ("october_reg1_reg2_v2", "October {reg1}, {reg2}"),
   ("november_reg1_reg2_v2", "November {reg1}, {reg2}"),
   ("december_reg1_reg2_v2", "December {reg1}, {reg2}"),
-  
+
 #DtheHun  
  #custom item
   ("tutorial_custom_item", "You may have customizable item equipped. Press ""Wiew Outfit"" and ""Inventory Window"" keys to open the Customization Window in character view, or find it in the Camp Actions Menu."),

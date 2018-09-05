@@ -19235,12 +19235,12 @@ presentations = [
           [
             (presentation_set_duration, 999999),
             (set_fixed_point_multiplier, 1000),
-           
+
           ## initialization part begin
             # presentation obj: begin from top left corner
             (assign, ":init_pos_x", 20), # init x
             (assign, ":init_pos_y", 720), # init y
-           
+
             # world map, X: -180 t0 180  Y: -145 t0 145
             (assign, ":min_map_x", -180*1000),
             (assign, ":max_map_x", 180*1000),
@@ -19249,21 +19249,21 @@ presentations = [
             # also begin from top left corner
             (assign, ":init_map_x", ":min_map_x"), # init map_x
             (assign, ":init_map_y", ":max_map_y"), # init map_y
-           
+
             # move length of p_temp_party, total_cols and total_rows
             (assign, ":party_move_length", 2*1000),
             (store_sub, ":total_cols", ":max_map_x", ":min_map_x"),
             (store_sub, ":total_rows", ":max_map_y", ":min_map_y"),
             (val_div, ":total_cols", ":party_move_length"),
             (val_div, ":total_rows", ":party_move_length"),
-           
+
             # color_block_length
             (assign, ":color_block_length", 4),
             (store_mul, ":color_block_size", ":color_block_length", 50),
             (position_set_x, pos2, ":color_block_size"),
             (position_set_y, pos2, ":color_block_size"),
           ## initialization part end
-           
+
             (assign, ":pos_x", ":init_pos_x"), # assign to cur pos_x
             (assign, ":pos_y", ":init_pos_y"), # assign to cur pos_y
             (assign, ":map_x", ":init_map_x"), # assign to cur map_x
@@ -19295,7 +19295,7 @@ presentations = [
                 (position_set_y, pos1, ":pos_y"),
                 (overlay_set_position, reg0, pos1),
                 (overlay_set_size, reg0, pos2), # color block size
-               
+
                 ## draw borderlines begin [optional]
                 # borderlines length and whidth
                 #(store_add, ":line_length", ":color_block_size", 1*50),
@@ -19400,7 +19400,7 @@ presentations = [
                 #  (try_end),
                 #(try_end),
                 ## draw borderlines end [optional]
-               
+
                 # offset
                 (val_add, ":pos_x", ":color_block_length"),
                 (val_add, ":map_x", ":party_move_length"),
@@ -19411,7 +19411,7 @@ presentations = [
               (assign, ":map_x", ":init_map_x"),
               (val_sub, ":map_y", ":party_move_length"),
             (try_end),
-           
+
             ## blocks of centers
             (assign, ":slot_no", 0),
             (try_for_range, ":center_no", centers_begin, centers_end),
@@ -19470,13 +19470,13 @@ presentations = [
               (val_add, ":slot_no", 1),
             (try_end),
             (assign, "$temp", ":slot_no"), # record num of slots
-           
+
             ## blocks of kingdoms
             (create_text_overlay, reg0, "@Factions", tf_vertical_align_center),
             (position_set_x, pos1, 790),
             (position_set_y, pos1, 700),
             (overlay_set_position, reg0, pos1),
-           
+
             (assign, ":pos_x", 750),
             (assign, ":pos_y", 650),
             (try_for_range, ":cur_kingdom", kingdoms_begin, kingdoms_end),
@@ -19505,7 +19505,7 @@ presentations = [
               (overlay_set_size, reg0, pos1),
               (val_sub, ":pos_y", 40),
             (try_end),
-           
+
             ## show centers or not
             # towns
             (create_check_box_overlay, "$g_presentation_obj_1", "mesh_checkbox_off", "mesh_checkbox_on"),
@@ -19537,7 +19537,7 @@ presentations = [
             (position_set_x, pos1, 480),
             (position_set_y, pos1, 120),
             (overlay_set_position, reg0, pos1),
-           
+
             (create_text_overlay, reg0, "@Tip: move the mouse onto the black blocks to show their names.", tf_vertical_align_center),
             (position_set_x, pos1, 50),
             (position_set_y, pos1, 95),
@@ -19545,7 +19545,7 @@ presentations = [
             (position_set_x, pos1, 750),
             (position_set_y, pos1, 750),
             (overlay_set_size, reg0, pos1),
-           
+
             (create_text_overlay, reg0, "@The World Map", tf_double_space|tf_center_justify),
             (position_set_x, pos1, 380),
             (position_set_y, pos1, 30),
@@ -19553,19 +19553,19 @@ presentations = [
             (position_set_x, pos1, 2000),
             (position_set_y, pos1, 2000),
             (overlay_set_size, reg0, pos1),
-           
+
             # Done
             (create_game_button_overlay, "$g_presentation_obj_5", "@Done"),
             (position_set_x, pos1, 900),
             (position_set_y, pos1, 25),
             (overlay_set_position, "$g_presentation_obj_5", pos1),
           ]),
-       
+
         (ti_on_presentation_mouse_enter_leave,
           [
             (store_trigger_param_1, ":object"),
             (store_trigger_param_2, ":enter_leave"),
-           
+
             # show center name when mouse on it
             (try_for_range, ":slot_no", 0, "$temp"),
               (troop_slot_eq, "trp_temp_array_a", ":slot_no", ":object"),
@@ -19574,12 +19574,12 @@ presentations = [
               (overlay_set_display, ":cur_overlay", ":display_overlay"),
             (try_end),
           ]),
-     
+
         (ti_on_presentation_event_state_change,
           [
             (store_trigger_param_1, ":object"),
             (store_trigger_param_2, ":value"),
-           
+
             (try_begin),
               (eq, ":object", "$g_presentation_obj_1"), # show towns
               (try_for_range, ":slot_no", 0, "$temp"),
@@ -19616,49 +19616,49 @@ presentations = [
       [
         (set_fixed_point_multiplier, 1000),
         (presentation_set_duration, 999999),
-		
+
 #Little Pos Helper by Kuba begin
 #		(create_text_overlay, "$g_little_pos_helper", "@00,00"),
 #		(overlay_set_color, "$g_little_pos_helper", 0xFFFFFFFF),
 #		(position_set_x, pos1, 10),
 #		(position_set_y, pos1, 700),
 #		(overlay_set_position, "$g_little_pos_helper", pos1),
-#Little Pos Helper by Kuba end 
-	  		
+#Little Pos Helper by Kuba end
+
 		(assign,"$g_presentation_obj_card1",-1),
 		(assign,"$g_presentation_obj_card2",-1),
         (assign,"$g_presentation_obj_card3",-1),
         (assign,"$g_presentation_obj_1",-1), # mesh king of spades
-        (assign,"$g_presentation_obj_2",-1), # mesh queen of heart      
-        (assign,"$g_presentation_obj_3",-1), # mesh king of clubs       
+        (assign,"$g_presentation_obj_2",-1), # mesh queen of heart
+        (assign,"$g_presentation_obj_3",-1), # mesh king of clubs
         (assign,"$g_presentation_obj_4",-1), # text "@Bet: {reg51}Denar"
         (assign,"$g_presentation_obj_5",-1), # text "@Money: {reg1}Denar"
         (assign,"$g_presentation_obj_6",-1), # "mesh_text_bar"
         (assign,"$g_presentation_obj_7",-1), # slider
         (assign,"$g_presentation_obj_8",-1), # text "@Bet: {reg51}Denar" above slider
-        (assign,"$g_presentation_obj_9",-1), # win or lose window	
-        (assign,"$g_presentation_obj_10",-1), #done button 
+        (assign,"$g_presentation_obj_9",-1), # win or lose window
+        (assign,"$g_presentation_obj_10",-1), #done button
         (assign,"$g_presentation_obj_11",-1), #find the lady
         (assign,"$g_presentation_obj_12",-1),#yes
         (assign,"$g_presentation_obj_13",-1),#no
-        (assign,"$g_presentation_obj_14",-1),#start game button	
+        (assign,"$g_presentation_obj_14",-1),#start game button
         (assign,"$g_presentation_obj_15",-1),
         (assign,"$g_presentation_obj_16",-1),
-        (assign,"$g_presentation_obj_17",-1),		
+        (assign,"$g_presentation_obj_17",-1),
 		(assign, reg1,0),
 		(assign, reg2,0),
 		(assign, reg3,0),
-        (assign, reg50, 0),		
+        (assign, reg50, 0),
         (assign, reg51, 1),
-        (assign, reg52, 0),		
+        (assign, reg52, 0),
         (assign, reg55, 1),
-        (assign, reg58, 0),		
+        (assign, reg58, 0),
 		(str_clear,s1),
         (create_mesh_overlay, reg1, "mesh_3card_table"),#mesh_wood_table
         (position_set_x, pos1, 0),
         (position_set_y, pos1, 0),
         (overlay_set_position, reg1, pos1),
-	
+
         (str_store_troop_name, s1, "$g_talk_troop"),# NPC
         (create_text_overlay, reg1, "@{s1}", tf_center_justify),
         (position_set_x, pos1, 120),#820
@@ -19695,7 +19695,7 @@ presentations = [
         (overlay_set_position, reg1, pos1),
         (position_set_x, pos1, 250),#
         (position_set_y, pos1, 200),#
-        (overlay_set_size, reg1, pos1),		
+        (overlay_set_size, reg1, pos1),
 
         (str_store_string, s1, "@Bet: {reg51}Denar"),#
         (create_text_overlay, "$g_presentation_obj_4", s1),#
@@ -19710,7 +19710,7 @@ presentations = [
         (overlay_set_position, "$g_presentation_obj_5", pos1),
         (overlay_set_color, "$g_presentation_obj_5"),#0xfffccc
         ]),
-		
+
       (ti_on_presentation_run,#
        [
 #Little Pos Helper by Kuba begin
@@ -19718,25 +19718,25 @@ presentations = [
 #		(position_get_x, reg1, pos1),
 #		(position_get_y, reg2, pos1),
 #		(overlay_set_text, "$g_little_pos_helper", "@{reg1},{reg2}"),
-#Little Pos Helper by Kuba end  
+#Little Pos Helper by Kuba end
 	    (store_trigger_param_1, ":cur_time"),
         (set_fixed_point_multiplier, 1000),
         (ge, ":cur_time",500),
         (try_begin),
 		  (eq, reg50, 0),
-          (assign, reg50, 1),#3 
+          (assign, reg50, 1),#3
           (create_mesh_overlay, "$g_presentation_obj_6", "mesh_3card_window"), #"mesh_text_bar"
           (position_set_x, pos6, 335),#685 #345
           (position_set_y, pos6, 265),#482 #217
           (position_set_x, pos1, 500),#
           (position_set_y, pos1, 500),#
-          (overlay_set_size, "$g_presentation_obj_6", pos1),		  
+          (overlay_set_size, "$g_presentation_obj_6", pos1),
 		  (store_troop_gold,":plr_gold","trp_player"),#
 		    (try_begin),
 			    (ge,":plr_gold",50),
-                (assign,":bet50",50), 
+                (assign,":bet50",50),
  			(else_try),
-			    (assign,":bet50",":plr_gold"),          
+			    (assign,":bet50",":plr_gold"),
 		    (try_end),
           (create_slider_overlay, "$g_presentation_obj_7", 1, ":bet50"),#
           (overlay_set_val, "$g_presentation_obj_7", reg51),
@@ -19754,13 +19754,13 @@ presentations = [
           (overlay_set_position, "$g_presentation_obj_8", pos8),
           (overlay_set_position, "$g_presentation_obj_10", pos10),
         (try_end),#
-		
+
         (try_begin),
 		    (eq, reg50, 2),
             (assign, reg50, 3),#5
             (position_set_x, pos14, 375),#
-            (position_set_y, pos14, 550),					
-	# King of Spades			
+            (position_set_y, pos14, 550),
+	# King of Spades
             (create_mesh_overlay, "$g_presentation_obj_1", "mesh_3card_kos"),#
             (position_set_x, pos1, 275),
             (position_set_y, pos1, 300),
@@ -19788,19 +19788,19 @@ presentations = [
          (try_begin),
 		     (eq, reg50, 4),
 			 (assign,reg50, 5),
-             (overlay_set_display, "$g_presentation_obj_14", 0),#start game button				 
-             (assign,reg58,":cur_time"),			 
+             (overlay_set_display, "$g_presentation_obj_14", 0),#start game button
+             (assign,reg58,":cur_time"),
              (overlay_set_display, "$g_presentation_obj_1", 0),
              (overlay_set_display, "$g_presentation_obj_2", 0),
-             (overlay_set_display, "$g_presentation_obj_3", 0),				
-			
+             (overlay_set_display, "$g_presentation_obj_3", 0),
+
             (try_begin),
                 (create_mesh_overlay, "$g_presentation_obj_16", "mesh_3card_back", "mesh_3card_back"),#
                 (position_set_x, pos15, 275),
                 (position_set_y, pos15, 300),
 		    	(overlay_set_position, "$g_presentation_obj_16", pos15),
 		     	(overlay_set_size, "$g_presentation_obj_16", pos14),
-			
+
                 (create_mesh_overlay, "$g_presentation_obj_17", "mesh_3card_back", "mesh_3card_back"),#
                 (position_set_x, pos16, 425),
                 (position_set_y, pos16, 300),
@@ -19814,31 +19814,31 @@ presentations = [
 			    (overlay_set_size, "$g_presentation_obj_15", pos14),#
 
 			    (overlay_animate_to_position, "$g_presentation_obj_15",500, pos15),
-			    (overlay_animate_to_position, "$g_presentation_obj_16",500, pos16), 
+			    (overlay_animate_to_position, "$g_presentation_obj_16",500, pos16),
                 (overlay_animate_to_position, "$g_presentation_obj_17",500, pos17),
 
 			(try_end),
-			(assign,reg50, 6),	 
-    	 (try_end),		
+			(assign,reg50, 6),
+    	 (try_end),
 
-         (store_add, reg52, 550, reg58),		
+         (store_add, reg52, 550, reg58),
          (ge, ":cur_time",reg52),
-		 
+
         (try_begin),
 		    (eq, reg50, 6),
             (assign, reg50, 7),
             (overlay_set_display, "$g_presentation_obj_15", 0),
 			(overlay_set_display, "$g_presentation_obj_16", 0),
-            (overlay_set_display, "$g_presentation_obj_17", 0),				
+            (overlay_set_display, "$g_presentation_obj_17", 0),
             (position_set_x, pos14, 375),#
-            (position_set_y, pos14, 550),	
+            (position_set_y, pos14, 550),
 
                 (create_image_button_overlay, "$g_presentation_obj_card1", "mesh_3card_back", "mesh_3card_back"),
                 (position_set_x, pos1, 275),
                 (position_set_y, pos1, 300),
 		    	(overlay_set_position, "$g_presentation_obj_card1", pos1),
 		     	(overlay_set_size, "$g_presentation_obj_card1", pos14),
-			
+
                 (create_image_button_overlay, "$g_presentation_obj_card2", "mesh_3card_back", "mesh_3card_back"),
                 (position_set_x, pos1, 425),
                 (position_set_y, pos1, 300),
@@ -19849,17 +19849,17 @@ presentations = [
                 (position_set_x, pos1, 575),
                 (position_set_y, pos1, 300),
 			    (overlay_set_position, "$g_presentation_obj_card3", pos1),
-			    (overlay_set_size, "$g_presentation_obj_card3", pos14),#			
+			    (overlay_set_size, "$g_presentation_obj_card3", pos14),#
 
 			(assign, reg55, 2),
             (create_mesh_overlay, "$g_presentation_obj_9", "mesh_3card_window"), #"mesh_text_bar"
             (position_set_x, pos1, 375),#
             (position_set_y, pos1, 595),#
-            (overlay_set_position, "$g_presentation_obj_9", pos1),			
+            (overlay_set_position, "$g_presentation_obj_9", pos1),
             (position_set_x, pos1, 300),#
             (position_set_y, pos1, 125),#
-            (overlay_set_size, "$g_presentation_obj_9", pos1),				
-						
+            (overlay_set_size, "$g_presentation_obj_9", pos1),
+
             (str_store_string, s1, "@Find the Lady"),
             (create_text_overlay, "$g_presentation_obj_11", "@{s1}", tf_center_justify),
             (position_set_x, pos1, 475),
@@ -19872,32 +19872,32 @@ presentations = [
         (try_end),
 
         (try_begin),
-		    (eq, reg50, 8),	
+		    (eq, reg50, 8),
             (assign, reg50, 9),
             (overlay_set_display, "$g_presentation_obj_card1", 0),
 			(overlay_set_display, "$g_presentation_obj_card2", 0),
-            (overlay_set_display, "$g_presentation_obj_card3", 0),			
+            (overlay_set_display, "$g_presentation_obj_card3", 0),
 		    (store_random_in_range,":lady",1,4),
 			(store_random_in_range,":king",1,3),
 			(store_random_in_range,":queen",1,3),
 			    (try_begin),
-                    (eq,":king",1), 
+                    (eq,":king",1),
                     (assign,":king1","mesh_3card_kos"),
                     (assign,":king2","mesh_3card_koc"),
 		        (else_try),
                     (assign,":king1","mesh_3card_koc"),
-                    (assign,":king2","mesh_3card_kos"),				
+                    (assign,":king2","mesh_3card_kos"),
 				(try_end),
 
 			    (try_begin),
-                    (eq,":queen",1), 
+                    (eq,":queen",1),
                     (assign,":queen1","mesh_3card_qoh"),
                     (assign,":queen2",":king2"),
 		        (else_try),
                     (assign,":queen1",":king2"),
-                    (assign,":queen2","mesh_3card_qoh"),				
+                    (assign,":queen2","mesh_3card_qoh"),
 				(try_end),
-				
+
                 (try_begin),
 				    (eq,reg55, 3),#1card
 					    (try_begin),
@@ -19907,13 +19907,13 @@ presentations = [
                             (assign,":card2",":king1"),
                             (assign,":card3",":king2"),
 						(else_try),
-      					    (assign,reg55,8),#loose 
+      					    (assign,reg55,8),#loose
 							(assign,":card1",":king1"),
                             (assign,":card2",":queen1"),
                             (assign,":card3",":queen2"),
 						(try_end),
 				(else_try),
-				    (eq,reg55, 4),#2card  
+				    (eq,reg55, 4),#2card
 					    (try_begin),
 						    (eq,":lady",1), #win
 							(assign,reg55,7),#win
@@ -19921,36 +19921,36 @@ presentations = [
                             (assign,":card2","mesh_3card_qoh"),
                             (assign,":card3",":king2"),
 						(else_try),
-						    (assign,reg55,8),#loose 
+						    (assign,reg55,8),#loose
                             (assign,":card1", ":queen1"),#
                             (assign,":card2", ":king1"),#
                             (assign,":card3", ":queen2"),#
-						(try_end),	
+						(try_end),
                 (else_try),
-                    (eq,reg55, 5),#3card  
+                    (eq,reg55, 5),#3card
 					    (try_begin),
 						    (eq,":lady",1), #win
 							(assign,reg55,7),#win
 							(assign,":card1",":king1"),
                             (assign,":card2",":king2"),
-                            (assign,":card3","mesh_3card_qoh"),							
+                            (assign,":card3","mesh_3card_qoh"),
 						(else_try),
 						    (assign,reg55,8),#loose
                             (assign,":card1", ":queen1"),#
                             (assign,":card2", ":queen2"),#
-                            (assign,":card3", ":king1"),#							
-						(try_end),						
+                            (assign,":card3", ":king1"),#
+						(try_end),
 				(try_end),
-				
+
                 (try_begin),#open cards
 				    (position_set_x, pos14, 375),#
-                    (position_set_y, pos14, 550),		
-				
+                    (position_set_y, pos14, 550),
+
                     (create_mesh_overlay, reg1, ":card1"),#
                     (position_set_x, pos1, 275),
                     (position_set_y, pos1, 300),
                  	(overlay_set_position, reg1, pos1),
-					(overlay_set_size, reg1, pos14),# 
+					(overlay_set_size, reg1, pos14),#
 
                     (create_mesh_overlay, reg2, ":card2"),#
                     (position_set_x, pos1, 425),
@@ -19962,15 +19962,15 @@ presentations = [
                     (position_set_x, pos1, 575),
                     (position_set_y, pos1, 300),
 	                (overlay_set_position, reg3, pos1),
-	                (overlay_set_size, reg3, pos14),#						                       
+	                (overlay_set_size, reg3, pos14),#
 				(try_end),
-				
-                (str_clear,s1),				
+
+                (str_clear,s1),
 			    (try_begin),
                     (eq,reg55,7),#
-                    (val_mul,reg51,2),					
+                    (val_mul,reg51,2),
 					(call_script, "script_troop_add_gold", "trp_player", reg51),
-                    (str_store_string, s1, "@You win! Try again?"),					
+                    (str_store_string, s1, "@You win! Try again?"),
                 (else_try),
                     (str_store_string, s1, "@You lose. Try again?"),
                 (try_end),
@@ -19989,9 +19989,9 @@ presentations = [
                 (overlay_set_position, reg1, pos1),
                 (position_set_x, pos1, 500),#
                 (position_set_y, pos1, 300),#
-                (overlay_set_size, reg1, pos1),		
-				
-                (create_game_button_overlay, "$g_presentation_obj_12", "@Yes", tf_center_justify),				
+                (overlay_set_size, reg1, pos1),
+
+                (create_game_button_overlay, "$g_presentation_obj_12", "@Yes", tf_center_justify),
                 (position_set_x, pos1, 400),#450
                 (position_set_y, pos1, 600),
                 (overlay_set_position, "$g_presentation_obj_12", pos1),
@@ -20000,14 +20000,14 @@ presentations = [
                 (position_set_x, pos1, 560),#500
                 (position_set_y, pos1, 600),
                 (overlay_set_position, "$g_presentation_obj_13", pos1),
-        (try_end),			
+        (try_end),
         ]),
 
       (ti_on_presentation_event_state_change,#
        [(store_trigger_param_1, ":object"),
         (store_trigger_param_2, ":value"),
         (position_set_x, pos13, 1400),
-        (position_set_y, pos13, 1400),		
+        (position_set_y, pos13, 1400),
         (try_begin),
           (eq, ":object", "$g_presentation_obj_7"),#
           (try_begin),
@@ -20039,26 +20039,26 @@ presentations = [
             (overlay_set_text, "$g_presentation_obj_5", s1),
             (assign, reg50, 2),#4
           (try_end),
-		(try_end),  
+		(try_end),
         (try_begin),
-            (eq, ":object", "$g_presentation_obj_14"),#start game button	
+            (eq, ":object", "$g_presentation_obj_14"),#start game button
 		    (assign, reg50, 4),#6
 		(try_end),
 
         (try_begin),
-	    	(eq, reg50, 7), 
-		    (eq, reg55, 2),          
-		        (try_begin),         
+	    	(eq, reg50, 7),
+		    (eq, reg55, 2),
+		        (try_begin),
                     (eq, ":object", "$g_presentation_obj_card1"),
 					(assign, reg55, 3),
-				(else_try),	
+				(else_try),
 	                (eq, ":object", "$g_presentation_obj_card2"),
-                    (assign, reg55, 4), 
-				(else_try),	
+                    (assign, reg55, 4),
+				(else_try),
 			        (eq, ":object", "$g_presentation_obj_card3"),
 					(assign, reg55, 5),
 				(try_end),
-            (overlay_set_display, "$g_presentation_obj_11", 0),	#Find the Lady	
+            (overlay_set_display, "$g_presentation_obj_11", 0),	#Find the Lady
 			(overlay_set_display, "$g_presentation_obj_9", 0),
 		    (assign, reg50, 8),
 		(try_end),
@@ -20080,9 +20080,9 @@ presentations = [
           (assign, reg51, 1),
           (assign, reg55, 0),#
           (presentation_set_duration, 0),
-        (try_end),		
+        (try_end),
         ]),
-     ]),  
+     ]),
 ### Three Cards ### Find the Lady ### END ###
   ### Dice game ### Dice game ###
 
@@ -20092,7 +20092,7 @@ presentations = [
     (ti_on_presentation_load,
        [
         (set_fixed_point_multiplier, 1000),
-        (presentation_set_duration, 999999),		
+        (presentation_set_duration, 999999),
         #(call_script, "script_pos_helper",1),
         (call_script, "script_mmc_gamblers_header"),
         ]),
@@ -20105,29 +20105,29 @@ presentations = [
 		    (try_begin),
 		        (eq, reg50, 0),
                 (assign, reg50, 1),
-                (create_mesh_overlay, "$g_presentation_obj_6", "mesh_3card_window"), 
+                (create_mesh_overlay, "$g_presentation_obj_6", "mesh_3card_window"),
                 (position_set_x, pos6, 335),
                 (position_set_y, pos6, 265),
                 (position_set_x, pos1, 500),#
                 (position_set_y, pos1, 500),#
-                (overlay_set_size, "$g_presentation_obj_6", pos1),		  
+                (overlay_set_size, "$g_presentation_obj_6", pos1),
 		        (store_troop_gold,":plr_gold","trp_player"),#
 		            (try_begin),
 			            (ge,":plr_gold",50),
-                        (assign,":bet50",50), 
+                        (assign,":bet50",50),
  			        (else_try),
-			            (assign,":bet50",":plr_gold"),          
+			            (assign,":bet50",":plr_gold"),
 		            (try_end),
-			
+
 			        (try_begin),
 		                (eq,"$g_gamble",1),
-     			        (assign,reg51,"$temp"),			     
-			        (else_try), 
+     			        (assign,reg51,"$temp"),
+			        (else_try),
                         (create_slider_overlay, "$g_presentation_obj_7", 1, ":bet50"),#
                         (overlay_set_val, "$g_presentation_obj_7", reg51),
                         (position_set_x, pos7, 510),
                         (position_set_y, pos7, 360),
-			        (try_end),	
+			        (try_end),
                 (create_text_overlay, "$g_presentation_obj_8", "@Bet: {reg51}Denar"),#
                 (position_set_x, pos8, 450),
                 (position_set_y, pos8, 400),
@@ -20135,15 +20135,15 @@ presentations = [
                 (position_set_x, pos10, 500),
                 (position_set_y, pos10, 284),
                 (overlay_set_position, "$g_presentation_obj_6", pos6),
-		            (try_begin), 
+		            (try_begin),
 			            (eq,"$g_gamble",0),
                         (overlay_set_val, "$g_presentation_obj_7", reg51),
                         (overlay_set_position, "$g_presentation_obj_7", pos7),
-		            (try_end),          
+		            (try_end),
                 (overlay_set_position, "$g_presentation_obj_8", pos8),
                 (overlay_set_position, "$g_presentation_obj_10", pos10),
             (try_end),
-	
+
             (try_begin),
 		        (eq, reg50, 2),
                 (assign, reg50, 3),
@@ -20153,7 +20153,7 @@ presentations = [
                 (overlay_set_position, "$g_presentation_obj_14", pos1),
 	        (try_end),
 
-		    (try_begin),        
+		    (try_begin),
 		        (eq, reg50, 4),
                 (assign, reg50, 5),
                 (call_script, "script_d6_roll",0),# d6_1
@@ -20161,10 +20161,10 @@ presentations = [
                 (call_script, "script_d6_roll",0),# d6_2
 		        (assign, reg20, reg1),
                 # (call_script, "script_d6_roll",0),# d6_3
-		        # (assign, reg30, reg1),				
+		        # (assign, reg30, reg1),
 		    	(store_add, reg3, reg10, reg20),
 				# (val_add,reg3,reg30),
-			        (try_begin),    
+			        (try_begin),
                         (store_random_in_range,reg11,1,7),# dice1 start side
                         (store_random_in_range,reg21,1,7),# dice2 start side
 						# (store_random_in_range,reg31,1,7),# dice3 start side
@@ -20179,21 +20179,21 @@ presentations = [
 			        	    # (try_begin),# dice3
                                 # (gt,reg31,reg30),# dice3
                                 # (val_add,reg30,6),# dice3
-					        # (try_end),# dice3							
+					        # (try_end),# dice3
 				    (try_end),
 				(assign, reg5, 0),
 				(assign, reg6, 0),
-                (assign, reg58,":cur_time"),				
+                (assign, reg58,":cur_time"),
 		    (try_end),
-               
-		    (try_begin),			
+
+		    (try_begin),
 		        (eq, reg50, 5),
-                (eq, reg6, 0),        				
+                (eq, reg6, 0),
 		        (lt, reg5, 6),
 				(store_sub, ":time_pass",":cur_time",reg58),
                 (ge, ":time_pass",200),
-                (assign, reg58,":cur_time"),				
-                (val_add, reg5,1),				
+                (assign, reg58,":cur_time"),
+                (val_add, reg5,1),
 				    (try_begin),
     	    	        (le, reg11, reg10),
 	                    (call_script, "script_draw_d6_side",1,reg5,reg11),
@@ -20210,18 +20210,18 @@ presentations = [
 						# (val_add,reg31,1),# dice3
 					# (try_end),
 			(else_try),
-                (eq, reg50, 5),			
+                (eq, reg50, 5),
                 (eq, reg5, 6),
 			    (assign, reg6, 1),
-                (assign, reg50, 6),   
-                (assign, reg58,":cur_time"),			
-		    (try_end),			
+                (assign, reg50, 6),
+                (assign, reg58,":cur_time"),
+		    (try_end),
 		(ge, reg6, 1),
 		    (try_begin),
-                (eq, reg6, 1),				
+                (eq, reg6, 1),
                 (eq, reg50, 6),
-                (assign, reg50, 7),			
-                (eq, reg5, 6),				
+                (assign, reg50, 7),
+                (eq, reg5, 6),
                 (str_store_string, s1, "@{reg3}"),
                 (create_text_overlay, "$g_presentation_obj_15", "@{s1}", tf_center_justify),
                 (position_set_x, pos1, 850),
@@ -20230,23 +20230,23 @@ presentations = [
                 (position_set_x, pos1, 5000),
                 (position_set_y, pos1, 5000),
                 (overlay_set_size, "$g_presentation_obj_15", pos1),
-                (assign, reg50, 8),	
+                (assign, reg50, 8),
 		    (try_end),
-	
+
 		    (try_begin),
 		        (eq, reg50, 8),
                 (assign, reg50, 9),
 		    	(overlay_set_display, "$g_presentation_obj_14", 0),
-	            (str_store_troop_name, s1, "$g_talk_troop"), 
+	            (str_store_troop_name, s1, "$g_talk_troop"),
                 (create_game_button_overlay, "$g_presentation_obj_14", "@{s1} Rolls", tf_center_justify),#
                 (position_set_x, pos1, 475),
                 (position_set_y, pos1, 515),
                 (overlay_set_position, "$g_presentation_obj_14", pos1),
 	        (try_end),
 
-			(try_begin),        
+			(try_begin),
 		        (eq, reg50, 10),#80
-                (assign, reg50, 11),				
+                (assign, reg50, 11),
 		    	(overlay_set_display, "$g_presentation_obj_1", 0),
 		    	(overlay_set_display, "$g_presentation_obj_2", 0),
 				#(overlay_set_display, "$g_presentation_obj_3", 0),# dice3
@@ -20256,9 +20256,9 @@ presentations = [
 		        (assign, reg20, reg1),
 				(store_add, reg4, reg10, reg20),
                 # (call_script, "script_d6_roll",0),# d6_3
-		        # (assign, reg30, reg1),				
+		        # (assign, reg30, reg1),
 				# (val_add,reg4,reg30),
-			        (try_begin),    
+			        (try_begin),
                         (store_random_in_range,reg11,1,7),# dice1 start side
                         (store_random_in_range,reg21,1,7),# dice2 start side
 						# (store_random_in_range,reg31,1,7),# dice3 start side
@@ -20273,21 +20273,21 @@ presentations = [
 			        	    # (try_begin),# dice3
                                 # (gt,reg31,reg30),# dice3
                                 # (val_add,reg30,6),# dice3
-					        # (try_end),# dice3							
+					        # (try_end),# dice3
 				    (try_end),
 				(assign, reg5, 0),
 				(assign, reg6, 2),
-                (assign, reg58,":cur_time"),				
+                (assign, reg58,":cur_time"),
 		    (try_end),
 
-		    (try_begin),			
-		        (eq, reg50, 11),                          
-                (eq, reg6, 2),        				
+		    (try_begin),
+		        (eq, reg50, 11),
+                (eq, reg6, 2),
 		        (lt, reg5, 6),
 				(store_sub, ":time_pass",":cur_time",reg58),
                 (ge, ":time_pass",200),
-                (assign, reg58,":cur_time"),				
-                (val_add, reg5,1),				
+                (assign, reg58,":cur_time"),
+                (val_add, reg5,1),
 				    (try_begin),
     	    	        (le, reg11, reg10),
 	                    (call_script, "script_draw_d6_side",1,reg5,reg11),
@@ -20307,12 +20307,12 @@ presentations = [
 		        (eq, reg50, 11),
                 (eq, reg5, 6),
 			    (assign, reg6, 3),
-                (assign, reg50, 12), 
-		    (try_end),						
-	(gt, reg6, 2),					
+                (assign, reg50, 12),
+		    (try_end),
+	(gt, reg6, 2),
 		(try_begin),
 		    (eq, reg50, 12),
-            (eq, reg6, 3),    			
+            (eq, reg6, 3),
             (str_store_string, s1, "@{reg4}"),
             (create_text_overlay, "$g_presentation_obj_15", "@{s1}", tf_center_justify),
             (position_set_x, pos1, 130),
@@ -20325,23 +20325,23 @@ presentations = [
 		(try_end),
 
 		(try_begin),
-		    (str_clear,s1),  
+		    (str_clear,s1),
 		    (eq, reg50, 13),
 			(overlay_set_display, "$g_presentation_obj_14", 0),
 			(assign, reg50, 14),
                 (try_begin),
                     (eq,reg3,reg4),
-					(str_clear,s1), 
+					(str_clear,s1),
                     (str_store_string, s1, "@Draw! Bet Twice?"),# Bet Twice?
 					(assign, reg50, 15),
 				(else_try),
 	                (gt, reg3, reg4),
-                    (val_mul,reg51,2),					
+                    (val_mul,reg51,2),
 					(call_script, "script_troop_add_gold", "trp_player", reg51),
-                    (str_store_string, s1, "@You win! Try again?"),					
+                    (str_store_string, s1, "@You win! Try again?"),
 				(else_try),
                     (gt, reg4, reg3),
-                    (str_store_string, s1, "@You lose. Try again?"),					
+                    (str_store_string, s1, "@You lose. Try again?"),
                 (try_end),
                 (create_text_overlay, reg1, "@{s1}", tf_center_justify),
                 (position_set_x, pos1, 480),
@@ -20356,9 +20356,9 @@ presentations = [
                 (overlay_set_position, reg1, pos1),
                 (position_set_x, pos1, 500),#
                 (position_set_y, pos1, 300),#
-                (overlay_set_size, reg1, pos1),		
-				
-                (create_game_button_overlay, "$g_presentation_obj_12", "@Yes", tf_center_justify),				
+                (overlay_set_size, reg1, pos1),
+
+                (create_game_button_overlay, "$g_presentation_obj_12", "@Yes", tf_center_justify),
                 (position_set_x, pos1, 400),
                 (position_set_y, pos1, 600),
                 (overlay_set_position, "$g_presentation_obj_12", pos1),
@@ -20366,10 +20366,10 @@ presentations = [
                 (create_game_button_overlay, "$g_presentation_obj_13", "@No", tf_center_justify),
                 (position_set_x, pos1, 560),
                 (position_set_y, pos1, 600),
-                (overlay_set_position, "$g_presentation_obj_13", pos1),				
-		(try_end),	
+                (overlay_set_position, "$g_presentation_obj_13", pos1),
+		(try_end),
        ]),
-	   
+
       (ti_on_presentation_event_state_change,
        [(store_trigger_param_1, ":object"),
         (store_trigger_param_2, ":value"),
@@ -20393,10 +20393,10 @@ presentations = [
             (troop_remove_gold, "trp_player", reg51),#
             (play_sound, "snd_money_paid"),
             (overlay_set_display, "$g_presentation_obj_6", 0),
-		      (try_begin), 
-			    (eq,"$g_gamble",0),			
+		      (try_begin),
+			    (eq,"$g_gamble",0),
 			    (overlay_set_display, "$g_presentation_obj_7", 0),
-			  (try_end),	
+			  (try_end),
             (overlay_set_display, "$g_presentation_obj_8", 0),
             (overlay_set_display, "$g_presentation_obj_10", 0),
             (store_troop_gold,reg1,"trp_player"),#
@@ -20406,22 +20406,22 @@ presentations = [
             (overlay_set_text, "$g_presentation_obj_5", s1),
             (assign, reg50, 2),
           (try_end),
-		(try_end),  
+		(try_end),
         (try_begin),
-		    (eq, reg50, 3),        
+		    (eq, reg50, 3),
             (eq, ":object", "$g_presentation_obj_14"),#Roll Dice button
-            (play_sound, "snd_dice_roll"),	         			
+            (play_sound, "snd_dice_roll"),
 		    (assign, reg50, 4),
 		(try_end),
         (try_begin),
-		    (eq, reg50, 9),   
+		    (eq, reg50, 9),
             (eq, ":object", "$g_presentation_obj_14"),#Oppo Roll Dice button
-            (play_sound, "snd_dice_roll"),	         			
+            (play_sound, "snd_dice_roll"),
 		    (assign, reg50, 10),
 		(try_end),
 
         (try_begin),#DRAW
-	      (eq, reg50, 15),# 
+	      (eq, reg50, 15),#
 		  (eq,reg3,reg4),#
 		  (assign,"$g_gamble",0),
           (eq, ":object", "$g_presentation_obj_12"),#yes
@@ -20434,7 +20434,7 @@ presentations = [
 		    (assign,"$g_gamble",1),
 			(val_mul,reg51,2),
 			(assign,"$temp",reg51),
-            (call_script, "script_troop_add_gold", "trp_player", reg51),			
+            (call_script, "script_troop_add_gold", "trp_player", reg51),
             (assign, reg50,0),
             (start_presentation, "prsnt_dices_game"),
           (try_end),
@@ -20444,10 +20444,10 @@ presentations = [
           (assign,reg1,0),#
           (assign, reg51, 1),
           (presentation_set_duration, 0),
-        (try_end),				
-		
+        (try_end),
+
         (try_begin),
-	      (eq, reg50, 14),#12 		
+	      (eq, reg50, 14),#12
           (eq, ":object", "$g_presentation_obj_12"),#yes
           (store_troop_gold,reg1,"trp_player"),#
           (try_begin),
@@ -20463,28 +20463,28 @@ presentations = [
           (eq, ":object", "$g_presentation_obj_13"),#no
 		  (assign,"$g_gamble",0),
           (presentation_set_duration, 0),
-        (try_end),		
+        (try_end),
         ]),
      ]),
-# prsnt_dices game end END	
-### Dice game ### Dice game ### END ### 
+# prsnt_dices game end END
+### Dice game ### Dice game ### END ###
 
    ("bank", 0, mesh_load_window, [ 													#	Floris Overhaul
     (ti_on_presentation_load,
       [
         (presentation_set_duration, 999999),
         (set_fixed_point_multiplier, 1000),
- 
+
 		(try_begin),
 			(party_get_slot, ":assets", "$current_town", slot_assets),
 			(troop_add_gold, "trp_player", ":assets"),
 			(party_set_slot, "$current_town", slot_assets, 0),
 		(try_end),
- 
+
 		(str_store_party_name, s1, "$current_town"),
- 
- 
-	    (create_text_overlay, reg0, 
+
+
+	    (create_text_overlay, reg0,
 "@This area of {s1} can best be described as the very core of the town.^^\
  You can almost see the strings that are being pulled from here, the money that comes and goes at seemingly endless rates. \
  Here you can buy the land that is cultivated outside the towns gates and benefit from the ones working hard.\
@@ -20492,11 +20492,11 @@ presentations = [
         (position_set_x, pos1, 475),
         (position_set_y, pos1, 600),
         (overlay_set_position, reg0, pos1),
- 
+
         (position_set_x, pos2, 800),
-        (position_set_y, pos2, 900),		
+        (position_set_y, pos2, 900),
 		(overlay_set_size, reg0, pos2),
- 
+
 		(party_get_slot, ":population", "$current_town", slot_center_population),
 		(party_get_slot, ":land_town", "$current_town", slot_town_acres),
 		(party_get_slot, ":land_player", "$current_town", slot_player_acres),
@@ -20504,25 +20504,25 @@ presentations = [
 		(assign, reg1, ":population"),
 		(assign, reg2, ":land_total"),
 		(assign, reg3, ":land_player"),
- 
+
 		(party_get_slot, ":debt", "$current_town", slot_debt),
 		(assign, reg4, ":debt"),
- 
+
 		(assign, reg5, 0),														#Slider storage / acres		Buy
 		(assign, reg6, 0),														#Slider storage / money		Borrow
 		(assign, reg7, 0),														#Slider storage / acres		Build
 		(assign, reg8, 0),														#Slider storage / money		Pay back
- 
+
 		(party_get_slot, ":prosp_mod", "$current_town", slot_town_prosperity),
 		(store_mul, ":price_mod", ":prosp_mod", 10),
 		(val_sub, ":price_mod", 500),
-		(store_add, reg9, 1000, ":price_mod"),									#Buy Price 
-		(store_add, reg10, 750, ":price_mod"),									#Sell Price 
+		(store_add, reg9, 1000, ":price_mod"),									#Buy Price
+		(store_add, reg10, 750, ":price_mod"),									#Sell Price
 		(store_add, reg11, 2000, ":price_mod"),									#Build Price
 		#reg12 used for buy/sell switch
 		(store_sub, ":rent_mod", ":prosp_mod", 50),
 		(store_add, reg13, ":rent_mod", 100),									#Rent Revenue
- 
+
 		(create_text_overlay, "$g_presentation_obj_19", "@{reg1} people live in {s1}. There are currently {reg2} acres of land available for cultivation to provide them with \
  food and other goods. You own {reg3} acres of land in this town. You currently owe the moneylenders of {s1} {reg4} denars. The interest rate is 20% and the contract period amounts \
  to 2 weeks. If you dont manage to pay off your debt until the deadline, the interest is raised to 40%. Buying an existing acre costs {reg9} denars, while it sells for {reg10} denars. Building a new one requires {reg11} denars.\
@@ -20530,56 +20530,56 @@ presentations = [
         (position_set_x, pos1, 475),
         (position_set_y, pos1, 450),
         (overlay_set_position, "$g_presentation_obj_19", pos1),
- 
+
         (position_set_x, pos2, 900),
-        (position_set_y, pos2, 1000),		
-		(overlay_set_size, "$g_presentation_obj_19", pos2),	
- 
+        (position_set_y, pos2, 1000),
+		(overlay_set_size, "$g_presentation_obj_19", pos2),
+
 		(try_begin),
-			(eq, reg12, 2222),	
+			(eq, reg12, 2222),
 			(str_store_string, s2, "@Choose how many acres you wish to sell :"),
 		(else_try),
 			(str_store_string, s2, "@Choose how many acres you wish to buy :"),
 		(try_end),
- 
+
 	(create_button_overlay, "$g_presentation_obj_16", "@{s2}",tf_center_justify),				#	Landlords buy
         (position_set_x, pos1, 250),
         (position_set_y, pos1, 350),
         (overlay_set_position, "$g_presentation_obj_16", pos1),
- 
+
 		(store_troop_gold, ":funds", "trp_player"),
 		(store_div, ":funds_build", ":funds", reg11),
 		(val_div, ":funds", reg9),
 		(val_min, ":funds", ":land_town"),
- 
+
 		(try_begin),
 			(eq, reg12, 2222),
 			(party_get_slot, ":sell_no", "$current_town", slot_player_acres),
 			(assign, ":funds", ":sell_no"),
 		(try_end),
- 
+
 	(create_slider_overlay, "$g_presentation_obj_1", 0, ":funds"),
         (position_set_x, pos1, 250),
         (position_set_y, pos1, 310),
         (overlay_set_position, "$g_presentation_obj_1", pos1),
- 
+
 	(create_text_overlay, "$g_presentation_obj_2", "@0"),
         (position_set_x, pos1, 400),
         (position_set_y, pos1, 300),
-        (overlay_set_position, "$g_presentation_obj_2", pos1),			
- 
-	(create_button_overlay, "$g_presentation_obj_3", "@Verify",tf_center_justify),		
+        (overlay_set_position, "$g_presentation_obj_2", pos1),
+
+	(create_button_overlay, "$g_presentation_obj_3", "@Verify",tf_center_justify),
         (position_set_x, pos1, 250),
         (position_set_y, pos1, 275),
-        (overlay_set_position, "$g_presentation_obj_3", pos1),	
- 
- 
- 
+        (overlay_set_position, "$g_presentation_obj_3", pos1),
+
+
+
 	(create_text_overlay, reg0, "@Choose how much money you wish to borrow :",tf_center_justify),			#	Moneylenders borrow
         (position_set_x, pos1, 725),
         (position_set_y, pos1, 350),
         (overlay_set_position, reg0, pos1),
- 
+
 		(assign, ":fief_count", 0),																				#	Money = 250*Prosperity + Relationship*100 - Debt, IF Player owns fief or is renowned,
 		(try_for_range, ":cur_center", centers_begin, centers_end),												#	otherwise not more than 5000 + Relationship*100 - Debt
 			(party_slot_eq, ":cur_center", slot_town_lord, "trp_player"),
@@ -20599,10 +20599,10 @@ presentations = [
 		(val_add, ":money", ":trust"),
 		(val_sub, ":money", ":debt"),
 		(try_begin),																							#	Money lending cant turn negative
-			(lt, ":money", 0),	
+			(lt, ":money", 0),
 			(assign, ":money", 0),
 		(try_end),
- 
+
 		(try_begin),
 			(assign, reg25, 0),
 			(try_for_range, ":town_no", towns_begin, towns_end),													#	Too much debt overall or in a single bank will stop banks from lending you money
@@ -20612,86 +20612,86 @@ presentations = [
 			(ge, reg25, 50000),
 			(assign, ":money", 0),
 		(try_end),
- 
+
 	(create_slider_overlay, "$g_presentation_obj_4", 0, ":money"),
         (position_set_x, pos1, 700),
         (position_set_y, pos1, 310),
         (overlay_set_position, "$g_presentation_obj_4", pos1),
- 
+
 	(create_text_overlay, "$g_presentation_obj_5", "@0"),
         (position_set_x, pos1, 850),
         (position_set_y, pos1, 300),
         (overlay_set_position, "$g_presentation_obj_5", pos1),
- 
-	(create_button_overlay, "$g_presentation_obj_6", "@Verify",tf_center_justify),		
+
+	(create_button_overlay, "$g_presentation_obj_6", "@Verify",tf_center_justify),
         (position_set_x, pos1, 700),
         (position_set_y, pos1, 275),
         (overlay_set_position, "$g_presentation_obj_6", pos1),
- 
- 
- 
+
+
+
 	(create_text_overlay, "$g_presentation_obj_7", "@Buy and prepare uncultivated land :",tf_center_justify),		#	Landlord / Buy and Build
         (position_set_x, pos1, 250),
         (position_set_y, pos1, 200),
         (overlay_set_position, "$g_presentation_obj_7", pos1),
- 
- 
-	(create_slider_overlay, "$g_presentation_obj_8", 0, ":funds_build"),											#	Choose acres to build 
+
+
+	(create_slider_overlay, "$g_presentation_obj_8", 0, ":funds_build"),											#	Choose acres to build
         (position_set_x, pos1, 250),
         (position_set_y, pos1, 160),
-        (overlay_set_position, "$g_presentation_obj_8", pos1),		
- 
+        (overlay_set_position, "$g_presentation_obj_8", pos1),
+
 	(create_text_overlay, "$g_presentation_obj_9", "@0"),
         (position_set_x, pos1, 400),
         (position_set_y, pos1, 150),
-        (overlay_set_position, "$g_presentation_obj_9", pos1),			
- 
-	(create_button_overlay, "$g_presentation_obj_10", "@Verify",tf_center_justify),		
+        (overlay_set_position, "$g_presentation_obj_9", pos1),
+
+	(create_button_overlay, "$g_presentation_obj_10", "@Verify",tf_center_justify),
         (position_set_x, pos1, 250),
         (position_set_y, pos1, 125),
-        (overlay_set_position, "$g_presentation_obj_10", pos1),	
- 
- 
+        (overlay_set_position, "$g_presentation_obj_10", pos1),
+
+
 	(create_text_overlay, "$g_presentation_obj_11", "@Pay off your debt :",tf_center_justify),		#	Pay off your debt
         (position_set_x, pos1, 700),
         (position_set_y, pos1, 200),
-        (overlay_set_position, "$g_presentation_obj_11", pos1),		
- 
+        (overlay_set_position, "$g_presentation_obj_11", pos1),
+
 		(store_troop_gold, ":funds", "trp_player"),
 		(try_begin),
 			(lt, ":debt", ":funds"),
 			(assign, ":funds", ":debt"),
 		(try_end),
- 
+
 	(create_slider_overlay, "$g_presentation_obj_12", 0, ":funds"),
         (position_set_x, pos1, 700),
         (position_set_y, pos1, 160),
-        (overlay_set_position, "$g_presentation_obj_12", pos1),		
- 
+        (overlay_set_position, "$g_presentation_obj_12", pos1),
+
 	(create_text_overlay, "$g_presentation_obj_13", "@0"),
         (position_set_x, pos1, 850),
         (position_set_y, pos1, 150),
-        (overlay_set_position, "$g_presentation_obj_13", pos1),			
- 
-	(create_button_overlay, "$g_presentation_obj_14", "@Verify",tf_center_justify),		
+        (overlay_set_position, "$g_presentation_obj_13", pos1),
+
+	(create_button_overlay, "$g_presentation_obj_14", "@Verify",tf_center_justify),
         (position_set_x, pos1, 700),
         (position_set_y, pos1, 125),
-        (overlay_set_position, "$g_presentation_obj_14", pos1),	
- 
- 
- 
+        (overlay_set_position, "$g_presentation_obj_14", pos1),
+
+
+
 	(create_game_button_overlay, "$g_presentation_obj_15", "@Done", 0),										#	Leave
         (position_set_x, pos1, 880),
         (position_set_y, pos1, 25),
-        (overlay_set_position, "$g_presentation_obj_15", pos1),		
- 
+        (overlay_set_position, "$g_presentation_obj_15", pos1),
+
         ]),
- 
-	(ti_on_presentation_event_state_change, 
+
+	(ti_on_presentation_event_state_change,
 		[
         (store_trigger_param_1, ":object"),
         (store_trigger_param_2, ":value"),
- 
+
 		(try_begin),
 			(eq, ":object", "$g_presentation_obj_1"),															#	Show chosen amount of land
 			(assign, reg5, ":value"),
@@ -20703,15 +20703,15 @@ presentations = [
 				(try_begin),
 					(gt, reg5, 0),
 					(store_mul, ":price", reg5, reg10),
-					(troop_add_gold, "trp_player", ":price"),					
+					(troop_add_gold, "trp_player", ":price"),
 					(party_get_slot, ":land_town", "$current_town", slot_town_acres),
 					(val_add, ":land_town", reg5),
 					(party_set_slot, "$current_town", slot_town_acres, ":land_town"),
 					(party_get_slot, ":land_player", "$current_town", slot_player_acres),
 					(val_sub, ":land_player", reg5),
 					(party_set_slot, "$current_town", slot_player_acres, ":land_player"),
-					(start_presentation, "prsnt_bank"),					
-				(else_try),	
+					(start_presentation, "prsnt_bank"),
+				(else_try),
 					(display_message, "@You cant sell 0 acres of land."),
 				(try_end),
 			(else_try),
@@ -20734,7 +20734,7 @@ presentations = [
 			(eq, ":object", "$g_presentation_obj_4"),															#	Show chosen amount of money
 			(assign, reg6, ":value"),
 			(overlay_set_text, "$g_presentation_obj_5", "@{reg6}"),
-		(else_try),		
+		(else_try),
 			(eq, ":object", "$g_presentation_obj_6"),															#	Borrow chosen amount of money
 			(try_begin),
 				(gt, reg6, 0),
@@ -20757,7 +20757,7 @@ presentations = [
 		(else_try),
 			(eq, ":object", "$g_presentation_obj_8"),															#	Show chosen amount of land	//	2nd Option
 			(assign, reg7, ":value"),
-			(overlay_set_text, "$g_presentation_obj_9", "@{reg7}"),			
+			(overlay_set_text, "$g_presentation_obj_9", "@{reg7}"),
 		(else_try),
 			(eq, ":object", "$g_presentation_obj_10"),															#	Buy chosen amount of land	//	2nd Option
 			(try_begin),
@@ -20770,7 +20770,7 @@ presentations = [
 				(start_presentation, "prsnt_bank"),
 			(else_try),
 				(display_message, "@You cant buy 0 acres of land."),
-			(try_end),		
+			(try_end),
 		(else_try),
 			(eq, ":object", "$g_presentation_obj_12"),															#	Show chosen amount of money
 			(assign, reg8, ":value"),
@@ -20804,8 +20804,8 @@ presentations = [
 		(else_try),
 			(eq, ":object", "$g_presentation_obj_15"),															#	Leave
 			(presentation_set_duration, 0),
-		(try_end),       
- 
+		(try_end),
+
 		]),
       ]),
 
@@ -20816,7 +20816,7 @@ presentations = [
       [
 	    (presentation_set_duration, 999999),
         (set_fixed_point_multiplier, 1000),
- 
+
 #		(str_clear, s0),
  #       (create_text_overlay, reg0, "@Hello, {s0}", tf_scrollable),
  #       (position_set_x, pos1, 50),
@@ -20826,60 +20826,60 @@ presentations = [
  #       (position_set_y, pos1, 630),
   #      (overlay_set_area_size, reg0, pos1),
  #       (set_container_overlay, reg0),
- 
- 
- 
- 
+
+
+
+
 		###HEADLINES###
 		(assign, ":x_poshl", 155),
 		(assign, ":y_pos", 581),
 		(assign, ":jq_size", pos0),
 		(position_set_x, ":jq_size", 720),
 		(position_set_y, ":jq_size", 775),
- 
+
         (create_text_overlay, reg1, "@Town", tf_center_justify),
     	(overlay_set_size, reg1, ":jq_size"),
  		(position_set_x, pos1, ":x_poshl"),
         (position_set_y, pos1, ":y_pos"),
         (overlay_set_position, reg1, pos1),
- 
+
         (create_text_overlay, reg1, "@Acres", tf_center_justify),
        	(overlay_set_size, reg1, ":jq_size"),
 		(val_add, ":x_poshl", 120),
  		(position_set_x, pos1, ":x_poshl"),
-        (overlay_set_position, reg1, pos1),	
- 
+        (overlay_set_position, reg1, pos1),
+
         (create_text_overlay, reg1, "@Owned", tf_center_justify),
        	(overlay_set_size, reg1, ":jq_size"),
 		(val_add, ":x_poshl", 108),
  		(position_set_x, pos1, ":x_poshl"),
         (overlay_set_position, reg1, pos1),
- 
+
         (create_text_overlay, reg1, "@Balance", tf_center_justify),
        	(overlay_set_size, reg1, ":jq_size"),
 		(val_add, ":x_poshl", 112),
  		(position_set_x, pos1, ":x_poshl"),
         (overlay_set_position, reg1, pos1),
- 
+
 		(create_text_overlay, reg1, "@Assets", tf_center_justify),
        	(overlay_set_size, reg1, ":jq_size"),
 		(val_add, ":x_poshl", 105),
  		(position_set_x, pos1, ":x_poshl"),
         (overlay_set_position, reg1, pos1),
- 
+
         (create_text_overlay, reg1, "@Debt", tf_center_justify),
        	(overlay_set_size, reg1, ":jq_size"),
 		(val_add, ":x_poshl", 105),
  		(position_set_x, pos1, ":x_poshl"),
-        (overlay_set_position, reg1, pos1),	
- 
+        (overlay_set_position, reg1, pos1),
+
         (create_text_overlay, reg1, "@Deadline", tf_center_justify),
        	(overlay_set_size, reg1, ":jq_size"),
 		(val_add, ":x_poshl", 120),
  		(position_set_x, pos1, ":x_poshl"),
-        (overlay_set_position, reg1, pos1),			
- 
- 
+        (overlay_set_position, reg1, pos1),
+
+
 		(str_clear, s0),
 		(create_text_overlay, reg0, s0, tf_scrollable),
         (position_set_x, pos1, 10),
@@ -20888,23 +20888,23 @@ presentations = [
         (position_set_x, pos1, 900),
         (position_set_y, pos1, 450),
         (overlay_set_area_size, reg0, pos1),
-		(set_container_overlay, reg0),		
- 
+		(set_container_overlay, reg0),
+
 		(assign, ":jq_value", 100),
 		(assign, ":jq_size", 0),
 		(assign, ":x_pos", 0),
 		(assign, ":y_pos", 547),
-		(str_clear, s9),	
+		(str_clear, s9),
 		(str_clear, s8),
- 
- 
+
+
         (assign, reg2, 0),#total_acres
         (assign, reg3, 0),#player_acres
         (assign, reg4, 0),#balance
         (assign, reg5, 0),#assets
 		(assign, reg6, 0),#debt
 		(assign, reg7, 0),#deadline
- 
+
 		(try_for_range, ":center_no", towns_begin, towns_end),
 			(party_get_slot, ":land_town", ":center_no", slot_town_acres),
 			(party_get_slot, ":land_player", ":center_no", slot_player_acres),
@@ -20913,9 +20913,9 @@ presentations = [
 			(party_get_slot, ":deadline", ":center_no", slot_deadline),
 			(party_get_slot, ":population", ":center_no", slot_center_population),
 			(party_get_slot, ":prosperity", ":center_no", slot_town_prosperity),
- 
+
 			(store_add, ":land_total", ":land_town", ":land_player"),
- 
+
 			(store_div, ":acres_needed", ":population", 200),
 			(store_sub, ":surplus", ":land_total", ":acres_needed"),
 			(store_sub, ":revenue", ":prosperity", 50),
@@ -20923,7 +20923,7 @@ presentations = [
 			(assign, ":upkeep_player", 0),
 			(try_begin),															#	Player Balance
 				(le, ":land_total", ":acres_needed"),
-				(store_mul, ":rent_player", ":land_player", ":revenue"),										
+				(store_mul, ":rent_player", ":land_player", ":revenue"),
 			(else_try),
 				(store_mul, ":penalty", ":surplus", -1),
 				(val_add, ":penalty", ":revenue"),
@@ -20937,13 +20937,13 @@ presentations = [
 					(store_mul, ":upkeep_player", ":non_rented", -50),
 				(try_end),
 			(try_end),
- 
+
 			(store_add, ":balance", ":rent_player", ":upkeep_player"),
- 
-			(val_add, ":jq_value", 1),   
- 
+
+			(val_add, ":jq_value", 1),
+
 			#center center name
-			(val_add, ":x_pos", 118), 
+			(val_add, ":x_pos", 118),
 			(str_store_party_name,s9, ":center_no"),
 			(str_store_string, s1, "@{s9}"),
 			(create_text_overlay, reg1, s1, tf_left_align),
@@ -20953,9 +20953,9 @@ presentations = [
 			(position_set_x, pos3, 750),
 			(position_set_y, pos3, 850),
 			(overlay_set_size, reg1, pos3),
- 
+
 			#center land in acres
-			(val_add, ":x_pos", 135),  
+			(val_add, ":x_pos", 135),
 			(assign, reg2, ":land_total"),
 			(create_text_overlay, reg1, "@{reg2}", tf_left_align),
 			(position_set_x, pos3, ":x_pos"),
@@ -20964,9 +20964,9 @@ presentations = [
 			(position_set_x, pos3, 750),
 			(position_set_y, pos3, 850),
 			(overlay_set_size, reg1, pos3),
- 
+
 			#Player land in city
-			(val_add, ":x_pos", 113),  
+			(val_add, ":x_pos", 113),
 			(assign, reg3, ":land_player"),
 			(str_store_string, s1, "@{reg3}"),
 			(create_text_overlay, reg1, s1, tf_left_align),
@@ -20976,9 +20976,9 @@ presentations = [
 			(position_set_x, pos3, 750),
 			(position_set_y, pos3, 850),
 			(overlay_set_size, reg1, pos3),
- 
+
 			#city Balance
-			(val_add, ":x_pos", 110),  
+			(val_add, ":x_pos", 110),
 			(assign, reg4, ":balance"),
 			(str_store_string, s1, "@{reg4}"),
 			(create_text_overlay, reg1, s1, tf_left_align),
@@ -20988,9 +20988,9 @@ presentations = [
 			(position_set_x, pos3, 750),
 			(position_set_y, pos3, 850),
 			(overlay_set_size, reg1, pos3),
- 
+
 			#Player assets in city
-			(val_add, ":x_pos", 110),  
+			(val_add, ":x_pos", 110),
 			(assign, reg4, ":assets"),
 			(str_store_string, s1, "@{reg4}"),
 			(create_text_overlay, reg1, s1, tf_left_align),
@@ -21000,9 +21000,9 @@ presentations = [
 			(position_set_x, pos3, 750),
 			(position_set_y, pos3, 850),
 			(overlay_set_size, reg1, pos3),
- 
+
 			#city Debt
-			(val_add, ":x_pos", 105),  
+			(val_add, ":x_pos", 105),
 			(assign, reg5, ":debt"),
 			(str_store_string, s1, "@{reg5}"),
 			(create_text_overlay, reg1, s1, tf_left_align),
@@ -21012,7 +21012,7 @@ presentations = [
 			(position_set_x, pos3, 750),
 			(position_set_y, pos3, 850),
 			(overlay_set_size, reg1, pos3),
- 
+
 			#city Deadline
 			(val_add, ":x_pos", 105),
 			(try_begin),
@@ -21028,37 +21028,37 @@ presentations = [
 			(position_set_x, pos3, 750),
 			(position_set_y, pos3, 850),
 			(overlay_set_size, reg1, pos3),
- 
+
 			(assign, ":x_pos", 0),
 			(assign, ":x_poshl", 165),
-			(val_sub, ":y_pos", 23),#linebreak 
+			(val_sub, ":y_pos", 23),#linebreak
 			(ge, ":x_pos", 950),
 			(assign, ":x_pos", 0),
 			(val_sub, ":y_pos", 23),
 		(try_end), #Center-Bank Loop End
- 
+
 	  (set_container_overlay, -1),
- 
+
 	  		 #Back to menu - graphical button
-	    (create_game_button_overlay, "$g_jq_Return_to_menu", "@_Return to menu_"),	 
+	    (create_game_button_overlay, "$g_jq_Return_to_menu", "@_Return to menu_"),
 	    (position_set_x, pos1, 500),
         (position_set_y, pos1, 23),
         (overlay_set_position, "$g_jq_Return_to_menu", pos1),
-		(assign, "$g_jq_Back_to_shop", 0), ##BUGFIX - savegame compatability 
-		(assign, "$jq_nr", 0), ##BUGFIX - savegame compatability 
- 
+		(assign, "$g_jq_Back_to_shop", 0), ##BUGFIX - savegame compatability
+		(assign, "$jq_nr", 0), ##BUGFIX - savegame compatability
+
 	  ]),
 	 (ti_on_presentation_event_state_change,
      [
         (store_trigger_param_1, ":object"),
-		(try_begin), 
+		(try_begin),
 			(eq, ":object", "$g_jq_Return_to_menu"),
 			(presentation_set_duration, 0),
 		(try_end),
 		]),
 	]),
 	##	Floris Bank End
-	
+
 	#custom armor
   #takes g_current_opened_item_details as parameter
   #takes g_current_opened_troop_dthehun as parameter

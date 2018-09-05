@@ -636,7 +636,7 @@ slot_town_port = 302
 slot_port_town = 303
 
 slot_town_seneschal = 310
-slot_party_ship_type                = 311  
+slot_party_ship_type                = 311
 
 #slot_party_type values
 ##spt_caravan            = 1
@@ -655,7 +655,7 @@ spt_kingdom_caravan    = 11
 ##spt_prisoner_train     = 12
 spt_kingdom_hero_party = 13
 ##spt_merchant_caravan   = 14
-spt_reinforcement_party = 14 
+spt_reinforcement_party = 14
 spt_village_farmer     = 15
 spt_ship               = 16
 spt_cattle_herd        = 17
@@ -1072,7 +1072,7 @@ troop_slots_reserved_for_relations_start        = 165 #this is based on id_troop
 slot_troop_relations_begin				= 0 #this creates an array for relations between troops
 											#Right now, lords start at 165 and run to around 290, including pretenders
 
-                                            
+
 slot_troop_courtesan                    = 158 # The above probably means the previous value of 200 was stepping on someone's toes.
 
 
@@ -2532,7 +2532,7 @@ slot_team_d0_exists                     = 320
 #NEXT                                   = 329
 #Battlegroup slots end
 
-reset_team_stats_begin = slot_team_size  
+reset_team_stats_begin = slot_team_size
 reset_team_stats_end   = slot_team_d0_type
 
 minimum_ranged_ammo = 3	#below this not considered ranged type troop

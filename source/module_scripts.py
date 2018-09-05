@@ -88,7 +88,7 @@ scripts = [
   # This script is called when a new game is started
   # INPUT: none
   ("game_start",
-   [	
+   [
       (faction_set_slot, "fac_player_supporters_faction", slot_faction_state, sfs_inactive),
 
       (assign, "$first_time", 0),	#squelch compiler warnings
@@ -106,12 +106,12 @@ scripts = [
 	  (assign, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_HIGH),
 	  (assign, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_HIGH),
 	  (call_script, "script_set_custom_armor_slots"), # Custom armor init
-      
+
       (try_for_range, ":edible", "itm_raw_date_fruit", food_end),
         (neq, ":edible", "itm_furs"),
         (item_set_slot, ":edible", slot_item_edible, 1),
       (try_end),
-      
+
       (assign, "$g_player_luck", 200),
       (troop_set_slot, "trp_player", slot_troop_occupation, slto_kingdom_hero),
       (store_random_in_range, ":starting_training_ground", training_grounds_begin, training_grounds_end),
@@ -425,9 +425,9 @@ scripts = [
       (party_set_slot,"p_port_13", slot_port_town, "p_town_13"),
       (party_set_slot,"p_port_15", slot_port_town, "p_town_15"),
       (party_set_slot,"p_port_19", slot_port_town, "p_town_19"),
-	  
+
   #Duh Town Population for Land required // Linked to bank system
- 
+
 	  (try_for_range, ":town_no", towns_begin, towns_end),
 		(this_or_next|eq,":town_no","p_town_1"),
 		(this_or_next|eq,":town_no","p_town_5"),
@@ -443,9 +443,9 @@ scripts = [
 		(store_random_in_range, ":amount", 8000, 12000),
 		(party_set_slot, ":town_no", slot_center_population, ":amount"),
 		(val_div, ":amount", 200),
-		(party_set_slot, ":town_no", slot_town_acres, ":amount"),		
+		(party_set_slot, ":town_no", slot_town_acres, ":amount"),
 	  (try_end),
-	 
+
 	  #Duh Over
 
 # Castles
@@ -464,7 +464,7 @@ scripts = [
         (party_set_slot,":castle_no", slot_party_type, spt_castle),
         (party_set_slot,":castle_no", slot_center_is_besieged_by, -1),
       (try_end),
-      
+
       #seneschals - dckplmc
       (try_for_range, ":center_no", walled_centers_begin, walled_centers_end),
         (store_sub, ":offset", ":center_no", walled_centers_begin),
@@ -1242,13 +1242,13 @@ scripts = [
 	#  unless there is no version number set.  The rest of the slot is the version number.
     (troop_set_slot, "trp_dplmc_chamberlain", dplmc_slot_troop_affiliated, (DPLMC_CURRENT_VERSION_CODE * 128) + DPLMC_VERSION_LOW_7_BITS),#Version number 1
 	##diplomacy end+
-    
+
     #SB : default parameters for post-battle continuation
     (call_script, "script_setup_camera_keys"),
     (assign, "$g_dplmc_cam_default", camera_mouse),
     (assign, "$g_dplmc_player_disguise", disguise_pilgrim),
     (assign, "$g_dplmc_charge_when_dead", 1),
-    
+
     #SB : training ground slots
     (try_for_range, ":npc", training_ground_trainers_begin, training_ground_trainers_end),
         #init trainer vars
@@ -1451,7 +1451,7 @@ scripts = [
       (faction_set_slot, "fac_kingdom_4", slot_faction_banner, "mesh_banner_kingdom_a"),
       (faction_set_slot, "fac_kingdom_5", slot_faction_banner, "mesh_banner_kingdom_d"),
       (faction_set_slot, "fac_kingdom_6", slot_faction_banner, "mesh_banner_kingdom_e"),
-      
+
       (call_script, "script_initialize_banner_info"),
 
       (try_for_range, ":cur_item", all_items_begin, all_items_end),
@@ -1509,7 +1509,7 @@ scripts = [
       (item_set_slot, "itm_barbed_arrows", ":sarranid_price_slot", 80),
       (item_set_slot, "itm_jarid", ":sarranid_price_slot", 85),
       (item_set_slot, "itm_javelin", ":sarranid_price_slot", 85),
-      
+
       (item_set_slot, "itm_lamellar_vest", ":vaegir_price_slot", 130),
       (item_set_slot, "itm_awlpike", ":vaegir_price_slot", 150),
       (item_set_slot, "itm_scimitar", ":vaegir_price_slot", 130),
@@ -2140,7 +2140,7 @@ scripts = [
       (call_script, "script_multiplayer_set_item_available_for_troop", "itm_steppe_armor", "trp_khergit_infantry_multiplayer"),
       (call_script, "script_multiplayer_set_item_available_for_troop", "itm_tribal_warrior_outfit", "trp_khergit_infantry_multiplayer"),
       (call_script, "script_multiplayer_set_item_available_for_troop", "itm_lamellar_armor", "trp_khergit_infantry_multiplayer"),
-	  (call_script, "script_multiplayer_set_item_available_for_troop", "itm_khergit_elite_armor", "trp_khergit_infantry_multiplayer"),	  
+	  (call_script, "script_multiplayer_set_item_available_for_troop", "itm_khergit_elite_armor", "trp_khergit_infantry_multiplayer"),
       (call_script, "script_multiplayer_set_item_available_for_troop", "itm_hide_boots", "trp_khergit_infantry_multiplayer"),
       (call_script, "script_multiplayer_set_item_available_for_troop", "itm_nomad_boots", "trp_khergit_infantry_multiplayer"),
 	  (call_script, "script_multiplayer_set_item_available_for_troop", "itm_khergit_leather_boots", "trp_khergit_infantry_multiplayer"),
@@ -3712,7 +3712,7 @@ scripts = [
               (faction_get_color, ":color", ":defeated_troop_faction"),
               (try_begin),
                 (ge, ":rand", hero_escape_after_defeat_chance),
-                
+
                 #dckplmc
                 (party_get_template_id, ":party_template", ":root_defeated_party"),
                 (try_begin),
@@ -3743,9 +3743,9 @@ scripts = [
                 (try_end),
                 #(neq, ":party_template", "pt_hero_party"), #end
 
-                
-                
-                
+
+
+
                 (party_stack_get_troop_id, ":leader_troop_id", ":nonempty_winner_party", 0),
                 ##diplomacy start+ kingdom ladies might lead kingdom parties
                 (this_or_next|is_between,":leader_troop_id", kingdom_ladies_begin, kingdom_ladies_end),
@@ -3758,7 +3758,7 @@ scripts = [
                 (gt, reg0, 0),
                 #(troop_set_slot, ":cur_troop_id", slot_troop_is_prisoner, 1),
                 (troop_set_slot, ":cur_troop_id", slot_troop_prisoner_of_party, ":nonempty_winner_party"),
-                
+
                 (display_log_message, "str_hero_taken_prisoner", ":color"),
 
                 (try_begin),
@@ -3784,7 +3784,7 @@ scripts = [
 				(store_faction_of_party, ":capturer_faction", ":nonempty_winner_party"),
                 (call_script, "script_update_troop_location_notes_prisoned", ":cur_troop_id", ":capturer_faction"),
               (else_try),
-              
+
                 #dckplmc
                 (try_begin),
                     (party_get_template_id, ":party_template", ":root_defeated_party"),
@@ -3796,7 +3796,7 @@ scripts = [
                     (troop_set_slot, ":cur_troop_id", slot_troop_turned_down_twice, 0),
                     (troop_set_slot, ":cur_troop_id", slot_troop_occupation, 0),
                 (try_end),
-              
+
                 (display_message,"@{s1} of {s3} was defeated in battle but managed to escape.", ":color"),
               (try_end),
 
@@ -3879,7 +3879,7 @@ scripts = [
                (str_store_faction_name_link, s3, ":cur_troop_faction"),
                #SB : colorize, use previously set up primary color
                (display_log_message, "str_hero_freed", ":faction_color"),
-               
+
                 (try_begin), #dckplmc
                     (is_between, ":cur_troop_id", companions_begin, companions_end),
                     (neg|troop_slot_eq, ":cur_troop_id", slot_troop_playerparty_history, dplmc_pp_history_granted_fief),
@@ -3913,7 +3913,7 @@ scripts = [
                (party_get_slot, ":cur_party_type", ":root_defeated_party", slot_party_type),
                (this_or_next|eq, ":cur_party_type", spt_town),
                (eq, ":cur_party_type", spt_castle),
-               
+
                #free all captive ladies
                (try_for_range, ":lady", kingdom_ladies_begin, kingdom_ladies_end),
                    (troop_get_slot, ":center", ":lady", slot_troop_prisoner_of_party),
@@ -5263,11 +5263,11 @@ scripts = [
           (this_or_next|eq, ":troop_id", "trp_spy"),
           (eq, ":troop_id", "trp_spy_partner"),
           (assign, reg0, 0),
-        (else_try),        
+        (else_try),
           (assign, reg0, 1),
         (try_end),
       (try_end),
-      
+
       #sell women only
       # (try_begin),
           # (eq, "$g_talk_troop", "trp_brothel_madam"),
@@ -5276,7 +5276,7 @@ scripts = [
           # (neq, ":is_female", 1),
           # (assign, reg0, 0),
       # (try_end),
-      
+
       (set_trigger_result, reg0),
   ]),
 
@@ -5405,7 +5405,7 @@ scripts = [
       (try_end),
   ]),
 
- #script_game_get_date_text:
+  #script_game_get_date_text:
   # This script is called from the game engine when the date needs to be displayed.
   # INPUT: arg1 = number of days passed since the beginning of the game
   # OUTPUT: result string = date
@@ -5499,47 +5499,47 @@ scripts = [
 			(eq, ":cur_month", 12),
 			(str_store_string, s1, "str_december_reg1_reg2_v2"),
 		  (try_end),
-		(else_try),	  
-		  (try_begin),
-			(eq, ":cur_month", 1),
-			(str_store_string, s1, "str_january_reg1_reg2"),
-		  (else_try),
-			(eq, ":cur_month", 2),
-			(str_store_string, s1, "str_february_reg1_reg2"),
-		  (else_try),
-			(eq, ":cur_month", 3),
-			(str_store_string, s1, "str_march_reg1_reg2"),
-		  (else_try),
-			(eq, ":cur_month", 4),
-			(str_store_string, s1, "str_april_reg1_reg2"),
-		  (else_try),
-			(eq, ":cur_month", 5),
-			(str_store_string, s1, "str_may_reg1_reg2"),
-		  (else_try),
-			(eq, ":cur_month", 6),
-			(str_store_string, s1, "str_june_reg1_reg2"),
-		  (else_try),
-			(eq, ":cur_month", 7),
-			(str_store_string, s1, "str_july_reg1_reg2"),
-		  (else_try),
-			(eq, ":cur_month", 8),
-			(str_store_string, s1, "str_august_reg1_reg2"),
-		  (else_try),
-			(eq, ":cur_month", 9),
-			(str_store_string, s1, "str_september_reg1_reg2"),
-		  (else_try),
-			(eq, ":cur_month", 10),
-			(str_store_string, s1, "str_october_reg1_reg2"),
-		  (else_try),
-			(eq, ":cur_month", 11),
-			(str_store_string, s1, "str_november_reg1_reg2"),
-		  (else_try),
-			(eq, ":cur_month", 12),
-			(str_store_string, s1, "str_december_reg1_reg2"),
-		  (try_end),
+		(else_try),
+      (try_begin),
+        (eq, ":cur_month", 1),
+        (str_store_string, s1, "str_january_reg1_reg2"),
+      (else_try),
+        (eq, ":cur_month", 2),
+        (str_store_string, s1, "str_february_reg1_reg2"),
+      (else_try),
+        (eq, ":cur_month", 3),
+        (str_store_string, s1, "str_march_reg1_reg2"),
+      (else_try),
+        (eq, ":cur_month", 4),
+        (str_store_string, s1, "str_april_reg1_reg2"),
+      (else_try),
+        (eq, ":cur_month", 5),
+        (str_store_string, s1, "str_may_reg1_reg2"),
+      (else_try),
+        (eq, ":cur_month", 6),
+        (str_store_string, s1, "str_june_reg1_reg2"),
+      (else_try),
+        (eq, ":cur_month", 7),
+        (str_store_string, s1, "str_july_reg1_reg2"),
+      (else_try),
+        (eq, ":cur_month", 8),
+        (str_store_string, s1, "str_august_reg1_reg2"),
+      (else_try),
+        (eq, ":cur_month", 9),
+        (str_store_string, s1, "str_september_reg1_reg2"),
+      (else_try),
+        (eq, ":cur_month", 10),
+        (str_store_string, s1, "str_october_reg1_reg2"),
+      (else_try),
+        (eq, ":cur_month", 11),
+        (str_store_string, s1, "str_november_reg1_reg2"),
+      (else_try),
+        (eq, ":cur_month", 12),
+        (str_store_string, s1, "str_december_reg1_reg2"),
+      (try_end),
 		(try_end),
       (set_result_string, s1),
-  ]),
+    ]),
 
   #script_game_get_money_text:
   # This script is called from the game engine when an amount of money needs to be displayed.
@@ -5577,7 +5577,7 @@ scripts = [
       (troop_get_slot, ":troop_renown", ":troop_no", slot_troop_renown),
       (store_div, ":renown_bonus", ":troop_renown", 25),
       (val_add, ":limit", ":renown_bonus"),
-      
+
       #SB : add non-standard size modifiers here
       (try_begin),
         (eq, ":troop_no", "trp_player"),
@@ -6000,7 +6000,7 @@ scripts = [
           (assign, reg4, ":troop_is_faction_leader"),
           (assign, reg5, ":troop_is_marshal"),
           (assign, reg6, ":troop_is_player_faction"),
-          
+
           #SB : TODO, add rounding based on personal relation/time last met?
           (troop_get_slot, reg15, ":troop_no", slot_troop_renown),
           (troop_get_slot, reg16, ":troop_no", slot_troop_controversy),
@@ -6153,7 +6153,7 @@ scripts = [
         (call_script, "script_get_prosperity_text_to_s50", ":center_no"),
         #(party_get_slot, reg7, ":center_no", slot_town_prosperity),
         (str_store_string, s0, "@{s2}Its prosperity is: {s50}", 0),
-      
+
         (set_trigger_result, 1),
       (try_end),
      ]),
@@ -6270,7 +6270,7 @@ scripts = [
    #         (val_add, ":num_enemies", 1),
         #       (try_end),
 
-        
+
         ##SB : add domestic policy as overview
         (str_clear, s21),
         (str_clear, s20),
@@ -8226,7 +8226,7 @@ scripts = [
       # (troop_set_slot, "trp_banner_background_color_array", 130, 0xFF2E3B10),
       # (troop_set_slot, "trp_banner_background_color_array", 131, 0xFF425D7B),
       # (troop_set_slot, "trp_banner_background_color_array", 132, 0xFF394608),
-      
+
 	  ]),
 
 
@@ -8645,16 +8645,16 @@ scripts = [
 
 		  (store_distance_to_party_from_party, ":dist", ":village_no", ":effected_village_no"),
 		  (le, ":dist", 72),
-		  
+
 		  (party_get_slot, ":production", ":village_no", ":cur_production_source"),
-		  
+
 		  (store_add, ":dist_plus_24", ":dist", 24),
 		  (store_mul, ":production_mul_12", ":production", 12),
-		  (store_div, ":averaged_production", ":production_mul_12", ":dist_plus_24"), #if close (12/24=1/2) else (12/96=1/8)		  
+		  (store_div, ":averaged_production", ":production_mul_12", ":dist_plus_24"), #if close (12/24=1/2) else (12/96=1/8)
 		  (val_div, ":averaged_production", 2), #if close (1/4) else (1/16)
 		  (val_add, ":total_averaged_production", ":averaged_production"),
 		(try_end),
-		
+
 		(party_set_slot, ":village_no", ":cur_production_source", ":total_averaged_production"),
       (try_end),
 	(try_end),
@@ -14645,12 +14645,12 @@ scripts = [
 
       #default limit is 30 for any party
       (assign, ":limit", 30),
-      
+
       (try_begin),
         (party_slot_eq, ":party_no", slot_party_type, spt_kingdom_hero_party),
         (party_stack_get_troop_id, ":party_leader", ":party_no", 0),
         (store_faction_of_party, ":faction_id", ":party_no"),
-      
+
         #default limit is 10 for kingdom lords
         (assign, ":limit", 10),
 
@@ -14741,7 +14741,7 @@ scripts = [
 		  ##diplomacy start+ Apply constraint
 		  (val_clamp, ":serfdom", ":policy_min", ":policy_max"),
 		  ##diplomacy end+
-          (val_mul, ":serfdom", 2), #SB : description says 1, this used to be 3 
+          (val_mul, ":serfdom", 2), #SB : description says 1, this used to be 3
           (val_add, ":percent", ":serfdom"),
         (try_end),
 
@@ -14843,7 +14843,7 @@ scripts = [
             (assign, ":quest_no", "qst_deliver_wine"),
             (quest_get_slot, ":quest_target_center", ":quest_no", slot_quest_target_center),
           (try_end),
-          
+
           (try_begin), #prioritize town missions
             (eq, ":quest_no", -1),
             (check_quest_active, "qst_deliver_grain"),
@@ -14904,7 +14904,7 @@ scripts = [
           (set_result_string, "@item score:{reg0}, value:{reg1}"),
           (set_trigger_result, 0x0DDEEE),
         (try_end),
-        
+
         (try_begin), #SB : display this block when in item pool mode
           (eq, ":extra_text_id", 2),
           (eq, "$pool_troop", "trp_temp_troop"), #new exit code resets condition
@@ -14932,7 +14932,7 @@ scripts = [
           (set_trigger_result, 0xDDEEFF),
         (try_end),
       (try_end),
-      
+
   ]),
 
   #script_game_on_disembark:
@@ -14986,7 +14986,7 @@ scripts = [
 
        (context_menu_add_item, "@Accompany", cmenu_follow),
      (try_end),
-     
+
       #SB : debug cheats
       (try_begin),
         (ge, "$cheat_mode", 1),
@@ -15108,7 +15108,7 @@ scripts = [
       (call_script, "script_party_wound_all_members", ":other_party"),
       (party_set_next_battle_simulation_time, ":party_no", 0),
     ## Moved the following to a menu instead
-    # (else_try), #refill or double-up 
+    # (else_try), #refill or double-up
       # (eq, ":button_value", cmenu_reinforce),
       # (store_faction_of_party, ":faction_no", ":party_no"),
       # (try_begin), #
@@ -15304,7 +15304,7 @@ scripts = [
       # (eq,"$g_move_fast", 1),
       # (val_mul,":speed_multiplier",2),
     # (try_end),
-    
+
     (try_begin),
         (get_party_ai_behavior, ":behavior", ":party_no"),
         (eq, ":behavior", ai_bhvr_driven_by_party),
@@ -15706,9 +15706,9 @@ scripts = [
 
 		#OZANDEBUG
 		#(assign, reg1, ":production"),
-		#(assign, reg2, ":consumption"),		
+		#(assign, reg2, ":consumption"),
 		#(str_store_party_name, s1, ":center_no"),
-		#(str_store_item_name, s2, ":cur_good"),		
+		#(str_store_item_name, s2, ":cur_good"),
 
 		(val_sub, ":production", ":consumption"),
 
@@ -15845,7 +15845,7 @@ scripts = [
 			(val_add, ":base_production", ":sheep_addition"),
 			(party_get_slot, ":gardens", ":center_no", slot_center_household_gardens),
 			(val_mul, ":base_production", ":gardens"),
-			(val_div, ":base_production", 10), 
+			(val_div, ":base_production", 10),
 		(else_try),
 			(eq, ":cur_good", "itm_butter"), 	 #Demand = 2
 			(party_get_slot, ":base_production", ":center_no", slot_center_head_cattle),
@@ -18993,7 +18993,7 @@ scripts = [
 
       #if no center is available count all centers not besieged do not care its faction.
       (try_begin),
-        (le, ":no_centers", 0), 
+        (le, ":no_centers", 0),
         (ge, "$g_dplmc_lord_recycling", DPLMC_LORD_RECYCLING_ENABLE),
         (assign, "$g_there_is_no_avaliable_centers", 1),
 
@@ -19755,7 +19755,7 @@ scripts = [
               (try_end),
               (store_random_in_range, ":quest_target_amount", 6, 12),
               (store_distance_to_party_from_party, ":dist", ":giver_center_no",":quest_target_center"),
-              
+
               #SB : also, instead of emptying target center of merchandise, pick one that's actually missing food
               (assign, ":quest_gold_reward", ":dist"),
               (val_add, ":quest_gold_reward", 2),
@@ -19770,9 +19770,9 @@ scripts = [
               (val_mul,"$qst_deliver_wine_debt",":quest_target_amount"),
               (val_mul,"$qst_deliver_wine_debt", 6),
               (val_div,"$qst_deliver_wine_debt", 5),
-              
+
               (val_mul, ":quest_target_amount", ":max_amount"), #store actual quantity
-              
+
               (assign, ":quest_expiration_days", 7), #SB : probably calculate distance for possible spoilage?
               (assign, ":quest_dont_give_again_period", 20),
               (assign, ":result", ":quest_no"),
@@ -19998,21 +19998,21 @@ scripts = [
 	          (try_end),
 	        (else_try),
 	          (eq, ":quest_no", "qst_duel_for_lady"),
-              
+
 	          (try_begin),
 	            (ge, "$g_talk_troop_faction_relation", 0),
 	            (ge, ":player_level", 10),
-                                
+
                 (troop_get_slot, ":giver_husband", ":giver_troop", slot_troop_spouse), #dckplmc - lady has no enemies
 	            #(call_script, "script_cf_troop_get_random_enemy_troop_with_occupation", ":giver_troop", slto_kingdom_hero),#Can fail
 	            (call_script, "script_cf_troop_get_random_enemy_troop_with_occupation", ":giver_husband", slto_kingdom_hero),#Can fail
 	            (assign, ":cur_target_troop", reg0),
-                
+
 	            (neg|troop_slot_eq, ":giver_troop", slot_troop_spouse, ":cur_target_troop"), #must not be in the family
 	            (neg|troop_slot_eq, ":giver_troop", slot_troop_father, ":cur_target_troop"),
 	            (neg|troop_slot_ge, ":cur_target_troop", slot_troop_prisoner_of_party, 0),
 	            (troop_slot_ge, ":cur_target_troop", slot_troop_leaded_party, 0),
-                
+
                 ##diplomacy start+ add benefactor ~ goodnatured/upstanding equivalence
                 (neg|troop_slot_eq, ":cur_target_troop", slot_lord_reputation_type, lrep_benefactor),
                 #also disable challenging conventional & moralist ladies
@@ -20026,7 +20026,7 @@ scripts = [
 	            (assign, ":quest_target_troop", ":cur_target_troop"),
 	            (assign, ":quest_expiration_days", 30),
 	            (assign, ":quest_dont_give_again_period", 50),
-	            (assign, ":result", ":quest_no"),                
+	            (assign, ":result", ":quest_no"),
 	          (try_end),
 	          # Enemy Lord Quests
 	        (else_try),
@@ -20189,7 +20189,7 @@ scripts = [
 	            (ge, "$g_talk_troop_faction_relation", 0),
 	            (ge, ":player_level", 10),
 
-				(ge, ":giver_troop", 0), #skip troops without fathers in range				
+				(ge, ":giver_troop", 0), #skip troops without fathers in range
 
 				(assign, ":cur_object_troop", -1),
                 (try_for_range, ":lady", kingdom_ladies_begin, kingdom_ladies_end),
@@ -20198,7 +20198,7 @@ scripts = [
 				(try_end),
 
 				(ge, ":cur_object_troop", 0),
-							
+
 				(troop_get_slot, ":giver_troop_confirm", ":cur_object_troop", slot_troop_father),  # just to make sure
 				(eq, ":giver_troop", ":giver_troop_confirm"), # just to make sure
 
@@ -22362,7 +22362,7 @@ scripts = [
         (neq, ":template_id", "pt_bandits_awaiting_ransom"),
         (neq, ":template_id", "pt_rescued_prisoners"),
         (neq, ":template_id", "pt_routed_warriors"),
-        
+
         (try_begin),
           (this_or_next|is_between, ":stack_troop", "trp_looter", bandits_end),
           (is_between, ":template_id", bandit_party_templates_begin, bandit_party_templates_end), #SB : template range
@@ -22549,14 +22549,14 @@ scripts = [
           (str_store_party_name, s1, ":party_no"),
           # ## SB : colorize
           # (faction_get_color, ":color", ":faction_no"),
-          (display_message, "str_s1_joined_battle_friend", message_positive), 
-                                  
+          (display_message, "str_s1_joined_battle_friend", message_positive),
+
           (troop_get_slot, ":limit", "$g_player_troop", slot_troop_renown),
           (val_sub, ":limit", dplmc_command_renown_limit),
           (game_get_reduce_campaign_ai, ":bonus"),
           (val_mul, ":bonus", "$player_right_to_rule"),
           (val_add, ":limit", ":bonus"),
-          
+
           (assign, ":continue", -1), #by default, not under command
 
           (try_begin), #under command if marshal
@@ -22570,7 +22570,7 @@ scripts = [
                # (faction_slot_eq, ":party_faction", slot_faction_state, sfs_active),
                (call_script, "script_dplmc_get_troop_standing_in_faction", "trp_player", ":faction_no"),
                (ge, reg0, DPLMC_FACTION_STANDING_MARSHALL),
-               
+
                (display_message, "@marshall {reg0}"),
                # (this_or_next|faction_slot_eq, ":party_faction", slot_faction_marshall, "trp_player"),
                # (faction_slot_eq, ":party_faction", slot_faction_leader, "$g_player_troop"),
@@ -22583,11 +22583,11 @@ scripts = [
             (call_script, "script_troop_get_relation_with_troop", ":leader", "$g_player_troop"),
             (val_sub, ":renown", reg0), #higher relation means less renown needed.
             (le, ":renown", ":limit"),
-            
+
             (assign, ":continue", 0),
           (else_try), #straggler parties - patrols, caravans, etc.
             (neg|is_between, ":leader", active_npcs_begin, active_npcs_end),
-            
+
             (assign, ":continue", 0),
           (try_end),
           (party_set_slot, ":party_no", slot_party_temp_slot_1, ":continue"),
@@ -22599,7 +22599,7 @@ scripts = [
             (faction_get_color, ":color", ":faction_no"),
             (display_message, "@{s0} will {reg0?not :}be under your command", ":color"),
           (try_end),
-          
+
         (try_end),
       (try_end),
   ]),
@@ -23173,7 +23173,7 @@ scripts = [
 		(troop_slot_eq, ":kingdom_lady", slot_troop_prisoner_of_party, -1),
 		(troop_set_slot, ":kingdom_lady", slot_troop_cur_center, ":new_center"),
 	  (try_end),
-      
+
       #Give new title
       (call_script, "script_troop_set_title_according_to_faction", ":troop_no", ":faction_no"), #moved from top
 
@@ -23416,7 +23416,7 @@ scripts = [
             (else_try),
               (eq, ":troop_is_female", 1), #slot 0 is potentially unassigned, 'Countess Alayen'
               (troop_slot_eq, "trp_heroes_end", 1, 1),
-              
+
               #unmarried ladies should retain title
               (assign, ":continue", 0),
               (try_begin),
@@ -23429,7 +23429,7 @@ scripts = [
                   (assign, ":continue", 1),
               (try_end),
               (eq, ":continue", 1),
-              
+
               (str_store_troop_name_plural, s0, "trp_heroes_end"),
               (str_store_troop_name_plural, s1, ":troop_no"),
               (str_store_string, s1, "str_s0_s1"),
@@ -23632,7 +23632,7 @@ scripts = [
 		(gt, ":lord_troop_id", -1),
 
 #normal_banner_begin
-        (troop_get_slot, ":cur_banner", ":lord_troop_id", slot_troop_banner_scene_prop),    
+        (troop_get_slot, ":cur_banner", ":lord_troop_id", slot_troop_banner_scene_prop),
         (try_begin),
             (gt, ":cur_banner", 0),
             (val_sub, ":cur_banner", banner_scene_props_begin),
@@ -23642,16 +23642,16 @@ scripts = [
        (else_try),
            (eq, ":cur_banner", -1),
            (troop_get_slot, ":flag_icon", ":lord_troop_id", slot_troop_custom_banner_map_flag_type),
-           
+
            # (assign, reg0, ":flag_icon"),
            # (str_store_troop_name, s5, ":lord_troop_id",),
-           # (display_message, "@{s5} : {reg0}"),    
-           
+           # (display_message, "@{s5} : {reg0}"),
+
            (ge, ":flag_icon", 0),
            (val_add, ":flag_icon", custom_banner_map_icons_begin),
            (party_set_banner_icon, ":center_no", ":flag_icon"),
        (try_end),
-       
+
        (neq, ":lord_troop_id", "trp_player"),
        #free all captive ladies
        (try_for_range, ":lady", kingdom_ladies_begin, kingdom_ladies_end),
@@ -23667,7 +23667,7 @@ scripts = [
            (str_store_faction_name_link, s3, ":lady_faction"),
            (display_log_message, "@{s1} of {s3} has been released from captivity by {s2}.", ":lady_faction_color"),
        (try_end),
-       
+
     (try_end),
 
 #    (try_begin),
@@ -24777,12 +24777,12 @@ scripts = [
       (spawn_around_party, ":center_no", "pt_kingdom_hero_party"),
 
       (assign, "$pout_party", reg0),
-      
+
       ###faction icons### dckplmc
       (try_begin),
-      
+
         (assign, ":icon_faction", ":troop_faction_no"),
-      
+
         (try_begin),
           (gt, ":troop_faction_no", "fac_commoners"),
           (this_or_next|eq, ":troop_faction_no", "fac_player_faction"),
@@ -24792,19 +24792,19 @@ scripts = [
           (is_between, "$g_player_culture", npc_kingdoms_begin, npc_kingdoms_end),
           (assign, ":icon_faction", "$g_player_culture"),
         (try_end),
-      
+
           (is_between, ":icon_faction", npc_kingdoms_begin, kingdoms_end),
           (store_sub, ":fac_offset", ":icon_faction", npc_kingdoms_begin),
           (try_begin),
               (faction_slot_eq, ":icon_faction", slot_faction_leader, ":troop_no"),
-              (store_add, ":icon", "icon_kingdom_1_king", ":fac_offset"), 
+              (store_add, ":icon", "icon_kingdom_1_king", ":fac_offset"),
               (party_set_icon, "$pout_party", ":icon"),
           (else_try),
-              (store_add, ":icon", "icon_kingdom_1_lord", ":fac_offset"), 
+              (store_add, ":icon", "icon_kingdom_1_lord", ":fac_offset"),
               (party_set_icon, "$pout_party", ":icon"),
           (try_end),
       (try_end),
-      ###  
+      ###
 
       (party_set_faction, "$pout_party", ":troop_faction_no"),
       (party_set_slot, "$pout_party", slot_party_type, spt_kingdom_hero_party),
@@ -25175,7 +25175,7 @@ scripts = [
 	  (party_get_slot, ":bound_center", ":village_no", slot_village_bound_center),
 
 	  (assign, ":total_probability", 0),
-      (try_for_range, ":cur_good", trade_goods_begin, trade_goods_end),		
+      (try_for_range, ":cur_good", trade_goods_begin, trade_goods_end),
 	    (call_script, "script_center_get_production", ":village_no", ":cur_good"),
 		(assign, ":cur_probability", reg0),
 
@@ -25183,7 +25183,7 @@ scripts = [
 		(val_div, reg0, 5), #also add 1/5 of bound center production to village's inventory.
 		(val_add, ":cur_probability", reg0),
 
-		(val_max, ":cur_probability", 5),	  	  
+		(val_max, ":cur_probability", 5),
 		(val_add, ":total_probability", ":cur_probability"),
       (try_end),
 
@@ -25239,7 +25239,7 @@ scripts = [
         #SB : add restriction of not reinforcing while looted or infested
         (call_script, "script_cf_village_normal_cond", ":village_no"),
         (party_add_template, ":village_no", "pt_village_defenders"),
-      
+
         (try_begin), #SB : upgrade into watchmen, each template had at least 10 farmers
           (party_slot_ge, ":village_no", slot_center_has_watch_tower, 1),
           (party_count_companions_of_type, ":count", ":village_no", "trp_watchman"),
@@ -25280,8 +25280,8 @@ scripts = [
         (ge, ":attack_leader", 0),
         (party_set_slot, ":village_no", dplmc_slot_center_last_attacked_time, ":hours"),
         (party_set_slot, ":village_no", dplmc_slot_center_last_attacker, ":attack_leader"),
-        
-        
+
+
         (try_begin),
           (this_or_next|eq, ":new_state", svs_looted),
           (eq, ":new_state", svs_deserted),
@@ -25330,14 +25330,14 @@ scripts = [
         (party_set_extra_text, ":village_no", "@(Deserted)"),
 
         (party_set_slot, ":village_no", slot_village_raided_by, -1),
-        (call_script, "script_change_center_prosperity", ":village_no", -20), 
+        (call_script, "script_change_center_prosperity", ":village_no", -20),
 		(val_add, "$newglob_total_prosperity_from_villageloot", -20),
       (else_try),
         (eq, ":new_state", svs_looted),
         (party_set_extra_text, ":village_no", "@(Looted)"),
 
         (party_set_slot, ":village_no", slot_village_raided_by, -1),
-        (call_script, "script_change_center_prosperity", ":village_no", -60), 
+        (call_script, "script_change_center_prosperity", ":village_no", -60),
 		(val_add, "$newglob_total_prosperity_from_villageloot", -60),
 
 		# (try_begin), #optional - lowers the relationship between a lord and his liege if his fief is looted
@@ -25516,13 +25516,13 @@ scripts = [
                #(val_mul, ":random_no", 2),
                #(val_div, ":random_no", 3),
                (party_wound_members, ":village_no", "trp_peasant_woman", ":random_no"),
-               
+
                #this is only effective for p_main_party anyway
                (call_script, "script_game_get_party_prisoner_limit", ":looter_party"),
                (assign, ":prisoner_limit", reg0),
                (party_get_num_prisoners, ":num_prisoners", ":looter_party"),
                (val_sub, ":prisoner_limit", ":num_prisoners"),
-               
+
                (party_get_num_companion_stacks, ":num_stacks", ":village_no"),
                # (assign, ":num_wounded", 0),
                (party_get_slot, ":village_raid_progress", ":village_no", slot_village_raid_progress),
@@ -25530,7 +25530,7 @@ scripts = [
                  (party_stack_get_num_wounded, ":cur_wounded",":village_no",":stack_no"),
                  (gt, ":cur_wounded", 0),
                  (party_stack_get_troop_id, ":stack_troop",":village_no",":stack_no"),
-                 
+
                  (try_begin),
                     (lt, ":prisoner_limit", ":cur_wounded"),
                     (val_add, ":raid_total_captured", ":prisoner_limit"),
@@ -25583,7 +25583,7 @@ scripts = [
                # (this_or_next|le, ":capacity", 0), #we have no more room for capturing
                (this_or_next|eq, ":raid_total_captured", -1),
                (gt, ":village_raid_progress", ":threshold"),
-               
+
                (str_store_party_name_link, s1, ":village_no"),
                (str_store_troop_name_link, s2, ":raid_leader"),
                (store_faction_of_party, ":village_faction", ":village_no"),
@@ -25602,7 +25602,7 @@ scripts = [
                (party_set_slot, ":village_no", slot_village_raid_progress, 0),
                (party_set_slot, ":village_no", slot_village_recover_progress, 50), #SB : jumps directly to deserted icon, not burnt
                (party_set_slot, ":village_no", slot_village_smoke_added, 2), #to force trigger the icon
-               
+
                (try_begin), #SB : this crippled lords too much
                  (ge, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_HIGH),
                  (party_set_slot, ":village_no", slot_center_volunteer_troop_type, -1),
@@ -25629,7 +25629,7 @@ scripts = [
                (store_faction_of_party, ":village_faction", ":village_no"),
                (faction_get_color, ":color", ":village_faction"),
                (display_log_message, "@The village of {s1} has been looted by {s2}.", ":color"),
-               
+
                #refugees
                (set_spawn_radius, 2),
                (spawn_around_party, ":village_no", "pt_refugees"),
@@ -25779,7 +25779,7 @@ scripts = [
 
                (party_set_slot, ":village_no", slot_village_raid_progress, 0),
                (party_set_slot, ":village_no", slot_village_recover_progress, 0),
-               
+
                #SB : also get rid of recruits, technically they should have perished in the fighting
                (try_begin), #SB : this crippled lords too much
                  (ge, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_HIGH),
@@ -25819,7 +25819,7 @@ scripts = [
            (party_get_slot, ":recover_progress", ":village_no", slot_village_recover_progress),
            (val_add, ":recover_progress", 1),
            (party_set_slot, ":village_no", slot_village_recover_progress, ":recover_progress"), #village looted
-           
+
            (try_begin), #SB : add some looters, around twice per lifetime
              (store_mod, ":looter_chance", ":recover_progress", 10),
              (eq, ":looter_chance", 0),
@@ -25889,7 +25889,7 @@ scripts = [
              (else_try),
                (assign, ":daily_siege_effect_on_prosperity", -4),
              (try_end),
-       
+
              (call_script, "script_change_center_prosperity", ":center_no", ":daily_siege_effect_on_prosperity"),
              (val_add, "$newglob_total_prosperity_from_townloot", ":daily_siege_effect_on_prosperity"),
            (try_end),
@@ -25980,7 +25980,7 @@ scripts = [
         (str_store_party_name_link, s3, ":center_no"),
         (display_message, "@{s3} is no longer under siege."),
       (try_end),
-      
+
       #SB : ideally we deal with post-conquest here but this is also called for cancelled sieges
       ]),
 
@@ -26677,7 +26677,7 @@ scripts = [
     (troop_get_slot, ":led_party", ":troop_no", slot_troop_leaded_party),
     (troop_get_slot, ":troop_wealth", ":troop_no", slot_troop_wealth), #SB : moved up
     (assign, ":initial_wealth", ":troop_wealth"), #DEBUG
-    
+
     (store_current_hours, ":current_time"),
     (try_begin),
 #      (party_slot_eq, ":center_no", slot_town_lord, ":troop_no"), #this was added to get lords in centers out and visiting their fiefs, but I've adjusted the decision checklist
@@ -26740,7 +26740,7 @@ scripts = [
         (party_get_num_companions, ":divider", ":center_no"), #0~300, ignoring wounded
         (party_get_num_prisoners, ":num_prisoners", ":center_no"), #possibly up to 100
         (val_min, ":num_prisoners", 100),
-        
+
         #account for serfs, each level past base adds 25 effective manpower
         (store_faction_of_party, ":faction_no", ":center_no"),
         (faction_get_slot, ":serfdom", ":faction_no", dplmc_slot_faction_serfdom),
@@ -26802,7 +26802,7 @@ scripts = [
         (is_between, ":center_no", villages_begin, villages_end),
         (party_get_slot, ":troop_amount", ":center_no", slot_center_npc_volunteer_troop_amount),
         (gt, ":troop_amount", 0),
-        
+
         (party_get_slot, ":troop_type", ":center_no", slot_center_npc_volunteer_troop_type),
         (party_set_slot, ":center_no", slot_center_npc_volunteer_troop_amount, -1),
         ##diplomacy begin
@@ -26826,7 +26826,7 @@ scripts = [
           (str_store_party_name, s10, ":led_party"),
           (display_log_message, "@ {s10} of {s13} recruits {reg2} {s12} in {s14}"),
         (try_end),
-        
+
         ##diplomacy end
         (party_add_members, ":led_party", ":troop_type", ":troop_amount"),
     (else_try), ##do business in centers
@@ -26865,7 +26865,7 @@ scripts = [
         (store_div, ":divider", ":troop_wealth", ":quality"),
         (val_div, ":divider", ":troop_cost"),
         (val_min, ":divider", ":mercenary_amount"),
-        
+
 
         #set the proper slots
         (try_begin),
@@ -26927,7 +26927,7 @@ scripts = [
           (eq, ":item_id", ":item_no"), #same item found
           (troop_get_inventory_slot_modifier, ":imod", ":merchant", ":i_slot"),
           (neq, ":imod", ":old_imod"), ## in general higher imod = upgrade
-          
+
           # (is_between, ":imod", imod_balanced, imod_large_bag + 1), #eliminate bad+plain ones
           # (item_get_slot, ":imod_cost", ":imod", slot_item_modifier_multiplier),
           (call_script, "script_dplmc_get_item_value_with_imod", ":item_id", ":imod"),
@@ -26945,7 +26945,7 @@ scripts = [
           (try_begin), #debug
             (eq, "$cheat_mode", 2),
             #(str_store_string, s11, "@{reg2}"),
-            
+
             # (str_store_party_name_link, s14, ":center_no"),
             (str_store_item_name, s11, ":item_no"),
             (str_store_troop_name_link, s10, ":troop_no"),
@@ -26966,7 +26966,7 @@ scripts = [
       ##upgrade end
     (try_end),
 
-    # SB : set wealth after tax and consumption    
+    # SB : set wealth after tax and consumption
     (troop_set_slot, ":troop_no", slot_troop_wealth, ":troop_wealth"),
     #DEBUG
     (try_begin),
@@ -27000,7 +27000,7 @@ scripts = [
 			(party_set_slot, ":led_party", slot_party_leader_last_courted, ":current_time"),
 		(try_end),
     (try_end),
-    
+
     ]),
 
   # script_process_kingdom_parties_ai
@@ -30897,7 +30897,7 @@ scripts = [
         (val_add,":cur_pos", 1),
 	  (try_end),
     ##diplomacy begin
-    
+
     # (try_begin), #dckplmc seneschals
       # (call_script, "script_assign_seneschals"),
       # (party_get_slot, ":town_seneschal", ":center_no", slot_town_seneschal),
@@ -30905,7 +30905,7 @@ scripts = [
       # (set_visitor, ":cur_pos", ":town_seneschal"),
       # (val_add,":cur_pos", 1),
     # (try_end),
-    
+
     (try_begin),
       (gt, "$g_player_chamberlain", 0),
       (call_script, "script_dplmc_appoint_chamberlain"),  #fix for wrong troops after update
@@ -30945,10 +30945,10 @@ scripts = [
 	      (troop_slot_eq, ":active_npc", slot_troop_occupation, slto_inactive),
 	      (neg|troop_slot_ge, ":active_npc", slot_troop_prisoner_of_party, 0), #if he/she is not prisoner in any center.
 	      (neq, ":active_npc", "$g_player_minister"),
-	      (set_visitor, ":cur_pos", ":active_npc"),	      
+	      (set_visitor, ":cur_pos", ":active_npc"),
 	      (val_add,":cur_pos", 1),
 		(try_end),
-	  (try_end),	 
+	  (try_end),
 
       ##diplomacy start+
       #Show heroes you haven't seen recently first, to deal with crowded feast halls
@@ -30992,7 +30992,7 @@ scripts = [
                 (str_store_troop_name, s4, ":cur_troop"),
                 (display_message, "str_s4_is_present_at_the_center_and_in_place_of_honor"),
             (try_end),
-        (else_try), 
+        (else_try),
             (this_or_next|troop_slot_eq, ":cur_troop", slot_troop_spouse, "trp_player"), #player spouse goes in position of honor
             (troop_slot_eq, ":cur_troop", slot_troop_betrothed, "trp_player"),
             (assign, ":lady_meets_visitors", 1),
@@ -31698,7 +31698,7 @@ scripts = [
           (else_try),
             (assign, ":agent_delta_courage_score", -5), # if killed agent is agent of our side, decrease points from fear score #jacobhinds was -15, was -4 before battle_ratio overhaul, FEAR SCORE
             #(val_add, ":agent_delta_courage_score", ":number_of_near_allies_to_dead_agent"), # ":number_of_near_allies_to_dead_agent" is added because if there are many # allies of dead agent around him, negative courage effect become less.
-            # (try_begin),                                                                   
+            # (try_begin),
               # (lt, ":agent_delta_courage_score", -4), #was -5 #was -2 before battle_ratio overhaul #was gt
               # (assign, ":agent_delta_courage_score", -4), #was -5
             # (try_end),
@@ -31726,79 +31726,79 @@ scripts = [
 			(ge, ":agent_courage_score", max_morale),
             (agent_set_slot, ":agent_no", slot_agent_courage_score, max_morale),
           (try_end),
-			
+
           (try_begin),
             (lt, ":dist", 100), #0-1 meters
             (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
             (val_mul, ":agent_delta_courage_score", 120), #was 150
             (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),  
+            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),
           (else_try),
             (lt, ":dist", 200), #2 meters
             (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
             (val_mul, ":agent_delta_courage_score", 110), #was 120
             (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),  
+            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),
           (else_try),
             (lt, ":dist", 300), #3 meter
             (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
             (val_mul, ":agent_delta_courage_score", 100),
             (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),  
+            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),
           (else_try),
             (lt, ":dist", 400), #4 meters
             (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
             (val_mul, ":agent_delta_courage_score", 90),
             (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),  
+            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),
           (else_try),
             (lt, ":dist", 600), #5-6 meters
             (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
             (val_mul, ":agent_delta_courage_score", 80),
             (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),  
+            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),
           (else_try),
             (lt, ":dist", 800), #7-8 meters
             (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
             (val_mul, ":agent_delta_courage_score", 70),
             (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),  
+            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),
           (else_try),
             (lt, ":dist", 1000), #9-10 meters
             (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
             (val_mul, ":agent_delta_courage_score", 60),
             (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),  
+            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),
           (else_try),
             (lt, ":dist", 1500), #11-15 meter
             (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
             (val_mul, ":agent_delta_courage_score", 50),
             (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),  
+            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),
           (else_try),
             (lt, ":dist", 2500), #16-25 meters
             (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
             (val_mul, ":agent_delta_courage_score", 40),
             (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),  
+            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),
           (else_try),
             (lt, ":dist", 4000), #26-40 meters
             (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
             (val_mul, ":agent_delta_courage_score", 30),
             (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),  
+            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),
           (else_try),
             (lt, ":dist", 6500), #41-65 meters
             (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
             (val_mul, ":agent_delta_courage_score", 20),
             (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),  
+            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),
           (else_try),
             (lt, ":dist", 10000), #61-100 meters
             (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
             (val_mul, ":agent_delta_courage_score", 10),
             (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),  
+            (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),
           (try_end),
         (try_end),
       (try_end),
@@ -31826,7 +31826,7 @@ scripts = [
     [
       (store_script_param, ":cur_agent", 1),
       (store_script_param, ":mission_time", 2),
-     
+
 
 
       (assign, ":force_retreat", 0),
@@ -31896,7 +31896,7 @@ scripts = [
 			  # (neq, reg0, 1),
 			  # #(agent_play_sound, ":cur_agent", "snd_man_retreat"), #uncomment if you want retreating voices
 		  # (try_end),
-                               
+
           (agent_clear_scripted_mode, ":cur_agent"),	#handle scripted mode troops - motomataru
           (agent_start_running_away, ":cur_agent"),
 		  #(call_script, "script_agent_remove_from_square", ":cur_agent"), #jacobhinds infantry square script (remove if you don't have the infantry square script)
@@ -31910,7 +31910,7 @@ scripts = [
 		#(neg|agent_slot_eq, ":cur_agent", slot_agent_courage_score_bonus, -1),
         (neq, ":force_retreat", 1),
         (agent_get_slot, ":agent_courage_score", ":cur_agent",  slot_agent_courage_score),
-        (store_agent_hit_points, ":agent_hit_points", ":cur_agent"),     
+        (store_agent_hit_points, ":agent_hit_points", ":cur_agent"),
         (val_mul, ":agent_hit_points", 10), #was 4
    #     (try_begin),
     #      (agent_is_ally, ":cur_agent"),
@@ -31928,16 +31928,16 @@ scripts = [
 
         #(val_mul, ":agent_hit_points", 10),
         (store_sub, ":stop_running_away_courage_score_limit", 1800, ":agent_hit_points"),#what
-        
+
         #(assign, reg11, ":agent_courage_score"),
         #(assign, reg12, ":start_running_away_courage_score_limit"),
         #(display_message, "@courage: {reg11}, limit: {reg12}"),
-        
+
         (ge, ":agent_courage_score", ":stop_running_away_courage_score_limit"), #if (courage score > 3700 - agent hit points) and (agent is running away) then stop running away, average hit points : 50, average running away limit = 1700
         (agent_stop_running_away, ":cur_agent"),
         (agent_set_slot, ":cur_agent",  slot_agent_is_running_away, 0),
         #(display_message, "@AGENT HAS STOPPED RUNNING"),
-      (try_end),     
+      (try_end),
   ]), #ozan
 
 
@@ -31951,7 +31951,7 @@ scripts = [
     # [
       # (store_script_param, ":dead_agent_no", 1),
       # (store_script_param, ":killer_agent_no", 2),
-      
+
       # (try_begin),
         # (agent_is_human, ":dead_agent_no"),
 
@@ -31969,7 +31969,7 @@ scripts = [
           # (agent_is_human, ":agent_no"),
           # (agent_is_alive, ":agent_no"),
 
-          # (agent_get_position, pos1, ":agent_no"), 
+          # (agent_get_position, pos1, ":agent_no"),
           # (get_distance_between_positions, ":dist", pos0, pos1),
 
           # (le, ":dist", 1300), # to count number of allies within 13 meters to dead agent.
@@ -31981,27 +31981,27 @@ scripts = [
             # (assign, ":is_agent_ally", 0),
           # (try_end),
 
-          # (try_begin), 
+          # (try_begin),
             # (eq, ":is_dead_agent_ally", ":is_agent_ally"),
-            # (val_add, ":number_of_near_allies_to_dead_agent", 1), # (number_of_near_allies_to_dead_agent) is counted because if there are 
+            # (val_add, ":number_of_near_allies_to_dead_agent", 1), # (number_of_near_allies_to_dead_agent) is counted because if there are
           # (try_end),                                              # many allies of dead agent around him, negative courage effect become less.
         # (try_end),
-                
+
         # (try_for_agents, ":agent_no"),
           # (agent_is_human, ":agent_no"),
           # (agent_is_alive, ":agent_no"),
-           
+
           # (try_begin),
             # (agent_is_ally, ":agent_no"),
             # (assign, ":is_agent_ally", 1),
           # (else_try),
             # (assign, ":is_agent_ally", 0),
           # (try_end),
-   
+
           # (try_begin), # each agent is effected by a killed agent positively if he is rival or negatively if he is ally.
-            # (neq, ":is_dead_agent_ally", ":is_agent_ally"), 
+            # (neq, ":is_dead_agent_ally", ":is_agent_ally"),
             # (assign, ":agent_delta_courage_score", 10),  # if killed agent is agent of rival side, add points to fear score
-          # (else_try),          
+          # (else_try),
             # (assign, ":agent_delta_courage_score", -15), # if killed agent is agent of our side, decrease points from fear score
             # (val_add, ":agent_delta_courage_score", ":number_of_near_allies_to_dead_agent"), # ":number_of_near_allies_to_dead_agent" is added because if there are many
             # (try_begin),                                                                     # allies of dead agent around him, negative courage effect become less.
@@ -32009,13 +32009,13 @@ scripts = [
               # (assign, ":agent_delta_courage_score", -5),
             # (try_end),
 
-            # (agent_get_slot, ":dead_agent_was_running_away_or_not", ":dead_agent_no",  slot_agent_is_running_away), #look dead agent was running away or not. 
+            # (agent_get_slot, ":dead_agent_was_running_away_or_not", ":dead_agent_no",  slot_agent_is_running_away), #look dead agent was running away or not.
             # (try_begin),
-              # (eq, ":dead_agent_was_running_away_or_not", 1),      
+              # (eq, ":dead_agent_was_running_away_or_not", 1),
               # (val_div, ":agent_delta_courage_score", 3),  # if killed agent was running away his negative effect on ally courage scores become very less. This added because
             # (try_end),                                     # running away agents are easily killed and courage scores become very in a running away group after a time, and
-          # (try_end),                                       # they do not stop running away althought they pass near a new powerfull ally party.                 
-          # (agent_get_position, pos1, ":agent_no"), 
+          # (try_end),                                       # they do not stop running away althought they pass near a new powerfull ally party.
+          # (agent_get_position, pos1, ":agent_no"),
           # (get_distance_between_positions, ":dist", pos0, pos1),
 
           # (try_begin),
@@ -32023,81 +32023,81 @@ scripts = [
             # (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
             # (val_mul, ":agent_delta_courage_score", 20),
             # (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            # (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+            # (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),
           # (try_end),
-        
+
           # (try_begin),
             # (lt, ":dist", 100), #0-1 meters
             # (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
             # (val_mul, ":agent_delta_courage_score", 150),
             # (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            # (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+            # (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),
           # (else_try),
             # (lt, ":dist", 200), #2 meters
             # (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
             # (val_mul, ":agent_delta_courage_score", 120),
             # (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            # (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+            # (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),
           # (else_try),
             # (lt, ":dist", 300), #3 meter
             # (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
             # (val_mul, ":agent_delta_courage_score", 100),
             # (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            # (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+            # (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),
           # (else_try),
             # (lt, ":dist", 400), #4 meters
             # (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
             # (val_mul, ":agent_delta_courage_score", 90),
             # (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            # (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+            # (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),
           # (else_try),
             # (lt, ":dist", 600), #5-6 meters
             # (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
             # (val_mul, ":agent_delta_courage_score", 80),
             # (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            # (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+            # (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),
           # (else_try),
             # (lt, ":dist", 800), #7-8 meters
             # (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
             # (val_mul, ":agent_delta_courage_score", 70),
             # (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            # (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+            # (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),
           # (else_try),
             # (lt, ":dist", 1000), #9-10 meters
             # (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
             # (val_mul, ":agent_delta_courage_score", 60),
             # (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            # (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+            # (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),
           # (else_try),
             # (lt, ":dist", 1500), #11-15 meter
             # (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
             # (val_mul, ":agent_delta_courage_score", 50),
             # (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            # (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+            # (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),
           # (else_try),
             # (lt, ":dist", 2500), #16-25 meters
             # (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
             # (val_mul, ":agent_delta_courage_score", 40),
             # (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            # (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+            # (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),
           # (else_try),
             # (lt, ":dist", 4000), #26-40 meters
             # (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
             # (val_mul, ":agent_delta_courage_score", 30),
             # (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            # (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+            # (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),
           # (else_try),
             # (lt, ":dist", 6500), #41-65 meters
             # (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
             # (val_mul, ":agent_delta_courage_score", 20),
             # (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            # (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+            # (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),
           # (else_try),
             # (lt, ":dist", 10000), #61-100 meters
             # (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
             # (val_mul, ":agent_delta_courage_score", 10),
             # (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
-            # (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),           
+            # (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),
           # (try_end),
         # (try_end),
       # (try_end),
@@ -32110,7 +32110,7 @@ scripts = [
     # [
       # (store_script_param, ":cur_agent", 1),
       # (store_script_param, ":mission_time", 2),
-      
+
       # (assign, ":force_retreat", 0),
       # (agent_get_team, ":agent_team", ":cur_agent"),
       # (agent_get_division, ":agent_division", ":cur_agent"),
@@ -32138,30 +32138,30 @@ scripts = [
             # (val_sub, ":agent_hit_points", 100), #ally agents will be more tend to run away, to make game more funnier/harder
           # (try_end),
           # (val_mul, ":agent_hit_points", 10),
-          # (store_sub, ":start_running_away_courage_score_limit", 3500, ":agent_hit_points"), 
+          # (store_sub, ":start_running_away_courage_score_limit", 3500, ":agent_hit_points"),
           # (lt, ":agent_courage_score", ":start_running_away_courage_score_limit"), #if (courage score < 3500 - (agent hit points * 40)) and (agent is not running away) then start running away, average hit points : 50, average running away limit = 1500
 
           # (agent_get_troop_id, ":troop_id", ":cur_agent"), #for now do not let heroes to run away from battle
           # (neg|troop_is_hero, ":troop_id"),
-                                
+
           # (agent_start_running_away, ":cur_agent"),
           # (agent_set_slot, ":cur_agent",  slot_agent_is_running_away, 1),
         # (try_end),
       # (else_try),
         # (neq, ":force_retreat", 1),
         # (agent_get_slot, ":agent_courage_score", ":cur_agent",  slot_agent_courage_score),
-        # (store_agent_hit_points, ":agent_hit_points", ":cur_agent"),      
+        # (store_agent_hit_points, ":agent_hit_points", ":cur_agent"),
         # (val_mul, ":agent_hit_points", 4),
         # (try_begin),
           # (agent_is_ally, ":cur_agent"),
           # (val_sub, ":agent_hit_points", 100), #ally agents will be more tend to run away, to make game more funnier/harder
         # (try_end),
         # (val_mul, ":agent_hit_points", 10),
-        # (store_sub, ":stop_running_away_courage_score_limit", 3700, ":agent_hit_points"), 
+        # (store_sub, ":stop_running_away_courage_score_limit", 3700, ":agent_hit_points"),
         # (ge, ":agent_courage_score", ":stop_running_away_courage_score_limit"), #if (courage score > 3700 - agent hit points) and (agent is running away) then stop running away, average hit points : 50, average running away limit = 1700
         # (agent_stop_running_away, ":cur_agent"),
         # (agent_set_slot, ":cur_agent",  slot_agent_is_running_away, 0),
-      # (try_end),      
+      # (try_end),
   # ]), #ozan
 
   # script_battle_tactic_apply
@@ -33428,7 +33428,7 @@ scripts = [
 	  (try_end),
       (assign, ":num_centers", 0),
       (try_for_range, ":center_no", centers_begin, centers_end),
-	    
+
 	    # (party_set_slot, ":center_no", slot_party_temp_slot_1, 0),
         (neg|party_slot_eq, ":center_no", slot_party_type, spt_castle),
         (party_slot_eq, ":center_no", slot_town_lord, ":troop_no"),
@@ -34058,7 +34058,7 @@ scripts = [
         (game_get_reduce_campaign_ai, ":bonus"),
         (val_mul, ":bonus", "$player_right_to_rule"),
         (val_add, ":limit", ":bonus"),
-        
+
         (assign, reg0, ":attached"),
         (val_add, ":attached", 1),
         (try_for_range, ":rank", 0, ":attached"),
@@ -34068,7 +34068,7 @@ scripts = [
             (assign, ":party_no", "$g_ally_party"),
           (try_end),
           (assign, ":continue", -1),
-          
+
           (store_faction_of_party, ":party_faction", ":party_no"),
           (party_stack_get_troop_id, ":leader_troop_id", ":party_no", 0),
 
@@ -34082,7 +34082,7 @@ scripts = [
           (try_begin), #under command if marshal
             (eq, ":party_faction", "$players_kingdom"),
             (troop_slot_eq, ":leader_troop_id", slot_troop_occupation, slto_kingdom_hero),
-            
+
             (try_begin), #as marshal
                # (is_between, "$players_kingdom", kingdoms_begin, kingdoms_end),
                # (faction_slot_eq, "$players_kingdom", slot_faction_marshall, "trp_player"),
@@ -37240,7 +37240,7 @@ scripts = [
           # (party_set_slot, ":party_no", ":slot_no", -1), #clear off later
           # (party_set_slot, ":party_no", ":imod_slot", -1),
         (try_end),
-        
+
         #any unsold item at this point are cleared
         (try_for_range, ":slot_no", slot_party_next_looted_item_slot, slot_party_looted_item_1_modifier + num_party_loot_slots),
           (party_set_slot, ":party_no", ":slot_no", 0),
@@ -37582,7 +37582,7 @@ scripts = [
           (eq, ":party_faction", ":old_kingdom"),
           (party_slot_eq, ":party_no", dplmc_slot_party_mission_diplomacy, "trp_player"),
           # (party_slot_eq, ":home_center", slot_town_lord, "trp_player"), #this may no longer be true
-          
+
           #build string
           (party_get_slot, ":target_party", ":party_no", slot_party_ai_object),
           (str_store_party_name, s50, ":target_party"),
@@ -38291,7 +38291,7 @@ scripts = [
         (party_set_slot, ":town_no", slot_center_traveler_info_faction, ":cur_faction"),
         (assign, ":end_cond", 0), #we set this above
       (try_end),
-      
+
       #info faction
       (try_for_range, ":unused", 0, ":end_cond"),
         (store_random_in_range, ":info_faction", npc_kingdoms_begin, kingdoms_end),
@@ -38409,7 +38409,7 @@ scripts = [
     [(try_for_range, ":town_no", towns_begin, towns_end),
        (party_set_slot, ":town_no", slot_center_tavern_minstrel, 0),
      (try_end),
-     
+
      #SB : remove restriction on travel, add preference for feasts
      (try_for_range, ":troop_no", tavern_minstrels_begin, tavern_minstrels_end),
        (store_random_in_range, ":town_no", towns_begin, towns_end),
@@ -38420,7 +38420,7 @@ scripts = [
          (faction_get_slot, ":center_no", ":faction_no", slot_faction_ai_object),
          (is_between, ":center_no", towns_begin, towns_end),
          (neg|party_slot_ge, ":center_no", slot_center_tavern_minstrel, tavern_minstrels_begin),
-         (assign, ":town_no", ":center_no"), 
+         (assign, ":town_no", ":center_no"),
        (try_end),
        (party_set_slot, ":town_no", slot_center_tavern_minstrel, ":troop_no"),
        (troop_set_slot, ":troop_no", slot_troop_cur_center, ":town_no"), #SB : set troop slot
@@ -39083,7 +39083,7 @@ scripts = [
     [
        (store_script_param, ":agent_no", 1),
        (store_script_param, ":troop_no", 2),
-       (assign, ":banner_mesh", "mesh_banners_default_b"),  
+       (assign, ":banner_mesh", "mesh_banners_default_b"),
 
         (try_begin),
             (eq, "$g_is_quick_battle", 1),
@@ -39138,8 +39138,8 @@ scripts = [
         (try_end),
         (assign, reg0, ":banner_mesh"),
         #(display_message, "@banner mesh: {reg0}"),
-       
-       
+
+
        # (try_begin),
          # (lt, ":agent_no", 0),
          # (try_begin),
@@ -39220,7 +39220,7 @@ scripts = [
          # (this_or_next|troop_slot_ge,  ":troop_no", slot_troop_banner_scene_prop, 1),
          # (eq, ":troop_no", "trp_player"),
          # (assign, ":banner_troop", ":troop_no"),
-         
+
        # (else_try),
          # (agent_get_troop_id, ":troop_id", ":agent_no"),
          # (agent_get_party_id, ":agent_party", ":agent_no"),
@@ -39284,7 +39284,7 @@ scripts = [
            # (store_add, ":banner_mesh", ":banner_spr", arms_meshes_begin),
          # (try_end),
        # (try_end),
-       
+
        # (assign, reg0, ":banner_mesh"),
        # (display_message, "@banner mesh: {reg0}")
      ]),
@@ -39296,12 +39296,12 @@ scripts = [
        (store_script_param, ":tableau_no",1),
        (store_script_param, ":agent_no", 2),
        (store_script_param, ":troop_no", 3),
-       #(call_script, "script_agent_troop_get_banner_mesh", ":agent_no", ":troop_no"),       
+       #(call_script, "script_agent_troop_get_banner_mesh", ":agent_no", ":troop_no"),
        #(cur_item_set_tableau_material, ":tableau_no", reg0),
-       
+
        (assign, ":banner_troop", -1),
        #(assign, ":banner_mesh", 0),
-       
+
        (try_begin),
            (agent_is_active, ":agent_no"),
            (agent_get_rider, ":rider_agent_no", ":agent_no"),
@@ -39309,7 +39309,7 @@ scripts = [
            (assign, ":agent_no", ":rider_agent_no"),
            (agent_get_troop_id, ":troop_no", ":rider_agent_no"),
        (try_end),
-       
+
        (try_begin),
          (lt, ":agent_no", 0),
          (try_begin),
@@ -39404,7 +39404,7 @@ scripts = [
          (troop_slot_eq,  ":troop_no", slot_troop_banner_scene_prop, -1),
          (troop_slot_ge, ":troop_no", slot_troop_custom_banner_map_flag_type, 0),
          (assign, ":banner_troop", ":troop_no"),
-         
+
        (else_try),
          (agent_get_troop_id, ":troop_id", ":agent_no"),
          (agent_get_party_id, ":agent_party", ":agent_no"),
@@ -39463,9 +39463,9 @@ scripts = [
          (ge, ":town_lord", 0),
          (assign, ":banner_troop", ":town_lord"),
        (try_end),
-       
-       # (str_store_troop_name, s0, ":troop_no"),       
-       # (display_message, s0),       
+
+       # (str_store_troop_name, s0, ":troop_no"),
+       # (display_message, s0),
        #(cur_item_set_banner_tableau_material, ":tableau_no", ":troop_no"),
        (cur_item_set_tableau_material, ":tableau_no", ":banner_troop"),
      ]),
@@ -39481,10 +39481,10 @@ scripts = [
        (store_script_param, ":troop_no", 3),
        # (call_script, "script_agent_troop_get_banner_mesh", ":agent_no", ":troop_no"),
        # (cur_agent_set_banner_tableau_material, ":tableau_no", reg0),
-       
+
        (assign, ":banner_troop", -1),
        #(assign, ":banner_mesh", 0),
-       
+
        (try_begin),
          (lt, ":agent_no", 0),
          (try_begin),
@@ -39579,7 +39579,7 @@ scripts = [
          (troop_slot_eq,  ":troop_no", slot_troop_banner_scene_prop, -1),
          (troop_slot_ge, ":troop_no", slot_troop_custom_banner_map_flag_type, 0),
          (assign, ":banner_troop", ":troop_no"),
-         
+
        (else_try),
          (agent_get_troop_id, ":troop_id", ":agent_no"),
          (agent_get_party_id, ":agent_party", ":agent_no"),
@@ -39638,12 +39638,12 @@ scripts = [
          (ge, ":town_lord", 0),
          (assign, ":banner_troop", ":town_lord"),
        (try_end),
-       
-       # (str_store_troop_name, s0, ":troop_no"),       
-       # (display_message, s0),       
+
+       # (str_store_troop_name, s0, ":troop_no"),
+       # (display_message, s0),
        #(cur_agent_set_banner_tableau_material, ":tableau_no", ":troop_no"),
        (cur_agent_set_banner_tableau_material, ":tableau_no", ":banner_troop"),
-       
+
      ]),
 
 ##  #script_shield_item_set_banner
@@ -39715,7 +39715,7 @@ scripts = [
   ("add_troop_to_cur_tableau",
     [
        (store_script_param, ":troop_no",1),
-       
+
        (cur_tableau_clear_override_items),
 
 #       (cur_tableau_set_override_flags, af_override_fullhelm),
@@ -39735,7 +39735,7 @@ scripts = [
               (ge, ":banner", 0),
               (val_add, ":banner", "itm_banner_background1"),
               (cur_tableau_add_override_item, ":banner"),
-           (try_end),   
+           (try_end),
        (else_try),
            (gt, ":banner_spr", 0),
            (store_add, ":banner_scene_props_end", banner_scene_props_end_minus_one, 1),
@@ -39875,7 +39875,7 @@ scripts = [
 
        (set_fixed_point_multiplier, 100),
 
-       (cur_tableau_clear_override_items),       
+       (cur_tableau_clear_override_items),
        #SB : override appearance while disguised and buying stuff
        (try_begin),
          (gt, "$sneaked_into_town", disguise_none),
@@ -40020,7 +40020,7 @@ scripts = [
        (position_rotate_x, pos8, -60),
        (cur_tableau_add_sun_light, pos8, 175,150,125),
      ]),
-     
+
   #SB : duplicate of script_add_troop_to_cur_tableau_for_profile for single-player kingdom heroes
   #script_add_troop_to_cur_tableau_for_presentation
   # INPUT: troop_no, kingdom hero or lady
@@ -40050,7 +40050,7 @@ scripts = [
         (position_set_z, pos5, ":cam_height"),
 
         # camera looks towards -z axis
-        
+
         (position_rotate_x, pos5, -90),
         (position_rotate_z, pos5, 180),
         # now apply yaw and pitch
@@ -40263,6 +40263,16 @@ scripts = [
          (troop_is_hero, ":troop_no"),
          (cur_tableau_add_troop, ":troop_no", pos2, ":animation", -1),
        (else_try),
+       #################################################
+   (store_random_in_range, ":gender", 0, 2),
+    (try_begin),
+    (eq, ":gender", 0),
+    (troop_set_type, ":troop_no", 0),
+    (else_try),
+    (eq, ":gender", 1),
+    (troop_set_type, ":troop_no", 1),
+    (try_end),
+#################################################
          (store_mul, ":random_seed", ":troop_no", 126233),
          (val_mod, ":random_seed", 1000),
          (val_add, ":random_seed", 1),
@@ -40308,29 +40318,29 @@ scripts = [
     [
      (set_spawn_radius,1),
 
-	 (try_begin),
-		(eq, "$cheat_mode", 1),
-		(display_message, "@{!}DEBUG : Doing spawn bandit script"),
-	 (try_end),
+     (try_begin),
+      (eq, "$cheat_mode", 1),
+      (display_message, "@{!}DEBUG : Doing spawn bandit script"),
+     (try_end),
 
-	 (party_template_set_slot, "pt_steppe_bandits", slot_party_template_lair_type, "pt_steppe_bandit_lair"),
-	 (party_template_set_slot, "pt_taiga_bandits", slot_party_template_lair_type, "pt_taiga_bandit_lair"),
-	 (party_template_set_slot, "pt_mountain_bandits", slot_party_template_lair_type, "pt_mountain_bandit_lair"),
-	 (party_template_set_slot, "pt_forest_bandits", slot_party_template_lair_type, "pt_forest_bandit_lair"),
-	 (party_template_set_slot, "pt_sea_raiders", slot_party_template_lair_type, "pt_sea_raider_lair"),
-	 (party_template_set_slot, "pt_desert_bandits", slot_party_template_lair_type, "pt_desert_bandit_lair"),
+     (party_template_set_slot, "pt_steppe_bandits", slot_party_template_lair_type, "pt_steppe_bandit_lair"),
+     (party_template_set_slot, "pt_taiga_bandits", slot_party_template_lair_type, "pt_taiga_bandit_lair"),
+     (party_template_set_slot, "pt_mountain_bandits", slot_party_template_lair_type, "pt_mountain_bandit_lair"),
+     (party_template_set_slot, "pt_forest_bandits", slot_party_template_lair_type, "pt_forest_bandit_lair"),
+     (party_template_set_slot, "pt_sea_raiders", slot_party_template_lair_type, "pt_sea_raider_lair"),
+     (party_template_set_slot, "pt_desert_bandits", slot_party_template_lair_type, "pt_desert_bandit_lair"),
 
-	 (party_template_set_slot, "pt_steppe_bandits", slot_party_template_lair_spawnpoint, "p_steppe_bandit_spawn_point"),
-	 (party_template_set_slot, "pt_taiga_bandits", slot_party_template_lair_spawnpoint, "p_taiga_bandit_spawn_point"),
-	 (party_template_set_slot, "pt_mountain_bandits", slot_party_template_lair_spawnpoint, "p_mountain_bandit_spawn_point"),
-	 (party_template_set_slot, "pt_forest_bandits", slot_party_template_lair_spawnpoint, "p_forest_bandit_spawn_point"),
-	 (party_template_set_slot, "pt_sea_raiders", slot_party_template_lair_spawnpoint, "p_sea_raider_spawn_point_1"),
-	 (party_template_set_slot, "pt_desert_bandits", slot_party_template_lair_spawnpoint, "p_desert_bandit_spawn_point"),
+     (party_template_set_slot, "pt_steppe_bandits", slot_party_template_lair_spawnpoint, "p_steppe_bandit_spawn_point"),
+     (party_template_set_slot, "pt_taiga_bandits", slot_party_template_lair_spawnpoint, "p_taiga_bandit_spawn_point"),
+     (party_template_set_slot, "pt_mountain_bandits", slot_party_template_lair_spawnpoint, "p_mountain_bandit_spawn_point"),
+     (party_template_set_slot, "pt_forest_bandits", slot_party_template_lair_spawnpoint, "p_forest_bandit_spawn_point"),
+     (party_template_set_slot, "pt_sea_raiders", slot_party_template_lair_spawnpoint, "p_sea_raider_spawn_point_1"),
+     (party_template_set_slot, "pt_desert_bandits", slot_party_template_lair_spawnpoint, "p_desert_bandit_spawn_point"),
 
      (try_begin),
        (party_template_get_slot, ":bandit_lair_party", "pt_mountain_bandits", slot_party_template_lair_party),
-	   (gt, ":bandit_lair_party", 1),
-     
+       (gt, ":bandit_lair_party", 1),
+
        (store_num_parties_of_template, ":num_parties", "pt_mountain_bandits"),
        (lt,":num_parties",16), #was 14 at mount&blade, 18 in warband, 16 last decision
        (store_random,":spawn_point",num_mountain_bandit_spawn_points),
@@ -40339,10 +40349,10 @@ scripts = [
        (spawn_around_party,":spawn_point","pt_mountain_bandits"),
      (try_end),
      (try_begin),
-     
+
        (party_template_get_slot, ":bandit_lair_party", "pt_forest_bandits", slot_party_template_lair_party),
-	   (gt, ":bandit_lair_party", 1),
-     
+       (gt, ":bandit_lair_party", 1),
+
        (store_num_parties_of_template, ":num_parties", "pt_forest_bandits"),
        (lt,":num_parties",16), #was 14 at mount&blade, 18 in warband, 16 last decision
        (store_random,":spawn_point",num_forest_bandit_spawn_points),
@@ -40351,10 +40361,10 @@ scripts = [
        (spawn_around_party,":spawn_point","pt_forest_bandits"),
      (try_end),
      (try_begin),
-     
+
        (party_template_get_slot, ":bandit_lair_party", "pt_sea_raiders", slot_party_template_lair_party),
-	   (gt, ":bandit_lair_party", 1),
-     
+       (gt, ":bandit_lair_party", 1),
+
        (store_num_parties_of_template, ":num_parties", "pt_sea_raiders"),
        (lt,":num_parties",16), #was 14 at mount&blade, 18 in warband, 16 last decision
        (store_random,":spawn_point",num_sea_raider_spawn_points),
@@ -40363,10 +40373,10 @@ scripts = [
        (spawn_around_party,":spawn_point","pt_sea_raiders"),
      (try_end),
      (try_begin),
-     
+
        (party_template_get_slot, ":bandit_lair_party", "pt_steppe_bandits", slot_party_template_lair_party),
-	   (gt, ":bandit_lair_party", 1),
-     
+       (gt, ":bandit_lair_party", 1),
+
        (store_num_parties_of_template, ":num_parties", "pt_steppe_bandits"),
        (lt,":num_parties",16), #was 14 at mount&blade, 18 in warband, 16 last decision
        (store_random,":spawn_point",num_steppe_bandit_spawn_points),
@@ -40375,10 +40385,10 @@ scripts = [
        (spawn_around_party,":spawn_point","pt_steppe_bandits"),
      (try_end),
      (try_begin),
-     
+
        (party_template_get_slot, ":bandit_lair_party", "pt_taiga_bandits", slot_party_template_lair_party),
-	   (gt, ":bandit_lair_party", 1),
-     
+       (gt, ":bandit_lair_party", 1),
+
        (store_num_parties_of_template, ":num_parties", "pt_taiga_bandits"),
        (lt,":num_parties",16), #was 14 at mount&blade, 18 in warband, 16 last decision
        (store_random,":spawn_point",num_taiga_bandit_spawn_points),
@@ -40387,10 +40397,10 @@ scripts = [
        (spawn_around_party,":spawn_point","pt_taiga_bandits"),
      (try_end),
      (try_begin),
-     
+
        (party_template_get_slot, ":bandit_lair_party", "pt_desert_bandits", slot_party_template_lair_party),
-	   (gt, ":bandit_lair_party", 1),
-     
+       (gt, ":bandit_lair_party", 1),
+
        (store_num_parties_of_template, ":num_parties", "pt_desert_bandits"),
        (lt,":num_parties",16), #was 14 at mount&blade, 18 in warband, 16 last decision
        (store_random,":spawn_point",num_desert_bandit_spawn_points),
@@ -40429,16 +40439,16 @@ scripts = [
 ##         (lt, ":attached_party_no", 0),#in wilderness
          (spawn_around_party, ":party_no", "pt_deserters"),
          (assign, ":new_party", reg0),
-         
+
          ##dckplmc
          (try_begin),
           (is_between, ":troop_faction", npc_kingdoms_begin, kingdoms_end),
           (store_sub, ":fac_offset", ":troop_faction", npc_kingdoms_begin),
-          (store_add, ":icon", "icon_kingdom_1_soldier_a", ":fac_offset"), 
+          (store_add, ":icon", "icon_kingdom_1_soldier_a", ":fac_offset"),
           (party_set_icon, ":new_party", ":icon"),
          (try_end),
          ##
-         
+
          (store_troop_faction, ":faction_no", ":troop_no"),
          (faction_get_slot, ":tier_1_troop", ":faction_no", slot_faction_tier_1_troop),
          (store_character_level, ":level", "trp_player"),
@@ -40462,15 +40472,15 @@ scripts = [
 ##         (display_message, "@{reg1} Deserters spawned from {s1}, near {s2}."),
        (try_end),
      (try_end), #deserters ends
-	 
+
 	 # AC : Dark Hunters, Black Khergits, NPC Ships
      (try_begin),
        (eq, "$g_dark_hunters_enabled", 1),
        (store_num_parties_of_template, ":num_parties", "pt_dark_hunters"),
        (lt,":num_parties",4),
-		(store_random_in_range, ":selected_town", towns_begin, towns_end),
-		(set_spawn_radius, 25),
-		(spawn_around_party, ":selected_town", "pt_dark_hunters"),
+       (store_random_in_range, ":selected_town", towns_begin, towns_end),
+       (set_spawn_radius, 25),
+       (spawn_around_party, ":selected_town", "pt_dark_hunters"),
      (try_end),
      (try_begin),
        (eq, "$g_dark_hunters_enabled", 1),
@@ -40542,13 +40552,13 @@ scripts = [
 	(try_for_range, ":bandit_template", bandit_party_templates_begin, bandit_party_templates_end), #SB : template range
 		(party_template_get_slot, ":bandit_lair_party", ":bandit_template", slot_party_template_lair_party),
 		(le, ":bandit_lair_party", 1),
-        
-        #dckplmc
-        (party_template_get_slot, ":next_spawn", ":bandit_template", slot_party_template_lair_next_spawn),
-        (val_max, ":next_spawn", 0), #in case -1
-        (store_current_hours, ":cur_hours"),
+
+    #dckplmc
+    (party_template_get_slot, ":next_spawn", ":bandit_template", slot_party_template_lair_next_spawn),
+    (val_max, ":next_spawn", 0), #in case -1
+    (store_current_hours, ":cur_hours"),
     (val_max, ":cur_hours", 0), #in case -1
-        (store_sub, ":time_left", ":cur_hours", ":next_spawn"),
+    (store_sub, ":time_left", ":cur_hours", ":next_spawn"),
     (ge, ":time_left", 0), #1 week
 
 		(party_template_get_slot, ":bandit_lair_template", ":bandit_template", slot_party_template_lair_type),
@@ -40556,7 +40566,7 @@ scripts = [
 
 		(set_spawn_radius, 20),
 
-        (spawn_around_party, ":bandit_lair_template_spawnpoint", ":bandit_lair_template"),
+    (spawn_around_party, ":bandit_lair_template_spawnpoint", ":bandit_lair_template"),
 		(assign, ":new_camp", reg0),
 
 		(party_set_slot, ":new_camp", slot_party_type, spt_bandit_lair),
@@ -40690,10 +40700,10 @@ scripts = [
            (else_try),
              #for now only count and include routed enemy agents in new routed party.
              (val_add, "$num_routed_enemies", 1),
-             
+
              (gt, ":routed_ag_party_id", -1),
              (store_faction_of_party, ":faction_of_routed_agent_party", ":routed_ag_party_id"),
-             
+
              (faction_get_slot, ":num_routed_agents_in_this_faction", ":faction_of_routed_agent_party", slot_faction_num_routed_agents),
              (val_add, ":num_routed_agents_in_this_faction", 1),
              (faction_set_slot, ":faction_of_routed_agent_party", slot_faction_num_routed_agents, ":num_routed_agents_in_this_faction"),
@@ -41169,8 +41179,8 @@ scripts = [
         (troop_set_slot, "trp_npc1", slot_troop_payment_request, 300),
 		(troop_set_slot, "trp_npc1", slot_troop_kingsupport_argument, argument_ruler),
 		(troop_set_slot, "trp_npc1", slot_troop_kingsupport_opponent, "trp_npc14"), #lezalit
-		(troop_set_slot, "trp_npc1", slot_troop_town_with_contacts, "p_town_17"), 
-		(troop_set_slot, "trp_npc1", slot_troop_original_faction, 0), 
+		(troop_set_slot, "trp_npc1", slot_troop_town_with_contacts, "p_town_17"),
+		(troop_set_slot, "trp_npc1", slot_troop_original_faction, 0),
 		(troop_set_slot, "trp_npc1", slot_lord_reputation_type, lrep_roguish), #
 
 
@@ -41187,7 +41197,7 @@ scripts = [
 		(troop_set_slot, "trp_npc2", slot_troop_kingsupport_argument, argument_victory),
 		(troop_set_slot, "trp_npc2", slot_troop_kingsupport_opponent, "trp_npc16"), #klethi
 		(troop_set_slot, "trp_npc2", slot_troop_town_with_contacts, "p_town_1"), #Sargoth
-		(troop_set_slot, "trp_npc2", slot_troop_original_faction, 0), 
+		(troop_set_slot, "trp_npc2", slot_troop_original_faction, 0),
 		(troop_set_slot, "trp_npc2", slot_lord_reputation_type, lrep_custodian), #
 
 #
@@ -41203,7 +41213,7 @@ scripts = [
 		(troop_set_slot, "trp_npc3", slot_troop_kingsupport_argument, argument_lords),
 		(troop_set_slot, "trp_npc3", slot_troop_kingsupport_opponent, "trp_npc5"), #klethi
 		(troop_set_slot, "trp_npc3", slot_troop_town_with_contacts, "p_town_15"), #yalen
-		(troop_set_slot, "trp_npc3", slot_troop_original_faction, 0), 
+		(troop_set_slot, "trp_npc3", slot_troop_original_faction, 0),
 		(troop_set_slot, "trp_npc3", slot_lord_reputation_type, lrep_benefactor), #
 
 
@@ -41221,7 +41231,7 @@ scripts = [
 		(troop_set_slot, "trp_npc4", slot_troop_kingsupport_argument, argument_claim),
 		(troop_set_slot, "trp_npc4", slot_troop_kingsupport_opponent, "trp_npc6"), #firentis
 		(troop_set_slot, "trp_npc4", slot_troop_town_with_contacts, "p_town_3"), #veluca
-		(troop_set_slot, "trp_npc4", slot_troop_original_faction, 0), 
+		(troop_set_slot, "trp_npc4", slot_troop_original_faction, 0),
 		(troop_set_slot, "trp_npc4", slot_lord_reputation_type, lrep_cunning), #
 
 
@@ -41902,7 +41912,7 @@ scripts = [
          (jump_to_menu, "mnu_enemy_offer_ransom_for_prisoner"),
        (try_end),
      (try_end),
-     
+
      #SB : offer ransom for kingdom ladies as per conditions in dialogues
      (try_begin),
        (is_between, ":party_no", walled_centers_begin, walled_centers_end),
@@ -42179,7 +42189,7 @@ scripts = [
   # Input: arg1 = center_no, arg2 = player_at_center
   # Output: none (fills trp_tournament_participants)
   ("fill_tournament_participants_troop",
-   [ 
+   [
     (store_script_param, ":center_no", 1),
     (store_script_param, ":player_at_center", 2),
     (assign, ":cur_slot", 0),
@@ -42209,7 +42219,7 @@ scripts = [
             (troop_slot_ge, ":companion_candidate", slot_troop_renown, 100),
             (assign, ":continue", 1),
           (try_end),
-          
+
           (try_begin), #disqualify from health/imprisonment
             (this_or_next|troop_is_wounded, ":companion_candidate"),
             (troop_slot_ge, ":companion_candidate", slot_troop_prisoner_of_party, centers_begin),
@@ -42239,7 +42249,7 @@ scripts = [
           (troop_set_slot, "trp_tournament_participants", ":cur_slot", ":companion_candidate"),
           (val_add, ":cur_slot", 1),
         (try_end),
-       
+
       (try_end),
 
      #SB : add in pretender who would want renown bonus
@@ -42286,7 +42296,7 @@ scripts = [
      # (try_end),
     #SB : recalculate chances
     (store_add, ":heroes_limit", ":cur_slot", 5),
-    (val_min, ":heroes_limit", 64), 
+    (val_min, ":heroes_limit", 64),
     (try_for_range, ":hero", tournament_champions_begin, tournament_champions_end),
         # (neg|troop_is_wounded, ":hero"),
         (store_troop_health, ":health", ":hero", 0),
@@ -42322,16 +42332,16 @@ scripts = [
         (try_end),
     (try_end),
     (assign, ":begin_slot", ":cur_slot"),
-    
+
     #SB : set up flavour troops (town mercenary, sword sister alternatives)
     (party_get_slot, ":town_merc", ":center_no", slot_center_mercenary_troop_type),
     (party_get_slot, ":merc_amount", ":center_no", slot_center_mercenary_troop_amount),
     (val_mul, ":merc_amount", 2),
     (val_div, ":merc_amount", 3),
-    
+
     (store_faction_of_party, ":town_faction", ":center_no"),
     #alternatively check if other female heroes are present and allow sword sisters?
-    
+
     #might need to test for male prejudice against hired blades?
     (try_begin),
       (call_script, "script_cf_dplmc_faction_has_bias_against_gender", ":town_faction", tf_female),
@@ -45484,7 +45494,7 @@ scripts = [
        (eq, ":entry_type", logent_troop_feels_cheated_by_troop_over_land),
  	   (eq, ":actor", "$g_talk_troop"),
 
-	   (str_store_party_name, s51, ":center_object"),  
+	   (str_store_party_name, s51, ":center_object"),
 	   (str_store_troop_name, s54, ":troop_object"),
 	   (str_store_troop_name, s56, ":faction_object"), #faction object is unusual in this circumstance
 
@@ -46661,8 +46671,8 @@ scripts = [
       (store_script_param, ":helm_item_begin", 10),
       (store_add, ":total_chance", ":sword_chance", ":axe_chance"),
       (val_add, ":total_chance", ":crossbow_sword_chance"),
-      
-      
+
+
       #SB : move shield/team calculations up top, start off by one since we'll increment immediately
       (assign, ":cur_team", -1),
       (store_sub, ":cur_shield_item", "itm_arena_shield_red", 1),
@@ -46678,7 +46688,7 @@ scripts = [
       (else_try),
         (assign, ":cur_helm_item", -999),
       (try_end),
-      
+
       (try_for_range, ":i_ep", 0, 32),
         (mission_tpl_entry_clear_override_items, "mt_arena_melee_fight", ":i_ep"),
         (assign, ":has_horse", 0),
@@ -46707,17 +46717,17 @@ scripts = [
         (try_end),
         (store_random_in_range, ":random_no", 0, ":cur_total_chance"),
         # (store_add, ":cur_shield_item", "itm_arena_shield_red", ":cur_team"),
-        
+
         #SB : deal with player entry here
         (try_begin),
           (eq, "$g_player_entry_point", ":i_ep"),
           (assign, ":continue", -1),
-          (assign, ":proficiency", -1), #this checks if ranged proficiency are lower than 
+          (assign, ":proficiency", -1), #this checks if ranged proficiency are lower than
           #first check ranged weapon preference
           (store_proficiency_level, ":bow_prof", "trp_player", wpt_archery),
           (store_proficiency_level, ":xbow_prof", "trp_player", wpt_crossbow),
           (store_proficiency_level, ":throw_prof", "trp_player", wpt_throwing),
-          
+
           #check parameters to disallow weapon types
           (try_begin),
             (le, ":bow_chance", 0),
@@ -46791,7 +46801,7 @@ scripts = [
             (assign, ":continue", wpt_polearm),
             (assign, ":proficiency", ":polearms"),
           (try_end),
-          
+
           #finally add items
           (try_begin),
             (eq, ":continue", wpt_polearm),
@@ -48518,7 +48528,7 @@ scripts = [
 	#"same culture, such as a pretender" pt. 2
 	(else_try),
 		(troop_slot_eq, ":troop", slot_troop_original_faction, ":faction"),
-		(assign, ":penalty_for_changing_sides", 10),	
+		(assign, ":penalty_for_changing_sides", 10),
 	##diplomacy end+
 	(else_try), #a liege from a different culture
 		(assign, ":penalty_for_changing_sides", 50),
@@ -50280,7 +50290,7 @@ scripts = [
 		(try_end),
 		##diplomacy start+ Fix error!  Change relation between groom and family member, not groom and bride.
 		#(call_script, "script_troop_change_relation_with_troop", ":groom", ":bride", ":family_relation_boost"),
-			(call_script, "script_troop_change_relation_with_troop", ":groom", ":family_member", ":family_relation_boost"),
+		(call_script, "script_troop_change_relation_with_troop", ":groom", ":family_member", ":family_relation_boost"),
 		##diplomacy end+
 		(val_add, "$total_courtship_quarrel_changes", ":family_relation_boost"),
 	(try_end),
@@ -50364,16 +50374,16 @@ scripts = [
     (try_begin),
         (this_or_next|eq, ":groom", "trp_player"),
            (eq, ":bride", "trp_player"),
-           
+
         (try_begin),
             (eq, ":elopement", 0),
             (call_script, "script_start_wedding_cutscene", ":groom", ":bride"),
-        (else_try), #dckplmc: elope  
+        (else_try), #dckplmc: elope
              (assign, "$g_wedding_groom_troop", ":groom"),
              (assign, "$g_wedding_bride_troop", ":bride"),
              (assign, "$g_wedding_brides_dad_troop", "trp_nurse_for_lady"),
              (assign, "$g_wedding_bishop_troop", "trp_temporary_minister"),
-        
+
              (modify_visitors_at_site,"scn_wedding"),
              (reset_visitors,0),
              (set_visitor, 0, ":groom"),
@@ -50383,7 +50393,7 @@ scripts = [
              (set_jump_mission,"mt_wedding"),
              (jump_to_scene,"scn_wedding"),
              (change_screen_mission),
-         (try_end), 
+         (try_end),
     (try_end),
 	]),
 
@@ -50702,7 +50712,7 @@ scripts = [
               (store_faction_of_party, ":center_faction", ":center_no"),
               (eq, ":center_faction", ":faction_no"), #200
               (try_begin),
-                (neq, ":center_no", ":most_threatened_center"), 
+                (neq, ":center_no", ":most_threatened_center"),
                 (store_distance_to_party_from_party, ":dist", ":party_no", ":center_no"),
                 (lt, ":dist", ":minimum_distance"),
                 (assign, ":minimum_distance", ":dist"),
@@ -57029,8 +57039,8 @@ scripts = [
 			(eq, ":at_peace_with_everyone", 0),
 
             (is_between, ":most_threatened_center", centers_begin, centers_end),
-            (this_or_next|eq, ":current_ai_state", sfai_default),    #MOTO not going to attack anyway 
-            (this_or_next|eq, ":current_ai_state", sfai_feast),    #MOTO not going to attack anyway (THIS is the emergency to stop feast) 
+            (this_or_next|eq, ":current_ai_state", sfai_default),    #MOTO not going to attack anyway
+            (this_or_next|eq, ":current_ai_state", sfai_feast),    #MOTO not going to attack anyway (THIS is the emergency to stop feast)
             (gt, ":threat_danger_level", ":target_value_level"),
 
             (assign, ":continue_gathering", 0),
@@ -57183,7 +57193,7 @@ scripts = [
 		(else_try),
 			(party_is_active, ":marshal_party"),
 			(is_between, ":most_threatened_center", walled_centers_begin, walled_centers_end),
-                        (this_or_next|eq, ":current_ai_state", sfai_default),    #MOTO not going to attack anyway 
+                        (this_or_next|eq, ":current_ai_state", sfai_default),    #MOTO not going to attack anyway
                         (this_or_next|eq, ":current_ai_state", sfai_feast),    #MOTO not going to attack anyway (THIS is the emergency to stop feast)
 			(ge, ":threat_danger_level", ":target_value_level"),
 			(party_slot_ge, ":most_threatened_center", slot_center_is_besieged_by, 0),
@@ -57197,8 +57207,8 @@ scripts = [
 		#3b - DEFEAT ENEMIES NEAR CENTER - similar to above, but a different string
 		(else_try),
 			(party_is_active, ":marshal_party"),
-                        (this_or_next|eq, ":current_ai_state", sfai_default),    #MOTO not going to attack anyway 
-                        (this_or_next|eq, ":current_ai_state", sfai_feast),    #MOTO not going to attack anyway (THIS is the emergency to stop feast)                
+                        (this_or_next|eq, ":current_ai_state", sfai_default),    #MOTO not going to attack anyway
+                        (this_or_next|eq, ":current_ai_state", sfai_feast),    #MOTO not going to attack anyway (THIS is the emergency to stop feast)
 			(ge, ":threat_danger_level", ":target_value_level"),
 			(is_between, ":most_threatened_center", villages_begin, villages_end),
 
@@ -57808,9 +57818,9 @@ scripts = [
      (faction_get_slot, ":tier_4_troop", ":town_faction", slot_faction_tier_4_troop),
 
      (party_get_slot, ":town_scene", "$current_town", slot_town_center),
-	 
+
      (set_jump_mission,"mt_town_fight"), #dckplmc
-	 
+
      (modify_visitors_at_site, ":town_scene"),
      (reset_visitors),
 
@@ -57822,7 +57832,7 @@ scripts = [
          (party_get_slot, ":walker_troop_id", "$current_town", ":troop_slot"),
          (gt, ":walker_troop_id", 0),
          (store_add, ":entry_no", town_walker_entries_start, ":walker_no"),
-		 
+
 		 #dckplmc - add daggers and clubs
 		 (mission_tpl_entry_set_override_flags, "mt_town_fight", ":entry_no", af_override_weapons),
 		 (store_random_in_range, ":r", 0,2),
@@ -57832,7 +57842,7 @@ scripts = [
 		 (else_try),
 			(mission_tpl_entry_add_override_item, "mt_town_fight", ":entry_no", "itm_club"),
 		 (try_end),
-		 
+
          (set_visitor, ":entry_no", ":walker_troop_id"),
        (try_end),
      (try_end),
@@ -57853,14 +57863,14 @@ scripts = [
      (call_script, "script_get_troop_of_merchant"),
      (assign, ":troop_of_merchant", reg0),
      (str_store_troop_name, s10, ":troop_of_merchant"),
-     
+
      (set_visitors, 24, "trp_looter", 1),
      (set_visitors, 2, ":bandit_troop", 2),
      (set_visitors, 4, "trp_looter", 1),
      (set_visitors, 5, "trp_looter", 2),
      (set_visitors, 6, "trp_looter", 1),
      (set_visitors, 7, ":bandit_troop", 1),
-     
+
 	 #dckplmc
 	 (mission_tpl_entry_set_override_flags, "mt_town_fight", 3, af_override_weapons),
 	 (mission_tpl_entry_add_override_item, "mt_town_fight", 3, "itm_dagger"),
@@ -58665,14 +58675,14 @@ scripts = [
         # (call_script, "script_dplmc_get_item_value_with_imod", ":item", ":imod"),
         (item_get_value, ":i_score", ":item"),
         # (assign, ":i_score", reg0),
-        
+
         ## SB : price now secondary (additive) instead of multiplicative with actual attributes
         (item_get_horse_speed, ":horse_speed", ":item"),
         (item_get_horse_maneuver, ":horse_manu", ":item"),
         (item_get_body_armor, ":horse_armor", ":item"),
         (item_get_horse_charge_damage, ":horse_charge", ":item"),
         (item_get_hit_points, ":horse_health", ":item"),
-        
+
         #imodbits_horse_basic = imodbit_swaybacked|imodbit_lame|imodbit_spirited|imodbit_heavy|imodbit_stubborn
         #imodbits_horse_good = imodbit_spirited|imodbit_heavy
         (try_begin),
@@ -58703,9 +58713,9 @@ scripts = [
           (val_add, ":horse_armor", 2),
           (val_add, ":horse_charge", 2),
         (try_end),
-        
+
         (val_mul, ":horse_speed", ":horse_manu"),
-        (val_add, ":i_score", ":horse_speed"), 
+        (val_add, ":i_score", ":horse_speed"),
 
         (val_mul, ":horse_charge", ":horse_armor"),
         (val_mul, ":horse_charge", ":horse_health"),
@@ -58716,7 +58726,7 @@ scripts = [
         (eq, ":type", itp_type_shield),
         # (item_get_slot, ":shield_size", ":item", dplmc_slot_item_shield_size),
         # (item_get_slot, ":shield_armor", ":item", dplmc_slot_item_shield_armor),
-        
+
         ## SB : factor in speed and height
         (item_get_shield_height, ":shield_height", ":item"),
         (item_get_weapon_length, ":shield_width", ":item"),
@@ -58828,10 +58838,10 @@ scripts = [
           (eq, ":imod", imod_lordly),
           (assign, ":imod_effect", 6),
         (try_end),
-        
+
         (try_begin), # for armors have 2 or 3 defence of different part
           (neq, ":imod_effect", 0), # and item modifers that matter
-          (assign, ":imod_effect_mul", 0), 
+          (assign, ":imod_effect_mul", 0),
           (try_begin), #do nothing if no armor part at all
             (gt, ":head_armor", 0),
             (store_add, ":temp_armor", ":head_armor", ":imod_effect"),
@@ -58862,7 +58872,7 @@ scripts = [
               (val_sub, ":i_score", ":leg_armor"),
             (try_end),
           (try_end),
-          
+
           (val_mul, ":imod_effect", ":imod_effect_mul"),
           (val_add, ":i_score", ":imod_effect"),
         (try_end),
@@ -58887,7 +58897,7 @@ scripts = [
         (val_mod, ":thrust_damage", 256),
         (assign, ":i_score", ":swing_damage"),
         (val_max, ":i_score", ":thrust_damage"),
-        
+
         ##SB : get additional parameters
         (item_get_speed_rating, ":item_speed", ":item"),
         (item_get_weapon_length, ":item_length", ":item"),
@@ -58932,7 +58942,7 @@ scripts = [
           (assign, ":imod_effect", 3),
           (val_sub, ":item_speed", 3),
         (try_end),
-        
+
         (val_add, ":i_score", ":imod_effect"),
         (try_begin), #try to pre-filter civilian weapons that are improvised from being looted (clubs, scythes, etc that should be passed over)
           (call_script, "script_cf_melee_weapon_is_civilian", ":item"),
@@ -58956,7 +58966,7 @@ scripts = [
             (ge, ":item_length", dplmc_pike_length_cutoff),
             (val_sub, ":item_length", 50), #offset
             #no penalty for war spear range
-            (val_max, ":item_length", 100), 
+            (val_max, ":item_length", 100),
             (val_mul, ":item_length", 4),
             #item speed rounded off when we couch
             (val_add, ":item_speed", 25),
@@ -59121,7 +59131,7 @@ scripts = [
 
     #Done. Now sort the remainder
     (troop_sort_inventory, ":pool_troop"),
-    
+
 ]),
 
 
@@ -59146,7 +59156,7 @@ scripts = [
 			(troop_add_item, ":pool", ":item", ":imod"), #put it back in the pool
 			(troop_set_inventory_slot, ":troop", ":i_slot", -1), # delete it
 		(try_end),
-        
+
         #clear slot
         # (try_for_range, ":slot_no", dplmc_slot_upgrade_wpn_0, dplmc_slot_upgrade_wpn_3 + 1),
           # (troop_slot_eq, ":troop", ":slot_no", 0), #0 is keep
@@ -59166,7 +59176,7 @@ scripts = [
           (troop_get_inventory_slot, ":item", ":troop", ":item_slot"),
           (ge, ":item", 0), #initial item check
           (troop_get_inventory_slot_modifier, ":imod", ":troop", ":item_slot"),
-          
+
           (try_begin),
             (store_mod, ":item_type", ":item_preference", meta_itp_mask),
             (item_get_type, ":itp", ":item"),
@@ -59209,7 +59219,7 @@ scripts = [
           (lt, ":item", 0),
           (troop_set_slot, "trp_heroes_end", ":slot_no", 0),
         (try_end),
-        
+
         # (try_for_range, ":slot_no", dplmc_slot_upgrade_wpn_0, dplmc_slot_upgrade_wpn_3 + 1),
           # (troop_get_slot, reg0, ":troop", ":slot_no"),
           # (troop_get_slot, reg1, "trp_heroes_end", ":slot_no"),
@@ -59221,7 +59231,7 @@ scripts = [
           # (else_try),
             # (str_store_item_name, s1, ":item"),
           # (try_end),
-          
+
           # (display_message, "@upgrading slot {reg2} with {reg0}, cur score for {s1}: {reg1}"),
         # (try_end),
 
@@ -59319,7 +59329,7 @@ scripts = [
                 (neq, ":item_preference", 0), #not keep current
                 (store_div, ":damage_type", ":item_preference", meta_dmg_mask),
                 (val_mod, ":item_preference", meta_dmg_mask), #get the itp + meta
-                (call_script, "script_item_get_type_aux", ":item"), 
+                (call_script, "script_item_get_type_aux", ":item"),
                 (this_or_next|eq, ":item_preference", reg0), #either same meta-type
                 (eq, ":item_preference", ":item_type"), #or matching base itp
 
@@ -59346,7 +59356,7 @@ scripts = [
                 (assign, ":limit", -1), #loop break
                 (store_sub, ":item_slot", ":slot_no", dplmc_slot_upgrade_wpn_0), #ek item slots
                 (troop_get_inventory_slot, ":item_no", ":troop", ":item_slot"),
-                (try_begin), 
+                (try_begin),
                   (eq, ":item_no", -1),
                   (troop_set_inventory_slot, ":pool", ":i_slot", -1),
                 (else_try), #replace into pool
@@ -59441,7 +59451,7 @@ scripts = [
 			# (troop_set_inventory_slot, ":troop", ":i_slot", ":item"), #add to slot
 			# (troop_set_inventory_slot_modifier, ":troop", ":i_slot", ":imod"),
 		# (try_end),
-        
+
         #SB : string storage
         (try_begin),
           (neq, ":sreg", -1),
@@ -59472,14 +59482,14 @@ scripts = [
             (else_try),
               (assign, ":new_imod", imod_plain),
             (try_end),
-            
+
             # #placeholder swap strings
             # (str_clear, s0), #sreg
             # (str_clear, s1), #new string
             # (str_clear, s10), #imod
             # (str_clear, s20), #item
 
-            (try_begin), #keep current 
+            (try_begin), #keep current
               (is_between, ":i_slot", ek_item_0, ek_head),
               (store_add, ":upgrade_slot", ":i_slot", dplmc_slot_upgrade_wpn_0),
               (troop_slot_eq, ":troop", ":upgrade_slot", 0),
@@ -59500,14 +59510,14 @@ scripts = [
               (assign, ":item_no", ":new_item"),
               (assign, ":imod_no", ":new_imod"),
             (try_end),
-            
+
             #build string
             (try_begin),
               (gt, ":item_changed", 0),
               (val_add, ":imod_no", "str_imod_plain"),
               (str_store_string, s10, ":imod_no"), #this comes with a space
               (str_store_item_name, s20, ":item_no"),
-              
+
               (try_begin),
                 (neq, ":last_change", 1),
                 (eq, ":item_changed", 1),
@@ -59617,7 +59627,7 @@ scripts = [
         (assign, ":best_slot", ":i_slot"),
         (assign, ":best_value", ":cur_value"),
     (try_end),
-    
+
 
 
     # return the slot of the best one
@@ -60946,8 +60956,8 @@ scripts = [
       (assign, ":messenger_troop", "trp_dplmc_messenger"),
     (try_end),
     (party_add_members, ":spawned_party", ":messenger_troop", 1),
-    
-    
+
+
     (try_begin),
       (eq, ":message", spai_accompanying_army),
       (assign, ":orders_object", "p_main_party"),
@@ -60992,7 +61002,7 @@ scripts = [
       (is_between, "$g_player_culture", npc_kingdoms_begin, kingdoms_end),
       (assign, ":faction_no", "$g_player_culture"),
     (try_end),
-    
+
     (try_begin),
       (is_between, ":faction_no", npc_kingdoms_begin, kingdoms_end),
       (faction_get_slot, ":messenger_troop", ":faction_no", slot_faction_messenger_troop),
@@ -61617,7 +61627,7 @@ scripts = [
       (try_end),
     (try_end),
   ]),
-  
+
   #SB : add this to allow randomization of a single faction (see prsnt_dplmc_policy_management)
   ("dplmc_randomize_faction_domestic_policy",
     [
@@ -64463,7 +64473,7 @@ scripts = [
 		(val_add, reg0, 1),
 		(troop_set_slot, ":troop_no", dplmc_slot_troop_center_points_plus_one, reg0),
           (try_end),
-          (troop_get_slot, reg0, "trp_player", slot_troop_temp_slot), 
+          (troop_get_slot, reg0, "trp_player", slot_troop_temp_slot),
           (val_add, reg0, 1),
           (troop_set_slot, "trp_player", dplmc_slot_troop_center_points_plus_one, reg0),
           #Since the target center was omitted from the point totals, handle it here
@@ -67825,17 +67835,17 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
      (try_end),
    ]),
 ##diplomacy end+
-    
+
 ##diplomacy end+
-    
+
   #Equipment cost fix
    ("player_get_value_of_original_items",
     [
-      (store_script_param, ":player_no", 1),  
+      (store_script_param, ":player_no", 1),
       (store_script_param, ":agent_no", 2),
       (store_script_param, ":troop_id", 3),
       (assign, ":total_equipment_cost", 0),
-      (try_for_range, ":i_item_slot", 0, 8), 
+      (try_for_range, ":i_item_slot", 0, 8),
           (neg|player_item_slot_is_picked_up, ":player_no", ":i_item_slot"),
           (agent_get_item_slot, ":item_id", ":agent_no", ":i_item_slot"), #value between 0-7, order is weapon1, weapon2, weapon3, weapon4, head_armor, body_armor, leg_armor, hand_armor
           #(player_get_item_id, ":item_id", ":player_no", ":i_item_slot"), #only for server
@@ -67850,7 +67860,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           ##
       (try_end),
       (try_for_agents, ":cur_horse"),
-         #Check all horses in the scene and see if one of them is agent_no's bought horse. Won't be enough to just do (agent_get_horse, ":horse", ":agent_no"), 
+         #Check all horses in the scene and see if one of them is agent_no's bought horse. Won't be enough to just do (agent_get_horse, ":horse", ":agent_no"),
          #since you get money back for a bought horse, even if you have dismounted it, if the horse is still alive and has no other rider.
          (agent_is_alive, ":cur_horse"),
          (neg|agent_is_human, ":cur_horse"),  #Spawned agent is horse
@@ -67862,7 +67872,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
              (try_begin),
                  (neq, ":rider_agent_id", -1),
                  (neg|agent_is_non_player, ":rider_agent_id"),
-                 (agent_get_slot, ":agent_no_bought_horse", ":rider_agent_id", slot_agent_bought_horse),          
+                 (agent_get_slot, ":agent_no_bought_horse", ":rider_agent_id", slot_agent_bought_horse),
                  (eq, ":agent_no_bought_horse", ":cur_horse"), #agent_no is mounted on the same horse he bought
                  (assign, ":add_horse_cost_to_equipment_value", 1),
 
@@ -67896,7 +67906,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (assign, reg0, ":total_equipment_cost"),
      ]),
      ###
-     
+
      ##script_improve_center
      #helper script for building in centers
     ("improve_center", [
@@ -67917,7 +67927,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (call_script, "script_change_troop_renown", ":builder", dplmc_companion_skill_renown),
         (try_end),
     ]),
-    
+
      ##script_calculate_improvement_limit
      #calculate threshold for building stuff
      #input: troop_no, center_no (unused)
@@ -67941,7 +67951,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_end),
         (assign, reg0, ":limit"),
     ]),
-    
+
      ##script_calculate_equipment_limit
      #calculate threshold for upgrading equipment imod from merchants
      #input: troop_no, center_no (unused)
@@ -67950,7 +67960,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (store_script_param_1, ":troop_no"),
         (store_script_param_2, ":center_no"),
         (assign, ":limit", dplmc_equipment_limit),
-        (troop_get_slot, ":personality", ":troop_no", slot_lord_reputation_type),        
+        (troop_get_slot, ":personality", ":troop_no", slot_lord_reputation_type),
 
         (try_begin), #focus on arms
           (is_between, ":personality", lrep_martial, lrep_selfrighteous),
@@ -67959,13 +67969,13 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (eq, ":personality", lrep_roguish),
           (val_sub, ":limit", 1000),
         (try_end),
-        
+
         #aristocracy modifier as enthusiasm for shopping
         (store_faction_of_party, ":faction_no", ":center_no"),
         (faction_get_slot, ":aristocracy", ":faction_no", dplmc_slot_faction_aristocracy),
         (val_mul, ":aristocracy", -100), #high plutocracy more shopping, decreasing threshold
         (val_add, ":limit", ":aristocracy"),
-        
+
         (assign, reg0, ":limit"),
     ]),
     #script_change_troop_intrigue_impatience
@@ -67983,11 +67993,11 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     #output: bandit_troop in reg0
     # get an appropriate bandit to infest the village
   ("center_get_bandits",[
-    
+
     (store_script_param_1, ":village_no"),
     (store_script_param_2, ":mode"),
     (assign, ":bandit_troop", "trp_looter"),
-    
+
     (try_begin), #native mode
       (eq, ":mode", -1),
       (store_random_in_range, ":random_no", 0, 3),
@@ -68120,8 +68130,8 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (try_end),
     (assign, reg0, ":bandit_troop"),
   ]),
-  
-  
+
+
   ("create_wpn_slot_overlay", [
       (store_script_param, ":slot", 1),
       (store_script_param, ":pos", 2),
@@ -68132,7 +68142,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (overlay_set_position, ":obj", pos1),
       (assign, ":sub_overlay_id", 0),
       (store_add, ":upgrade_slot", ":slot", dplmc_slot_upgrade_wpn_0),
-      
+
       # #SB : add meta-types
       # (overlay_add_item, ":obj", "str_dplmc_hero_wpn_slot_pikes"),
       # (overlay_add_item, ":obj", "str_dplmc_hero_wpn_slot_lance"),
@@ -68158,15 +68168,15 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_end),
         (val_add, ":sub_overlay_id", 1),
       (try_end),
-      
+
       #store id in slot
       (troop_set_slot, "trp_stack_selection_ids", ":slot", ":obj"),
       # # only works for original button, not drop-down lists
       # (overlay_set_additional_render_height, ":obj", 99),
-      
+
       (assign, reg1, ":obj"), #return overlay id
   ]),
-  
+
 
   ("update_wpn_slot_itp", [
       (store_script_param, ":slot", 1),
@@ -68191,7 +68201,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
   #output: reg0, item type or meta-type
   ("item_get_type_aux", [
     (store_script_param, ":item", 1),
-    
+
     (item_get_type, ":itp", ":item"),
     (try_begin),
       # (item_slot_eq, ":item", dplmc_slot_two_handed_one_handed, 1),
@@ -68226,7 +68236,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (try_end),
     (assign, reg0, ":itp"),
   ]),
-  
+
   #check if weapons are wholly inappropriate for actual combat
   ("cf_melee_weapon_is_civilian", [
     (store_script_param, ":item", 1),
@@ -68237,7 +68247,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     # (eq, ":item", "itm_stones"),
      #include arena weapons here as well
   ]),
-  
+
   #check if the item type has advanced auto-loot options available (damage type, meta-type)
   ("cf_item_type_has_advanced_autoloot", [
     (store_script_param, ":item_type", 1),
@@ -68245,7 +68255,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (eq, ":item_type", itp_type_thrown), #throwing axe vs jaridss vs rocks
     #all other ranged weapons are pierce (for now) excluding arena ones
   ]),
-  
+
   #script_display_policy_string_to_reg
   #unify string register usage to one temp s0 and one output s20
   #register reg2,3 are used for mode and postfix
@@ -68253,7 +68263,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (store_script_param, ":faction_no", 1),
     (store_script_param, reg2, 2), #whether it is third person "the" or first person "our"
     (store_script_param, reg3, 3), #spaces or line breaks as the postfix delimiter
-    
+
     (str_store_faction_name_link, s5, ":faction_no"),
     (assign, ":string", "str_dplmc_neither_centralize_nor_decentralized"),
     (faction_get_slot, ":centralization", ":faction_no", dplmc_slot_faction_centralization),
@@ -68286,7 +68296,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (str_store_string, s0, ":string"),
     (str_store_string, s20, "@{s20}{reg2?Our:The government's} approach to trade is {s0}.{reg3?^: }"),
   ]),
-  
+
   #native stuff for startup merchants
   ("get_troop_of_merchant",
   [
@@ -68295,10 +68305,10 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (val_add, ":troop_of_merchant", startup_merchants_begin),
         (assign, reg0, ":troop_of_merchant"),
   ]),
-  
+
   #reusable code to check whether npcs in a specific range have been met
   #does not account for alternative towns
-  ("cf_no_known_taverngoers", 
+  ("cf_no_known_taverngoers",
   [
       (store_script_param_1, ":begin"),
       (store_script_param_2, ":end"),
@@ -68313,11 +68323,11 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (try_end),
       (neq, ":begin", ":end"),
   ]),
-  
+
   #script_list_known_taverngoers
   #input: starting/ending troop range, also party slot if necessary as error check
   #output: location of known tavern npcs to s11
-  ("list_known_taverngoers", 
+  ("list_known_taverngoers",
   [
       (store_script_param, ":begin", 1),
       (store_script_param, ":end", 2),
@@ -68342,7 +68352,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (else_try),
           (str_store_string, s51, "str_s50_comma_s51"),
         (try_end),
-        
+
         (try_begin), #list false tavern npcs
           (call_script, "script_cf_find_alternative_town_for_taverngoers", ":town_no", -9),
           (assign, ":alternative_town", reg0),
@@ -68363,13 +68373,13 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (display_message, "@You can find {s10}s at {s11}."),
   ]),
   #native functionality to increase tavern diversity
-  ("cf_find_alternative_town_for_taverngoers", 
+  ("cf_find_alternative_town_for_taverngoers",
   [
       (store_script_param_1, ":town_no"),
       (store_script_param_2, ":adder"),
       (store_add, ":alternative_town", ":town_no", ":adder"), #should really randomize this
-       
-      # (store_sub, ":num_towns", towns_end, towns_begin),      
+
+      # (store_sub, ":num_towns", towns_end, towns_begin),
       (try_begin),
         (ge, ":alternative_town", towns_end),
         (val_sub, ":alternative_town", towns_end),
@@ -68386,7 +68396,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       # (party_slot_eq, ":alternative_town", slot_party_type, spt_town),
       (assign, reg0, ":alternative_town"),
   ]),
-  
+
   #script_calculate_ransom_contribution
   #input : troop_no, amount expected, properly set up qst_rescue_prisoner targets
   #assumes no other sources of debt (dialog prevents condition) and quest troop is active and related
@@ -68419,7 +68429,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (else_try), #give full amount
         (store_sub, ":ransom_amount", ":ransom_size", ":cur_ransom"), #undo adding existing ransom
       (try_end),
-      
+
       (try_begin), #active npcs have wealth
         (troop_slot_eq, ":lord_no", slot_troop_occupation, slto_kingdom_hero),
         (troop_get_slot, ":cur_wealth", ":lord_no", slot_troop_wealth),
@@ -68432,7 +68442,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (assign, reg0, ":ransom_amount"),
     ]
   ),
-  
+
   #script_lend_money_for_ransom
   #actually parcels out the amount calculated in the above script
   ("lend_money_for_ransom", [
@@ -68444,7 +68454,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (try_end),
     (quest_get_slot, ":cur_ransom", "qst_rescue_prisoner", slot_quest_target_state),
     (val_add, ":cur_ransom", ":ransom_amount"), #actual amount to give
-    
+
     #set up quests
     (quest_set_slot, "qst_rescue_prisoner", slot_quest_target_state, ":cur_ransom"),
     (assign, reg0, ":cur_ransom"),
@@ -68452,7 +68462,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (quest_get_slot, reg1, "qst_rescue_prisoner", slot_quest_target_amount),
     (str_store_string, s1, "@You have raised {reg0}/{reg1} denars for the ransom"),
     (add_quest_note_from_sreg, "qst_rescue_prisoner", 4, s1, 1), #0:date, 1:giver, 2:desc 3:time
-    
+
     #move actual gold
     (troop_add_gold, "trp_player", ":ransom_amount"),
     (try_begin),
@@ -68461,14 +68471,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (val_add, ":ransom_amount", dplmc_ransom_debt_mask), #masking this from "real" debt
       (troop_set_slot, ":lord_no", slot_troop_player_debt, ":ransom_amount"),
     (try_end),
-    
+
     ]
   ),
-  
-  
+
+
   #script_cf_dplmc_battle_continuation
   #new camera setup scripts, setting up other calls
-    
+
   ("cf_dplmc_battle_continuation", [
     (eq, "$g_dplmc_battle_continuation", 0),
     (assign, ":num_allies", 0),
@@ -68482,7 +68492,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (eq, "$g_dplmc_cam_activated", 0),
       #(store_mission_timer_a, "$g_dplmc_main_hero_fallen_seconds"),
       (assign, "$g_dplmc_cam_activated", "$g_dplmc_cam_default"),
-      
+
       (display_message, "@You have been knocked out by the enemy. Watch your men continue the fight without you or press Tab to retreat."),
       (store_add, ":string", "$g_dplmc_cam_activated", "str_camera_keyboard"),
       (val_sub, ":string", 1),
@@ -68499,7 +68509,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (team_give_order, ":player_team", grc_everyone, mordr_fire_at_will),
         (set_show_messages, 1),
       (try_end),
-      
+
       (mission_cam_get_position, pos1), #Death pos
       (position_get_rotation_around_z, ":rot_z", pos1),
 
@@ -68508,7 +68518,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (position_rotate_z, pos47, ":rot_z"), #Copying X-Rotation is likely possible, but I haven't figured it out yet
 
       (mission_cam_set_mode, 1, 0, 0), #Manual?
-      
+
       (try_begin), #auto-assign the closest agent
         (eq, "$g_dplmc_cam_activated", camera_follow),
         (call_script, "script_dmod_closest_agent"),
@@ -68520,21 +68530,21 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 
     ("init_keys_array", keys_array()),
     ("setup_camera_keys", [
-    
+
       # (assign, "$g_dplmc_cam_default", camera_keyboard),
       # (assign, "$g_camera_up", key_w),
       # (assign, "$g_camera_down", key_s),
       # (assign, "$g_camera_left", key_a),
       # (assign, "$g_camera_right", key_d),
-      
+
       #default custom commander y/z offsets
       (call_script, "script_setup_camera_offset"),
       #these will be retained after being changed inside missions
-      
+
       #deathcam
       (assign, "$g_cam_tilt_left", key_numpad_1),
       (assign, "$g_cam_tilt_right", key_numpad_3),
-      
+
       (assign, "$g_camera_adjust_add", key_numpad_plus),
       (assign, "$g_camera_adjust_sub", key_numpad_minus),
 
@@ -68544,20 +68554,20 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (assign, "$g_camera_rot_left", key_numpad_4),
       (assign, "$g_camera_rot_right", key_numpad_6),
     ]),
-    
+
     #call when camera positions get weird
-    ("setup_camera_offset", 
+    ("setup_camera_offset",
       [
       (assign, "$g_camera_z", 200),
       (assign, "$g_camera_y", -175),
       (assign, "$g_camera_rotate_x", 0),
       (assign, "$g_camera_rotate_y", 0),
       (assign, "$g_camera_rotate_z", 0),
-      
+
       ]),
-    
+
     #initialize all active death cam globals
-    ("init_death_cam", 
+    ("init_death_cam",
       [
         (assign, "$deathcam_mouse_last_x", 5000),
         (assign, "$deathcam_mouse_last_y", 3750),
@@ -68576,7 +68586,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 
         (assign, "$deathcam_keyboard_rotation_x", 0),
         (assign, "$deathcam_keyboard_rotation_y", 0),
-        
+
         (assign, "$g_dplmc_cam_activated", 0),
         (assign, "$dmod_current_agent", -1),
         # check if keys are not set/invalid
@@ -68596,7 +68606,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (game_key_is_down, gk_cam_toggle),
       (mission_cam_set_mode, 0),
     ]),
-    
+
     ("dmod_closest_agent", [
           (assign, ":cur_agent", -1),
           (assign, ":distance", 999999),
@@ -68611,7 +68621,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             # (position_get_screen_projection, pos14, pos13),
             # (get_distance_between_positions, ":cur_distance", pos12, pos14),
             (get_distance_between_positions, ":cur_distance", pos11, pos13),
-            (lt, ":cur_distance", ":distance"), 
+            (lt, ":cur_distance", ":distance"),
             (assign, ":distance", ":cur_distance"),
             (assign, ":cur_agent", ":agent_no"),
           (try_end),
@@ -68621,7 +68631,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (str_store_agent_name, 1, "$dmod_current_agent"),
             (display_message, "@Selected Troop: {s1}"),
           (try_end),
-  
+
       ]
     ),
     # script_dmod_cycle_forwards
@@ -68711,9 +68721,9 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (display_message, "@Selected Troop: {s1}"),
         (try_end),
       ]),
-      
 
-      
+
+
   #script_start_town_conversation
   #input: center's slot no, entry points
   #used to talk to various center merchant npcs including guildmaster
@@ -68766,7 +68776,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (reset_visitors),
       (try_begin), #player vs troop, not much processing
         (neg|troop_is_hero, ":conversation_troop"),
-        
+
       (else_try), #talking to lords, compare relative positions
         (assign, ":supplicant", "trp_player"),
         (store_faction_of_party, ":faction_no", ":center_no"),
@@ -68774,7 +68784,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (assign, ":player_standing", reg0),
         (call_script, "script_dplmc_get_troop_standing_in_faction", ":conversation_troop", ":faction_no"),
         (assign, ":other_troop_standing", reg0),
-        
+
         #23 : castle guard (adjacent), 2: lord's hall door
         (assign, ":entry_lower", 23),
         (assign, ":entry_upper", 2),
@@ -68802,7 +68812,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (assign, ":entry_lower", 28),
         (try_end),
       (try_end),
-        
+
       (mission_tpl_entry_set_override_flags, "mt_conversation_encounter", ":entry_lower", af_override_horse|af_override_head|af_override_weapons),
       (mission_tpl_entry_set_override_flags, "mt_conversation_encounter", ":entry_upper", af_override_horse|af_override_fullhelm),
       (set_visitor, ":entry_lower", ":supplicant"),
@@ -68892,7 +68902,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                 (str_store_faction_name, s9, ":faction"),
                 (str_store_string, s8, "str_diplomatic_embassy_to_s9"),
             # (else_try), #diplomacy missions
-                
+
             (else_try),
                 (eq, ":companion", "$g_player_minister"),
                 (str_store_string, s8, "str_serving_as_minister"),
@@ -68925,14 +68935,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                     (quest_get_slot, ":lord", "qst_lend_companion", slot_quest_giver_troop),
                     (str_store_troop_name, s5, ":lord"),
                     (str_store_string, s8, "str_accompanying_s5"),
-                    (str_store_string, s5, "str_on_loan"), 
+                    (str_store_string, s5, "str_on_loan"),
                 (else_try),
                     (check_quest_active, "qst_lend_surgeon"),
                     (quest_slot_eq, "qst_lend_surgeon", slot_quest_target_troop, ":companion"),
                     (quest_get_slot, ":lord", "qst_lend_surgeon", slot_quest_giver_troop),
                     (str_store_troop_name, s5, ":lord"),
                     (str_store_string, s8, "str_accompanying_s5"),
-                    (str_store_string, s5, "str_on_loan"), 
+                    (str_store_string, s5, "str_on_loan"),
                 (try_end),
             (try_end),
 
@@ -68942,17 +68952,17 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       ),
     #iterates through list of obtainable soldiers (and check if the player has reclassified them to a custom class > grc_cavalry)
     #instead of going through all troops globally, we check the selected center's garrison's upgraded troops
-    ("cf_troop_class_activated", 
-    [ 
+    ("cf_troop_class_activated",
+    [
         (store_script_param, ":grc", 1),
         (store_script_param, ":party_no", 2),
         (is_between, ":grc", grc_infantry, grc_everyone),
         (try_begin), #first 3 always available
-          (le, ":grc", grc_cavalry), 
+          (le, ":grc", grc_cavalry),
           (assign, ":end", -1),
         (else_try),
           (party_get_num_companion_stacks, ":end", ":party_no"),
-        
+
           (try_for_range, ":stack_no", 0, ":end"),
             (party_stack_get_troop_id, ":troop_no", ":party_no", ":stack_no"),
             (neg|troop_is_hero, ":troop_no"),
@@ -68978,16 +68988,16 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         # (try_end),
         (try_end),
         (eq, ":end", -1),
-    
+
     ]),
-    
-    ("cf_troop_is_class", 
-    [ 
+
+    ("cf_troop_is_class",
+    [
         (store_script_param, ":grc", 1),
         (store_script_param, ":troop_no", 2),
         (is_between, ":grc", grc_infantry, grc_everyone), #usually $g_constable_training_type
         (gt, ":troop_no", 0), #this is usually obtained through troop_get_upgrade_troop, sanitize it here
-        
+
         (troop_get_class, ":class_no", ":troop_no"),
         (eq, ":grc", ":class_no"),
     ]),
@@ -69016,7 +69026,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (assign, reg0, ":troop_morale"),
         (try_end),
     ]),
-    
+
     #script_build_background_answer_story
     #input: sreg, other info based off global background_answer variables
     #output: story to s0, side effects are reg11, s10 through s13
@@ -69037,7 +69047,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (str_store_string, s10, ":string"),
         (str_store_string, ":sreg", "str_story_all"),
     ]),
-    
+
     #whenever the player does something nice, spectators cheer
     ("agents_cheer_during_training", [
       (party_get_morale, ":cur_morale", "p_main_party"),
@@ -69056,7 +69066,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (agent_set_animation_progress, ":agent_no", ":random_no"),
       (try_end),
     ]),
-    
+
     #a separate trigger handles when they're actually knocked out
     ("troop_set_training_health_from_agent", [
       (party_get_skill_level, ":first_aid", "p_main_party", "skl_first_aid"),
@@ -69085,13 +69095,13 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (troop_set_health, ":troop_no", ":hp", 0),
       (try_end),
     ]),
-    
+
     #script_agent_apply_training_health
     #input: player_agent, called from abm_training during melee fights, can also be used for tournament if desired
     ("agent_apply_training_health", [
       (store_script_param_1, ":agent_no"),
       # (store_script_param_2, "$current_town"),
-      
+
       (party_get_skill_level, ":first_aid", "p_main_party", "skl_first_aid"),
       (party_get_slot, ":relation", "$current_town", slot_center_player_relation), #range from -100 to 100
       (store_sub, ":relation", 200, ":relation"), #300 to 100
@@ -69145,7 +69155,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_end),
       ]
     ),
-    
+
   #script_cf_village_normal_cond
   # INPUT: none
   # OUTPUT: none
@@ -69158,7 +69168,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (neg|party_slot_ge, ":party_no", slot_village_infested_by_bandits, 1),
     ]
   ),
-  
+
     #script_cf_has_companion_emissary for diplomatic options
   ("cf_has_companion_emissary",
     [
@@ -69169,7 +69179,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (try_end),
     (neq, ":companion_found", companions_end),
     ]),
-  
+
   #script_get_chest_troop fetches the appropriate placeholder for player storage
   # INPUT: center, usually $current_town
   # OUTPUT: none
@@ -69186,7 +69196,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (try_end),
     (assign, reg0, ":chest_troop"),
   ]),
-  
+
 	#script_change_faction_troop_morale
 	#input - faction, change, display mode
 	#output - a colored message
@@ -69246,7 +69256,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	   (try_end),
 	  ]
 	),
-    
+
     #script_encounter_agent_draw_weapon
     #input: none, based on $g_talk_agent
     #output: none, agent wields first available weapon to show aggression
@@ -69258,9 +69268,9 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (gt, ":item_no", 0),
           (agent_set_wielded_item, "$g_talk_agent", ":item_no"),
         (try_end),
-    
+
     ]),
-    
+
     #script_troop_debug_range
     #input: troop, head or tail, sreg
     #output: reg0 as head or tail, sreg holding a short description
@@ -69626,9 +69636,9 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (this_or_next|eq, ":direction", 0),
         (neq, ":result", ":troop_no"),
         (assign, reg0, ":result"),
-    
+
     ]),
-    
+
     #script_get_proficient_melee_training_weapon
     #input : troop_no
     #output : item_no as the practice weapon
@@ -69656,7 +69666,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_end),
         (assign, reg0, ":item_no"),
     ]),
-    
+
   # script_spawn_looters
   # Input: arg1 = center_no, arg2 = number of looters to spawn
   # Output: none
@@ -69673,7 +69683,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         #(party_set_ai_object, reg0, ":center_no"),
       (try_end),
     ]),
-    
+
   #script_troop_transfer_gold
   ("troop_transfer_gold",
     [
@@ -69694,14 +69704,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
   # generally this is used to move the backup to the player
   # Input: arg1 = source, arg2 = destnation
   # Output: none
-  
+
   ("move_inventory_and_gold",
     [
       (store_script_param, ":source", 1),
       (store_script_param, ":destination", 2),
       (store_script_param, ":move_gold", 3),
       #assume trp_temp_troop is an available placeholder
-      
+
       (troop_sort_inventory, ":source"), #order them, too lazy to maintain 2 loops
       (troop_get_inventory_capacity, ":inv_cap", ":source"),
       (troop_get_inventory_capacity, ":player_cap", ":destination"),
@@ -69741,7 +69751,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (call_script, "script_troop_transfer_gold", ":source", ":destination", ":move_gold"),
       (try_end),
     ]),
-    
+
    #script_get_disguise_string
    #calculate the string offset by iteratively dividing by 2
    ("get_disguise_string", [
@@ -69775,7 +69785,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (store_script_param, ":mission_template", 1),
       (store_script_param, ":entry_no", 2),
       (store_script_param, ":with_weapon", 3),
-      
+
       (mission_tpl_entry_clear_override_items, ":mission_template", ":entry_no"),
       (try_begin),
         (eq, "$sneaked_into_town", disguise_pilgrim),
@@ -69843,7 +69853,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_end),
       (try_end),
    ]),
-   
+
 
     ("get_dest_color_from_rgb",
     [
@@ -69943,7 +69953,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (overlay_set_text, "$g_presentation_obj_9", "str_html"),
     ]),
 
-	
+
 #WSE
 
 #script_wse_multiplayer_message_received
@@ -70001,18 +70011,18 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	(store_script_param, ":horse_item_no", 2),
 	(store_script_param, ":horse_item_modifier", 3),
 	(store_script_param, ":player_no", 4),
-    
+
     # (set_fixed_point_multiplier, 100),
-    
+
     # (assign, ":scale", 100),
-    
+
     # # (try_begin),
         # # (gt, ":horse_item_no", -1),
         # # (eq, ":horse_item_modifier", imodbit_heavy),
         # # (val_add, ":scale", 5),
         # # (set_trigger_result, ":scale"),
     # # (try_end),
-    
+
     # (try_begin),
         # (gt, ":troop_no", -1),
         # (neg|troop_is_hero, ":troop_no"),
@@ -70023,20 +70033,20 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         # (val_sub, ":str", 6),
         # (val_div, ":str", 3),
         # (val_add, ":scale", ":str"),
-        
+
         # (try_begin),
             # (eq, ":type", 1),
             # (val_mul, ":scale", 93),
             # (val_div, ":scale", 100),
         # (try_end),
-        
+
         # # (assign, reg0, ":scale"),
         # # (display_message, "@{reg0}"),
-        
+
         # (set_trigger_result, ":scale"),
     # (try_end),
 
-    
+
 ]),
 
 #script_wse_window_opened
@@ -70070,7 +70080,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	# (store_script_param, ":launcher_item_modifier", 4),
 	# (store_script_param, ":shooter_agent_no", 5),
 	# (store_script_param, ":missile_no", 6),
-    
+
     (play_sound_at_position, "snd_jump_end_water", pos1),
     (particle_system_burst, "psys_game_water_splash_2", pos1, 40),
 
@@ -70186,10 +70196,10 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 			(val_add, ":ally_strength", "$j_num_us_ready"),
 			(val_add, ":ally_strength", "$j_num_us_ready"),
 			(val_add, ":ally_strength", "$j_num_us_ready"),
-			(val_add, ":ally_strength", "$j_num_allies_ready"),	
-			(val_add, ":ally_strength", "$j_num_allies_ready"),	
-			(val_add, ":ally_strength", "$j_num_allies_ready"),	
-	
+			(val_add, ":ally_strength", "$j_num_allies_ready"),
+			(val_add, ":ally_strength", "$j_num_allies_ready"),
+			(val_add, ":ally_strength", "$j_num_allies_ready"),
+
 			# ENEMY STRENGTH
 			(assign, ":enemy_strength", 1),
 			(val_add, ":enemy_strength", "$j_num_us_dead"),
@@ -70261,7 +70271,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 			# (assign, ":enemy_morale", 1),
 			# (assign, ":ally_morale", 1),
 			# (assign, ":ally_amount", 1),
-			
+
 			#store morale for all troops
 			# (try_for_agents,":cur_agent"),
 				# (agent_is_human, ":cur_agent"),
@@ -70331,8 +70341,8 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	# (display_message, "@agents can rout"),
 ]),
 #jacobhinds Morale Code END
-    
-###dckplmc scripts - begin TODO: append in different file	
+
+###dckplmc scripts - begin TODO: append in different file
 
   # script_setup_camp_scene
   # Input: arg1 = center_no, arg2 = mission_template_no
@@ -70399,13 +70409,13 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	  (modify_visitors_at_site, ":scene_to_use"),
 	  (reset_visitors),
 	# (set_visitor,1,"trp_follower_woman"),
-	  
+
 	(assign, ":cur_entry", 2),
-    
+
     (assign, ":entry_1_assigned", 0),
-    
+
     (troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
-	  
+
    (party_get_num_companion_stacks, ":num_stacks", "p_main_party"),
    (try_for_range, ":troop_iterator", 0, ":num_stacks"), #1st pass: grab all heroes
 	 (party_stack_get_troop_id, ":cur_troop_id", "p_main_party", ":troop_iterator"),
@@ -70415,7 +70425,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 		(ge, ":cur_entry", 40),
 		(assign, ":num_stacks", -1), #break the loop
 	 (else_try),
-         (eq, ":cur_troop_id", ":spouse"), 
+         (eq, ":cur_troop_id", ":spouse"),
 		 (set_visitor, 1, ":cur_troop_id"), #is spouse
          (assign, ":entry_1_assigned", 1),
 	 (else_try),
@@ -70423,9 +70433,9 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 		 (val_add, ":cur_entry", 1),
 	 (try_end),
    (try_end),
-   
+
    #2nd pass: get anyone else
-   (try_for_range, ":troop_iterator", 0, ":num_stacks"), 
+   (try_for_range, ":troop_iterator", 0, ":num_stacks"),
 	 (party_stack_get_troop_id, ":cur_troop_id", "p_main_party", ":troop_iterator"),
 	 (neq, ":cur_troop_id", "trp_player"),
 	 (neg|troop_is_hero, ":cur_troop_id"),
@@ -70443,8 +70453,8 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 				(assign, ":stack_size", -1), #break the loop
              (else_try),
                  (neq, ":entry_1_assigned", 1),
-                 (this_or_next|eq, ":cur_troop_id", "trp_prostitute"), 
-                 (eq, ":cur_troop_id", "trp_courtesan"), 
+                 (this_or_next|eq, ":cur_troop_id", "trp_prostitute"),
+                 (eq, ":cur_troop_id", "trp_courtesan"),
                  (set_visitor, 1, ":cur_troop_id"),
                  (assign, ":entry_1_assigned", 1),
 			 (else_try),
@@ -70456,7 +70466,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 		 (try_end),
 	  (try_end),
    (try_end),
-	
+
 	#prisoners
 	(assign, ":cur_entry", 40),
 	(party_get_num_prisoner_stacks, ":prisoner_stacks","p_main_party"),
@@ -70472,10 +70482,10 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 		 (store_add, ":cur_entry", ":cur_entry", 1),
 	 (try_end),
    (try_end),
-   
+
    #2nd pass: get anyone else
    (party_get_num_prisoner_stacks, ":prisoner_stacks","p_main_party"),
-   (try_for_range, ":troop_iterator", 0, ":prisoner_stacks"), 
+   (try_for_range, ":troop_iterator", 0, ":prisoner_stacks"),
 	 (party_prisoner_stack_get_troop_id, ":cur_troop_id", "p_main_party", ":troop_iterator"),
 	 (neg|troop_is_hero, ":cur_troop_id"),
 	 (try_begin),
@@ -70497,7 +70507,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 		 (try_end),
 	  (try_end),
    (try_end),
-	  
+
 	(mission_tpl_entry_clear_override_items,"mt_camp",1),
 	(store_random_in_range,":r",0,2),
 	(try_begin),
@@ -70506,11 +70516,11 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	(else_try),
 		(mission_tpl_entry_add_override_item,"mt_camp",1,"itm_lyre"),
 	(try_end),
-	  
+
 	  (assign, "$talk_context", tc_camp_talk),
       (jump_to_scene,":scene_to_use"),
   ]),
-  
+
   #script_training_ground_sub_routine_2_for_melee_details_fuck
   # INPUT:
   # value
@@ -70541,7 +70551,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
        (jump_to_menu, "mnu_fuck_3"),
      (try_end),
      ]),
-	 
+
   #script_start_fucking
   # INPUT:
   # value
@@ -70551,7 +70561,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
    [
      (store_script_param, ":training_param", 1),
      (store_script_param, ":scene", 2),
-	 
+
 		  (set_jump_mission,"mt_fucking"),
 		  (modify_visitors_at_site, ":scene"),
 		  (reset_visitors),
@@ -70560,10 +70570,10 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
          (troop_get_slot, ":cur_troop", "trp_temp_array_a", ":i"),
          (troop_get_slot, ":cur_troop_dna", "trp_temp_array_b", ":i"),
 		 (ge, ":cur_troop", 0),
-		 
+
 		(call_script, "script_dplmc_store_troop_is_female_reg", ":cur_troop", 65),
 		(assign, ":is_female", reg65),
-        
+
         (try_begin),
             (eq, "$g_player_is_captive", 1),
             (mission_tpl_entry_set_override_flags, "mt_fucking", 2, af_override_horse|af_override_body|af_override_weapons),
@@ -70600,8 +70610,8 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 		 (else_try),
 			(assign, ":cur_entry_point", 0),
 		 (try_end),
-         
-         
+
+
          (try_begin),
             (troop_get_type, ":type", ":cur_troop"),
             (lt, ":type", 2),
@@ -70616,19 +70626,19 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (set_visitor, ":cur_entry_point", ":cur_troop", ":cur_troop_dna"),
          (try_end),
        (try_end),
-	   
+
 		(set_visitor, 0, "trp_bandit_leaders_end"),
-	   
+
 		  (jump_to_scene,":scene"),
 		  (change_screen_mission),
-          
-	 
-	 
+
+
+
      ]),
-     
-     
-     
-     
+
+
+
+
   # #Formations Scripts
   # script_field_start_position by motomataru
   # Input: team
@@ -70638,18 +70648,18 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
   # army at its spawn point
   ("field_start_position", [
       (store_script_param, ":fteam", 1),
-      
+
       (assign, ":depth_cavalry", 0),
       (assign, ":largest_mounted_division_size", 0),
       (team_get_leader, ":fleader", ":fteam"),
-      
+
       (try_begin),
         (ge, ":fleader", 0),
         (agent_get_position, pos2, ":fleader"),
       (else_try),
         (call_script, "script_battlegroup_get_position", pos2, ":fteam", grc_everyone),
       (try_end),
-      
+
       (try_for_range, ":division", 0, 9),
         (store_add, ":slot", slot_team_d0_type, ":division"),
         (team_slot_eq, ":fteam", ":slot", sdt_cavalry),
@@ -70658,7 +70668,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (lt, ":largest_mounted_division_size", reg0),
         (assign, ":largest_mounted_division_size", reg0),
       (try_end),
-      
+
       (try_begin),
         (gt, ":largest_mounted_division_size", 0),
         (val_mul, ":largest_mounted_division_size", 2),
@@ -70666,22 +70676,22 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (store_sqrt, ":depth_cavalry", ":largest_mounted_division_size"),
         (convert_from_fixed_point, ":depth_cavalry"),
         (val_sub, ":depth_cavalry", 1),
-        
+
         (store_mul, reg0, formation_start_spread_out, 50),
         (val_add, reg0, formation_minimum_spacing_horse_length),
         (val_mul, ":depth_cavalry", reg0),
-        
+
         (store_mul, ":depth_infantry", formation_start_spread_out, 50),
         (val_add, ":depth_infantry", formation_minimum_spacing),
         (val_mul, ":depth_infantry", 2),
         (val_sub, ":depth_cavalry", ":depth_infantry"),
-        
+
         (gt, ":depth_cavalry", 0),
         (call_script, "script_team_get_position_of_enemies", Enemy_Team_Pos, ":fteam", grc_everyone),
         (call_script, "script_point_y_toward_position", pos2, Enemy_Team_Pos),
         (position_move_y, pos2, ":depth_cavalry"),
       (try_end),]),
-  
+
   # script_division_reset_places by motomataru
   # Input: none
   # Output: none
@@ -70692,7 +70702,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (assign, "$next_archer_place", 1000),	#first spot 10m FRONT of the player
       (assign, "$next_infantry_place", -1 * formation_minimum_spacing_horse_width),	#first spot LEFT of the player
   ]),
-  
+
   # script_battlegroup_place_around_leader by motomataru
   # Input: team, division, team leader
   # Output: pos61 division position, moves pos1
@@ -70700,21 +70710,21 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (store_script_param, ":fteam", 1),
       (store_script_param, ":fdivision", 2),
       (store_script_param, ":fleader", 3),
-      
+
       (try_begin),
         (le, ":fleader", 0),
         (display_message, "@{!}script_battlegroup_place_around_leader: invalid leader agent (bad call)"),
-        
+
       (else_try),
         (agent_get_group, reg0, ":fleader"),
         (neq, reg0, ":fteam"),
         (display_message, "@{!}script_battlegroup_place_around_leader: leader team mismatch (bad call)"),
-        
+
       (else_try),
         (agent_get_position, pos1, ":fleader"),
         (call_script, "script_battlegroup_place_around_pos1", ":fteam", ":fdivision", ":fleader"),
       (try_end),]),
-  
+
   # script_battlegroup_place_around_pos1 by motomataru
   # Input: team, division
   # Output: pos61 division position, moves pos1
@@ -70722,11 +70732,11 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (store_script_param, ":fteam", 1),
       (store_script_param, ":fdivision", 2),
       (store_script_param, ":fleader", 3),
-      
+
       (assign, ":store_fpm", 1),
       (convert_to_fixed_point, ":store_fpm"),
       (set_fixed_point_multiplier, 100),
-      
+
       (store_sub, ":player_division", "$FormAI_player_in_division", 1),
       (try_begin),
         (eq, ":player_division", ":fdivision"),
@@ -70734,14 +70744,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (else_try),
         (assign, ":first_member_is_player", 0),
       (try_end),
-      
+
       (try_begin),
         (eq, "$FormAI_autorotate", 1),
         (call_script, "script_team_get_position_of_enemies", Enemy_Team_Pos, ":fteam", grc_everyone),
         (neq, reg0, 0),	#more than 0 enemies still alive?
         (call_script, "script_point_y_toward_position", pos1, Enemy_Team_Pos),
       (try_end),
-      
+
       (store_add, ":slot", slot_team_d0_type, ":fdivision"),
       (team_get_slot, ":sd_type", ":fteam", ":slot"),
       (store_add, ":slot", slot_team_d0_size, ":fdivision"),
@@ -70750,14 +70760,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (team_get_slot, ":fformation", ":fteam", ":slot"),
       (store_add, ":slot", slot_team_d0_formation_space, ":fdivision"),
       (team_get_slot, ":formation_extra_spacing", ":fteam", ":slot"),
-      
+
       #handle memorized placement
       (try_begin),
         (eq, ":first_member_is_player", 0),
         (store_add, ":slot", slot_faction_d0_mem_relative_x_flag, ":fdivision"),
         (faction_get_slot, ":value", "fac_player_faction", ":slot"),	#only used for player now
         (neq, ":value", 0),
-        
+
         (position_move_x, pos1, ":value", 0),
         (store_add, ":slot", slot_faction_d0_mem_relative_y, ":fdivision"),
         (faction_get_slot, ":value", "fac_player_faction", ":slot"),	#only used for player now
@@ -70781,7 +70791,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (call_script, "script_form_infantry", ":fteam", ":fdivision", ":fleader", ":formation_extra_spacing", 0, ":fformation"),
           (try_end),
         (try_end),
-        
+
       #default placement per division type
       (else_try),
         (this_or_next | eq, ":sd_type", sdt_cavalry),
@@ -70790,7 +70800,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (eq, ":first_member_is_player", 0),
           (position_move_x, pos1, "$next_cavalry_place", 0),
         (try_end),
-        
+
         (try_begin),
           (gt, ":fformation", formation_none),
           (store_mul, ":troop_space", ":formation_extra_spacing", 50),
@@ -70804,12 +70814,12 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (position_move_x, pos1, reg0, 0),	#cavalry set up RIGHT of leader
           (copy_position, pos61, pos1),
           (call_script, "script_form_cavalry", ":fteam", ":fdivision", ":fleader", ":formation_extra_spacing", ":first_member_is_player"),
-          
+
         #handle Native's way of doing things
         (else_try),
           (store_mul, ":troop_space", ":formation_extra_spacing", 133),	#cm added by each Spread Out
           (val_add, ":troop_space", 150),	#minimum spacing
-          
+
           #WFaS multi-ranks
           (try_begin),
             (eq, ":fformation", formation_2_row),
@@ -70823,7 +70833,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (else_try),
             (eq, ":fformation", formation_5_row),
             (val_div, ":num_troops", 5),
-            
+
           (else_try),	#WB multi-ranks
             (lt, ":formation_extra_spacing", 0),
             (assign, ":troop_space", 200),
@@ -70831,19 +70841,19 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (val_add, ":formation_extra_spacing", 1),
             (val_div, ":num_troops", ":formation_extra_spacing"),
           (try_end),
-          
+
           (store_mul, ":formation_width", ":num_troops", ":troop_space"),
           (store_div, reg0, ":formation_width", 2),
           (position_move_x, pos1, reg0, 0),	#cavalry set up RIGHT of leader
           (copy_position, pos61, pos1),
         (try_end),
-        
+
         (try_begin),
           (eq, ":first_member_is_player", 0),
           (val_add, "$next_cavalry_place", ":formation_width"),
           (val_add, "$next_cavalry_place", formation_minimum_spacing_horse_width),
         (try_end),
-        
+
       (else_try),
         (eq, ":sd_type", sdt_archer),
         (try_begin),
@@ -70859,7 +70869,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (position_move_x, pos1, reg0, 0),
           (call_script, "script_form_archers", ":fteam", ":fdivision", ":fleader", ":formation_extra_spacing", ":first_member_is_player", ":fformation"),
         (try_end),
-        
+
       (else_try),
         (eq, ":sd_type", sdt_skirmisher),
         (try_begin),
@@ -70874,14 +70884,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (position_move_x, pos1, reg0, 0),
           (call_script, "script_form_infantry", ":fteam", ":fdivision", ":fleader", ":formation_extra_spacing", ":first_member_is_player", ":fformation"),
         (try_end),
-        
+
       (else_try),
         (try_begin),
           (eq, ":first_member_is_player", 0),
           (position_move_x, pos1, "$next_infantry_place", 0),
         (try_end),
         (copy_position, pos61, pos1),
-        
+
         (try_begin),
           (gt, ":fformation", formation_none),
           (call_script, "script_form_infantry", ":fteam", ":fdivision", ":fleader", ":formation_extra_spacing", ":first_member_is_player", ":fformation"),
@@ -70892,12 +70902,12 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (val_add, ":formation_width", ":troop_space"),
           (val_mul, reg0, -1),	#infantry set up LEFT of leader
           (position_move_x, pos61, reg0, 0),
-          
+
         #handle Native's way of doing things
         (else_try),
           (store_mul, ":troop_space", ":formation_extra_spacing", 75),	#Native minimum spacing not consistent but less than this
           (val_add, ":troop_space", 100),	#minimum spacing
-          
+
           #WFaS multi-ranks
           (try_begin),
             (eq, ":fformation", formation_2_row),
@@ -70911,7 +70921,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (else_try),
             (eq, ":fformation", formation_5_row),
             (val_div, ":num_troops", 5),
-            
+
           (else_try),	#WB multi-ranks
             (lt, ":formation_extra_spacing", 0),
             (assign, ":troop_space", 150),
@@ -70919,20 +70929,20 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (val_add, ":formation_extra_spacing", 1),
             (val_div, ":num_troops", ":formation_extra_spacing"),
           (try_end),
-          
+
           (store_mul, ":formation_width", ":num_troops", ":troop_space"),
           (store_div, reg0, ":formation_width", 2),
           (val_mul, reg0, -1),	#infantry set up LEFT of leader
           (position_move_x, pos61, reg0, 0),
         (try_end),
-        
+
         (try_begin),
           (eq, ":first_member_is_player", 0),
           (val_sub, "$next_infantry_place", ":formation_width"),	#next infantry 1m LEFT of these
           (val_sub, "$next_infantry_place", 100),
         (try_end),
       (try_end),
-      
+
       (store_add, ":slot", slot_team_d0_move_order, ":fdivision"),
       (team_set_slot, ":fteam", ":slot", mordr_hold),
       (set_show_messages, 0),
@@ -70944,7 +70954,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (call_script, "script_set_formation_destination", ":fteam", ":fdivision", pos61),
       (set_show_messages, 1),
       (set_fixed_point_multiplier, ":store_fpm"),]),
-  
+
   # script_form_cavalry by motomataru
   # Input: (pos1), team, division, agent number of team leader, spacing, flag
   # TRUE to include team leader in formation
@@ -71001,7 +71011,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (assign, ":column", 1),
         (val_add, ":rank_dimension", 1),
       (try_end),
-      
+
       (val_add, ":max_level", 1),
       (try_for_range_backwards, ":rank_level", 0, ":max_level"),	#put troops with highest exp in front
         (try_for_agents, ":agent"),
@@ -71036,7 +71046,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (val_add, ":rank_dimension", 1),
         (end_try),
       (end_try),]),
-  
+
   # script_form_archers by motomataru
   # Input: (pos1), team, division, agent number of team leader, spacing, flag
   # TRUE to include team leader in formation, formation
@@ -71072,7 +71082,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (try_end),
         (try_end),
       (try_end),
-      
+
       (try_for_agents, ":agent"),
         (call_script, "script_cf_valid_formation_member", ":fteam", ":fdivision", ":fleader", ":agent"),
         (agent_set_scripted_destination, ":agent", pos1, 1),
@@ -71094,7 +71104,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (try_end),
         (try_end),
       (try_end),]),
-  
+
   # script_form_infantry by motomataru
   # Input: (pos1), team, division, agent number of team leader, spacing, flag
   # TRUE to include team leader in formation, formation
@@ -71124,7 +71134,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (assign, ":form_left", 1),
       (assign, ":column", 1),
       (assign, ":rank", 1),
-      
+
       (try_begin),
         (eq, ":infantry_formation", formation_square),
         (convert_to_fixed_point, ":num_troops"),
@@ -71157,18 +71167,18 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (assign, ":column", 1),
           (val_add, ":rank", 1),
         (try_end),
-        
+
         (try_for_agents, ":agent"),
           (call_script, "script_cf_valid_formation_member", ":fteam", ":fdivision", ":fleader", ":agent"),
           (call_script, "script_switch_to_noswing_weapons", ":agent", ":distance"),
-          
+
           (try_begin),
             (eq, "$battle_phase", BP_Deploy),
             (agent_set_scripted_destination, ":agent", pos1),
           (else_try),
             (call_script, "script_formation_process_agent_move", ":fteam", ":fdivision", ":agent", ":rank"),
           (try_end),
-          
+
           (try_begin),
             (eq, formation_reequip, 1),
             (eq, ":weapon_order", wordr_use_any_weapon),
@@ -71222,7 +71232,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (assign, ":column", 1),
           (val_add, ":rank", 1),
         (end_try),
-        
+
       (else_try),
         (eq, ":infantry_formation", formation_wedge),
         (try_for_range, reg0, 0, 50),
@@ -71238,7 +71248,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (gt, ":troop_level", ":max_level"),
           (assign, ":max_level", ":troop_level"),
         (end_try),
-        
+
         (assign, ":rank_dimension", 1),
         (store_div, ":wedge_adj", ":distance", 2),
         (store_div, ":neg_wedge_adj", ":neg_distance", 2),
@@ -71268,7 +71278,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (assign, ":column", 1),
           (val_add, ":rank_dimension", 1),
         (try_end),
-        
+
         (val_add, ":max_level", 1),
         (try_for_range_backwards, ":rank_level", 0, ":max_level"),	#put troops with highest exp in front
           (troop_slot_eq, "trp_temp_array_a", ":rank_level", 1),
@@ -71277,14 +71287,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (store_character_level, ":troop_level", ":troop_id"),
             (eq, ":troop_level", ":rank_level"),
             (call_script, "script_cf_valid_formation_member", ":fteam", ":fdivision", ":fleader", ":agent"),
-            
+
             (try_begin),
               (eq, "$battle_phase", BP_Deploy),
               (agent_set_scripted_destination, ":agent", pos1),
             (else_try),
               (call_script, "script_formation_process_agent_move", ":fteam", ":fdivision", ":agent", ":rank_dimension"),
             (try_end),
-            
+
             (try_begin),
               (eq, formation_reequip, 1),
               (eq, ":weapon_order", wordr_use_any_weapon),
@@ -71337,7 +71347,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (val_add, ":rank_dimension", 1),
           (end_try),
         (end_try),
-        
+
       (else_try),
         (eq, ":infantry_formation", formation_ranks),
         (try_for_range, reg0, 0, 50),
@@ -71356,7 +71366,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (gt, ":troop_level", ":max_level"),
           (assign, ":max_level", ":troop_level"),
         (end_try),
-        
+
         (try_begin),
           (eq, ":include_leader", 0),
           (store_add, ":slot", slot_team_d0_first_member, ":fdivision"),
@@ -71370,7 +71380,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (position_move_x, pos1, ":distance", 0),
           (try_end),
           (val_add, ":column", 1),
-          
+
           (gt, ":column", ":rank_dimension"),	#next rank?
           (position_move_y, pos1, ":neg_distance", 0),
           (try_begin),
@@ -71384,7 +71394,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (assign, ":column", 1),
           (val_add, ":rank", 1),
         (try_end),
-        
+
         (val_add, ":max_level", 1),
         (try_for_range_backwards, ":rank_level", 0, ":max_level"),	#put troops with highest exp in front
           (troop_slot_eq, "trp_temp_array_a", ":rank_level", 1),
@@ -71393,14 +71403,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (store_character_level, ":troop_level", ":troop_id"),
             (eq, ":troop_level", ":rank_level"),
             (call_script, "script_cf_valid_formation_member", ":fteam", ":fdivision", ":fleader", ":agent"),
-            
+
             (try_begin),
               (eq, "$battle_phase", BP_Deploy),
               (agent_set_scripted_destination, ":agent", pos1),
             (else_try),
               (call_script, "script_formation_process_agent_move", ":fteam", ":fdivision", ":agent", ":rank"),
             (try_end),
-            
+
             (try_begin),
               (eq, formation_reequip, 1),
               (eq, ":weapon_order", wordr_use_any_weapon),
@@ -71438,7 +71448,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
               (position_move_x, pos1, ":distance", 0),
             (try_end),
             (val_add, ":column", 1),
-            
+
             (gt, ":column", ":rank_dimension"),	#next rank?
             (position_move_y, pos1, ":neg_distance", 0),
             (try_begin),
@@ -71453,7 +71463,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (val_add, ":rank", 1),
           (end_try),
         (end_try),
-        
+
       (else_try),
         (eq, ":infantry_formation", formation_shield),
         (call_script, "script_calculate_default_ranks", ":num_troops"),
@@ -71472,7 +71482,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (position_move_x, pos1, ":distance", 0),
           (try_end),
           (val_add, ":column", 1),
-          
+
           (gt, ":column", ":rank_dimension"),	#next rank?
           (position_move_y, pos1, ":neg_distance", 0),
           (try_begin),
@@ -71486,32 +71496,32 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (assign, ":column", 1),
           (val_add, ":rank", 1),
         (try_end),
-        
+
         (troop_set_slot, "trp_temp_array_a", 0, 0),	#short weap agent array
         (troop_set_slot, "trp_temp_array_b", 0, 0),	#medium weap agent array
         (troop_set_slot, "trp_temp_array_c", 0, 0),	#long weap agent array
-        
+
         (try_for_agents, ":agent"),
           (call_script, "script_cf_valid_formation_member", ":fteam", ":fdivision", ":fleader", ":agent"),
           (call_script, "script_switch_to_noswing_weapons", ":agent", ":distance"),
-          
+
           (assign, ":cur_score", 0),
           (try_for_range, ":item_slot", ek_item_0, ek_head),
             (agent_get_item_slot, ":item", ":agent", ":item_slot"),
             (gt, ":item", itm_no_item),
             (item_get_type, ":weapon_type", ":item"),
             (neq, ":weapon_type", itp_type_shield),
-            
+
             (try_begin),
               (call_script, "script_cf_is_weapon_ranged", ":item", 1),
-              
+
             (else_try),
               (item_get_weapon_length, ":item_length", ":item"),
               (lt, ":cur_score", ":item_length"),
               (assign, ":cur_score", ":item_length"),
             (try_end),
           (try_end),
-          
+
           (try_begin),
             (eq, ":cur_score", 0),	#no melee weapons
             (assign, ":cur_array", "trp_temp_array_c"),
@@ -71524,24 +71534,24 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (else_try),
             (assign, ":cur_array", "trp_temp_array_b"),
           (try_end),
-          
+
           (troop_get_slot, ":array_end", ":cur_array", 0),
           (val_add, ":array_end", 1),
           (troop_set_slot, ":cur_array", ":array_end", ":agent"),
           (troop_set_slot, ":cur_array", 0, ":array_end"),
           (agent_set_slot, ":agent", slot_agent_positioned, 0),
         (try_end),
-        
+
         #find shields first
         (store_add, ":arrays_end", "trp_temp_array_c", 1),
         (try_for_range, ":cur_array", "trp_temp_array_a", ":arrays_end"),
           (troop_get_slot, ":array_end", ":cur_array", 0),
           (val_add, ":array_end", 1),
-          
+
           (try_for_range, ":slot", 1, ":array_end"),
             (troop_get_slot, ":agent", ":cur_array", ":slot"),
             (assign, ":form_up", 0),
-            
+
             (try_for_range, ":item_slot", ek_item_0, ek_head),
               (agent_get_item_slot, ":item", ":agent", ":item_slot"),
               (gt, ":item", itm_no_item),
@@ -71551,24 +71561,24 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
               (ge, reg0, 25),	#wider than troop?
               (assign, ":form_up", 1),
             (try_end),
-            
+
             (eq, ":form_up", 1),
             (agent_set_slot, ":agent", slot_agent_positioned, 1),
             (agent_set_slot, ":agent", slot_agent_inside_formation, 0),
-            
+
             (try_begin),
               (eq, "$battle_phase", BP_Deploy),
               (agent_set_scripted_destination, ":agent", pos1),
             (else_try),
               (call_script, "script_formation_process_agent_move", ":fteam", ":fdivision", ":agent", ":rank"),
             (try_end),
-            
+
             (try_begin),
               (eq, formation_reequip, 1),
               (eq, ":weapon_order", wordr_use_any_weapon),
               (call_script, "script_equip_best_melee_weapon", ":agent", 1, 0, ":fire_order"),	#best weapon, force shield
             (try_end),
-            
+
             (try_begin),
               (eq, ":form_left", 1),
               (position_move_x, pos1, ":neg_distance", 0),
@@ -71576,7 +71586,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
               (position_move_x, pos1, ":distance", 0),
             (try_end),
             (val_add, ":column", 1),
-            
+
             (gt, ":column", ":rank_dimension"),	#next rank?
             (position_move_y, pos1, ":neg_distance", 0),
             (try_begin),
@@ -71589,47 +71599,47 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (try_end),
             (assign, ":column", 1),
             (val_add, ":rank", 1),
-            
+
             #break loops
             (assign, ":array_end", ":slot"),
             (assign, ":arrays_end", ":cur_array"),
           (try_end),
         (try_end),
-        
+
         #add rest of division
         (store_add, ":arrays_end", "trp_temp_array_c", 1),
         (try_for_range, ":cur_array", "trp_temp_array_a", ":arrays_end"),
           (troop_get_slot, ":array_end", ":cur_array", 0),
           (val_add, ":array_end", 1),
-          
+
           (try_for_range, ":slot", 1, ":array_end"),
             (troop_get_slot, ":agent", ":cur_array", ":slot"),
             (agent_slot_eq, ":agent", slot_agent_positioned, 0),
             (agent_set_slot, ":agent", slot_agent_positioned, 1),
-            
+
             (try_begin),
               (eq, ":rank", 1),
               (agent_set_slot, ":agent", slot_agent_inside_formation, 0),
             (else_try),
               (agent_set_slot, ":agent", slot_agent_inside_formation, 1),
             (try_end),
-            
+
             (try_begin),
               (eq, "$battle_phase", BP_Deploy),
               (agent_set_scripted_destination, ":agent", pos1),
             (else_try),
               (call_script, "script_formation_process_agent_move", ":fteam", ":fdivision", ":agent", ":rank"),
             (try_end),
-            
+
             (try_begin),
               (eq, formation_reequip, 1),
               (eq, ":weapon_order", wordr_use_any_weapon),
-              
+
               (try_begin),
                 (eq, ":rank", 1),
                 (call_script, "script_equip_best_melee_weapon", ":agent", 0, 0, ":fire_order"),
                 (agent_ai_set_always_attack_in_melee, ":agent", 0),
-                
+
               #enemy closer than friends?
               (else_try),
                 (agent_get_slot, ":closest_enemy", ":agent", slot_agent_nearest_enemy_agent),
@@ -71639,7 +71649,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                 (le, ":enemy_distance", ":distance"),
                 (neg | position_is_behind_position, pos0, pos1),
                 (call_script, "script_equip_best_melee_weapon", ":agent", 0, 0, ":fire_order"),
-                
+
                 #behind enemy?
                 (try_begin),
                   (position_is_behind_position, pos1, pos0),
@@ -71647,14 +71657,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                 (else_try),
                   (agent_ai_set_always_attack_in_melee, ":agent", 0),
                 (try_end),
-                
+
               #equip longest weapon and avoid defensive
               (else_try),
                 (call_script, "script_equip_best_melee_weapon", ":agent", 0, 1, ":fire_order"),
                 (agent_ai_set_always_attack_in_melee, ":agent", 1),
               (try_end),
             (try_end),
-            
+
             (try_begin),
               (eq, ":form_left", 1),
               (position_move_x, pos1, ":neg_distance", 0),
@@ -71662,7 +71672,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
               (position_move_x, pos1, ":distance", 0),
             (try_end),
             (val_add, ":column", 1),
-            
+
             (gt, ":column", ":rank_dimension"),	#next rank?
             (position_move_y, pos1, ":neg_distance", 0),
             (try_begin),
@@ -71678,13 +71688,13 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (try_end),
         (try_end),
       (try_end),
-      
+
       #calculate percent in place from counts from section above (see
       #script_formation_process_agent_move)
       (store_add, ":slot", slot_team_d0_size, ":fdivision"),
       (team_get_slot, ":num_troops", ":fteam", ":slot"),
       (store_add, ":slot", slot_team_d0_percent_in_place, ":fdivision"),
-      
+
       (try_begin),
         (eq, ":num_troops", 0),
         (team_set_slot, ":fteam", ":slot", 0),
@@ -71695,7 +71705,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (team_set_slot, ":fteam", ":slot", reg0),
       (try_end),
   ]),
-  
+
   # script_get_default_formation by motomataru
   # Input: team id
   # Output: reg0 default formation
@@ -71708,13 +71718,13 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (is_between, "$players_kingdom", npc_kingdoms_begin, npc_kingdoms_end),
         (assign, ":ffaction", "$players_kingdom"),
       (try_end),
-      
+
       (try_begin),
         (is_between, ":ffaction", "fac_player_faction", kingdoms_end),
         (faction_slot_ge, ":ffaction", slot_faction_culture, 1),
         (faction_get_slot, ":ffaction", ":ffaction", slot_faction_culture),
       (try_end),
-      
+
       #assign default formation
       (try_begin),
         (eq, ":ffaction", fac_kingdom_1),	#Swadians
@@ -71741,7 +71751,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (else_try),
         (assign, reg0, formation_none),	#riffraff don't use formations
       (try_end),]),
-  
+
   # script_switch_to_noswing_weapons by motomataru
   # Input: agent, formation spacing
   # Output: none
@@ -71752,14 +71762,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (agent_get_item_slot, ":item", ":agent", ":item_slot"),
         (call_script, "script_cf_is_thrusting_weapon", ":item"),
         (item_get_weapon_length, ":weap_len",":item"),
-        
+
         (try_begin),
           (ge, ":weap_len", ":formation_spacing"),	#avoid switching when weapon still has room to be swung
           (item_get_slot, ":noswing_version", ":item", slot_item_alternate),
           (gt, ":noswing_version", "itm_items_end"),
           (agent_unequip_item, ":agent", ":item", ":item_slot"),	#assumes first ek_* are the weapons
           (agent_equip_item, ":agent", ":noswing_version", ":item_slot"),	#assumes first ek_* are the weapons
-          
+
         #undo legacy switches
         (else_try),
           (gt, ":item", "itm_items_end"),
@@ -71768,7 +71778,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (agent_equip_item, ":agent", ":original_version", ":item_slot"),	#assumes first ek_* are the weapons
         (try_end),
       (try_end),]),
-  
+
   # script_switch_from_noswing_weapons by motomataru
   # Input: agent
   # Output: none
@@ -71781,7 +71791,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (agent_unequip_item, ":agent", ":item", ":item_slot"),	#assumes first ek_* are the weapons
         (agent_equip_item, ":agent", ":original_version", ":item_slot"),	#assumes first ek_* are the weapons
       (try_end),]),
-  
+
   # script_formation_process_agent_move by motomataru
   # Input: (pos1), team, division, agent, which rank of formation agent is in
   # Output: (pos1) may change to reference first agent's anticipated position
@@ -71792,33 +71802,33 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (store_script_param, ":fdivision", 2),
       (store_script_param, ":agent", 3),
       (store_script_param, ":rank", 4),
-      
+
       (agent_set_scripted_destination, ":agent", pos1, 1),
-      
+
       (agent_get_position, Current_Pos, ":agent"),
       (get_distance_between_positions, ":distance_to_go", Current_Pos, pos1),
-      
+
       (store_add, ":slot", slot_team_d0_speed_limit, ":fdivision"),
       (team_get_slot, ":speed_limit", ":fteam", ":slot"),
-      
+
       (agent_get_speed, Speed_Pos, ":agent"),
       (position_transform_position_to_parent, Temp_Pos, Current_Pos, Speed_Pos),
       (call_script, "script_point_y_toward_position", Current_Pos, Temp_Pos),	#get direction of travel
       (store_mul, ":expected_travel", reg0, formation_reform_interval),
       (store_div, ":speed", ":expected_travel", Km_Per_Hour_To_Cm),
-      
+
       #First Agent
       (try_begin),
         (store_add, ":slot", slot_team_d0_first_member, ":fdivision"),
         (neg | team_slot_ge, ":fteam", ":slot", 0),
         (team_set_slot, ":fteam", ":slot", ":agent"),
-        
+
         (try_begin),	#reset speed when first member stopped
           (le, ":speed", 5),	#minimum observed speed
           (store_add, ":slot", slot_team_d0_speed_limit, ":fdivision"),
           (team_set_slot, ":fteam", ":slot", Top_Speed),
           (agent_set_speed_limit, ":agent", Top_Speed),
-          
+
         (else_try),	#first member in motion
           (val_mul, ":speed", 2),	#after terrain & encumbrance, agents tend to move about half their speed limit
           (try_begin),	#speed up if everyone caught up
@@ -71833,37 +71843,37 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (val_sub, ":speed_limit", 1),
             (val_max, ":speed_limit", 5),	#minimum observed speed
           (try_end),
-          
+
           #build formation from first agent
           (store_add, ":slot", slot_team_d0_prev_first_member, ":fdivision"),
           (team_slot_eq, ":fteam", ":slot", ":agent"),	#looking at same first member as last call?
-          
+
           (call_script, "script_battlegroup_get_position", Temp_Pos, ":fteam", ":fdivision"),
           (get_distance_between_positions, ":distance_from_group", Current_Pos, Temp_Pos),
           (call_script, "script_battlegroup_get_action_radius", ":fteam", ":fdivision"),
           (val_div, reg0, 2),	#function returns length of bg
           (val_sub, ":distance_from_group", reg0),
           (lt, ":distance_from_group", 2000),	#within 20m of rest of division?
-          
+
           (store_mul, ":expected_travel", ":speed_limit", Km_Per_Hour_To_Cm),
           (lt, ":expected_travel", ":distance_to_go"),	#more than one call from destination?
-          
+
           (store_add, ":slot", slot_team_d0_speed_limit, ":fdivision"),
           (team_set_slot, ":fteam", ":slot", ":speed_limit"),
           (agent_set_speed_limit, ":agent", ":speed_limit"),
-          
+
           (copy_position, Temp_Pos, Current_Pos),
           (call_script, "script_point_y_toward_position", Temp_Pos, pos1),
           (position_move_y, Temp_Pos, ":expected_travel", 0),	#anticipate where first member will be next
           (position_copy_rotation, Temp_Pos, pos1),	#conserve destination facing of formation
           (copy_position, pos1, Temp_Pos),	#reference the rest of the formation to first member's anticipated position
         (try_end),
-        
+
         (store_add, ":slot", slot_team_d0_percent_in_place, ":fdivision"),
         (team_set_slot, ":fteam", ":slot", 1),	#reinit: always count first member as having arrived
         (store_add, ":slot", slot_team_d0_prev_first_member, ":fdivision"),
         (team_set_slot, ":fteam", ":slot", ":agent"),
-        
+
       #Not First Agent
       (else_try),
         (try_begin),
@@ -71891,10 +71901,10 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (team_set_slot, ":fteam", ":slot", reg0),
         (try_end),
       (try_end),
-      
+
       #Housekeeping
       (agent_set_slot, ":agent", slot_agent_formation_rank, ":rank"),]),
-  
+
   # script_pick_native_formation by motomataru
   # Input: team, division
   # Output: reg0 with formation_*_row (see module_constants)
@@ -71902,10 +71912,10 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
   ("pick_native_formation", [
       (store_script_param, ":team", 1),
       (store_script_param, ":division", 2),
-      
+
       (store_add, ":slot", slot_team_d0_size, ":division"),
       (team_get_slot, ":bg_size", ":team", ":slot"),
-      
+
       (try_begin),
         (eq, ":bg_size", 0),	#script_store_battlegroup_data is not being called
         (team_get_leader, ":leader", ":team"),
@@ -71914,7 +71924,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (val_add, ":bg_size", 1),
         (try_end),
       (try_end),
-      
+
       (call_script, "script_calculate_default_ranks", ":bg_size"),
       (try_begin),
         (eq, reg1, 1),
@@ -71934,7 +71944,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (assign, reg0, formation_5_row),
         (assign, reg1, 5),
       (try_end)]),
-  
+
   # script_calculate_default_ranks by motomataru
   # Input: number of troops
   # Output: reg1 with number of rows
@@ -71943,7 +71953,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
   # quadratic formula to solve (5R^2 + 5(R+1)^2)/2
   ("calculate_default_ranks", [
       (store_script_param, ":bg_size", 1),
-      
+
       (val_mul, ":bg_size", 20),
       (val_sub, ":bg_size", 25),
       (convert_to_fixed_point, ":bg_size"),
@@ -71952,7 +71962,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (val_sub, reg1, 5),
       (val_div, reg1, 10),
       (val_add, reg1, 1),]),
-  
+
   # script_get_centering_amount by motomataru
   # Input: formation type, number of troops, extra spacing
   #        Use formation type formation_default to use script for archer line
@@ -71989,7 +71999,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (store_mul, reg0, ":num_troops", ":troop_space"),
       (try_end),
       (val_div, reg0, 2),]),
-  
+
   # script_formation_end
   # Input: team, division
   # Output: none
@@ -72000,16 +72010,16 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (store_add, ":slot", slot_team_d0_formation, ":fdivision"),
         (neg | team_slot_eq, ":fteam", ":slot", formation_none),
         (team_slot_ge, ":fteam", ":slot", formation_none),
-        
+
         (try_begin),
           (eq, Native_Formations_Implementation, WFaS_Implementation),
           (team_set_slot, ":fteam", ":slot", formation_2_row),
         (else_try),
           (team_set_slot, ":fteam", ":slot", formation_none),
         (try_end),
-        
+
         (team_get_leader, ":leader", ":fteam"),
-        
+
         (try_for_agents, ":agent"),
           (agent_is_alive, ":agent"),
           (agent_is_human, ":agent"),
@@ -72025,12 +72035,12 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (agent_set_slot, ":agent", slot_agent_formation_rank, 0),
           (agent_set_slot, ":agent", slot_agent_inside_formation, 0),
         (try_end),
-        
+
         (try_begin),
           (eq, ":fteam", "$fplayer_team_no"),
           (store_add, ":slot", slot_team_d0_formation_space, ":fdivision"),
           (team_get_slot, ":div_spacing", "$fplayer_team_no", ":slot"),
-          
+
           #adjust for differences between the systems of spreading out (Native spreads
           #out about twice as much)
           (try_begin),
@@ -72039,9 +72049,9 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (else_try),
             (assign, ":max_spacing", 2),
           (try_end),
-          
+
           (store_mul, ":double_max", ":max_spacing", 2),
-          
+
           (try_begin),
             (ge, ":div_spacing", ":double_max"),	#beyond Native max
             (assign, ":div_spacing", ":max_spacing"),
@@ -72052,11 +72062,11 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (set_show_messages, 1),
             (val_div, ":div_spacing", 2),
           (try_end),
-          
+
           (team_set_slot, "$fplayer_team_no", ":slot", ":div_spacing"),
         (try_end),
       (try_end),]),
-  
+
   # script_formation_move_position by motomataru
   # Input: team, division, formation current position, (1 to advance or -1 to
   # withdraw or 0 to redirect)
@@ -72108,13 +72118,13 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (val_mul, reg0, -1),
           (try_end),
           (position_move_x, pos1, reg0, 0),
-          
+
           #out of bounds
         (else_try),
           (copy_position, pos1, ":fcurrentpos"),	#restore current formation "position"
         (try_end),
       (try_end),]),
-  
+
   # script_cf_battlegroup_valid_formation
   # Input: team, division, formation
   # Output: reg0: troop count/1 if too few troops/0 if wrong type
@@ -72122,7 +72132,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (store_script_param, ":fteam", 1),
       (store_script_param, ":fdivision", 2),
       (store_script_param, ":fformation", 3),
-      
+
       (assign, ":valid_type", 0),
       (store_add, ":slot", slot_team_d0_type, ":fdivision"),
       (team_get_slot, ":sd_type", ":fteam", ":slot"),
@@ -72148,7 +72158,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (gt, ":fformation", formation_none),
         (assign, ":valid_type", 1), #all types valid
       (try_end),
-      
+
       (try_begin),
         (eq, ":valid_type", 0),
         (assign, ":num_troops", 0),
@@ -72158,10 +72168,10 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (lt, ":num_troops", ":size_minimum"),
         (assign, ":num_troops", 1),
       (try_end),
-      
+
       (assign, reg0, ":num_troops"),
       (gt, ":num_troops", 1)]),
-  
+
   # script_cf_valid_formation_member by motomataru #CABA - Modified for
   # Classify_agent phase out
   # Input: team, division, agent number of team leader, test agent
@@ -72179,7 +72189,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (agent_is_alive, ":agent"),
       (agent_is_human, ":agent"),
       (agent_slot_eq, ":agent", slot_agent_is_running_away, 0),]),
-  
+
   # #Player team formations functions
   # script_player_attempt_formation
   # Inputs: arg1: division
@@ -72209,7 +72219,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (str_store_string, s1, "@up"),
       (try_end),
       (str_store_class_name, s2, ":fdivision"),
-      
+
       (try_begin),
         (call_script, "script_cf_battlegroup_valid_formation", "$fplayer_team_no", ":fdivision", ":fformation"),
         (try_begin),	#new formation?
@@ -72222,10 +72232,10 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (team_set_slot, "$fplayer_team_no", ":slot", 1),
           (store_add, ":slot", slot_team_d0_target_team, ":fdivision"),
           (team_set_slot, "$fplayer_team_no", ":slot", -1),
-          
+
           (store_add, ":slot", slot_team_d0_formation_space, ":fdivision"),
           (team_get_slot, ":div_spacing", "$fplayer_team_no", ":slot"),
-          
+
           #bring unformed divisions into sync with formations' minimum
           (set_show_messages, 0),
           (assign, reg0, ":div_spacing"),
@@ -72234,10 +72244,10 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (val_add, ":div_spacing", 1),
           (try_end),
           (set_show_messages, 1),
-          
+
           (team_set_slot, "$fplayer_team_no", ":slot", ":div_spacing"),
         (try_end),
-        
+
         #divisions must stop to order themselves
         (store_add, ":slot", slot_team_d0_move_order, ":fdivision"),
         (team_get_slot, ":div_order", "$fplayer_team_no", ":slot"),
@@ -72249,7 +72259,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (team_give_order, "$fplayer_team_no", ":fdivision", mordr_hold),
           (call_script, "script_set_formation_destination", "$fplayer_team_no", ":fdivision", pos1),
         (try_end),
-        
+
       (else_try),
         (assign, ":return_val", reg0),
         (call_script, "script_formation_end", "$fplayer_team_no", ":fdivision"),
@@ -72265,7 +72275,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (display_message, "@Division {reg1} {s2} is an {s3} division and cannot form {s1}."),
         (try_end),
       (try_end),
-      
+
       (try_begin),
         (eq, ":form_on_spot", 0),
         (call_script, "script_battlegroup_place_around_leader", "$fplayer_team_no", ":fdivision", "$fplayer_agent_no"),
@@ -72274,15 +72284,15 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (copy_position, pos1, Target_Pos),
         (call_script, "script_battlegroup_place_around_pos1", "$fplayer_team_no", ":fdivision", "$fplayer_agent_no"),
       (try_end),]),
-  
+
   # script_player_formation_end
   # Input: division
   # Output: none
   ("player_formation_end", [
       (store_script_param, ":fdivision", 1),
-      
+
       (call_script, "script_formation_end", "$fplayer_team_no", ":fdivision"),
-      
+
       (store_add, ":slot", slot_team_d0_type, ":fdivision"),
       (str_store_class_name, s1, ":fdivision"),
       (try_begin),
@@ -72302,7 +72312,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (else_try),
         (display_message, "@{s1}: formation disassembled."),
       (try_end),]),
-  
+
   # script_player_order_formations by motomataru TODO add native weapon
   # commands
   # Inputs: arg1: order to formation (mordr_*)
@@ -72310,7 +72320,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
   ("player_order_formations", [
       (store_script_param, ":forder", 1),
       (set_fixed_point_multiplier, 100),
-      
+
       (try_begin), #On hold, any formations reform in new location
         (eq, ":forder", mordr_hold),
         (call_script, "script_division_reset_places"),
@@ -72324,7 +72334,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (team_get_slot, ":formation", "$fplayer_team_no", ":slot"),
           (call_script, "script_player_attempt_formation", ":division", ":formation", 0),
         (try_end),
-        
+
       (else_try),	#Follow is hold repeated frequently
         (eq, ":forder", mordr_follow),
         (try_for_range, ":division", 0, 9),
@@ -72333,15 +72343,15 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (team_set_slot, "$fplayer_team_no", ":slot", -1),
           (store_add, ":slot", slot_team_d0_size, ":division"),	#apply to all divisions (not just formations)
           (team_slot_ge, "$fplayer_team_no", ":slot", 1),
-          
+
           (store_add, ":slot", slot_team_d0_formation, ":division"),	#update formations
           (team_get_slot, ":formation", "$fplayer_team_no", ":slot"),
           (call_script, "script_player_attempt_formation", ":division", ":formation", 0),
-          
+
           (store_add, ":slot", slot_team_d0_move_order, ":division"),
           (team_set_slot, "$fplayer_team_no", ":slot", ":forder"),
         (try_end),
-        
+
       (else_try),	#charge or retreat ends formation
         (this_or_next | eq, ":forder", mordr_charge),
         (eq, ":forder", mordr_retreat),
@@ -72351,13 +72361,13 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (team_set_slot, "$fplayer_team_no", ":slot", -1),
           (store_add, ":slot", slot_team_d0_move_order, ":division"),
           (team_set_slot, "$fplayer_team_no", ":slot", ":forder"),
-          
+
           (store_add, ":slot", slot_team_d0_formation, ":division"),
           (team_get_slot, ":formation", "$fplayer_team_no", ":slot"),
           (gt, ":formation", formation_none),
           (call_script, "script_player_formation_end", ":division"),
         (try_end),
-        
+
       (else_try),
         (eq, ":forder", mordr_form_1_row),
         (try_for_range, ":division", 0, 9),
@@ -72372,7 +72382,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (store_add, ":slot", slot_team_d0_formation_num_ranks, ":division"),
           (team_set_slot, "$fplayer_team_no", ":slot", 1),
         (try_end),
-        
+
       (else_try),
         (eq, ":forder", mordr_form_2_row),
         (try_for_range, ":division", 0, 9),
@@ -72387,7 +72397,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (store_add, ":slot", slot_team_d0_formation_num_ranks, ":division"),
           (team_set_slot, "$fplayer_team_no", ":slot", 2),
         (try_end),
-        
+
       (else_try),
         (eq, ":forder", mordr_form_3_row),
         (try_for_range, ":division", 0, 9),
@@ -72402,7 +72412,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (store_add, ":slot", slot_team_d0_formation_num_ranks, ":division"),
           (team_set_slot, "$fplayer_team_no", ":slot", 3),
         (try_end),
-        
+
       (else_try),
         (eq, ":forder", mordr_form_4_row),
         (try_for_range, ":division", 0, 9),
@@ -72417,7 +72427,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (store_add, ":slot", slot_team_d0_formation_num_ranks, ":division"),
           (team_set_slot, "$fplayer_team_no", ":slot", 4),
         (try_end),
-        
+
       (else_try),
         (eq, ":forder", mordr_form_5_row),
         (try_for_range, ":division", 0, 9),
@@ -72432,7 +72442,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (store_add, ":slot", slot_team_d0_formation_num_ranks, ":division"),
           (team_set_slot, "$fplayer_team_no", ":slot", 5),
         (try_end),
-        
+
       (else_try),	#dismount ends formation
         (eq, ":forder", mordr_dismount),
         (try_for_range, ":division", 0, 9),
@@ -72446,7 +72456,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (team_slot_eq, "$fplayer_team_no", ":slot", sdt_harcher),
             (call_script, "script_formation_end", "$fplayer_team_no", ":division"),
             (display_message, "@Cavalry formation disassembled."),
-            
+
           (else_try),	#address bug that cavalry in scripted mode won't dismount
             (try_for_agents, ":agent"),
               (agent_is_alive, ":agent"),
@@ -72461,7 +72471,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (try_end),
           (try_end),
         (try_end),
-        
+
       (else_try),
         (eq, ":forder", mordr_advance),
         (try_for_range, ":division", 0, 9),
@@ -72471,21 +72481,21 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (store_add, ":slot", slot_team_d0_move_order, ":division"),
           (team_get_slot, ":prev_order", "$fplayer_team_no", ":slot"),
           (team_set_slot, "$fplayer_team_no", ":slot", ":forder"),
-          
+
           (store_add, ":slot", slot_team_d0_formation, ":division"),
           (team_get_slot, ":formation", "$fplayer_team_no", ":slot"),
           (gt, ":formation", formation_none),
-          
+
           (store_add, ":slot", slot_team_d0_fclock, ":division"),
           (team_set_slot, "$fplayer_team_no", ":slot", 1),
-          
+
           (call_script, "script_formation_current_position", pos63, "$fplayer_team_no", ":division"),
           (try_begin),
             (neq, ":prev_order", mordr_advance),
             (call_script, "script_set_formation_destination", "$fplayer_team_no", ":division", pos63),
           (try_end),
           (call_script, "script_formation_move_position", "$fplayer_team_no", ":division", pos63, 1),
-          
+
           (store_add, ":slot", slot_team_d0_formation_space, ":division"),
           (team_get_slot, ":div_spacing", "$fplayer_team_no", ":slot"),
           (store_add, ":slot", slot_team_d0_type, ":division"),
@@ -72500,7 +72510,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (call_script, "script_form_infantry", "$fplayer_team_no", ":division", "$fplayer_agent_no", ":div_spacing", 0, ":formation"),
           (try_end),
         (try_end),
-        
+
       (else_try),
         (eq, ":forder", mordr_fall_back),
         (try_for_range, ":division", 0, 9),
@@ -72510,21 +72520,21 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (store_add, ":slot", slot_team_d0_move_order, ":division"),
           (team_get_slot, ":prev_order", "$fplayer_team_no", ":slot"),
           (team_set_slot, "$fplayer_team_no", ":slot", ":forder"),
-          
+
           (store_add, ":slot", slot_team_d0_formation, ":division"),
           (team_get_slot, ":formation", "$fplayer_team_no", ":slot"),
           (gt, ":formation", formation_none),
-          
+
           (store_add, ":slot", slot_team_d0_fclock, ":division"),
           (team_set_slot, "$fplayer_team_no", ":slot", 1),
-          
+
           (call_script, "script_formation_current_position", pos63, "$fplayer_team_no", ":division"),
           (try_begin),
             (neq, ":prev_order", mordr_fall_back),
             (call_script, "script_set_formation_destination", "$fplayer_team_no", ":division", pos63),
           (try_end),
           (call_script, "script_formation_move_position", "$fplayer_team_no", ":division", pos63, -1),
-          
+
           (store_add, ":slot", slot_team_d0_formation_space, ":division"),
           (team_get_slot, ":div_spacing", "$fplayer_team_no", ":slot"),
           (store_add, ":slot", slot_team_d0_type, ":division"),
@@ -72539,32 +72549,32 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (call_script, "script_form_infantry", "$fplayer_team_no", ":division", "$fplayer_agent_no", ":div_spacing", 0, ":formation"),
           (try_end),
         (try_end),
-        
+
       (else_try),
         (eq, ":forder", mordr_stand_closer),
         (try_for_range, ":division", 0, 9),
           (class_is_listening_order, "$fplayer_team_no", ":division"),
-          
+
           (try_begin),
             (eq, Native_Formations_Implementation, WB_Implementation),
             (assign, ":min_spacing", -3),	#WB formations go down to four ranks by using Stand Closer
           (else_try),
             (assign, ":min_spacing", 0),
           (try_end),
-          
+
           (store_add, ":slot", slot_team_d0_formation_space, ":division"),
           (team_get_slot, ":div_spacing", "$fplayer_team_no", ":slot"),
           (gt, ":div_spacing", ":min_spacing"),
           (val_sub, ":div_spacing", 1),
           (team_set_slot, "$fplayer_team_no", ":slot", ":div_spacing"),
-          
+
           (store_add, ":slot", slot_team_d0_formation, ":division"),
           (team_get_slot, ":formation", "$fplayer_team_no", ":slot"),
           (gt, ":formation", formation_none),
-          
+
           (store_add, ":slot", slot_team_d0_fclock, ":division"),
           (team_set_slot, "$fplayer_team_no", ":slot", 1),
-          
+
           (try_begin),	#bring unformed divisions into sync with formations' minimum
             (lt, ":div_spacing", 0),
             (set_show_messages, 0),
@@ -72576,7 +72586,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (set_show_messages, 1),
             (store_add, ":slot", slot_team_d0_formation_space, ":division"),
             (team_set_slot, "$fplayer_team_no", ":slot", ":div_spacing"),
-            
+
           (else_try),
             (call_script, "script_get_formation_destination", pos1, "$fplayer_team_no", ":division"),
             (try_begin),
@@ -72608,19 +72618,19 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (try_end),
           (try_end),
         (try_end),
-        
+
       (else_try),
         (eq, ":forder", mordr_spread_out),
         (try_for_range, ":division", 0, 9),
           (class_is_listening_order, "$fplayer_team_no", ":division"),
-          
+
           (try_begin),
             (eq, Native_Formations_Implementation, WFaS_Implementation),
             (assign, ":max_spacing", 3),
           (else_try),
             (assign, ":max_spacing", 2),
           (try_end),
-          
+
           (store_add, ":slot", slot_team_d0_formation, ":division"),
           (team_get_slot, ":formation", "$fplayer_team_no", ":slot"),
           (store_add, ":slot", slot_team_d0_formation_space, ":division"),
@@ -72631,12 +72641,12 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (val_add, ":div_spacing", 1),
           (try_end),
           (team_set_slot, "$fplayer_team_no", ":slot", ":div_spacing"),
-          
+
           (gt, ":formation", formation_none),
-          
+
           (store_add, ":slot", slot_team_d0_fclock, ":division"),
           (team_set_slot, "$fplayer_team_no", ":slot", 1),
-          
+
           #bring unformed divisions into sync with formations' minimum
           (set_show_messages, 0),
           (assign, reg0, ":div_spacing"),
@@ -72647,7 +72657,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (set_show_messages, 1),
           (store_add, ":slot", slot_team_d0_formation_space, ":division"),
           (team_set_slot, "$fplayer_team_no", ":slot", ":div_spacing"),
-          
+
           (call_script, "script_get_formation_destination", pos1, "$fplayer_team_no", ":division"),
           (try_begin),
             (store_add, ":slot", slot_team_d0_first_member, ":division"),
@@ -72677,7 +72687,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (call_script, "script_form_infantry", "$fplayer_team_no", ":division", "$fplayer_agent_no", ":div_spacing", ":first_member_is_player", ":formation"),
           (try_end),
         (try_end),
-        
+
       (else_try),
         (eq, ":forder", mordr_stand_ground),
         (try_for_range, ":division", 0, 9),
@@ -72686,19 +72696,19 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (team_set_slot, "$fplayer_team_no", ":slot", -1),
           (store_add, ":slot", slot_team_d0_move_order, ":division"),
           (team_set_slot, "$fplayer_team_no", ":slot", ":forder"),
-          
+
           (store_add, ":slot", slot_team_d0_formation, ":division"),
           (team_get_slot, ":formation", "$fplayer_team_no", ":slot"),
           (gt, ":formation", formation_none),
-          
+
           (store_add, ":slot", slot_team_d0_fclock, ":division"),
           (team_set_slot, "$fplayer_team_no", ":slot", 1),
-          
+
           (call_script, "script_formation_current_position", pos63, "$fplayer_team_no", ":division"),
           (copy_position, pos1, pos63),
           (store_add, ":slot", slot_team_d0_formation_space, ":division"),
           (team_get_slot, ":div_spacing", "$fplayer_team_no", ":slot"),
-          
+
           (try_begin),
             (store_add, ":slot", slot_team_d0_first_member, ":division"),
             (team_slot_eq, "$fplayer_team_no", ":slot", "$fplayer_agent_no"),
@@ -72729,7 +72739,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (call_script, "script_set_formation_destination", "$fplayer_team_no", ":division", pos63),
         (try_end),
       (try_end)]),
-  
+
   # script_memorize_division_placements by motomataru
   # Inputs: none
   # Output: none
@@ -72737,22 +72747,22 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (set_fixed_point_multiplier, 100),
       (call_script, "script_team_get_position_of_enemies", Enemy_Team_Pos, "$fplayer_team_no", grc_everyone),
       (assign, ":num_enemies", reg0),
-      
+
       (try_for_range, ":division", 0, 9),
         (class_is_listening_order, "$fplayer_team_no", ":division"),
         (store_add, ":slot", slot_team_d0_size, ":division"),
         (team_slot_ge, "$fplayer_team_no", ":slot", 1),
-        
+
         (store_add, ":slot", slot_team_d0_formation, ":division"),
         (team_get_slot, ":value", "$fplayer_team_no", ":slot"),
         (store_add, ":slot", slot_faction_d0_mem_formation, ":division"),
         (faction_set_slot, "fac_player_faction", ":slot", ":value"),
-        
+
         (store_add, ":slot", slot_team_d0_formation_space, ":division"),
         (team_get_slot, ":value", "$fplayer_team_no", ":slot"),
         (store_add, ":slot", slot_faction_d0_mem_formation_space, ":division"),
         (faction_set_slot, "fac_player_faction", ":slot", ":value"),
-        
+
         (agent_get_position, pos1, "$fplayer_agent_no"),
         (try_begin),
           (neq, ":num_enemies", 0),	#more than 0 enemies still alive?
@@ -72762,22 +72772,22 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         # "$fplayer_team_no", ":division"),
         (team_get_order_position, Current_Pos, "$fplayer_team_no", ":division"),	#use this to capture Native Advance and Fall Back positioning
         (position_transform_position_to_local, Temp_Pos, pos1, Current_Pos), #Temp_Pos = vector to division w.r.t.  leader facing enemy
-        
+
         (position_get_x, ":value", Temp_Pos),
         (store_add, ":slot", slot_faction_d0_mem_relative_x_flag, ":division"),
         (faction_set_slot, "fac_player_faction", ":slot", ":value"),
-        
+
         (position_get_y, ":value", Temp_Pos),
         (store_add, ":slot", slot_faction_d0_mem_relative_y, ":division"),
         (faction_set_slot, "fac_player_faction", ":slot", ":value"),
-        
+
         (store_add, ":slot", slot_team_d0_type, ":division"),
         (team_get_slot, ":value", "$fplayer_team_no", ":slot"),
         (call_script, "script_str_store_division_type_name", s1, ":value"),
         (store_add, reg0, ":division", 1),
         (display_message, "@The placement of {s1} division {reg0} memorized."),
       (try_end),]),
-  
+
   # script_default_division_placements by motomataru
   # Inputs: none
   # Output: none
@@ -72786,7 +72796,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (class_is_listening_order, "$fplayer_team_no", ":division"),
         (store_add, ":slot", slot_faction_d0_mem_relative_x_flag, ":division"),	#use as flag
         (faction_set_slot, "fac_player_faction", ":slot", 0),
-        
+
         (store_add, ":slot", slot_team_d0_size, ":division"),
         (team_slot_ge, "$fplayer_team_no", ":slot", 1),
         (store_add, ":slot", slot_team_d0_type, ":division"),
@@ -72795,7 +72805,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (store_add, reg0, ":division", 1),
         (display_message, "@The placement of {s1} division {reg0} set to default."),
       (try_end),]),
-  
+
   # script_process_place_divisions by motomataru
   # Inputs: none
   # Output: none
@@ -72813,14 +72823,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (team_get_order_position, pos1, "$fplayer_team_no", ":division"),
         (val_add, ":num_bgroups", 1),
       (try_end),
-      
+
       (try_begin),
         (gt, ":num_bgroups", 0),
         (copy_position, Target_Pos, pos1),	#kludge around team_get_order_position rotation problems
-        
+
         (try_begin),
           (eq, "$battle_phase", BP_Deploy),
-          
+
           (try_begin),
             (eq, "$g_is_quick_battle", 1),
             (assign, reg0, 5),
@@ -72828,7 +72838,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (party_get_skill_level, reg0, "p_main_party", "skl_tactics"),
           (try_end),
           (store_mul, ":range_limit", reg0, 1000),
-          
+
           (agent_get_position, Temp_Pos, "$fplayer_agent_no"),
           (get_distance_between_positions, reg0, Target_Pos, Temp_Pos),
           (lt, ":range_limit", reg0),
@@ -72837,7 +72847,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (copy_position, Target_Pos, Temp_Pos),
           (position_move_y, Target_Pos, ":range_limit"),
         (try_end),
-        
+
         #player designating target battlegroup?
         (assign, ":distance_to_enemy", Far_Away),
         (try_for_range, ":team", 0, 4),
@@ -72854,10 +72864,10 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (assign, ":closest_enemy_division", ":division"),
           (try_end),
         (try_end),
-        
+
         (call_script, "script_battlegroup_get_action_radius", ":closest_enemy_team", ":closest_enemy_division"),
         (assign, ":radius_enemy_battlegroup", reg0),
-        
+
         (try_begin),
           (le, ":distance_to_enemy", ":radius_enemy_battlegroup"),	#target position within radius of an enemy battlegroup?
           (le, ":distance_to_enemy", AI_charge_distance),	#limit so player can place divisions near large enemy battlegroups without
@@ -72869,10 +72879,10 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (call_script, "script_str_store_division_type_name", s1, reg0),
           (display_message, "@...and attack enemy {s1} division!"),
         (try_end),
-        
+
         (call_script, "script_team_get_position_of_enemies", Enemy_Team_Pos, "$fplayer_team_no", grc_everyone),
         (call_script, "script_point_y_toward_position", Target_Pos, Enemy_Team_Pos),
-        
+
         #place player divisions
         (agent_get_position, pos49, "$fplayer_agent_no"),
         (try_for_range, ":division", 0, 9),
@@ -72880,7 +72890,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (store_add, ":slot", slot_team_d0_size, ":division"),
           (team_get_slot, ":troop_count", "$fplayer_team_no", ":slot"),
           (gt, ":troop_count", 0),
-          
+
           (try_begin),
             (le, ":distance_to_enemy", ":radius_enemy_battlegroup"),	#target position within radius of an enemy battlegroup?
             (le, ":distance_to_enemy", AI_charge_distance),	#limit so player can place divisions near large enemy battlegroups without
@@ -72890,10 +72900,10 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (store_add, ":slot", slot_team_d0_target_division, ":division"),
             (team_set_slot, "$fplayer_team_no", ":slot", ":closest_enemy_division"),
           (try_end),
-          
+
           (store_add, ":slot", slot_team_d0_formation, ":division"),
           (team_get_slot, ":fformation", "$fplayer_team_no", ":slot"),
-          
+
           (try_begin),
             (gt, ":num_bgroups", 1),
             (agent_set_position, "$fplayer_agent_no", Target_Pos),	#fake out script_battlegroup_place_around_leader
@@ -72909,9 +72919,9 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
               (call_script, "script_str_store_division_type_name", s1, reg0),
               (display_message, "@...and attack enemy {s1} division!"),
             (try_end),
-            
+
             (call_script, "script_set_formation_destination", "$fplayer_team_no", ":division", Target_Pos),
-            
+
             (gt, ":fformation", formation_none),
             (store_add, ":slot", slot_team_d0_formation_space, ":division"),
             (team_get_slot, ":div_spacing", "$fplayer_team_no", ":slot"),
@@ -72942,14 +72952,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (agent_set_position, "$fplayer_agent_no", pos49),
       (try_end),	#num_bgroups > 0
   ]),
-  
+
   # script_process_player_division_positioning by motomataru
   # Inputs: none
   # Output: none
   # Expects Enemy_Team_Pos
   ("process_player_division_positioning", [
       (call_script, "script_division_reset_places"),
-      
+
       #implement HOLD OVER THERE when player lets go of key
       (try_begin),
         (ge, "$gk_order_hold_over_there", HOT_F1_held),
@@ -72957,7 +72967,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (assign, "$gk_order_hold_over_there", HOT_no_order),
         (call_script, "script_process_place_divisions"),
       (try_end),	#HOLD OVER THERE
-      
+
       #periodic functions
       (assign, ":save_autorotate", "$FormAI_autorotate"),
       (assign, "$FormAI_autorotate", 0),
@@ -72965,7 +72975,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (store_add, ":slot", slot_team_d0_size, ":division"),
         (team_get_slot, ":troop_count", "$fplayer_team_no", ":slot"),
         (gt, ":troop_count", 0),
-        
+
         (store_add, ":slot", slot_team_d0_target_team, ":division"),
         (team_get_slot, ":target_team", "$fplayer_team_no", ":slot"),
         (store_add, ":slot", slot_team_d0_target_division, ":division"),
@@ -72974,39 +72984,39 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (ge, ":target_team", 0),	#enemy battlegroup targeted?
           (store_add, ":slot", slot_team_d0_size, ":target_division"),
           (team_get_slot, reg0, ":target_team", ":slot"),
-          
+
           (le, reg0, 0),	#target destroyed?
           (store_add, ":slot", slot_team_d0_target_team, ":division"),
           (team_set_slot, "$fplayer_team_no", ":slot", -1),
-          
+
           (store_add, ":slot", slot_team_d0_type, ":target_division"),
           (team_get_slot, reg0, ":target_team", ":slot"),
           (call_script, "script_str_store_division_type_name", s1, reg0),
-          
+
           (str_store_class_name, s2, ":division"),
           (display_message, "@{s2}: returning after destroying enemy {s1} division."),
           (store_add, ":slot", slot_team_d0_move_order, ":division"),
           (team_set_slot, "$fplayer_team_no", ":slot", mordr_follow),
         (try_end),
-        
+
         (store_add, ":slot", slot_team_d0_fclock, ":division"),
         (team_get_slot, ":fclock", "$fplayer_team_no", ":slot"),
         (store_mod, ":time_slice", ":fclock", Reform_Trigger_Modulus),
         (val_add, ":fclock", 1),
         (team_set_slot, "$fplayer_team_no", ":slot", ":fclock"),
-        
+
         (try_begin),
           (store_add, ":slot", slot_team_d0_move_order, ":division"),
           (team_slot_eq, "$fplayer_team_no", ":slot", mordr_follow),
           (call_script, "script_battlegroup_place_around_leader", "$fplayer_team_no", ":division", "$fplayer_agent_no"),
           (team_set_slot, "$fplayer_team_no", ":slot", mordr_follow),	#override script_battlegroup_place_around_leader
-          
+
         #periodically reform
         (else_try),
           (eq, ":time_slice", 0),
           (team_get_movement_order, reg0, "$fplayer_team_no", ":division"),
           (neq, reg0, mordr_stand_ground),
-          
+
           (call_script, "script_team_get_position_of_enemies", Enemy_Team_Pos, "$fplayer_team_no", grc_everyone),
           (store_add, ":slot", slot_team_d0_formation, ":division"),
           (team_get_slot, ":fformation", "$fplayer_team_no", ":slot"),
@@ -73016,7 +73026,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (team_get_slot, ":div_spacing", "$fplayer_team_no", ":slot"),
             (store_add, ":slot", slot_team_d0_type, ":division"),
             (team_get_slot, ":sd_type", "$fplayer_team_no", ":slot"),
-            
+
             (try_begin),
               (store_add, ":slot", slot_team_d0_first_member, ":division"),
               (team_slot_eq, "$fplayer_team_no", ":slot", "$fplayer_agent_no"),
@@ -73024,7 +73034,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (else_try),
               (assign, ":first_member_is_player", 0),
             (try_end),
-            
+
             (try_begin),
               (ge, ":target_team", 0),	#enemy battlegroup targeted?
               (try_begin),
@@ -73037,7 +73047,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
               (else_try),
                 (call_script, "script_battlegroup_get_attack_destination", pos1, "$fplayer_team_no", ":division", ":target_team", ":target_division"),
               (try_end),
-              
+
             (else_try),
               (call_script, "script_get_formation_destination", pos1, "$fplayer_team_no", ":division"),
               (store_add, ":slot", slot_team_d0_is_fighting, ":division"),
@@ -73058,9 +73068,9 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                 (position_move_y, pos1, 2000),
               (try_end),
             (try_end),
-            
+
             (call_script, "script_set_formation_destination", "$fplayer_team_no", ":division", pos1),
-            
+
             (try_begin),
               (eq, ":sd_type", sdt_archer),
               (call_script, "script_get_centering_amount", formation_default, ":troop_count", ":div_spacing"),
@@ -73072,7 +73082,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
               (call_script, "script_get_centering_amount", ":fformation", ":troop_count", ":div_spacing"),
               (position_move_x, pos1, reg0),
             (try_end),
-            
+
             (try_begin),
               (eq, ":sd_type", sdt_archer),
               (call_script, "script_form_archers", "$fplayer_team_no", ":division", "$fplayer_agent_no", ":div_spacing", ":first_member_is_player", ":fformation"),
@@ -73084,12 +73094,12 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                 (call_script, "script_formation_current_position", pos29, "$fplayer_team_no", ":division"),
                 (call_script, "script_battlegroup_get_position", Enemy_Team_Pos, ":target_team", ":target_division"),
                 (get_distance_between_positions, ":distance_to_enemy", pos29, Enemy_Team_Pos),
-                
+
                 (call_script, "script_battlegroup_get_action_radius", "$fplayer_team_no", ":division"),
                 (assign, ":combined_radius", reg0),
                 (call_script, "script_battlegroup_get_action_radius", ":target_team", ":target_division"),
                 (val_add, ":combined_radius", reg0),
-                
+
                 (le, ":distance_to_enemy", ":combined_radius"),
                 (call_script, "script_formation_end", "$fplayer_team_no", ":division"),
                 (str_store_class_name, s1, ":division"),
@@ -73103,7 +73113,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (else_try),
               (call_script, "script_form_infantry", "$fplayer_team_no", ":division", "$fplayer_agent_no", ":div_spacing", ":first_member_is_player", ":fformation"),
             (try_end),
-            
+
           (else_try),	#divisions not in formation
             (ge, ":target_team", 0),	#enemy battlegroup targeted?
             (store_add, ":slot", slot_team_d0_target_division, ":division"),
@@ -73125,12 +73135,12 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
               (call_script, "script_battlegroup_get_position", pos29, "$fplayer_team_no", ":division"),
               (call_script, "script_battlegroup_get_position", Enemy_Team_Pos, ":target_team", ":target_division"),
               (get_distance_between_positions, ":distance_to_enemy", pos29, Enemy_Team_Pos),
-              
+
               (call_script, "script_battlegroup_get_action_radius", "$fplayer_team_no", ":division"),
               (assign, ":combined_radius", reg0),
               (call_script, "script_battlegroup_get_action_radius", ":target_team", ":target_division"),
               (val_add, ":combined_radius", reg0),
-              
+
               (le, ":distance_to_enemy", ":combined_radius"),
               (try_begin),
                 (neq, ":existing_order", mordr_charge),
@@ -73147,10 +73157,10 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (try_end),
         (try_end),	#Periodic Reform
       (try_end),	#Division Loop
-      
+
       (assign, "$FormAI_autorotate", ":save_autorotate"),]),
-  
-  
+
+
   # #Utilities used by formations
   # script_cf_is_thrusting_weapon by motomataru
   # Input: item
@@ -73166,14 +73176,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       #thrust) This ignores length, which creates too large a differential.  This is
       #a happy medium.
       (ge, ":thrust_damage", ":swing_damage"),]),
-  
+
   # script_cf_is_weapon_ranged by motomataru
   # Input: weapon ID, flag 0/1 to consider thrown weapons
   # Output: T/F
   ("cf_is_weapon_ranged", [
       (store_script_param, ":weapon", 1),
       (store_script_param, ":include_thrown", 2),
-      
+
       (assign, ":test_val", 0),
       (try_begin),
         (ge, ":weapon", 0),
@@ -73190,9 +73200,9 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (assign, ":test_val", 1),
         (try_end),
       (try_end),
-      
+
       (neq, ":test_val", 0),]),
-  
+
   # script_equip_best_melee_weapon by motomataru
   # Input: agent id, flag to force shield, flag to force for length ALONE,
   # current fire order
@@ -73202,13 +73212,13 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (store_script_param, ":force_shield", 2),
       (store_script_param, ":force_length", 3),
       (store_script_param, ":fire_order", 4),
-      
+
       (agent_get_wielded_item, ":cur_wielded", ":agent", 0),
       (try_begin),
         (call_script, "script_cf_is_weapon_ranged", ":cur_wielded", 0),
         (agent_get_ammo, ":ammo", ":agent", 1),
         (gt, ":ammo", 0),
-        
+
       (else_try),
         #priority items
         (assign, ":shield", itm_no_item),
@@ -73229,7 +73239,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (assign, ":weapon", ":item"),	#use thrown weapons first
           (try_end),
         (try_end),
-        
+
         #select weapon
         (try_begin),
           (eq, ":weapon", itm_no_item),
@@ -73239,21 +73249,21 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (gt, ":item", itm_no_item),
             (item_get_type, ":weapon_type", ":item"),
             (neq, ":weapon_type", itp_type_shield),
-            
+
             (try_begin),
               (item_has_property, ":item", itp_two_handed),
               (assign, reg0, 1),
             (else_try),
               (assign, reg0, 0),
             (try_end),
-            
+
             (this_or_next | eq, reg0, 0),
             (this_or_next | eq, ":force_shield", 0),
             (eq, ":shield", itm_no_item),
-            
+
             (try_begin),
               (call_script, "script_cf_is_weapon_ranged", ":item", 1),
-              
+
             (else_try),
               (try_begin),
                 (neq, ":force_length", 0),
@@ -73296,7 +73306,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (try_end),  #melee weapon
           (try_end),  #weapon slot loop
         (try_end),  #select weapon
-        
+
         #equip selected items if needed
         (try_begin),
           (neq, ":cur_wielded", ":weapon"),
@@ -73310,7 +73320,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (agent_set_wielded_item, ":agent", ":weapon"),
         (try_end),
       (try_end),]),
-  
+
   # script_set_formation_destination by motomataru
   # Input: team, troop class, position
   # Kluge around buggy *_order_position functions for teams 0-3
@@ -73318,20 +73328,20 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (store_script_param, ":fteam", 1),
       (store_script_param, ":fdivision", 2),
       (store_script_param, ":fposition", 3),
-      
+
       (position_get_x, ":x", ":fposition"),
       (position_get_y, ":y", ":fposition"),
       (position_get_rotation_around_z, ":zrot", ":fposition"),
-      
+
       (store_add, ":slot", slot_team_d0_destination_x, ":fdivision"),
       (team_set_slot, ":fteam", ":slot", ":x"),
       (store_add, ":slot", slot_team_d0_destination_y, ":fdivision"),
       (team_set_slot, ":fteam", ":slot", ":y"),
       (store_add, ":slot", slot_team_d0_destination_zrot, ":fdivision"),
       (team_set_slot, ":fteam", ":slot", ":zrot"),
-      
+
       (team_set_order_position, ":fteam", ":fdivision", ":fposition"),]),
-  
+
   # script_get_formation_destination by motomataru
   # Input: position, team, troop class
   # Output: input position (pos0 used)
@@ -73351,7 +73361,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (team_get_slot, ":y", ":fteam", ":slot"),
       (store_add, ":slot", slot_team_d0_destination_zrot, ":fdivision"),
       (team_get_slot, ":zrot", ":fteam", ":slot"),
-      
+
       (position_set_x, ":fposition", ":x"),
       (position_set_y, ":fposition", ":y"),
       (position_rotate_z, ":fposition", ":zrot"),
@@ -73370,7 +73380,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       # (try_end),
       # (try_end),
       (position_set_z_to_ground_level, ":fposition"),]),
-  
+
   # script_formation_current_position by motomataru
   # Input: destination position (not pos0), team, division
   # Output: in destination position
@@ -73385,7 +73395,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (position_copy_rotation, ":fposition", pos0),
       (call_script, "script_battlegroup_dist_center_to_front", ":fteam", ":fdivision"),
       (position_move_y, ":fposition", reg0, 0),]),
-  
+
   # script_str_store_division_type_name by motomataru
   # Input: destination, division type (sdt_*)
   # Output: none
@@ -73419,7 +73429,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (else_try),
         (str_store_string, ":str_reg", "@undetermined type of"),
       (try_end),]),
-  
+
   # script_formation_to_native_order by motomataru
   # Input: team, division, formation
   # Output: issues team_give_order with appropriate command to make formation
@@ -73427,10 +73437,10 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (store_script_param, ":team", 1),
       (store_script_param, ":division", 2),
       (store_script_param, ":formation", 3),
-      
+
       (try_begin),
         (gt, ":formation", formation_none),	#custom formation (bad call)
-        
+
       (else_try),
         (eq, Native_Formations_Implementation, WB_Implementation),
         (store_add, ":slot", slot_team_d0_formation_space, ":division"),
@@ -73442,7 +73452,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_end),
         (set_show_messages, 1),
         (team_set_slot, ":team", ":slot", ":spacing"),
-        
+
       #WFAS implementation
       (else_try),
         (eq, ":formation", formation_1_row),
@@ -73460,7 +73470,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (eq, ":formation", formation_5_row),
         (team_give_order, ":team", ":division", mordr_form_5_row),
       (try_end)]),
-  
+
   # script_point_y_toward_position by motomataru
   # Input: from position, to position
   # Output: reg0 distance in cm
@@ -73473,7 +73483,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (assign, ":save_fpm", 1),
       (convert_to_fixed_point, ":save_fpm"),
       (set_fixed_point_multiplier, 100),  #to match cm returned by get_distance_between_positions
-      
+
       #remove current rotation
       (position_get_x, ":from_x", ":from_position"),
       (position_get_y, ":from_y", ":from_position"),
@@ -73482,13 +73492,13 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (position_set_x, ":from_position", ":from_x"),
       (position_set_y, ":from_position", ":from_y"),
       (position_set_z, ":from_position", ":from_z"),
-      
+
       #horizontal rotation
       (position_get_x, ":change_in_x", ":to_position"),
       (val_sub, ":change_in_x", ":from_x"),
       (position_get_y, ":change_in_y", ":to_position"),
       (val_sub, ":change_in_y", ":from_y"),
-      
+
       (try_begin),
         (this_or_next | neq, ":change_in_y", 0),
         (neq, ":change_in_x", 0),
@@ -73498,7 +73508,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (val_sub, ":theta", ":ninety"),	#point Y axis at to position
         (position_rotate_z_floating, ":from_position", ":theta"),
       (try_end),
-      
+
       #vertical rotation
       (get_distance_between_positions, ":distance_between", ":from_position", ":to_position"),
       (try_begin),
@@ -73509,10 +73519,10 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (store_asin, ":theta", ":dist_z_to_sine"),
         (position_rotate_x_floating, ":from_position", ":theta"),
       (try_end),
-      
+
       (assign, reg0, ":distance_between"),
       (set_fixed_point_multiplier, ":save_fpm"),]),
-  
+
   #script_agent_fix_division
   #Input: agent_id
   #Output: nothing (agent divisions changed, slot set)
@@ -73525,7 +73535,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (agent_set_slot, ":agent", slot_agent_new_division, -1),
       (get_player_agent_no, ":player"),	#after_mission_start triggers are called after spawn, so globals can't be used
       #yet
-      
+
       (try_begin),
         (ge, ":player", 0),
         (neq, ":agent", ":player"),
@@ -73534,18 +73544,18 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (agent_get_group, ":team", ":agent"),
         (this_or_next | main_hero_fallen),
         (neq, ":team", ":player_team"),
-        
+
         (assign, ":target_division", grc_infantry),
         (agent_get_horse, ":horse", ":agent"),
         (agent_get_troop_id, ":troop_no", ":agent"),
-        
+
         #logic from script_troop_default_division
         #limited to the three divisions the AI currently uses
         (try_begin),
           (this_or_next | ge, ":horse", 0),
           (troop_is_guarantee_horse, ":troop_no"),
           (assign, ":target_division", grc_cavalry),
-          
+
           #(troop_is_guarantee_ranged, ":troop_no"),
           # (try_for_range, ":ranged", "itm_darts", "itm_flintlock_pistol"),
               # (agent_has_item_equipped, ":agent", ":ranged"),
@@ -73553,8 +73563,8 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
               # (gt, reg1, 0),
               # (assign, ":target_division", sdt_harcher),
           # (try_end),
-          
-          
+
+
           # (try_begin),
           # (eq, ":flag_0_for_expanded", 0),
           # (try_for_range, reg0, 0, ":inv_cap"),
@@ -73563,11 +73573,11 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           # (assign, ":target_division", sdt_harcher),
           # (try_end),
           # (try_end),
-          
+
         (else_try),
           (troop_is_guarantee_ranged, ":troop_no"),
           # (assign, ":has_ranged", 0),
-          
+
           (try_for_range, ":item_slot", ek_item_0, ek_head),
             (agent_get_item_slot, ":item", ":agent", ":item_slot"),
             (call_script, "script_cf_is_weapon_ranged", ":item", 1),
@@ -73584,9 +73594,9 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             # (try_end),
             # (assign, ":has_ranged", 1),
           (try_end),
-          
+
           # (neq, ":has_ranged", 0),
-          
+
           # (else_try),
           # (eq, ":flag_0_for_expanded", 0),
           # (try_for_range, reg0, 0, ":inv_cap"),
@@ -73597,13 +73607,13 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           # (assign, ":target_division", sdt_polearm),
           # (try_end),
         (try_end),
-        
+
         (agent_get_division, ":division", ":agent"),
         (neq, ":division", ":target_division"),
         (agent_set_division, ":agent", ":target_division"),
         (agent_set_slot, ":agent", slot_agent_new_division, ":target_division"),
       (try_end),]),
-  
+
   # script_store_battlegroup_type
   # Input: team, division
   # Output: reg0 and slot_team_dx_type with sdt_* value
@@ -73611,7 +73621,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
   ("store_battlegroup_type", [
       (store_script_param_1, ":fteam"),
       (store_script_param_2, ":fdivision"),
-      
+
       (assign, ":count_infantry", 0),
       (assign, ":count_archer", 0),
       (assign, ":count_cavalry", 0),
@@ -73620,14 +73630,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (assign, ":count_skirmish", 0),
       (assign, ":count_support", 0),
       (assign, ":count_bodyguard", 0),
-      
+
       (team_get_leader, ":leader", ":fteam"),
-      
+
       (try_for_agents, ":cur_agent"),
         (call_script, "script_cf_valid_formation_member", ":fteam", ":fdivision", ":leader", ":cur_agent"),
         (agent_get_troop_id, ":cur_troop", ":cur_agent"),
         (agent_get_ammo, ":cur_ammo", ":cur_agent", 0),
-        
+
         (try_begin),
           (neg | troop_is_hero, ":cur_troop"),
           (try_begin), #Cavalry
@@ -73694,7 +73704,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (try_end),
         (try_end), #Regular v Hero
       (try_end), #Agent Loop
-      
+
       #Do Comparisons With Counts, set ":div_type"
       (assign, ":slot", slot_team_d0_type),
       (team_set_slot, scratch_team, ":slot", ":count_infantry"),
@@ -73712,7 +73722,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (team_set_slot, scratch_team, ":slot", ":count_support"),
       (val_add, ":slot", 1),
       (team_set_slot, scratch_team, ":slot", ":count_bodyguard"),
-      
+
       (assign, ":count_to_beat", 0),
       (assign, ":count_total", 0),
       (try_for_range, ":type", sdt_infantry, sdt_infantry + 8), #only 8 sdt_types at the moment
@@ -73723,7 +73733,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (assign, ":count_to_beat", ":count"),
         (assign, ":div_type", ":type"),
       (try_end),
-      
+
       (val_mul, ":count_to_beat", 2),
       (try_begin),
         (lt, ":count_to_beat", ":count_total"), #Less than half of this division
@@ -73739,12 +73749,12 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (assign, ":count_to_beat", ":count"),
           (assign, ":div_type", ":type"),
         (try_end),
-        
+
         (val_mul, ":count_to_beat", 2),
         (lt, ":count_to_beat", ":count_total"), #Less than half of this division
         (assign, ":div_type", sdt_unknown), #Or 0
       (try_end),
-      
+
       #hard-code traditional infantry division (avoid player confusion for mods
       #which arm troops with ranged at start of battle)
       (try_begin),
@@ -73752,11 +73762,11 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (neq, ":div_type", sdt_polearm),
         (assign, ":div_type", sdt_infantry),
       (try_end),
-      
+
       (store_add, ":slot", slot_team_d0_type, ":fdivision"),
       (team_set_slot, ":fteam", ":slot", ":div_type"),
       (assign, reg0, ":div_type"),]),
-  
+
   # script_store_battlegroup_data by motomataru #EDITED TO SLOTS FOR MANY
   # DIVISIONS BY CABA'DRIN
   # Input: none
@@ -73783,7 +73793,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (assign, ":team3_y_leader", 0),
       (assign, ":team3_zrot_leader", 0),
       (assign, ":team3_level_leader", 0),
-      
+
       #save some info
       (try_for_range, ":division", 0, 9),
         (store_add, ":slot", slot_team_d0_size, ":division"),
@@ -73791,13 +73801,13 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (team_slot_ge, "$fplayer_team_no", ":slot", 1),
           (store_add, ":slot", slot_team_d0_exists, ":division"),
           (team_set_slot, "$fplayer_team_no", ":slot", 1),
-          
+
         (else_try),
           (store_add, ":slot", slot_team_d0_exists, ":division"),
           (team_set_slot, "$fplayer_team_no", ":slot", 0),
         (try_end),
       (try_end),
-      
+
       #Team Slots reset every mission, like agent slots, but just to be sure for
       #when it gets called during the mission
       (try_for_range, ":slot", reset_team_stats_begin, reset_team_stats_end), #Those within the "RESET GROUP" in formations_constants
@@ -73805,40 +73815,40 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (team_set_slot, ":team", ":slot", 0),
         (try_end),
       (try_end),
-      
+
       (try_for_agents, ":cur_agent"),
         (agent_set_slot, ":cur_agent", slot_agent_nearest_enemy_agent, -1),
-        
+
         (agent_is_alive, ":cur_agent"),
         (agent_is_human, ":cur_agent"),
         (agent_slot_eq, ":cur_agent", slot_agent_is_running_away, 0),
-        
+
         (agent_get_group, ":bgteam", ":cur_agent"),
         (agent_get_division, ":bgdivision", ":cur_agent"),
         (agent_get_class, ":agent_class", ":cur_agent"),
         (agent_get_position, pos1, ":cur_agent"),
-        
+
         (try_begin),
           (agent_is_non_player, ":cur_agent"),
-          
+
           (store_add, ":slot", slot_team_d0_type, ":bgdivision"),
           (team_get_slot, ":bgtype", ":bgteam", ":slot"),
           (this_or_next | eq, ":bgtype", sdt_cavalry),	#assigned to horsed division
           (eq, ":bgtype", sdt_harcher),
-          
+
           (team_get_riding_order, reg0, ":bgteam", ":bgdivision"),
           (neq, reg0, rordr_dismount),
-          
+
           (team_get_order_position, pos0, ":bgteam", ":bgdivision"),
           (get_distance_between_positions, ":old_distance", pos0, pos1),
           (gt, ":old_distance", AI_charge_distance),	#agent is out of formation?
-          
+
           (assign, ":target_type", ":bgtype"),
-          
+
           (try_begin),
             (eq, ":agent_class", grc_infantry),	#Native has transferred this agent to infantry
             (assign, ":target_type", sdt_infantry),
-            
+
             (try_for_range, ":item_slot", ek_item_0, ek_head),
               (eq, ":bgteam", "$fplayer_team_no"),	#AI doesn't use extended right now
               (agent_get_item_slot, ":item", ":cur_agent", ":item_slot"),
@@ -73847,11 +73857,11 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
               (eq, reg0, itp_type_polearm),
               (assign, ":target_type", sdt_polearm),
             (try_end),
-            
+
           (else_try),
             (eq, ":agent_class", grc_archers),	#Native has transferred this agent to archers
             (assign, ":target_type", sdt_archer),
-            
+
             (try_for_range, ":item_slot", ek_item_0, ek_head),
               (eq, ":bgteam", "$fplayer_team_no"),	#AI doesn't use extended right now
               (agent_get_item_slot, ":item", ":cur_agent", ":item_slot"),
@@ -73863,22 +73873,22 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
               (assign, ":target_type", sdt_skirmisher),
             (try_end),
           (try_end),
-          
+
           (neq, ":target_type", ":bgtype"),
           (assign, ":bgdivision", ":target_type"),
-          
+
           (try_for_range_backwards, ":new_division", 0, 9),
             (store_add, ":slot", slot_team_d0_size, ":new_division"),
             (team_get_slot, reg0, ":bgteam", ":slot"),
             (gt, reg0, 0),
-            
+
             (store_add, ":slot", slot_team_d0_type, ":new_division"),
             (team_get_slot, reg0, ":bgteam", ":slot"),
             (eq, reg0, ":target_type"),
-            
+
             (assign, ":bgdivision", ":new_division"),
           (try_end),
-          
+
           (try_begin),
             (store_add, ":slot", slot_team_d0_exists, ":bgdivision"),
             (team_slot_eq, "$fplayer_team_no", ":slot", 0),	#division does not yet exist?
@@ -73890,10 +73900,10 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (team_give_order, "$fplayer_team_no", ":bgdivision", mordr_follow),
             (set_show_messages, 1),
           (try_end),
-          
+
           (agent_set_slot, ":cur_agent", slot_agent_new_division, ":bgdivision"),	#reassign
           (agent_set_division, ":cur_agent", ":bgdivision"),
-          
+
         (else_try),	#Maintain any changed divisions (apparently agents get switched back)
           (agent_is_non_player, ":cur_agent"),
           (agent_slot_ge, ":cur_agent", slot_agent_new_division, 0),
@@ -73915,7 +73925,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_end),
         (store_character_level, ":cur_level", ":cur_troop"),
         (agent_get_ammo, ":cur_ammo", ":cur_agent", 0),
-        
+
         #get weapon characteristics
         (assign, ":cur_weapon_type", 0),
         (assign, ":cur_weapon_length", 0),
@@ -73926,14 +73936,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           # (neg | is_between, ":cur_weapon", estandartes_begin, estandartes_end),	#put exceptions here, such as standards, that will otherwise force a lot of
           #extra spacing for nothing
           (item_get_weapon_length, ":cur_weapon_length", ":cur_weapon"),
-          
+
           (try_begin),
             (call_script, "script_cf_is_thrusting_weapon", ":cur_weapon"),
           (else_try),
             (assign, ":cur_swung_weapon_length", ":cur_weapon_length"),
           (try_end),
         (try_end),
-        
+
         #add up armor
         (assign, ":cur_avg_armor", 0),
         (try_for_range, ":item_slot", ek_head, ek_horse),
@@ -73955,7 +73965,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (val_add, ":cur_avg_armor", reg0),
         (try_end),
         (val_div, ":cur_avg_armor", 3),	#average the zones (head, body, leg)
-        
+
         #average with horse armor for mounted agents
         (agent_get_horse, ":cur_horse", ":cur_agent"),
         (try_begin),
@@ -73966,7 +73976,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (val_add, ":cur_avg_armor", reg0),
           (val_div, ":cur_avg_armor", 2),
         (try_end),
-        
+
         (position_get_x, ":x_value", pos1),
         (position_get_y, ":y_value", pos1),
         (position_get_rotation_around_z, ":zrot_value", pos1),
@@ -74012,12 +74022,12 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (val_add, reg0, 1),
             (team_set_slot, ":bgteam", ":slot", reg0),
           (try_end),
-          
+
           (store_add, ":slot", slot_team_d0_size, ":bgdivision"), #Division Count
           (team_get_slot, ":value", ":bgteam", ":slot"),
           (val_add, ":value", 1),
           (team_set_slot, ":bgteam", ":slot", ":value"),
-          
+
           (try_begin),
             (ge, ":cur_ammo", minimum_ranged_ammo),
             (store_add, ":slot", slot_team_d0_percent_ranged, ":bgdivision"), #Division Percentage are Archers
@@ -74028,7 +74038,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (store_add, ":slot", slot_team_d0_low_ammo, ":bgdivision"), #Division Running out of Ammo Flag
             (team_set_slot, ":bgteam", ":slot", 1),
           (try_end),
-          
+
           (try_begin),
             (eq, ":cur_weapon_type", itp_type_thrown),
             (store_add, ":slot", slot_team_d0_percent_throwers, ":bgdivision"), #Division Percentage are Throwers
@@ -74036,29 +74046,29 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (val_add, ":value", 1),
             (team_set_slot, ":bgteam", ":slot", ":value"),
           (try_end),
-          
+
           (store_add, ":slot", slot_team_d0_level, ":bgdivision"), #Division Level
           (team_get_slot, ":value", ":bgteam", ":slot"),
           (val_add, ":value", ":cur_level"),
           (team_set_slot, ":bgteam", ":slot", ":value"),
-          
+
           (store_add, ":slot", slot_team_d0_weapon_length, ":bgdivision"), #Division Weapon Length
           (team_get_slot, ":value", ":bgteam", ":slot"),
           (val_add, ":value", ":cur_weapon_length"),
           (team_set_slot, ":bgteam", ":slot", ":value"),
-          
+
           (store_add, ":slot", slot_team_d0_swung_weapon_length, ":bgdivision"), #Division Swung Weapon Length
           (team_get_slot, ":value", ":bgteam", ":slot"),
           (try_begin),
             (lt, ":value", ":cur_swung_weapon_length"),
             (team_set_slot, ":bgteam", ":slot", ":cur_swung_weapon_length"),
           (try_end),
-          
+
           (store_add, ":slot", slot_team_d0_armor, ":bgdivision"), #Division Armor
           (team_get_slot, ":value", ":bgteam", ":slot"),
           (val_add, ":value", ":cur_avg_armor"),
           (team_set_slot, ":bgteam", ":slot", ":value"),
-          
+
           (try_begin),	#Division First Rank Shortest Weapon Length
             (agent_slot_eq, ":cur_agent", slot_agent_formation_rank, 1),
             (store_add, ":slot", slot_team_d0_front_weapon_length, ":bgdivision"),
@@ -74067,53 +74077,53 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (gt, ":value", ":cur_weapon_length"),
             (team_set_slot, ":bgteam", ":slot", ":cur_weapon_length"),
           (try_end),
-          
+
           (store_add, ":slot", slot_team_d0_avg_x, ":bgdivision"), #Position X
           (team_get_slot, ":value", ":bgteam", ":slot"),
           (val_add, ":value", ":x_value"),
           (team_set_slot, ":bgteam", ":slot", ":value"),
-          
+
           (store_add, ":slot", slot_team_d0_avg_y, ":bgdivision"), #Position Y
           (team_get_slot, ":value", ":bgteam", ":slot"),
           (val_add, ":value", ":y_value"),
           (team_set_slot, ":bgteam", ":slot", ":value"),
-          
+
           (store_add, ":slot", slot_team_d0_avg_zrot, ":bgdivision"), #Rotation
           (team_get_slot, ":value", ":bgteam", ":slot"),
           (val_add, ":value", ":zrot_value"),
           (team_set_slot, ":bgteam", ":slot", ":value"),
         (try_end), #Leader vs Regular
-        
+
         (try_begin),
           (eq, ":agent_class", grc_archers),
           (team_get_slot, ":value", ":bgteam", slot_team_num_archers),
           (val_add, ":value", 1),
           (team_set_slot, ":bgteam", slot_team_num_archers, ":value"),
-          
+
         (else_try),
           (eq, ":agent_class", grc_cavalry),
           (team_get_slot, ":value", ":bgteam", slot_team_num_cavalry),
           (val_add, ":value", 1),
           (team_set_slot, ":bgteam", slot_team_num_cavalry, ":value"),
-          
+
         (else_try),
           (eq, ":agent_class", grc_infantry),
           (team_get_slot, ":value", ":bgteam", slot_team_num_infantry),
           (val_add, ":value", 1),
           (team_set_slot, ":bgteam", slot_team_num_infantry, ":value"),
         (try_end),
-        
+
         #find nearest enemy agent
         (assign, ":nearest_runner", -1),
         (agent_ai_get_num_cached_enemies, ":num_nearby_agents", ":cur_agent"),
         (try_for_range, reg0, 0, ":num_nearby_agents"),
           (agent_ai_get_cached_enemy, ":enemy_agent", ":cur_agent", reg0),
           (agent_is_alive, ":enemy_agent"),
-          
+
           (try_begin),
             (eq, ":nearest_runner", -1),
             (assign, ":nearest_runner", ":enemy_agent"),
-            
+
           (else_try),
             (agent_get_position, pos0, ":enemy_agent"),
             (get_distance_between_positions, ":new_distance", pos0, pos1),
@@ -74122,14 +74132,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (lt, ":new_distance", ":old_distance"),
             (assign, ":nearest_runner", ":enemy_agent"),
           (try_end),
-          
+
           (agent_slot_eq, ":enemy_agent", slot_agent_is_running_away, 0),
-          
+
           (try_begin),
             (agent_get_slot, ":closest_enemy", ":cur_agent", slot_agent_nearest_enemy_agent),
             (eq, ":closest_enemy", -1),
             (agent_set_slot, ":cur_agent", slot_agent_nearest_enemy_agent, ":enemy_agent"),
-            
+
           (else_try),
             (agent_get_position, pos0, ":enemy_agent"),
             (get_distance_between_positions, ":new_distance", pos0, pos1),
@@ -74143,39 +74153,39 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (agent_slot_eq, ":cur_agent", slot_agent_nearest_enemy_agent, -1),
           (agent_set_slot, ":cur_agent", slot_agent_nearest_enemy_agent, ":nearest_runner"),
         (try_end),
-        
+
         #exploit closest agent data
         (try_begin),
           (agent_get_slot, ":closest_enemy", ":cur_agent", slot_agent_nearest_enemy_agent),
           (neq, ":closest_enemy", -1),
           (agent_get_position, pos0, ":closest_enemy"),
           (get_distance_between_positions, ":closest_distance", pos0, pos1),
-          
+
           #check target of AI agent behavior
           (try_begin),
             (agent_is_non_player, ":cur_agent"),
-            
+
             (agent_ai_get_behavior_target, ":cur_targeted_agent", ":cur_agent"),
             (neq, ":closest_enemy", ":cur_targeted_agent"),
-            
+
             (this_or_next | neg | agent_is_non_player, ":closest_enemy"),	#AI can always sense player behind them (balancing factor, dedicated to
             #Idibil)
             (neg | position_is_behind_position, pos0, pos1),
-            
+
             (lt, ":closest_distance", 2000),	#Assuming rethink is expensive, don't bother beyond 20m
-            
+
             (store_add, ":slot", slot_team_d0_formation, ":bgdivision"),
             (team_get_slot, ":value", ":bgteam", ":slot"),
             (this_or_next | eq, formation_rethink_for_formations_only, 0),
             (gt, ":value", formation_none),
-            
+
             (agent_force_rethink, ":cur_agent"),
           (try_end),
-          
+
           #update division information
           (try_begin),
             (ge, ":bgdivision", 0),	#not leaders
-            
+
             (try_begin),
               (lt, ":closest_distance", 350),
               (agent_get_division, reg0, ":closest_enemy"),
@@ -74185,7 +74195,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
               (val_add, ":value", 1),
               (team_set_slot, reg0, ":slot", ":value"),
             (try_end),
-            
+
             (store_add, ":slot", slot_team_d0_closest_enemy_dist, ":bgdivision"),
             (team_get_slot, ":old_distance", ":bgteam", ":slot"),
             (try_begin),
@@ -74195,19 +74205,19 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
               (store_add, ":slot", slot_team_d0_closest_enemy, ":bgdivision"),
               (team_set_slot, ":bgteam", ":slot", ":closest_enemy"),
             (try_end),
-            
+
             (assign, ":doit", 0),
             (agent_get_class, ":enemy_agent_class", ":closest_enemy"),
             (store_add, ":slot", slot_team_d0_type, ":bgdivision"),
             (team_get_slot, ":value", ":bgteam", ":slot"),
-            
+
             #AI infantry division tracks non-infantry to preferably chase
             (try_begin),
               (this_or_next | eq, ":value", sdt_polearm),
               (eq, ":value", sdt_infantry),
               (neq, ":enemy_agent_class", grc_cavalry),
               (assign, ":doit", 1),
-              
+
               #AI archer division tracks infantry to avoid
             (else_try),
               (this_or_next | eq, ":value", sdt_archer),
@@ -74215,7 +74225,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
               (eq, ":enemy_agent_class", grc_infantry),
               (assign, ":doit", 1),
             (try_end),
-            
+
             (eq, ":doit", 1),
             (store_add, ":slot", slot_team_d0_closest_enemy_special_dist, ":bgdivision"),
             (team_get_slot, ":old_distance", ":bgteam", ":slot"),
@@ -74229,7 +74239,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (try_end),	#update division info
         (try_end),	#exploit closest agent data
       (try_end), #Agent Loop
-      
+
       #calculate team sizes, sum positions; within calculate battle group averages
       (try_for_range, ":team", 0, 4),
         (assign, ":team_size", 0),
@@ -74237,59 +74247,59 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (assign, ":team_x", 0),
         (assign, ":team_y", 0),
         (assign, ":team_zrot", 0),
-        
+
         (try_for_range, ":division", 0, 9),
           #sum for team averages
           (store_add, ":slot", slot_team_d0_size, ":division"),
           (team_get_slot, ":division_size", ":team", ":slot"),
           (gt, ":division_size", 0),
           (val_add, ":team_size", ":division_size"),
-          
+
           (store_add, ":slot", slot_team_d0_level, ":division"),
           (team_get_slot, ":division_level", ":team", ":slot"),
           (val_add, ":team_level", ":division_level"),
-          
+
           (store_add, ":slot", slot_team_d0_avg_x, ":division"),
           (team_get_slot, ":division_x", ":team", ":slot"),
           (val_add, ":team_x", ":division_x"),
-          
+
           (store_add, ":slot", slot_team_d0_avg_y, ":division"),
           (team_get_slot, ":division_y", ":team", ":slot"),
           (val_add, ":team_y", ":division_y"),
-          
+
           (store_add, ":slot", slot_team_d0_avg_zrot, ":division"),
           (team_get_slot, ":division_zrot", ":team", ":slot"),
           (val_add, ":team_zrot", ":division_zrot"),
-          
+
           #calculate battle group averages
           (store_add, ":slot", slot_team_d0_level, ":division"),
           (val_div, ":division_level", ":division_size"),
           (team_set_slot, ":team", ":slot", ":division_level"),
-          
+
           (store_add, ":slot", slot_team_d0_percent_ranged, ":division"),
           (team_get_slot, ":value", ":team", ":slot"),
           (val_mul, ":value", 100),
           (val_div, ":value", ":division_size"),
           (team_set_slot, ":team", ":slot", ":value"),
-          
+
           (store_add, ":slot", slot_team_d0_percent_throwers, ":division"),
           (team_get_slot, ":value", ":team", ":slot"),
           (val_mul, ":value", 100),
           (val_div, ":value", ":division_size"),
           (team_set_slot, ":team", ":slot", ":value"),
-          
+
           (store_add, ":slot", slot_team_d0_weapon_length, ":division"),
           (team_get_slot, ":value", ":team", ":slot"),
           (val_div, ":value", ":division_size"),
           (team_set_slot, ":team", ":slot", ":value"),
-          
+
           # (store_add, ":slot", slot_team_d0_swung_weapon_length, ":division"), MOTO
           # systematic testing shows best to use max swung weapon length as basis for
           # formation spacing
           # (team_get_slot, ":value", ":team", ":slot"),
           # (val_div, ":value", ":division_size"),
           # (team_set_slot, ":team", ":slot", ":value"),
-          
+
           # (store_add, ":slot", slot_team_d0_front_agents, ":division"), MOTO front
           # rank should be within shortest weapon distance, not average
           # (team_get_slot, reg0, ":team", ":slot"),
@@ -74300,19 +74310,19 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           # (val_div, ":value", reg0),
           # (team_set_slot, ":team", ":slot", ":value"),
           # (try_end),
-          
+
           (store_add, ":slot", slot_team_d0_avg_x, ":division"),
           (val_div, ":division_x", ":division_size"),
           (team_set_slot, ":team", ":slot", ":division_x"),
-          
+
           (store_add, ":slot", slot_team_d0_avg_y, ":division"),
           (val_div, ":division_y", ":division_size"),
           (team_set_slot, ":team", ":slot", ":division_y"),
-          
+
           (store_add, ":slot", slot_team_d0_avg_zrot, ":division"),
           (val_div, ":division_zrot", ":division_size"),
           (team_set_slot, ":team", ":slot", ":division_zrot"),
-          
+
           (store_add, ":slot", slot_team_d0_type, ":division"),
           (team_get_slot, reg0, ":team", ":slot"),
           (try_begin),
@@ -74320,7 +74330,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (call_script, "script_store_battlegroup_type", ":team", ":division"),
           (try_end),
         (try_end), #Division Loop
-        
+
         #Team Leader Additions
         (try_begin),
           (eq, ":team", 0),
@@ -74351,13 +74361,13 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (val_add, ":team_y", ":team3_y_leader"),
           (val_add, ":team_zrot", ":team3_zrot_leader"),
         (try_end),
-        
+
         #calculate team averages
         (gt, ":team_size", 0),
         (team_set_slot, ":team", slot_team_size, ":team_size"),
         (val_div, ":team_level", ":team_size"),
         (team_set_slot, ":team", slot_team_level, ":team_level"),
-        
+
         (val_div, ":team_x", ":team_size"),
         (team_set_slot, ":team", slot_team_avg_x, ":team_x"),
         (val_div, ":team_y", ":team_size"),
@@ -74366,7 +74376,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (team_set_slot, ":team", slot_team_avg_zrot, ":team_zrot"),
       (try_end), #Team Loop
   ]),
-  
+
   # script_cf_division_data_available by motomataru
   ("cf_division_data_available", [
       (assign, ":evidence", 0),
@@ -74375,7 +74385,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (assign, ":evidence", 1),
       (try_end),
       (neq, ":evidence", 0)]),
-  
+
   # script_battlegroup_get_position by motomataru #CABA - EDITED TO USE SLOTS,
   # NOT STORED POS NUMBERS
   # Input: destination position, team, division
@@ -74385,7 +74395,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (store_script_param, ":bgposition", 1),
       (store_script_param, ":bgteam", 2),
       (store_script_param, ":bgdivision", 3),
-      
+
       (assign, ":x", 0),
       (assign, ":y", 0),
       (init_position, ":bgposition"),
@@ -74399,13 +74409,13 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (is_between, ":bgdivision", 0, 9),
         (store_add, ":slot", slot_team_d0_size, ":bgdivision"),
         (team_slot_ge, ":bgteam", ":slot", 1),
-        
+
         (store_add, ":slot", slot_team_d0_avg_x, ":bgdivision"),
         (team_get_slot, ":x", ":bgteam", ":slot"),
-        
+
         (store_add, ":slot", slot_team_d0_avg_y, ":bgdivision"),
         (team_get_slot, ":y", ":bgteam", ":slot"),
-        
+
         (store_add, ":slot", slot_team_d0_avg_zrot, ":bgdivision"),
         (team_get_slot, ":zrot", ":bgteam", ":slot"),
       (try_end),
@@ -74413,7 +74423,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (position_set_y, ":bgposition", ":y"),
       (position_rotate_z, ":bgposition", ":zrot", 0),
       (position_set_z_to_ground_level, ":bgposition"),]),
-  
+
   # script_battlegroup_get_attack_destination by motomataru
   # Input: destination position, team, division, target team, target division
   # Output: melee position against target battlegroup
@@ -74423,7 +74433,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (store_script_param, ":bgdivision", 3),
       (store_script_param, ":enemy_team", 4),
       (store_script_param, ":enemy_division", 5),
-      
+
       (store_add, ":slot", slot_team_d0_formation, ":bgdivision"),
       (team_get_slot, ":bgformation", ":bgteam", ":slot"),
       (try_begin),
@@ -74432,22 +74442,22 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (else_try),
         (call_script, "script_formation_current_position", ":bgposition", ":bgteam", ":bgdivision"),
       (try_end),
-      
+
       #distance to enemy center
       (store_add, ":slot", slot_team_d0_formation, ":enemy_division"),
       (team_get_slot, ":enemy_formation", ":enemy_team", ":slot"),
       (call_script, "script_battlegroup_get_position", Enemy_Team_Pos, ":enemy_team", ":enemy_division"),
       (get_distance_between_positions, ":distance_to_move", ":bgposition", Enemy_Team_Pos),
-      
+
       (call_script, "script_battlegroup_get_action_radius", ":bgteam", ":bgdivision"),
       (assign, ":bgwidth", reg0),
       (call_script, "script_battlegroup_get_action_radius", ":enemy_team", ":enemy_division"),
       (store_add, ":combined_width", ":bgwidth", reg0),
-      
+
       (assign, ":min_radius", reg0),
       (val_min, ":min_radius", ":bgwidth"),
       (val_div, ":min_radius", 2),	#function returns length of bg
-      
+
       (try_begin),
         (gt, ":bgformation", formation_none),	#in formation AND
         (le, ":distance_to_move", ":combined_width"),	#close to enemy
@@ -74455,7 +74465,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (position_move_y, ":bgposition", reg0),
         (get_distance_between_positions, ":distance_to_move", ":bgposition", Enemy_Team_Pos),
       (try_end),
-      
+
       #subtract enemy center to edge-of-contact (determined by minimum half-width
       #between the two battlegroups)
       (call_script, "script_get_distance_to_battlegroup", ":enemy_team", ":enemy_division", ":bgposition"),
@@ -74467,7 +74477,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (val_max, ":angle_adjusted_half_depth", reg0),
       (try_end),
       (val_sub, ":distance_to_move", ":angle_adjusted_half_depth"),
-      
+
       #modify by bg center to edge-of-contact, if needed
       (call_script, "script_battlegroup_dist_center_to_front", ":bgteam", ":bgdivision"),
       (assign, ":bg_half_depth", reg0),
@@ -74480,21 +74490,21 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (val_add, ":distance_to_move", reg0),	#move in from nearest edge found by script_get_distance_to_battlegroup
         (val_add, ":distance_to_move", ":bg_half_depth"),	#drive wedge through target formation!
       (try_end),
-      
+
       #modify by speed differential
       (try_begin),
         (gt, ":enemy_formation", formation_none),
         (neq, ":enemy_formation", formation_default),
-        
+
         (store_add, ":slot", slot_team_d0_first_member, ":enemy_division"),
         (team_get_slot, reg0, ":enemy_team", ":slot"),
         (agent_is_active, reg0),
-        
+
         (agent_get_speed, Speed_Pos, reg0),
         (init_position, Temp_Pos),
         (get_distance_between_positions, ":enemy_formation_speed", Speed_Pos, Temp_Pos),
         (val_mul, ":enemy_formation_speed", formation_reform_interval),	#calculate distance to next call
-        
+
         (try_begin),
           (position_is_behind_position, ":bgposition", Enemy_Team_Pos),	#attacking from rear?
           (val_add, ":distance_to_move", ":enemy_formation_speed"),	#catch up to anticipated position
@@ -74504,30 +74514,30 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (val_sub, ":distance_to_move", ":enemy_formation_speed"),	#avoid overrunning enemy
         (try_end),
       (try_end),
-      
+
       (store_add, ":slot", slot_team_d0_front_weapon_length, ":bgdivision"),
       (team_get_slot, ":striking_distance", ":bgteam", ":slot"),
       (val_sub, ":distance_to_move", ":striking_distance"),
-      
+
       (call_script, "script_point_y_toward_position", ":bgposition", Enemy_Team_Pos),
       (position_move_y, ":bgposition", ":distance_to_move"),]),
-  
+
   # script_battlegroup_dist_center_to_front by motomataru
   # Input: team, division
   # Output: reg0 distance to front of battlegroup from center in cm
   ("battlegroup_dist_center_to_front", [
       (store_script_param, ":bgteam", 1),
       (store_script_param, ":bgdivision", 2),
-      
+
       (store_add, ":slot", slot_team_d0_formation_space, ":bgdivision"),
       (team_get_slot, ":spacing", ":bgteam", ":slot"),
       (store_add, ":slot", slot_team_d0_formation, ":bgdivision"),
       (team_get_slot, ":bgformation", ":bgteam", ":slot"),
-      
+
       (try_begin),
         (eq, ":bgformation", formation_none),	#single row
         (assign, ":depth", 0),
-        
+
         #WFaS multi-ranks
       (else_try),
         (eq, ":bgformation", formation_2_row),
@@ -74541,29 +74551,29 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (else_try),
         (eq, ":bgformation", formation_5_row),
         (assign, ":depth", 400),
-        
+
       (else_try),	#WB multi-ranks
         (lt, ":spacing", 0),
         (store_mul, ":depth", ":spacing", -1),
         (val_mul, ":depth", 100),
-        
+
       #Non Native
       (else_try),
         (store_add, ":slot", slot_team_d0_size, ":bgdivision"),
         (team_get_slot, ":size_enemy_battlegroup", ":bgteam", ":slot"),
         (store_mul, ":row_depth", ":spacing", 50),
         (val_add, ":row_depth", formation_minimum_spacing),
-        
+
         (this_or_next | eq, ":bgformation", formation_ranks),
         (eq, ":bgformation", formation_shield),
         (call_script, "script_calculate_default_ranks", ":size_enemy_battlegroup"),
         (val_sub, reg1, 1),
         (store_mul, ":depth", ":row_depth", reg1),
-        
+
       (else_try),
         (convert_to_fixed_point, ":size_enemy_battlegroup"),
         (store_sqrt, ":columns", ":size_enemy_battlegroup"),
-        
+
         (eq, ":bgformation", formation_square),
         (convert_from_fixed_point, ":columns"),
         (val_add, ":columns", 1),	#see script_form_infantry
@@ -74571,13 +74581,13 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (store_mul, ":depth", ":row_depth", ":rows"),
         (convert_from_fixed_point, ":depth"),
         (val_sub, ":depth", ":row_depth"),
-        
+
       (else_try),
         (eq, ":bgformation", formation_wedge),
         (store_mul, ":depth", ":row_depth", ":columns"),	#approximation
         (convert_from_fixed_point, ":depth"),
       (try_end),
-      
+
       (try_begin),
         (neq, ":bgformation", formation_wedge),
         (store_div, reg0, ":depth", 2),
@@ -74585,7 +74595,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (store_mul, reg0, ":depth", 2),	#another approximation (height - inner radius)
         (val_div, reg0, 3),
       (try_end),]),
-  
+
   # script_battlegroup_get_action_radius by motomataru
   # Input: team, division
   # Output: reg0 radius of battlegroup's "zone of control" (now length of
@@ -74593,7 +74603,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
   ("battlegroup_get_action_radius", [
       (store_script_param, ":bgteam", 1),
       (store_script_param, ":bgdivision", 2),
-      
+
       (store_add, ":slot", slot_team_d0_size, ":bgdivision"),
       (team_get_slot, ":size_battlegroup", ":bgteam", ":slot"),
       (store_add, ":slot", slot_team_d0_formation, ":bgdivision"),
@@ -74602,14 +74612,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (team_get_slot, ":div_type", ":bgteam", ":slot"),
       (store_add, ":slot", slot_team_d0_formation_space, ":bgdivision"),
       (team_get_slot, ":spacing", ":bgteam", ":slot"),
-      
+
       (try_begin),
         (this_or_next | eq, ":div_type", sdt_archer),
         (le, ":formation", formation_none),	#Native formation
-        
+
         (store_mul, ":troop_space", ":spacing", 75),	#Native minimum spacing not consistent but about this
         (val_add, ":troop_space", 100),	#minimum spacing
-        
+
         #WFaS multi-ranks
         (try_begin),
           (eq, ":formation", formation_2_row),
@@ -74623,7 +74633,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (else_try),
           (eq, ":formation", formation_5_row),
           (val_div, ":size_battlegroup", 5),
-          
+
         (else_try),	#WB multi-ranks
           (lt, ":spacing", 0),
           (assign, ":troop_space", 150),
@@ -74631,10 +74641,10 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (val_add, ":spacing", 1),
           (val_div, ":size_battlegroup", ":spacing"),
         (try_end),
-        
+
         (store_mul, ":formation_width", ":size_battlegroup", ":troop_space"),
         (store_div, reg0, ":formation_width", 2),
-        
+
       (else_try),
         (eq, ":formation", formation_wedge),
         (call_script, "script_get_centering_amount", formation_square, ":size_battlegroup", ":spacing"),	#approximation
@@ -74650,9 +74660,9 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_end),
         (call_script, "script_get_centering_amount", ":formation", ":size_battlegroup", ":spacing"),
       (try_end),
-      
+
       (val_mul, reg0, 2),]),
-  
+
   # script_team_get_position_of_enemies by motomataru
   # Input: destination position, team, troop class/division
   # Output: destination position: average position if reg0 > 0
@@ -74670,7 +74680,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (assign, ":closest_distance", Far_Away),
         (call_script, "script_battlegroup_get_position", Temp_Pos, ":team_no", grc_everyone),
       (try_end),
-      
+
       (try_for_range, ":other_team", 0, 4),
         (teams_are_enemies, ":other_team", ":team_no"),
         (try_begin),
@@ -74708,7 +74718,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_end),
         (val_add, ":total_size", ":team_size"),
       (try_end),
-      
+
       (try_begin),
         (eq, ":total_size", 0),
         (init_position, ":enemy_position"),
@@ -74724,9 +74734,9 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (position_set_y, ":enemy_position", ":pos_y"),
         (position_set_z_to_ground_level, ":enemy_position"),
       (try_end),
-      
+
       (assign, reg0, ":total_size"),]),
-  
+
   # script_get_distance_to_battlegroup by motomataru
   # Gets distance from "from position" to the theoretical nearest side of the
   # battlegroup, accounting for rotation of battlegroup
@@ -74741,7 +74751,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (store_script_param, ":bgteam", 1),
       (store_script_param, ":bgdivision", 2),
       (store_script_param, ":from_pos", 3),
-      
+
       (store_add, ":slot", slot_team_d0_formation, ":bgdivision"),
       (team_get_slot, ":bgformation", ":bgteam", ":slot"),
       (call_script, "script_battlegroup_get_action_radius", ":bgteam", ":bgdivision"),
@@ -74760,7 +74770,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (else_try),
         (assign, ":min_cos_theta", 0),
       (try_end),
-      
+
       #acquire rotations
       (call_script, "script_battlegroup_get_position", pos0, ":bgteam", ":bgdivision"),
       (try_begin),
@@ -74769,11 +74779,11 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (call_script, "script_get_formation_destination", pos61, ":bgteam", ":bgdivision"),
         (position_copy_rotation, pos0, pos61),
       (try_end),
-      
+
       (copy_position, pos61, ":from_pos"),
       (call_script, "script_point_y_toward_position", pos61, pos0),
       (assign, ":distance_to_battlegroup", reg0),
-      
+
       #calculate difference from center of bg
       (get_angle_between_positions, ":theta", pos61, pos0),
       (val_sub, ":theta", 9000),
@@ -74781,13 +74791,13 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (val_abs, ":cos_theta"),
       (val_max, ":cos_theta", ":min_cos_theta"),	#doing depth considerations this way allows calling func to use angle; it also
       #avoids Pythagorean calcs
-      
+
       (store_mul, reg1, ":radius", ":cos_theta"),
       (convert_from_fixed_point, reg1),
       (val_sub, ":distance_to_battlegroup", reg1),
       (assign, reg0, ":distance_to_battlegroup"),
       (assign, reg2, ":cos_theta"),]),
-  
+
   # script_get_item_modifier_effects
   # Input: itp_*, imod_*
   # Output: reg0 damage effect
@@ -74800,14 +74810,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
   # derived from autoloot by Rubik
   ("get_item_modifier_effects", [(store_script_param, ":type", 1),
       (store_script_param, ":imod", 2),
-      
+
       (assign, ":damage", 0),
       (assign, ":speed", 0),
       (assign, ":armor", 0),
       (assign, ":hit_points", 0),
       (assign, ":difficulty", 0),
       (assign, ":price_factor", 100),
-      
+
       (try_begin),
         (eq, ":type", itp_type_horse),
         (try_begin),
@@ -74857,7 +74867,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (assign, ":price_factor", 170),
           (str_store_string, s0, "@Champion"),
         (try_end),
-        
+
       (else_try),
         (eq, ":type", itp_type_shield),
         (try_begin),
@@ -74885,7 +74895,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (assign, ":price_factor", 150),
           (str_store_string, s0, "@Reinforced"),
         (try_end),
-        
+
       (else_try),
         (ge, ":type", itp_type_head_armor),
         (le, ":type", itp_type_hand_armor),
@@ -74945,7 +74955,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (assign, ":price_factor", 400),
           (str_store_string, s0, "@Lordly"),
         (try_end),
-        
+
       (else_try),
         (this_or_next | eq, ":type", itp_type_one_handed_wpn),
         (this_or_next | eq, ":type", itp_type_two_handed_wpn),
@@ -74954,7 +74964,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (this_or_next | eq, ":type", itp_type_crossbow),
         (this_or_next | eq, ":type", itp_type_pistol),
         (eq, ":type", itp_type_musket),
-        
+
         (try_begin),
           (eq, ":imod", imod_rotten),		#idea is to use this for a completly broken weapon
           (assign, ":damage", -20),
@@ -75018,13 +75028,13 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (assign, ":damage", -2),
           (assign, ":price_factor", 83),
         (try_end),
-        
+
       (else_try),
         (this_or_next | eq, ":type", itp_type_arrows),
         (this_or_next | eq, ":type", itp_type_bolts),
         (this_or_next | eq, ":type", itp_type_bullets),
         (eq, ":type", itp_type_thrown),
-        
+
         (try_begin),
           (eq, ":imod", imod_large_bag),
           #       (assign, ":damage", 1), #just make better than plain
@@ -75052,37 +75062,37 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (str_store_string, s0, "@Balanced"),
         (try_end),
       (try_end),
-      
+
       (assign, reg0, ":damage"),
       (assign, reg1, ":speed"),
       (assign, reg2, ":armor"),
       (assign, reg3, ":hit_points"),
       (assign, reg4, ":difficulty"),
       (assign, reg5, ":price_factor"),]),
-      
+
   # script_evaluate_item moto chief
   # Input: item_id, item_mod
   # Output: reg0 value meant to compare items of a given type
   ("evaluate_item", [
       (store_script_param, ":item_id", 1),
       (store_script_param, ":item_mod", 2),
-      
+
       (assign, ":ret_val", 0),
       (try_begin),
         (gt, ":item_id", "itm_no_item"),
-        
+
         (item_get_type, ":item_type", ":item_id"),
         (call_script, "script_get_item_modifier_effects", ":item_type", ":item_mod"),
         (assign, ":damage", reg0),
         (assign, ":speed", reg1),
         (assign, ":armor", reg2),
         (assign, ":hit_points", reg3),
-        
+
         #Armor
         (try_begin),
           (ge, ":item_type", itp_type_head_armor),
           (le, ":item_type", itp_type_hand_armor),
-          
+
           #construct comparison value
           (item_get_head_armor, ":value", ":item_id"),
           (val_add, ":armor", ":value"),
@@ -75091,93 +75101,93 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (item_get_leg_armor, ":value", ":item_id"),
           (val_add, ":armor", ":value"),
           (assign, ":ret_val", ":armor"),
-          
+
           #Ranged Weapons
         (else_try),
           (call_script, "script_cf_is_weapon_ranged", ":item_id", 1),
-          
+
           #construct comparison value
           (item_get_thrust_damage, ":value", ":item_id"),
           (val_add, ":damage", ":value"),
-          
+
           (item_get_speed_rating, ":value", ":item_id"),
           (val_add, ":value", ":speed"),
           (val_mul, ":damage", ":value"),
-          
+
           (item_get_missile_speed,  ":value", ":item_id"),
           (val_mul, ":damage", ":value"),
-          
+
           (item_get_accuracy, ":value", ":item_id"),
           (val_mul, ":damage", ":value"),
           (assign, ":ret_val", ":damage"),
-          
+
           #Melee Weapons
         (else_try),
           (ge, ":item_type", itp_type_one_handed_wpn),
           (le, ":item_type", itp_type_polearm),
-          
+
           #construct comparison value
           (item_get_thrust_damage, ":value", ":item_id"),
           (item_get_swing_damage, reg2, ":item_id"),
           (val_max, ":value", reg2),  #TW formula.  Also avoids problems with script_switch_to_noswing_weapons
           (val_add, ":damage", ":value"),
-          
+
           (item_get_speed_rating, ":value", ":item_id"),
           (val_add, ":value", ":speed"),
           (val_mul, ":damage", ":value"),
-          
+
           (item_get_weapon_length, ":value", ":item_id"),
           (convert_to_fixed_point, ":value"),
           (store_sqrt, reg2, ":value"),
           (convert_from_fixed_point, reg2),
           (val_mul, ":damage", reg2),
           (assign, ":ret_val", ":damage"),
-          
+
           #Shields
         (else_try),
           (eq, ":item_type", itp_type_shield),
-          
+
           #construct comparison value
           (item_get_body_armor, ":value", ":item_id"),
           (val_add, ":armor", ":value"),
-          
+
           (item_get_hit_points, ":value", ":item_id"),
           (val_add, ":value", ":hit_points"),
           (val_div, ":value", 17),  #attempt to make it comparable to armors
           (val_add, ":armor", ":value"),
-          
+
           #shields' protection modified by size, speed
           (item_get_weapon_length, ":value", ":item_id"),
           (val_mul, ":armor", ":value"),
           (val_div, ":armor", Outfit_Thorax_Length),
-          
+
           (item_get_speed_rating, ":value", ":item_id"),
           (val_add, ":value", ":speed"),
           (val_mul, ":armor", ":value"),
           (val_div, ":armor", Outfit_Fast_Weapon_Speed),
-          
+
           (val_mul, ":armor", 3), #fudge factor
           (assign, ":ret_val", ":armor"),
-          
+
           #Horses
         (else_try),
           (eq, ":item_type", itp_type_horse),
-          
+
           #construct comparison value
           (item_get_body_armor, ":value", ":item_id"),
           (val_add, ":armor", ":value"),
           (val_mul, ":armor", 4), #figure it takes 3-4 hits to kill a horse, so this is the hit value of each
           #point of armor
-          
+
           (item_get_hit_points, ":value", ":item_id"),
           (val_add, ":value", ":hit_points"),
           (val_add, ":armor", ":value"),
-          
+
           (item_get_horse_speed, ":value", ":item_id"),
           (val_add, ":value", ":speed"),
           (val_mul, ":armor", ":value"),
           (assign, ":ret_val", ":armor"),
-          
+
           #Missiles
         (else_try),
           (this_or_next | eq, ":item_type", itp_type_arrows),
@@ -75185,11 +75195,11 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (eq, ":item_type", itp_type_bullets),
         (try_end),
       (try_end),
-      
+
       (assign, reg0, ":ret_val"),]),
-      
+
   ("init_noswing_weapons", make_noswing_weapons(items)),
-  
+
 # # M&B Standard AI with changes for formations #CABA - OK; Need expansion when new AI divisions to work with
   # script_formation_battle_tactic_init_aux
   # Input: team_no, battle_tactic
@@ -75224,7 +75234,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	  (call_script, "script_division_reset_places"),
 	  (call_script, "script_get_default_formation", ":team_no"),
 	  (assign, ":fformation", reg0),
-	  
+
 	  (try_begin),
 		(call_script, "script_cf_battlegroup_valid_formation", ":team_no", grc_infantry, ":fformation"),
 		(store_add, ":slot", slot_team_d0_formation, grc_infantry),
@@ -75235,7 +75245,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 		(call_script, "script_formation_end", ":team_no", grc_infantry),
 	  (try_end),
 	  (call_script, "script_battlegroup_place_around_leader", ":team_no", grc_infantry),
-	  
+
 	  (try_begin),
 		(call_script, "script_cf_battlegroup_valid_formation", ":team_no", grc_archers, formation_default),
 		(store_add, ":slot", slot_team_d0_formation, grc_archers),
@@ -75246,7 +75256,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 		(call_script, "script_formation_end", ":team_no", grc_archers),
 	  (try_end),
 	  (call_script, "script_battlegroup_place_around_leader", ":team_no", grc_archers),
-	  
+
 	  (try_begin),
 		(call_script, "script_cf_battlegroup_valid_formation", ":team_no", grc_cavalry, formation_wedge),
 		(store_add, ":slot", slot_team_d0_formation, grc_cavalry),
@@ -75257,12 +75267,12 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 		(call_script, "script_formation_end", ":team_no", grc_cavalry),
 	  (try_end),
 	  (call_script, "script_battlegroup_place_around_leader", ":team_no", grc_cavalry),
-	  
+
 	  (team_give_order, ":team_no", grc_archers, mordr_spread_out),
 	  (team_give_order, ":team_no", grc_archers, mordr_spread_out),
 # end formations additions
   ]),
-  
+
   # script_formation_battle_tactic_apply_aux #CABA - OK; Need expansion when new AI divisions to work with
   # Input: team_no, battle_tactic
   # Output: battle_tactic
@@ -75306,10 +75316,10 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (val_mul, ":dir_y", 23), #move 23 meters
           (position_set_x, pos62, ":dir_x"),
           (position_set_y, pos62, ":dir_y"),
-        
+
           (position_transform_position_to_parent, pos63, pos61, pos62), #pos63 is 23m away from leader in the direction of the enemy.
           (position_set_z_to_ground_level, pos63),
-        
+
           (team_give_order, ":team_no", grc_everyone, mordr_hold),
           (team_set_order_position, ":team_no", grc_everyone, pos63),
 #formations code
@@ -75319,7 +75329,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 		  (call_script, "script_division_reset_places"),
 		  (call_script, "script_get_default_formation", ":team_no"),
 		  (assign, ":fformation", reg0),
-		  
+
 		  (try_begin),
 			(call_script, "script_cf_battlegroup_valid_formation", ":team_no", grc_infantry, ":fformation"),
 			(store_add, ":slot", slot_team_d0_formation, grc_infantry),
@@ -75330,7 +75340,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 			(call_script, "script_formation_end", ":team_no", grc_infantry),
 		  (try_end),
 		  (call_script, "script_battlegroup_place_around_leader", ":team_no", grc_infantry),
-		  
+
 		  (try_begin),
 			(call_script, "script_cf_battlegroup_valid_formation", ":team_no", grc_archers, formation_default),
 			(store_add, ":slot", slot_team_d0_formation, grc_archers),
@@ -75341,7 +75351,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 			(call_script, "script_formation_end", ":team_no", grc_archers),
 		  (try_end),
 		  (call_script, "script_battlegroup_place_around_leader", ":team_no", grc_archers),
-		  
+
 		  (try_begin),
 			(call_script, "script_cf_battlegroup_valid_formation", ":team_no", grc_cavalry, formation_wedge),
 			(store_add, ":slot", slot_team_d0_formation, grc_cavalry),
@@ -75352,7 +75362,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 			(call_script, "script_formation_end", ":team_no", grc_cavalry),
 		  (try_end),
 		  (call_script, "script_battlegroup_place_around_leader", ":team_no", grc_cavalry),
-	  
+
 		  (agent_set_position, ":ai_leader", pos49),
 #end formations code
           (agent_get_position, pos1, ":ai_leader"),
@@ -75374,7 +75384,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (team_give_order, ":team_no", grc_everyone, mordr_charge),
         (try_end),
       (try_end),
-      
+
       (try_begin), # charge everyone after a while
         (neq, ":battle_tactic", 0),
         (ge, ":mission_time", 300),
@@ -75388,7 +75398,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (try_end),
       (assign, reg0, ":battle_tactic"),
   ]),
-  
+
   # Replacement script for battle_tactic_init_aux to switch between using
   # M&B Standard AI with changes for formations and original based on
   # NOTE: original script "battle_tactic_init_aux" should be renamed to "orig_battle_tactic_init_aux"
@@ -75426,7 +75436,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 		(call_script, "script_orig_battle_tactic_apply_aux", ":team_no", ":battle_tactic"),
 	  (try_end),
   ]),
-	
+
   # # AI with Formations Scripts
   # script_calculate_decision_numbers by motomataru
   # Input: AI team, size relative to battle in %
@@ -75440,8 +75450,8 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (store_div, reg1, reg0, 3),
         (store_add, reg0, ":battle_presence", reg1),	#decision w.r.t.  all enemy teams
       (try_end)]),
-  
-  
+
+
   # script_team_field_ranged_tactics by motomataru
   # Input: AI team, size relative to largest team in %, size relative to battle
   # in %
@@ -75452,7 +75462,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (store_script_param, ":battle_presence", 3),
       (assign, ":division", grc_archers), #Pre-Many Divisions
       (assign, ":bg_pos", Archers_Pos), #Pre-Many Divisions
-      
+
       (try_begin),
         (store_add, ":slot", slot_team_d0_size, ":division"),
         (team_slot_eq, ":team_no", ":slot", 0),
@@ -75462,12 +75472,12 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (call_script, "script_cf_count_casualties"),
           (assign, "$battle_phase", BP_Fight),
         (try_end),
-        
+
       (else_try),
         (call_script, "script_battlegroup_get_position", ":bg_pos", ":team_no", ":division"),
         (call_script, "script_team_get_position_of_enemies", Enemy_Team_Pos, ":team_no", grc_everyone),
         (call_script, "script_point_y_toward_position", ":bg_pos", Enemy_Team_Pos),
-        
+
         (store_add, ":slot", slot_team_d0_closest_enemy_special_dist, ":division"),	#distance to nearest enemy infantry agent
         (team_get_slot, ":distance_to_enemy", ":team_no", ":slot"),
         (try_begin),
@@ -75475,7 +75485,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (call_script, "script_get_nearest_enemy_battlegroup_location", Nearest_Enemy_Battlegroup_Pos, ":team_no", ":bg_pos"),
           (assign, ":distance_to_enemy", reg0),
         (try_end),
-        
+
         (try_begin),	#avoid being provoked from defensive position
           (ge, "$battle_phase", BP_Fight),
           (try_begin),
@@ -75485,16 +75495,16 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (assign, "$clock_reset", 0),
           (try_end),
         (try_end),
-        
+
         (store_add, ":slot", slot_team_d0_is_fighting, ":division"),
         (team_get_slot, ":is_firing", ":team_no", ":slot"),
         (store_add, ":slot", slot_team_d0_size, grc_infantry),
         (team_get_slot, ":num_infantry", ":team_no", ":slot"),
-        
+
         (call_script, "script_calculate_decision_numbers", ":team_no", ":battle_presence"),
         (assign, ":decision_index", reg0),
         (assign, ":level_bump", reg1),
-        
+
         (try_begin),
           (gt, ":decision_index", 86),	#outpower enemies more than 6:1?
           (team_get_movement_order, reg0, ":team_no", ":division"),
@@ -75502,7 +75512,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (neq, reg0, mordr_charge),
             (team_give_order, ":team_no", ":division", mordr_charge),
           (try_end),
-          
+
         (else_try),
           (lt, ":decision_index", 14),	#outpowered more than 6:1?
           (eq, ":num_infantry", 0),	#no infantry to delay enemy?
@@ -75511,7 +75521,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (neq, reg0, mordr_retreat),
             (team_give_order, ":team_no", ":division", mordr_retreat),
           (try_end),
-          
+
         (else_try),
           (ge, "$battle_phase", BP_Jockey),
           (store_add, ":slot", slot_team_d0_low_ammo, ":division"),
@@ -75521,26 +75531,26 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (neq, reg0, mordr_charge),
             (team_give_order, ":team_no", ":division", mordr_charge),
           (try_end),
-          
+
         (else_try),
           (ge, "$battle_phase", BP_Fight),
           (eq, ":is_firing", 0),
           (gt, ":decision_index", Advance_More_Point),
           (le, ":distance_to_enemy", AI_long_range),	#closer than reposition?
           (team_give_order, ":team_no", ":division", mordr_advance),
-          
+
         #hold somewhere
         (else_try),
           (store_add, ":decision_index", ":rel_army_size", ":level_bump"),	#decision w.r.t. largest enemy team
           (assign, ":move_archers", 0),
-          
+
           (init_position, Team_Starting_Point),
           (team_get_slot, reg0, ":team_no", slot_team_starting_x),
           (position_set_x, Team_Starting_Point, reg0),
           (team_get_slot, reg0, ":team_no", slot_team_starting_y),
           (position_set_y, Team_Starting_Point, reg0),
           (position_set_z_to_ground_level, Team_Starting_Point),
-          
+
           (try_begin),
             (eq, "$battle_phase", BP_Setup),
             (assign, ":move_archers", 1),
@@ -75569,7 +75579,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
               (this_or_next | is_between, reg0, -45, 45),	#only move if within "cone of advancement" to prevent constant adjusting at
               #border OR
               (eq, ":is_firing", 0),	#if not firing for some reason (hill in way?)
-              
+
               (try_begin),
                 (eq, ":num_infantry", 0),	#no infantry to wait for
                 (assign, ":move_archers", 1),
@@ -75583,7 +75593,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
               (try_end),
             (try_end),
           (try_end),
-          
+
           (try_begin),
             (gt, ":move_archers", 0),
             (try_begin),
@@ -75594,7 +75604,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
               (neq, ":team_no", 3),	#not ally of attacker?
               (store_div, ":distance_to_move", ":distance_to_enemy", 6),	#middle of rear third of battlefield
               (assign, ":hill_search_radius", ":distance_to_move"),
-              
+
             (else_try),
               (try_begin),
                 (ge, "$battle_phase", BP_Fight),
@@ -75614,7 +75624,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                   (assign, ":distance_to_enemy", reg0),
                 (try_end),
               (try_end),
-              
+
               (try_begin),
                 (eq, "$battle_phase", BP_Setup),
                 (assign, ":shot_distance", AI_long_range),
@@ -75629,7 +75639,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                 (val_div, reg1, 100),
                 (val_sub, ":shot_distance", reg1),
               (try_end),
-              
+
               (store_sub, ":distance_to_move", ":distance_to_enemy", ":shot_distance"),
               (store_div, ":hill_search_radius", ":shot_distance", 3),	#limit so as not to run into enemy
               (try_begin),
@@ -75641,7 +75651,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                 (try_end),
               (try_end),
             (try_end),
-            
+
             (position_move_y, ":bg_pos", ":distance_to_move", 0),
             (try_begin),
               (lt, "$battle_phase", BP_Fight),
@@ -75650,7 +75660,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
               (call_script, "script_find_high_ground_around_pos1_corrected", ":bg_pos", reg0),
             (try_end),
           (try_end),
-          
+
           (team_get_movement_order, reg0, ":team_no", ":division"),
           (try_begin),
             (neq, reg0, mordr_hold),
@@ -75659,8 +75669,8 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (call_script, "script_set_formation_destination", ":team_no", ":division", ":bg_pos"),
         (try_end),
       (try_end)]),
-  
-  
+
+
   # script_team_field_melee_tactics by motomataru #EDITED FOR SLOTS BY
   # CABA...many divisions changes necessary
   # Input: AI team, size relative to largest team in %, size relative to battle
@@ -75671,7 +75681,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       #	(store_script_param, ":rel_army_size", 2),
       (store_script_param, ":battle_presence", 3),
       (call_script, "script_calculate_decision_numbers", ":team_no", ":battle_presence"),
-      
+
       #mop up if outnumber enemies more than 6:1
       (try_begin),
         (gt, reg0, 86),
@@ -75688,7 +75698,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (team_give_order, ":team_no", ":division", mordr_charge),
           (try_end),
         (try_end),
-        
+
       (else_try),
         (assign, ":num_enemies", 0),
         (try_for_range, ":enemy_team_no", 0, 4),
@@ -75696,10 +75706,10 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (team_get_slot, ":value", ":enemy_team_no", slot_team_size),
           (val_add, ":num_enemies", ":value"),
         (try_end),
-        
+
         (gt, ":num_enemies", 0),
         (call_script, "script_team_get_position_of_enemies", Enemy_Team_Pos, ":team_no", grc_everyone),
-        
+
         (store_add, ":slot", slot_team_d0_size, grc_archers),
         (team_get_slot, ":num_archers", ":team_no", ":slot"),
         (try_begin),
@@ -75713,7 +75723,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (assign, ":enemy_bg_nearest_archers_dist", reg0),
           (team_get_movement_order, ":archer_order", ":team_no", grc_archers),
         (try_end),
-        
+
         (store_add, ":slot", slot_team_d0_size, grc_infantry),
         (team_get_slot, ":num_infantry", ":team_no", ":slot"),
         (try_begin),
@@ -75729,7 +75739,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (eq, ":enemy_agent_nearest_infantry_dist", 0),	#happens when player turns off closest agent mechanism (see mod options)
           (assign, ":enemy_agent_nearest_infantry_dist", ":enemy_bg_nearest_infantry_dist"),
         (try_end),
-        
+
         (store_add, ":slot", slot_team_d0_size, grc_cavalry),
         (team_get_slot, ":num_cavalry", ":team_no", ":slot"),
         (try_begin),
@@ -75745,7 +75755,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (eq, ":enemy_agent_nearest_cavalry_dist", 0),	#happens when player turns off closest agent mechanism (see mod options)
           (assign, ":enemy_agent_nearest_cavalry_dist", ":enemy_bg_nearest_infantry_dist"),
         (try_end),
-        
+
         (try_begin),
           (lt, "$battle_phase", BP_Fight),
           (this_or_next | le, ":enemy_bg_nearest_infantry_dist", AI_charge_distance),
@@ -75758,10 +75768,10 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (le, ":enemy_agent_nearest_cavalry_dist", AI_long_range),
           (assign, "$battle_phase", BP_Jockey),
         (try_end),
-        
+
         (team_get_leader, ":team_leader", ":team_no"),
         (assign, ":place_leader_by_infantry", 0),
-        
+
         #infantry AI
         (store_add, ":slot", slot_team_d0_closest_enemy, grc_infantry),
         (team_get_slot, ":enemy_agent_nearest_infantry", ":team_no", ":slot"),
@@ -75769,7 +75779,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (this_or_next | le, ":num_infantry", 0),
           (le, ":enemy_agent_nearest_infantry", 0),
           (assign, ":infantry_order", ":archer_order"),
-          
+
           #deal with mounted heroes that team_give_order() treats as infantry
           ##CABA...could change their division?
           (team_get_movement_order, reg0, ":team_no", grc_infantry),
@@ -75785,12 +75795,12 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (else_try),
             (call_script, "script_set_formation_destination", ":team_no", grc_infantry, Cavalry_Pos),
           (try_end),
-          
+
         (else_try),
           (agent_get_position, Nearest_Enemy_Troop_Pos, ":enemy_agent_nearest_infantry"),
           (agent_get_team, ":enemy_agent_nearest_infantry_team", ":enemy_agent_nearest_infantry"),
           (agent_get_division, ":enemy_agent_nearest_infantry_div", ":enemy_agent_nearest_infantry"),
-          
+
           (assign, ":sum_level_enemy_infantry", 0),
           (try_for_range, ":enemy_team_no", 0, 4),
             (teams_are_enemies, ":enemy_team_no", ":team_no"),
@@ -75807,7 +75817,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
               (val_add, ":sum_level_enemy_infantry", ":value"),
             (try_end),
           (try_end),
-          
+
           (store_mul, ":percent_level_enemy_infantry", ":sum_level_enemy_infantry", 100),
           (val_div, ":percent_level_enemy_infantry", ":num_enemies"),
           (try_begin),
@@ -75831,7 +75841,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (team_get_slot, reg0, ":team_no", slot_team_size),
           (val_add, ":combined_team_size", reg0),
           (val_div, ":percent_level_infantry", ":combined_team_size"),
-          
+
           (assign, ":infantry_order", mordr_charge),
           (try_begin),	#enemy far away AND ranged not charging
             (gt, ":enemy_bg_nearest_archers_dist", AI_charge_distance),
@@ -75843,7 +75853,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
               (assign, ":infantry_order", mordr_hold),
             (try_end),
           (try_end),
-          
+
           # bum rush enemy archers?
           (try_begin),
             # (le, ":level_infantry", AI_Poor_Troop_Level), unfortunately leaves them
@@ -75859,31 +75869,31 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
               (neq, reg0, mordr_charge),
               (team_give_order, ":team_no", grc_infantry, mordr_charge),
             (try_end),
-            
+
           #else attempt to make formation somewhere
           (else_try),
             (store_add, ":slot", slot_team_d0_formation, grc_infantry),
             (team_get_slot, ":infantry_formation", ":team_no", ":slot"),
             (team_get_leader, ":enemy_leader", ":enemy_agent_nearest_infantry_team"),
-            
+
             #consider new formation
             (try_begin),
               (store_add, ":slot", slot_team_d0_is_fighting, grc_infantry),
               (this_or_next | le, ":infantry_formation", formation_none),
               (this_or_next | eq, ":infantry_formation", formation_default),
               (team_slot_eq, ":team_no", ":slot", 0),
-              
+
               (call_script, "script_get_default_formation", ":team_no"),
               (assign, ":infantry_formation", reg0),
               (agent_get_class, ":enemy_nearest_troop_class", ":enemy_agent_nearest_infantry"),
-              
+
               (assign, ":num_enemy_cavalry", 0),
               (try_for_range, ":enemy_team_no", 0, 4),
                 (teams_are_enemies, ":enemy_team_no", ":team_no"),
                 (team_get_slot, ":value", ":enemy_team_no", slot_team_num_cavalry),
                 (val_add, ":num_enemy_cavalry", ":value"),
               (try_end),
-              
+
               (store_mul, ":percent_enemy_cavalry", ":num_enemy_cavalry", 100),
               (val_div, ":percent_enemy_cavalry", ":num_enemies"),
               (try_begin),
@@ -75908,12 +75918,12 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                 (try_end),
               (try_end),
             (try_end),	#consider new formation
-            
+
             (try_begin),
               (call_script, "script_cf_battlegroup_valid_formation", ":team_no", grc_infantry, ":infantry_formation"),
               (store_add, ":slot", slot_team_d0_formation, grc_infantry),
               (team_set_slot, ":team_no", ":slot", ":infantry_formation"),
-              
+
               #adjust spacing for long swung weapons
               (store_add, ":slot", slot_team_d0_swung_weapon_length, grc_infantry),
               (team_get_slot, ":spacing", ":team_no", ":slot"),
@@ -75921,9 +75931,9 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
               (val_div, ":spacing", 50),
               (store_add, ":slot", slot_team_d0_formation_space, grc_infantry),
               (team_set_slot, ":team_no", ":slot", ":spacing"),
-              
+
               (assign, ":place_leader_by_infantry", 1),
-              
+
             (else_try),
               (call_script, "script_formation_end", ":team_no", grc_infantry),
               (team_get_movement_order, reg0, ":team_no", grc_infantry),
@@ -75934,7 +75944,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
               (eq, ":infantry_order", mordr_hold),
               (assign, ":place_leader_by_infantry", 1),
             (try_end),
-            
+
             #hold near archers?
             (try_begin),
               (eq, ":infantry_order", mordr_hold),
@@ -75952,7 +75962,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
               (else_try),
                 (position_move_y, pos1, -1000, 0),
               (try_end),
-              
+
             #obtain destination
             (else_try),
               (assign, ":target_division", -1),
@@ -75962,7 +75972,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                 (gt, ":enemy_bg_nearest_archers_dist", AI_charge_distance),	#don't have to protect archers?
                 # (lt, ":percent_enemy_cavalry", 100), #non-cavalry exist?  MOTO next
                 # command tests
-                
+
                 #prefer non-cavalry target (that infantry can catch)
                 (store_add, ":slot", slot_team_d0_closest_enemy_special_dist, grc_infantry),
                 (team_get_slot, ":distance_to_enemy_troop", ":team_no", ":slot"),
@@ -75986,7 +75996,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                   (call_script, "script_get_distance_to_battlegroup", ":enemy_non_cav_team", ":target_division", Infantry_Pos),
                   (assign, ":distance_to_enemy_group", reg0),
                 (try_end),
-                
+
               #chase nearest target
               (else_try),
                 (assign, ":distance_to_enemy_troop", ":enemy_agent_nearest_infantry_dist"),
@@ -76005,7 +76015,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                   (assign, ":distance_to_enemy_group", reg0),
                 (try_end),
               (try_end),
-              
+
               #reassemble if too scattered
               (try_begin),
                 (call_script, "script_get_distance_to_battlegroup", ":team_no", grc_infantry, pos60),	#we're using enemy troop as a reference
@@ -76018,14 +76028,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                 (store_mul, reg0, 350, formation_reform_interval),
                 (val_add, ":distance_to_move", reg0),	#one interval movement
                 (position_move_y, pos1, ":distance_to_move"),	#keep rear moving forward
-                
+
               #attack leader if is closest troop
               (else_try),
                 (eq, ":target_division", -1),
                 (position_copy_origin, pos1, pos60),
                 (call_script, "script_point_y_toward_position", Infantry_Pos, pos1),
                 (position_copy_rotation, pos1, Infantry_Pos),
-                
+
               #move no farther than nearest troop if its unit is far off
               (else_try),
                 (call_script, "script_battlegroup_dist_center_to_front", ":team_no", grc_infantry),
@@ -76034,7 +76044,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                 (gt, reg0, AI_charge_distance),
                 (position_copy_origin, pos1, Infantry_Pos),
                 (position_move_y, pos1, ":distance_to_enemy_troop"),
-                
+
               #shift dead player troops right to clear allies when both attacking the
               #same enemy battlegroup
               (else_try),
@@ -76054,7 +76064,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                 (call_script, "script_battlegroup_get_action_radius", ":ally_team", grc_infantry),	#move larger group less to maintain center
                 (val_div, reg0, 2),	#function returns length of bg
                 (position_move_x, pos1, reg0),
-                
+
               #shift allies left to clear dead player troops when both attacking the
               #same enemy battlegroup
               (else_try),
@@ -76077,9 +76087,9 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                 (position_move_x, pos1, reg0),
               (try_end),
             (try_end),	#obtain destination
-            
+
             (call_script, "script_set_formation_destination", ":team_no", grc_infantry, pos1),
-            
+
             (try_begin),
               (store_add, ":slot", slot_team_d0_formation, grc_infantry),
               (neg | team_slot_eq, ":team_no", ":slot", formation_none),
@@ -76090,11 +76100,11 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (try_end),
           (try_end),	#attempt to make formation somewhere
         (try_end),
-        
+
         #cavalry AI
         (try_begin),
           (gt, ":num_cavalry", 0),
-          
+
           #get distance to nearest enemy battlegroup(s)
           (store_add, ":slot", slot_team_d0_armor, grc_cavalry),
           (team_get_slot, ":average_armor", ":team_no", ":slot"),
@@ -76158,7 +76168,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
               (assign, ":nearest_target_guarded", 0),
             (try_end),
           (try_end),
-          
+
           (assign, ":cavalry_order", mordr_charge), ##CABA HERE
           (try_begin),
             (teams_are_enemies, ":team_no", 0),
@@ -76190,7 +76200,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
               (try_end),
             (try_end),
           (try_end),
-          
+
           (try_begin),
             (eq, ":team_no", 0),
             (assign, ":cav_destination", Team0_Cavalry_Destination),
@@ -76206,7 +76216,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (try_end),
           (store_add, ":slot", slot_team_d0_percent_ranged, grc_cavalry),
           (team_get_slot, reg0, ":team_no", ":slot"),
-          
+
           #horse archers don't use wedge
           (try_begin),
             (ge, reg0, 50),
@@ -76228,7 +76238,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
               (position_move_y, ":cav_destination", -500, 0),
               (call_script, "script_set_formation_destination", ":team_no", grc_cavalry, ":cav_destination"),
             (try_end),
-            
+
           #close in with no unguarded target farther off, free fight
           (else_try),
             (eq, ":cavalry_order", mordr_charge),
@@ -76253,7 +76263,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
               (neq, reg0, mordr_charge),
               (team_give_order, ":team_no", grc_cavalry, mordr_charge),
             (try_end),
-            
+
           #grand charge if target closer than threat AND not guarded
           (else_try),
             (lt, ":nearest_target_distance", ":nearest_threat_distance"),
@@ -76264,7 +76274,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
               (neq, reg0, mordr_hold),
               (team_give_order, ":team_no", grc_cavalry, mordr_hold),
             (try_end),
-            
+
             #lead archers up to firing point
             (try_begin),
               (gt, ":nearest_target_distance", AI_firing_distance),
@@ -76276,7 +76286,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                 (copy_position, ":cav_destination", Archers_Pos),
                 (position_move_y, ":cav_destination", AI_charge_distance, 0),
               (try_end),
-              
+
             #then CHARRRRGE!
             (else_try),
               (copy_position, ":cav_destination", Cavalry_Pos),
@@ -76284,7 +76294,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
               (position_move_y, ":cav_destination", ":nearest_target_distance", 0),
             (try_end),
             (call_script, "script_set_formation_destination", ":team_no", grc_cavalry, ":cav_destination"),
-            
+
           #make a wedge somewhere
           (else_try),
             (try_begin),
@@ -76303,7 +76313,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
               (position_move_x, ":cav_destination", 500, 0),
               (position_move_y, ":cav_destination", -1000, 0),
             (try_end),
-            
+
             #move around threat in the way to destination
             (try_begin),
               (neq, ":nearest_threat_distance", Far_Away),
@@ -76319,7 +76329,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                 (gt, ":rotation_diff", 180),
                 (val_sub, ":rotation_diff", 360),
               (try_end),
-              
+
               (try_begin),
                 (is_between, ":rotation_diff", -135, 136),
                 (copy_position, ":cav_destination", Cavalry_Pos),
@@ -76349,7 +76359,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (val_min, reg0, reg1),
             (position_set_y, ":cav_destination", reg0),
             (position_set_z_to_ground_level, ":cav_destination"),
-            
+
             (try_begin),
               (call_script, "script_cf_battlegroup_valid_formation", ":team_no", grc_cavalry, formation_wedge),
               (copy_position, pos1, ":cav_destination"),
@@ -76368,7 +76378,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (call_script, "script_set_formation_destination", ":team_no", grc_cavalry, ":cav_destination"),
           (try_end),
         (try_end),
-        
+
         #place leader
         (try_begin),
           (ge, ":team_leader", 0),
@@ -76379,7 +76389,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (try_begin),
               (this_or_next | le, ":num_archers", 0),
               (eq, ":archer_order", mordr_retreat),
-              
+
               (assign, ":more_reinforcements", 1),
               (try_begin),
                 (teams_are_enemies, ":team_no", 0),
@@ -76391,7 +76401,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
                 (assign, ":more_reinforcements", 0),
               (try_end),
               (eq, ":more_reinforcements", 0),
-              
+
               (agent_get_troop_id, ":troop_id", ":team_leader"), #for now do not let heroes to run away from battle
               (neg|troop_is_hero, ":troop_id"),
               (agent_clear_scripted_mode, ":team_leader"),
@@ -76420,15 +76430,15 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (try_end),
         (try_end),
       (try_end),
-      
+
   ]),
-  
+
   # script_field_tactics by motomataru
   # Input: flag 1 to include ranged
   # Output: none
   ("field_tactics", [
       (store_script_param, ":include_ranged", 1),
-      
+
       (assign, ":largest_team_size", 0),
       (assign, ":battle_size", 0),
       (try_for_range, ":ai_team", 0, 4),
@@ -76437,7 +76447,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (team_get_slot, ":team_cav_size", ":ai_team", slot_team_num_cavalry),
         (store_add, ":team_adj_size", ":team_size", ":team_cav_size"),	#double count cavalry to capture effect on battlefield
         (val_add, ":battle_size", ":team_adj_size"),
-        
+
         (try_begin),
           (neq, ":ai_team", "$fplayer_team_no"),
           (neg | teams_are_enemies, ":ai_team", "$fplayer_team_no"),
@@ -76446,17 +76456,17 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (team_set_slot, "$fplayer_team_no", slot_team_adj_size, ":team_adj_size"),	#and vice versa
         (try_end),
         (team_set_slot, ":ai_team", slot_team_adj_size, ":team_adj_size"),
-        
+
         (lt, ":largest_team_size", ":team_adj_size"),
         (assign, ":largest_team_size", ":team_adj_size"),
       (try_end),
-      
+
       #apply tactics to every AI team
       (set_show_messages, 0),
       (try_for_range, ":ai_team", 0, 4),
         (team_get_slot, ":ai_team_size", ":ai_team", slot_team_adj_size),
         (gt, ":ai_team_size", 0),
-        
+
         (assign, ":do_it", 0),
         (try_begin),
           (neq, ":ai_team", "$fplayer_team_no"),
@@ -76467,7 +76477,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (assign, ":do_it", 1),
         (try_end),
         (eq, ":do_it", 1),
-        
+
         (team_get_slot, ":ai_faction", ":ai_team", slot_team_faction),
         (try_begin),
           (neq, AI_for_kingdoms_only, 0),
@@ -76476,14 +76486,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (neq, ":ai_faction", fac_dark_knights),
           #(neq, ":ai_faction", fac_mountain_bandits),	#scoti, frank and dena pirates have military training Chief anade
           (neg | is_between, ":ai_faction", kingdoms_begin, kingdoms_end),
-          
+
           (call_script, "script_formation_end", ":ai_team", grc_everyone),
           (team_get_movement_order, reg0, ":ai_team", grc_everyone),
           (try_begin),
             (neq, reg0, mordr_charge),
             (team_give_order, ":ai_team", grc_everyone, mordr_charge),
           (try_end),
-          
+
         #uses tactics
         (else_try),
           (val_mul, ":ai_team_size", 100),
@@ -76498,13 +76508,13 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (else_try),
               (store_div, ":time_slice", Reform_Trigger_Modulus, 2),
             (try_end),
-            
+
             (store_mod, reg0, "$ranged_clock", Reform_Trigger_Modulus),
             (this_or_next | eq, reg0, ":time_slice"),
             (eq, "$battle_phase", BP_Setup),
             (call_script, "script_team_field_ranged_tactics", ":ai_team", ":team_percentage", ":team_battle_presence"),
           (try_end),
-          
+
           (try_begin),
             (gt, "$fplayer_team_no", 0),	#not a spectator
             (neg | main_hero_fallen),
@@ -76526,16 +76536,16 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (else_try),
             (store_div, ":time_slice", Reform_Trigger_Modulus, 2),
           (try_end),
-          
+
           (eq, reg0, ":time_slice"),
           (call_script, "script_team_field_melee_tactics", ":ai_team", ":team_percentage", ":team_battle_presence"),
         (try_end),
       (try_end),
       (set_show_messages, 1),]),
-  
-  
+
+
   # # Utilities used by AI by motomataru
-  
+
   # script_find_high_ground_around_pos1_corrected by motomataru
   # Input: arg1: destination position
   #			arg2: search_radius (in meters)
@@ -76549,14 +76559,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (assign, ":fixed_point_multiplier", 1),
       (convert_to_fixed_point, ":fixed_point_multiplier"),
       (set_fixed_point_multiplier, 1),
-      
+
       (position_get_x, ":o_x", pos1),
       (position_get_y, ":o_y", pos1),
       (store_sub, ":min_x", ":o_x", ":search_radius"),
       (store_sub, ":min_y", ":o_y", ":search_radius"),
       (store_add, ":max_x", ":o_x", ":search_radius"),
       (store_add, ":max_y", ":o_y", ":search_radius"),
-      
+
       (get_scene_boundaries, ":destination_pos", pos0),
       (position_get_x, ":scene_min_x", ":destination_pos"),
       (position_get_x, ":scene_max_x", pos0),
@@ -76566,11 +76576,11 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (val_max, ":min_y", ":scene_min_y"),
       (val_min, ":max_x", ":scene_max_x"),
       (val_min, ":max_y", ":scene_max_y"),
-      
+
       (assign, ":highest_pos_z", -100),
       (copy_position, ":destination_pos", pos1),
       (init_position, pos0),
-      
+
       (try_for_range, ":i_x", ":min_x", ":max_x"),
         (try_for_range, ":i_y", ":min_y", ":max_y"),
           (position_set_x, pos0, ":i_x"),
@@ -76584,10 +76594,10 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (try_end),
         (try_end),
       (try_end),
-      
+
       (set_fixed_point_multiplier, ":fixed_point_multiplier"),]),
-  
-  
+
+
   # script_cf_count_casualties by motomataru
   # Input: none
   # Output: evalates T/F, reg0 num casualties
@@ -76603,8 +76613,8 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (try_end),
       (assign, reg0, ":num_casualties"),
       (gt, ":num_casualties", 0)]),
-  
-  
+
+
   # script_cf_any_fighting by motomataru
   # Input: none
   # Output: evalates T/F
@@ -76621,7 +76631,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (assign, ":num_divs", 0),
         (try_end),
       (try_end),
-      
+
       #lag this check to be sure
       (store_mission_timer_c, ":time_stamp"),
       (try_begin),	#time lag
@@ -76632,8 +76642,8 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (val_max, ":fighting_finished", 5),
       (val_add, ":fighting_finished", "$teams_last_fighting"),
       (gt, ":fighting_finished", ":time_stamp"),]),
-  
-  
+
+
   # script_get_nearest_enemy_battlegroup_location by motomataru
   # Input: destination position, fron team, from position
   # Output: destination position, reg0 with distance
@@ -76660,9 +76670,9 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (try_end),
       (assign, reg0, ":distance_to_nearest_enemy_battlegoup")]),
   # #AI end
-  
-  
-  
+
+
+
 	("find_nearest_enemy_position",
 		[
 			(store_script_param, ":agent", 1),
@@ -76687,7 +76697,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 			(assign, reg1, ":nearest_dist"),
 			(assign, reg4, ":nearest_agent")
 		]),
-  
+
 	("horse_archer_skirmish",
 		[
 			(store_script_param, ":agent", 1), #agent
@@ -76734,8 +76744,8 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 				(try_end),
 			(try_end)
 		]),
-        
-       
+
+
 	("assign_seneschals",
 		[
           #seneschals - dckplmc
@@ -76746,8 +76756,8 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (party_set_slot,":center_no", slot_town_seneschal, ":cur_object_no"),
           (try_end),
 		]),
-      
-      
+
+
   # script_get_random_tournament_participant
   # Input: none
   # Output: reg0 = troop_no
@@ -76755,10 +76765,10 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     [(store_script_param, ":party_no", 1),
      (party_get_slot, ":cur_faction", ":party_no", slot_center_original_faction),
      (assign, ":cur_merchant", "trp_salt_mine_merchant"),
-     
+
      (troop_clear_inventory, ":cur_merchant"),
      (store_random_in_range, ":r", 0, 4),
-     
+
      (try_begin),
          (eq, ":r", 0),
          (troop_add_merchandise_with_faction, ":cur_merchant", ":cur_faction", itp_type_body_armor, 8),
@@ -76782,49 +76792,49 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
      (try_for_range, ":i_slot", ek_food + 2, ":inv_cap"),
         (troop_set_inventory_slot,":cur_merchant",":i_slot",-1),
      (try_end),
-     
+
      ]),
 ### MMC gambler ###
 ### Three Cards ### Dice game ###
 # "script_mmc_gamblers_header"
 # Description: create presentation header for mmc gamblers
-# Input1: 
+# Input1:
 # Output: none
  ("mmc_gamblers_header",
    [	(assign,"$g_presentation_obj_1",-1), # mesh king of spades
-        (assign,"$g_presentation_obj_2",-1), # mesh queen of heart      
-        (assign,"$g_presentation_obj_3",-1), # mesh king of clubs       
+        (assign,"$g_presentation_obj_2",-1), # mesh queen of heart
+        (assign,"$g_presentation_obj_3",-1), # mesh king of clubs
         (assign,"$g_presentation_obj_4",-1), # text "@Bet: {reg51}Denar"
         (assign,"$g_presentation_obj_5",-1), # text "@Money: {reg1}Denar"
         (assign,"$g_presentation_obj_6",-1), # "mesh_text_bar"
         (assign,"$g_presentation_obj_7",-1), # slider
         (assign,"$g_presentation_obj_8",-1), # text "@Bet: {reg51}Denar" above slider
-        (assign,"$g_presentation_obj_9",-1), # win or lose window	
-        (assign,"$g_presentation_obj_10",-1),#done button 
+        (assign,"$g_presentation_obj_9",-1), # win or lose window
+        (assign,"$g_presentation_obj_10",-1),#done button
         (assign,"$g_presentation_obj_11",-1),#find the lady
         (assign,"$g_presentation_obj_12",-1),#yes
         (assign,"$g_presentation_obj_13",-1),#no
-        (assign,"$g_presentation_obj_14",-1),#start game button	
+        (assign,"$g_presentation_obj_14",-1),#start game button
         (assign,"$g_presentation_obj_15",-1),
         (assign,"$g_presentation_obj_16",-1),
-        (assign,"$g_presentation_obj_17",-1),		
+        (assign,"$g_presentation_obj_17",-1),
 		(assign, reg1,0),
 		(assign, reg2,0),
 		(assign, reg3,0),
 		(assign, reg4,0),
-		(assign, reg5,0),		
-        (assign, reg50, 0),		
+		(assign, reg5,0),
+        (assign, reg50, 0),
         (assign, reg51, 1),
         (assign, reg52, 0),
-        (assign, reg53, 0),#		
+        (assign, reg53, 0),#
         (assign, reg55, 1),
-        (assign, reg58, 0),		        
+        (assign, reg58, 0),
 		(str_clear,s1),
         (create_mesh_overlay, reg1, "mesh_3card_table"),#mesh_wood_table
         (position_set_x, pos1, 0),
         (position_set_y, pos1, 0),
         (overlay_set_position, reg1, pos1),
-	
+
         (str_store_troop_name, s1, "$g_talk_troop"),# NPC
         (create_text_overlay, reg1, "@{s1}", tf_center_justify),
         (position_set_x, pos1, 120),#820
@@ -76860,7 +76870,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (overlay_set_position, reg1, pos1),
         (position_set_x, pos1, 250),#
         (position_set_y, pos1, 200),#
-        (overlay_set_size, reg1, pos1),		
+        (overlay_set_size, reg1, pos1),
 
         (str_store_string, s1, "@Bet: {reg51}Denar"),#
         (create_text_overlay, "$g_presentation_obj_4", s1),#
@@ -76874,24 +76884,24 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (position_set_y, pos1, 325),#325
         (overlay_set_position, "$g_presentation_obj_5", pos1),
         (overlay_set_color, "$g_presentation_obj_5"),#0xfffccc
-    ]         
-  ),  
-  
-  # script_d6_roll # "script_d6_roll" 
+    ]
+  ),
+
+  # script_d6_roll # "script_d6_roll"
   # Input: arg1 = none
   # Output: reg0 = mesh
-  # Output: reg1 = pip  
+  # Output: reg1 = pip
   ("d6_roll",
    [(store_script_param, ":d6", 1),
-    (try_begin), 
-        (try_begin), 
+    (try_begin),
+        (try_begin),
 		    (eq,":d6", 0),
 		    (store_random_in_range,":d6",1,7),
-		(try_end),	
-		(try_begin),   
+		(try_end),
+		(try_begin),
 		    (eq,":d6",1),
 		    (assign,reg0,"mesh_mmc_dice_1"),
-        (else_try), 
+        (else_try),
 		    (eq,":d6",2),
 		    (assign,reg0,"mesh_mmc_dice_2"),
         (else_try),
@@ -76900,85 +76910,85 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 		(else_try),
 		    (eq,":d6",4),
 		    (assign,reg0,"mesh_mmc_dice_4"),
-    	(else_try), 	
+    	(else_try),
 		    (eq,":d6",5),
 		    (assign,reg0,"mesh_mmc_dice_5"),
-    	(else_try), 
+    	(else_try),
 		    (eq,":d6",6),
 		    (assign,reg0,"mesh_mmc_dice_6"),
     	(try_end),
-	  (assign,reg1,":d6"),		
-	(try_end),				
-   ]), 
+	  (assign,reg1,":d6"),
+	(try_end),
+   ]),
 
 # "script_draw_d6_side"
-# Description: for prsnt_dices_game 
-# Input: 
+# Description: for prsnt_dices_game
+# Input:
 # Output: none
  ("draw_d6_side",
    [(store_script_param, ":line", 1),
     (store_script_param, ":column", 2),
-    (store_script_param, ":side", 3),#1-6  
+    (store_script_param, ":side", 3),#1-6
     #(store_script_param, ":present_obj", 4),
     (assign,":dice_x",220),
     (try_begin),
-	    (store_mul,":offset_x",":column",55), 
+	    (store_mul,":offset_x",":column",55),
 	    (val_add,":dice_x",":offset_x"),
         (assign,":dice_y",380),
-        (assign,":offset_y",70),           		
+        (assign,":offset_y",70),
     (try_end),
     (try_begin),
         (gt,":side",6),
         (val_sub,":side",6),
-    (try_end), 		
+    (try_end),
 	(try_begin),
         (eq, ":line", 1),
             (try_begin),
-                (gt,"$g_presentation_obj_1", 0),   		    
+                (gt,"$g_presentation_obj_1", 0),
 			    (overlay_set_display, "$g_presentation_obj_1", 0),
-			(try_end), 		 
+			(try_end),
     (else_try),
         (eq, ":line", 2),
             (try_begin),
-                (gt,"$g_presentation_obj_2", 0),   		    
+                (gt,"$g_presentation_obj_2", 0),
 			    (overlay_set_display, "$g_presentation_obj_2", 0),
-			(try_end), 	
+			(try_end),
 		(val_add,":dice_x",25),
         (val_sub, ":dice_y", ":offset_y"),
     (else_try),
         (eq, ":line", 3),
             (try_begin),
-                (gt,"$g_presentation_obj_3", 0),   		    
+                (gt,"$g_presentation_obj_3", 0),
 			    (overlay_set_display, "$g_presentation_obj_3", 0),
-			(try_end), 	
+			(try_end),
 		(val_sub,":dice_x",25),
 		(val_mul,":offset_y",2),
-        (val_sub, ":dice_y", ":offset_y"),		
+        (val_sub, ":dice_y", ":offset_y"),
  	(try_end),
 	(try_begin),
         (call_script, "script_d6_roll",":side"),
 			(try_begin),
                 (eq, ":line", 1),
-                (create_mesh_overlay, "$g_presentation_obj_1", reg0),         				
-				(assign, ":present_obj", "$g_presentation_obj_1"),	
+                (create_mesh_overlay, "$g_presentation_obj_1", reg0),
+				(assign, ":present_obj", "$g_presentation_obj_1"),
 			(else_try),
                 (eq, ":line", 2),
-				(create_mesh_overlay, "$g_presentation_obj_2", reg0), 
+				(create_mesh_overlay, "$g_presentation_obj_2", reg0),
 				(assign, ":present_obj", "$g_presentation_obj_2"),
 			(else_try),
                 (eq, ":line", 3),
-				(create_mesh_overlay, "$g_presentation_obj_3", reg0), 
-				(assign, ":present_obj", "$g_presentation_obj_3"),						
+				(create_mesh_overlay, "$g_presentation_obj_3", reg0),
+				(assign, ":present_obj", "$g_presentation_obj_3"),
 			(try_end),
         (position_set_x, pos1, ":dice_x"),
         (position_set_y, pos1, ":dice_y"),#380
 		(overlay_set_position, ":present_obj", pos1),
         (position_set_x, pos1, 500),
-        (position_set_y, pos1, 633),		
+        (position_set_y, pos1, 633),
         (overlay_set_size, ":present_obj", pos1),
-    (try_end),		
+    (try_end),
  ]),
- 
+
 ("simple_remove_disguise",
  [
 	(try_begin),
@@ -77000,17 +77010,17 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 		(try_end),
 		(assign, "$sneaked_into_town", disguise_none),
 	(try_end),
-]), 
- 
+]),
+
 ### MMC gambler end ###
-### Dice game ### Three Cards ### END ### 
+### Dice game ### Three Cards ### END ###
    #COMBAT OSP BEGIN
-#Shield Bash Script  
-("shield_bash",[  
+#Shield Bash Script
+("shield_bash",[
 (this_or_next|multiplayer_is_server),
-(neg|game_in_multiplayer_mode),	
+(neg|game_in_multiplayer_mode),
 (get_player_agent_no,":player_agent"),
-(store_skill_level,":shield_level", "skl_shield", "trp_player"),  
+(store_skill_level,":shield_level", "skl_shield", "trp_player"),
 (store_sub, ":player_shield_bash_time", 15, ":shield_level"),
 (val_div,":player_shield_bash_time",3),
 (store_mission_timer_a, ":current_time"),
@@ -77042,28 +77052,28 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 		(agent_set_slot, ":player_agent", 27, ":current_time"),
 	(else_try),
 		(agent_play_sound, ":player_agent", "snd_woman_grunt"),	# Shhh...
-        (agent_set_slot, ":player_agent", 27, ":current_time"),		
+              (agent_set_slot, ":player_agent", 27, ":current_time"),
 	(try_end),
 	(try_for_agents,":agent"),
 		(gt, ":agent", 0),
 		(neg|agent_is_ally,":agent"),#don't bash allies
-		(agent_is_human, ":agent"),#stop if not human			
+		(agent_is_human, ":agent"),#stop if not human
 		(agent_is_active,":agent"),
 		(agent_is_alive,":agent"),
 		(try_begin),
 			(agent_get_position,pos62,":agent"),
-			(get_distance_between_positions,":dist",pos63,pos62),		
+			(get_distance_between_positions,":dist",pos63,pos62),
 			(lt,":dist",":bash_radius"),# Now based on shield skill, not doing this for NPCs because that might get expensive.
 			(agent_get_horse, ":horse", ":agent"),
-			(eq, ":horse", -1),	
-			(neq,":agent",":player_agent"),	
-			(agent_play_sound, ":player_agent", "snd_wooden_hit_low_armor_high_damage"),				
-			(position_move_y,pos62,-25),			
+			(eq, ":horse", -1),
+			(neq,":agent",":player_agent"),
+			(agent_play_sound, ":player_agent", "snd_wooden_hit_low_armor_high_damage"),
+			(position_move_y,pos62,-25),
 			(agent_set_position, ":agent", pos62),
 			(try_begin),
 				(store_random_in_range, ":rand", 3, 10), # No chance for critical strike unless shield skill +3
 				(gt, ":shield_level", ":rand"),
-				(agent_set_animation, ":agent","anim_shield_strike"),
+			(agent_set_animation, ":agent","anim_shield_strike"),
 			(else_try),
 				(agent_set_animation, ":agent", "anim_shield_strike_small"),
 			(try_end),
@@ -77075,17 +77085,17 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 #(display_message, "@You don't have enough shield skill to shield bash again this soon."),
 # This message is super spammy and it's absolutely useless after the first time the palyer ever sees it.
 (try_end),
-]), 
+]),
 
 
 #RAMARAUNT SCRIPT - with code from Xenoargh's shield bashing OSP.
 #AI shield bashing script
-("agent_shield_bash",[  
+("agent_shield_bash",[
 (this_or_next|multiplayer_is_server),
-(neg|game_in_multiplayer_mode),	
+(neg|game_in_multiplayer_mode),
 (store_script_param, ":agent", 1),
 (agent_get_troop_id, ":troop_id", ":agent"),
-(store_skill_level,":shield_level", "skl_shield", ":troop_id"),  
+(store_skill_level,":shield_level", "skl_shield", ":troop_id"),
 (gt, ":shield_level", 5),
 (store_sub, ":agent_shield_bash_time", 13, ":shield_level"),
 (store_mission_timer_a, ":current_time"),
@@ -77115,18 +77125,18 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 		(eq, ":type", tf_male),
 		(agent_play_sound, ":agent", "snd_man_grunt"),
 		(agent_set_slot, ":agent", 27, ":current_time"),
-	    #(display_message, "@{s2} has shield bashed!"),	
+	    #(display_message, "@{s2} has shield bashed!"),
 	(else_try),
-		(agent_play_sound, ":agent", "snd_woman_grunt"),	
-        (agent_set_slot, ":agent", 27, ":current_time"),		
-		#(display_message, "@{s2} has shield bashed!"),	
+		(agent_play_sound, ":agent", "snd_woman_grunt"),
+        (agent_set_slot, ":agent", 27, ":current_time"),
+		#(display_message, "@{s2} has shield bashed!"),
 	(try_end),
 	(try_for_agents,":victims"),
 		(gt, ":victims", 0),
 		(agent_get_team, ":victim_team", ":victims"),
 		(agent_get_team, ":agent_team", ":agent"),
 		(teams_are_enemies, ":victim_team", ":agent_team"), #don't bash allies
-		(agent_is_human, ":victims"),#stop if not human			
+		(agent_is_human, ":victims"),#stop if not human
 		(agent_is_active,":victims"),
 		(agent_is_alive,":victims"),
 		(try_begin),
@@ -77136,13 +77146,13 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 		(try_end),
 		(try_begin),
 			(agent_get_position,pos62,":victims"),
-			(get_distance_between_positions,":dist",pos63,pos62),		
+			(get_distance_between_positions,":dist",pos63,pos62),
 			(lt,":dist",100),#Set this to whatever you like- 1 meter radius clears a big section of crowd
 			(agent_get_horse, ":horse", ":victims"),
-			(eq, ":horse", -1),	
-			(neq,":agent",":victims"),	
-			(agent_play_sound, ":victims", "snd_wooden_hit_low_armor_high_damage"),				
-			(position_move_y,pos62,-25),			
+			(eq, ":horse", -1),
+			(neq,":agent",":victims"),
+			(agent_play_sound, ":victims", "snd_wooden_hit_low_armor_high_damage"),
+			(position_move_y,pos62,-25),
 			(agent_set_position, ":victims", pos62),
 			(try_begin),
 				(store_random_in_range, ":rand", 6, 10), # No chance for critical strike unless shield skill +3
@@ -77157,7 +77167,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 (try_end),
 (try_end),
 (try_end),
-]),  
+]),
 #End Shield Bash Script
 
 #VIKING CONQUEST DECAP STUFF - NOTE THIS CODE IS SLIGHTLY ALTERED CODE FROM VC, WHICH IS LEGAL AS LONG AS YOU GIVE CREDIT - Ramaraunt
@@ -77185,34 +77195,34 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	(agent_get_position, pos2, ":attacker_id"),
 	(get_distance_between_positions, ":distance", pos2, pos1),
 	(is_between, ":distance", 0, 200),
-        
+
 
 	# test weapon: cutting damage from a weapon (no missiles)
 	(gt, ":weapon_id", 0),
 	(item_get_swing_damage_type, ":damage_type", ":weapon_id"),
 	(eq, ":damage_type", cut),
-	
+
 	# test to make sure it's a huge hit
 	(ge, ":damage", 40),
-	
+
 	# test if agent is dying from the hit
 	(store_agent_hit_points, ":inflicted_hp", ":inflicted_agent_id", 1),
 	(store_sub, ":inflicted_new_hp", ":inflicted_hp", ":damage"),
 	(le, ":inflicted_new_hp", 0),
 
-      
+
       ]),
-	  
+
 ("cf_vc_decap_probability",
     [(store_script_param_1, ":inflicted_agent_id"),
       (store_script_param_2, ":attacker_agent_id"),
       (store_script_param, ":weapon_id",3),
-      
+
       (agent_is_human, ":inflicted_agent_id"),
       (agent_is_human, ":attacker_agent_id"),
       (gt, ":weapon_id", 0),
 	  (get_player_agent_no,":player"),
-	  
+
       ### Probability ###
       #BASE: 5
       #IF PLAYER
@@ -77226,19 +77236,19 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       #IF HAS HELMET -5
       #MIN CHANCE: 5
       (assign, ":base_chance", 5),
-      
+
       (try_begin),
-        
+
         # Mounted bot
         (agent_get_horse, ":horse_id", ":attacker_agent_id"),
         (try_begin),
           (agent_is_non_player, ":attacker_agent_id"),
-          
+
           (try_begin),
             (neq, ":horse_id", -1),
             (val_add, ":base_chance", 10),
           (try_end),
-          
+
           #Player bonus
         (else_try),
 		  (eq,":attacker_agent_id",":player"),
@@ -77249,8 +77259,8 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (val_add, ":base_chance", 30),
           (try_end),
         (try_end),
-        
-        
+
+
         # Helmet
         (try_begin),
           (agent_get_item_slot, ":head_gear", ":inflicted_agent_id", ek_head),
@@ -77259,28 +77269,28 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           (gt, ":armor", 20),
           (val_sub, ":base_chance", 5),
         (try_end),
-        
+
         (val_max, ":base_chance", 5),
       (try_end),
-      
+
       (store_random_in_range, ":rand", 0, 101),
-      
+
       #(val_div, ":base_chance", 2),#VC-3296
       # Debugging
       (ge, ":base_chance", ":rand"),]),
-	  
+
   # Description: for decapitation -> blood, helmet, spawn head
   # Input: inflicted_agent_id, head_position
   # Output: none
   ("vc_decap_special_effects",
     [(store_script_param_1, ":inflicted_agent_id"),
-      
+
       # Checks if agent was using a helmet
       (try_begin),
         (agent_get_item_slot, ":head_gear", ":inflicted_agent_id", ek_head),
         (ge, ":head_gear", 1),
         (assign, ":spawn_for_timer", 60),
-        
+
         # helmet on the ground
         (copy_position, pos2, pos1),
         (position_move_x, pos2, 20, 0),
@@ -77293,28 +77303,28 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (position_move_y, pos2, -5, 1),
         (set_spawn_position, pos2),
         (spawn_item, ":head_gear", 0, ":spawn_for_timer"),
-        
+
         (agent_unequip_item, ":inflicted_agent_id", ":head_gear"),
       (try_end),
-      
+
       # equip invisible head on agent
       (agent_equip_item, ":inflicted_agent_id", "itm_untitled"),
-      
+
       # blood
       (copy_position, pos2, pos0),
       (set_spawn_position, pos2),
       (particle_system_burst, "psys_game_blood", pos2, 5),
-      
+
       # fake head
       (spawn_scene_prop, "spr_physics_head"),
       (assign, ":head_id", reg0),
-      
+
       (prop_instance_enable_physics, ":head_id", 1),
-      
+
       # makes sure the agent dies
       (agent_set_hit_points,":inflicted_agent_id", 0, 1),]),
-  
-  
+
+
 #VIKING CONQUEST END
 #COMBAT OSP END
 
@@ -78049,7 +78059,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	(try_end),
 	]
   ),
-  
+
 # script_pos_helper
 # Description: Little Pos Helper by Kuba
 # Input1: ti_on_presentation_***
@@ -78071,7 +78081,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 		(position_get_y, reg2, pos1),
 		(overlay_set_text, "$g_little_pos_helper", "@{reg1},{reg2}"),
     (try_end),
- ]), 
+ ]),
  
  
  

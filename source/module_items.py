@@ -483,7 +483,7 @@ items = [
  6553 , weight(27)|abundance(100)|head_armor(0)|body_armor(55)|leg_armor(17)|difficulty(9) ,imodbits_plate ],
 ["black_armor", "Black Armor", [("black_armor",0)], itp_type_body_armor  |itp_covers_legs ,0,
  9496 , weight(28)|abundance(100)|head_armor(0)|body_armor(57)|leg_armor(18)|difficulty(10) ,imodbits_plate ],
- 
+
 ##armors_d
 ["pelt_coat", "Pelt Coat", [("thick_coat_a",0)],  itp_merchandise|itp_type_body_armor  |itp_covers_legs ,0,
  14, weight(2)|abundance(100)|head_armor(0)|body_armor(9)|leg_armor(1)|difficulty(0) ,imodbits_cloth ],
@@ -518,7 +518,7 @@ items = [
  1400 , weight(19)|abundance(100)|head_armor(0)|body_armor(40)|leg_armor(14)|difficulty(7) ,imodbits_armor ],
 ["mamluke_mail", "Mamluke Mail", [("sarranid_elite_cavalary",0)], itp_merchandise| itp_type_body_armor |itp_covers_legs|itp_civilian  ,0,
 2900 , weight(24)|abundance(100)|head_armor(0)|body_armor(48)|leg_armor(16)|difficulty(8) ,imodbits_armor ],
- 
+
 #Quest-specific - perhaps can be used for prisoners,
 ["burlap_tunic", "Burlap Tunic", [("shirt",0)], itp_type_body_armor  |itp_covers_legs ,0,
  5 , weight(1)|abundance(100)|head_armor(0)|body_armor(3)|leg_armor(1)|difficulty(0) ,imodbits_armor ],
@@ -971,7 +971,7 @@ items = [
  1240 , weight(9.0)|abundance(75)|difficulty(0)|spd_rtng(28) | shoot_speed(160) | thrust_damage(95 ,pierce)|max_ammo(1)|accuracy(99),imodbits_none,
  [(ti_on_weapon_attack, [(play_sound,"snd_pistol_shot"),(position_move_x, pos1,0),(position_move_y, pos1,139),(particle_system_burst, "psys_pistol_smoke", pos1, 15)])], [fac_kingdom_1, fac_kingdom_5]],
 
-#Jezail OSP 
+#Jezail OSP
 ["jezail_rifle", "Jezail Rifle",[("jezail",0)],itp_type_pistol|itp_merchandise|itp_cant_use_on_horseback|itp_primary|itp_two_handed, itcf_reload_musket|itcf_carry_spear|itcf_shoot_musket,
  1240 , weight(9.0)|abundance(75)|difficulty(0)|spd_rtng(28) | shoot_speed(160) | thrust_damage(95 ,pierce)|max_ammo(1)|accuracy(99),imodbits_none,
  [(ti_on_weapon_attack, [(play_sound,"snd_pistol_shot"),(position_move_x, pos1,0),(position_move_y, pos1,139),(particle_system_burst, "psys_pistol_smoke", pos1, 15)])]],
@@ -1276,13 +1276,13 @@ items = [
 ["cum", "nothing", [("cum",0)],  itp_type_body_armor |itp_force_show_body|itp_covers_legs|itp_civilian ,0, 500 , weight(3)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(0)|difficulty(0) ,imodbits_cloth],
 
 ["banner_background1","Banner", [("background_banner_01",0)],itp_type_polearm|itp_offset_lance|itp_primary|itp_penalty_with_shield|itp_wooden_parry|itp_wooden_attack,itc_parry_polearm|itcf_carry_sword_back,9, weight(3.5)|spd_rtng(120) | weapon_length(115)|swing_damage(0,blunt) | thrust_damage(0,blunt),imodbits_none,
- [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_custom_banner_default", ":agent_no", ":troop_no")])]],  
+ [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_custom_banner_default", ":agent_no", ":troop_no")])]],
 ["banner_background2","Banner", [("background_banner_02",0)],itp_type_polearm|itp_offset_lance|itp_primary|itp_penalty_with_shield|itp_wooden_parry|itp_wooden_attack,itc_parry_polearm|itcf_carry_sword_back,9, weight(3.5)|spd_rtng(120) | weapon_length(115)|swing_damage(0,blunt) | thrust_damage(0,blunt),imodbits_none,
- [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_custom_banner_default", ":agent_no", ":troop_no")])]],  
- 
+ [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_custom_banner_default", ":agent_no", ":troop_no")])]],
+
 ["warhorse_b","Warhorse", [("warhorse_chain",0)], itp_merchandise|itp_type_horse, 0, 1224,abundance(50)|hit_points(165)|body_armor(40)|difficulty(4)|horse_speed(40)|horse_maneuver(41)|horse_charge(28)|horse_scale(110),imodbits_horse_basic|imodbit_champion],
 ["charger_plate","Plated Charger", [("charger_plate_1",0)], itp_merchandise|itp_type_horse, 0, 1811,abundance(10)|hit_points(165)|body_armor(65)|difficulty(4)|horse_speed(37)|horse_maneuver(38)|horse_charge(40)|horse_scale(112),imodbits_horse_basic|imodbit_champion, [], [fac_kingdom_1, fac_kingdom_5]],
- 
+
 ["untitled", "invishead", [("invisihead",0)], itp_type_head_armor|itp_fit_to_head|itp_covers_head|itp_covers_beard, 0, 187, weight(1.25)|abundance(100)|head_armor(20)|body_armor(0)|leg_armor(0), imodbits_plate ],
 
 #DtheHun
