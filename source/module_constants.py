@@ -54,6 +54,22 @@ slot_item_multiplayer_availability_linked_list_begin = 61 #temporary, can be mov
 slot_item_edible = 70
 
 
+custom_armor_maximum_component = 13 # num of custom parts -1 - to randomize first time ELSE no equip higher (0-13)
+custom_helm_maximum_component = 3 #(0-3)
+#slot_item_materials_begin = 81 - NOT IN USE -> "str_ca_skin"
+#slot_item_materials_end = 82 	- NOT IN USE -> "str_ca_custom"
+slot_item_num_components = 83
+slot_item_init_script = 84
+
+#custom_item_color_mask = 0xf
+#custom_item_color_bits = 4
+
+#message_positive = 0x33FF33
+#message_negative = 0xFF3333
+#message_neutral = 0xFFFF33
+#/custom armor
+
+
 ########################################################
 ##  AGENT SLOTS            #############################
 ########################################################
@@ -99,6 +115,16 @@ slot_agent_skirmish_direction    = 106
 ##
 slot_agent_last_damage           = 110
 
+#DtheHun
+slot_agent_chest_hit_count  	  = 29
+slot_agent_hip_hit_count 		  = 30
+slot_agent_has_been_here_before	  = 31	#0: Use troop armor slots and set agent armor slots || 1: Use agent armor slots
+slot_agent_armor_slots_begin	  = 32
+slot_agent_armor_slots_end = slot_agent_armor_slots_begin + custom_armor_maximum_component
+slot_agent_helm_slots_begin = slot_agent_armor_slots_end + 1
+slot_agent_helm_slots_end = slot_agent_helm_slots_begin + custom_helm_maximum_component
+# +13 (14 components)
+#/DtheHun
 
 ########################################################
 ##  FACTION SLOTS          #############################
@@ -1019,6 +1045,14 @@ slot_troop_stance_on_faction_issue         = 154 #when it happened
 slot_troop_encounters					= 155
 slot_troop_assaults						= 156
 slot_troop_entertainer					= 157
+
+#DtheHun
+slot_troop_tattoo                          = 158 # Had to be changed
+slot_troop_armor_slots_begin			   = 159 # Had to be changed
+slot_troop_armor_slots_end = slot_troop_armor_slots_begin + custom_armor_maximum_component
+slot_troop_helm_slots_begin = slot_troop_armor_slots_end + 1
+slot_troop_helm_slots_end = slot_troop_helm_slots_begin + custom_helm_maximum_component
+#/DtheHun
 
 tro_failed_to_join_army                    = 1
 tro_failed_to_support_colleague            = 2

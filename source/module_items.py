@@ -268,7 +268,6 @@ items = [
 ["scale_gauntlets","Scale Gauntlets", [("scale_gauntlets_b_L",0)], itp_merchandise|itp_type_hand_armor,0, 710, weight(0.75)|abundance(100)|body_armor(5)|difficulty(0),imodbits_armor],
 ["lamellar_gauntlets","Lamellar Gauntlets", [("scale_gauntlets_a_L",0)], itp_merchandise|itp_type_hand_armor,0, 910, weight(0.9)|abundance(100)|body_armor(6)|difficulty(0),imodbits_armor],
 ["gauntlets","Gauntlets", [("gauntlets_L",0)], itp_merchandise|itp_type_hand_armor,0, 1040, weight(1.0)|abundance(100)|body_armor(7)|difficulty(0),imodbits_armor],
-
 #footwear
 ["wrapping_boots", "Wrapping Boots", [("wrapping_boots_a",0)], itp_merchandise| itp_type_foot_armor |itp_civilian | itp_attach_armature ,0,
  3 , weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(3)|difficulty(0) ,imodbits_cloth ],
@@ -294,11 +293,11 @@ items = [
  853 , weight(2.75)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(28)|difficulty(7) ,imodbits_armor ],
 ["mail_boots", "Mail Boots", [("mail_boots_a",0)], itp_merchandise| itp_type_foot_armor | itp_attach_armature  ,0,
  1250 , weight(3)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(31)|difficulty(8) ,imodbits_armor ],
-["iron_greaves", "Iron Greaves", [("iron_greaves_a",0)], itp_merchandise| itp_type_foot_armor | itp_attach_armature,0,
+ ["iron_greaves", "Iron Greaves", [("iron_greaves_a",0)], itp_merchandise| itp_type_foot_armor | itp_attach_armature,0,
  1770 , weight(3.5)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(33)|difficulty(9) ,imodbits_armor ],
 ["black_greaves", "Black Greaves", [("black_greaves",0)], itp_type_foot_armor  | itp_attach_armature,0,
  2361 , weight(3.5)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(35)|difficulty(0) ,imodbits_armor ],
-["khergit_leather_boots", "Khergit Leather Boots", [("khergit_leather_boots",0)], itp_merchandise| itp_type_foot_armor |itp_civilian | itp_attach_armature ,0,
+["khergit_leather_boots", "Khergit Leather Boots", [("khergit_leather_boots_dthun",0)], itp_merchandise| itp_type_foot_armor |itp_civilian | itp_attach_armature ,0,
  120 , weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(18)|difficulty(0) ,imodbits_cloth ],
 ["sarranid_boots_a", "Sarranid Shoes", [("sarranid_shoes",0)], itp_type_foot_armor |itp_civilian | itp_attach_armature ,0,
  30 , weight(1)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(8)|difficulty(0) ,imodbits_cloth ],
@@ -652,8 +651,6 @@ items = [
 280 , weight(1.5)|difficulty(0)|spd_rtng(97) | weapon_length(70)|swing_damage(31 , pierce) | thrust_damage(0 ,  pierce),imodbits_pick ],
 ["morningstar",         "Morningstar", [("mace_morningstar_new",0)], itp_crush_through|itp_type_two_handed_wpn|itp_merchandise|itp_primary|itp_wooden_parry|itp_unbalanced, itc_morningstar|itcf_carry_mace_left_hip,
 305 , weight(4.5)|difficulty(13)|spd_rtng(95) | weapon_length(85)|swing_damage(38 , pierce) | thrust_damage(0 ,  pierce),imodbits_mace ],
-
-
 ["sickle",         "Sickle", [("sickle_swup",0)], itp_type_one_handed_wpn|itp_merchandise|itp_primary|itp_secondary|itp_no_parry|itp_wooden_parry, itc_cleaver,
 9 , weight(1.5)|difficulty(0)|spd_rtng(99) | weapon_length(47)|swing_damage(20 , cut) | thrust_damage(0 ,  pierce),imodbits_none ],
 ["cleaver",         "Cleaver", [("cleaver_swup",0)], itp_type_one_handed_wpn|itp_merchandise|itp_primary|itp_secondary|itp_no_parry|itp_wooden_parry, itc_cleaver,
@@ -1036,7 +1033,6 @@ items = [
 ["tab_shield_round_e", "Huscarl's Round Shield", [("tableau_shield_round_4",0)], itp_merchandise|itp_type_shield, itcf_carry_round_shield,
 430 , weight(4.5)|hit_points(410)|body_armor(19)|spd_rtng(81)|shield_width(50),imodbits_shield,
  [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_round_shield_4", ":agent_no", ":troop_no")])]],
-
 ["tab_shield_kite_a", "Old Kite Shield",   [("tableau_shield_kite_1" ,0)], itp_merchandise|itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,
 33 , weight(2)|hit_points(165)|body_armor(5)|spd_rtng(96)|shield_width(36)|shield_height(70),imodbits_shield,
  [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_kite_shield_1", ":agent_no", ":troop_no")])]],
@@ -1127,7 +1123,6 @@ items = [
 #TODO:
 #TODO: Heavy throwing Spear
 ["stones",         "Stones", [("throwing_stone",0)], itp_type_thrown |itp_merchandise|itp_primary ,itcf_throw_stone, 1 , weight(4)|difficulty(0)|spd_rtng(97) | shoot_speed(30) | thrust_damage(11 ,  blunt)|max_ammo(18)|weapon_length(8),imodbit_large_bag ],
-
 ["throwing_knives", "Throwing Knives", [("throwing_knife_new",0)], itp_type_thrown |itp_merchandise|itp_primary ,itcf_throw_knife, 76 , weight(2.5)|difficulty(0)|spd_rtng(121) | shoot_speed(25) | thrust_damage(19 ,  cut)|max_ammo(14)|weapon_length(0),imodbits_thrown ],
 ["throwing_daggers", "Throwing Daggers", [("throwing_dagger_new",0)], itp_type_thrown |itp_merchandise|itp_primary ,itcf_throw_knife, 193 , weight(2.5)|difficulty(0)|spd_rtng(110) | shoot_speed(24) | thrust_damage(25 ,  cut)|max_ammo(13)|weapon_length(0),imodbits_thrown ],
 #TODO: Light Trowing axe, Heavy Throwing Axe
@@ -1290,6 +1285,965 @@ items = [
 
 ["untitled", "invishead", [("invisihead",0)], itp_type_head_armor|itp_fit_to_head|itp_covers_head|itp_covers_beard, 0, 187, weight(1.25)|abundance(100)|head_armor(20)|body_armor(0)|leg_armor(0), imodbits_plate ],
 
+#DtheHun
+  ["chest_b", "Random", [("chest_b",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#0	
+ #ca1
+  #0
+  ["ca1_skin_0", "No cover", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#0
+  ["ca1_assassin_skin", "assassin_skin", [("assassin_skin",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#*
+  ["ca1_leather_skin", "leather_skin", [("leather_skin",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #1
+  ["ca1_bra_0", "No chest piece", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#1
+  ["ca1_sonja_bra", "sonja_bra", [("sonja_bra",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca1_loin_top", "loin_top", [("loin_top",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca1_risty_chest", "risty_chest", [("risty_chest",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #2
+  ["ca1_panty_0", "No panty", [("invalid_item",0)], itp_type_body_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#2
+  ["ca1_morag_thong", "morag_thong", [("morag_thong",0)], itp_type_body_armor, 0, 96,weight(1)|abundance(50),imodbits_none], #*
+  ["ca1_angela_panty", "angela_panty", [("angela_panty",0)], itp_type_body_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca1_chain_thong", "chain_thong", [("chain_thong",0)], itp_type_body_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca1_risty_thong", "risty_thong", [("risty_thong",0)], itp_type_body_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #3  
+  ["ca1_belt_0", "No belt piece", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#3
+  ["ca1_assassin_belt", "assassin_belt", [("assassin_belt",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none], #*
+  ["ca1_sonja_belt", "sonja_belt", [("sonja_belt",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca1_angela_assguard", "angela_assguard", [("angela_assguard",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca1_risty_belt", "risty_belt", [("risty_belt",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #4
+  ["ca1_ass_0", "No bottom piece", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#4
+  ["ca1_assassin_cover", "assassin_cover", [("assassin_cover",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none], #*
+  ["ca1_sonja_bottom", "sonja_bottom", [("sonja_bottom",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca1_loin_skirt", "loin_skirt", [("loin_skirt",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #5
+  ["ca1_knee_0", "No knee piece", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#5
+  ["ca1_assassin_bootleg", "assassin_bootleg", [("assassin_bootleg",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca1_sonja_legstrap", "sonja_legstrap", [("sonja_legstrap",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca1_scale_armor_knee", "scale_armor_knee", [("scale_armor_knee",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #6
+  ["ca1_pdn_l_0", "No left pauldron", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#6
+  ["ca1_plate_armor_pauldron_l", "plate_armor_pauldron_l", [("plate_armor_pauldron_l",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca1_scale_armor_pauldron_l", "scale_armor_pauldron_l", [("scale_armor_pauldron_l",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca1_assassin_pauldron_l", "assassin_pauldron_l", [("assassin_pauldron_l",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca1_sonja_armband_l", "sonja_armband_l", [("sonja_armband_l",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca1_risty_rerebrace_l", "risty_rerebrace_l", [("risty_rerebrace_l",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #7
+  ["ca1_pdn_r_0", "No right pauldron", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#7
+  ["ca1_plate_armor_pauldron_r", "plate_armor_pauldron_r", [("plate_armor_pauldron_r",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca1_scale_armor_pauldron_r", "scale_armor_pauldron_r", [("scale_armor_pauldron_r",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca1_assassin_pauldron_r", "assassin_pauldron_r", [("assassin_pauldron_r",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca1_sonja_armband_r", "sonja_armband_r", [("sonja_armband_r",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca1_risty_rerebrace_r", "risty_rerebrace_r", [("risty_rerebrace_r",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #8
+  ["ca1_elb_l_0", "No left elbow piece", [("invalid_item",0)], itp_type_goods, 0, 96,weight(1)|abundance(50),imodbits_none],#8
+  ["ca1_plate_armor_elbow_l", "plate_armor_elbow_l", [("plate_armor_elbow_l",0)], itp_type_goods, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca1_assassin_sleeve_l", "assassin_sleeve_l", [("assassin_sleeve_l",0)], itp_type_goods, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #9
+  ["ca1_elb_r_0", "No right elbow piece", [("invalid_item",0)], itp_type_goods, 0, 96,weight(1)|abundance(50),imodbits_none],#9
+  ["ca1_plate_armor_elbow_r", "plate_armor_elbow_r", [("plate_armor_elbow_r",0)], itp_type_goods, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca1_assassin_sleeve_r", "assassin_sleeve_r", [("assassin_sleeve_r",0)], itp_type_goods, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #10
+  ["ca1_brc_l_0", "No left bracer", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#10
+  ["ca1_plate_bracer_l", "plate_bracer_l", [("plate_bracer_l",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca1_sonja_glove_l", "sonja_glove_l", [("sonja_glove_l",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca1_risty_bracer_l", "risty_bracer_l", [("risty_bracer_l",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #11
+  ["ca1_brc_r_0", "No right bracer", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#11
+  ["ca1_plate_bracer_r", "plate_bracer_r", [("plate_bracer_r",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca1_sonja_glove_r", "sonja_glove_r", [("sonja_glove_r",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca1_risty_bracer_r", "risty_bracer_r", [("risty_bracer_r",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #12
+  ["ca1_neck_0", "No neck piece", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#12
+  ["ca1_sonja_jewel", "sonja_jewel", [("sonja_jewel",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #13
+  ["ca1_cape_0", "No cape", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#13
+  ["ca1_angela_band", "angela_band", [("angela_band",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+
+ #ca2
+  #0 
+  ["ca2_skin_0", "No cover", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#0
+  ["ca2_assassin_skin", "assassin_skin", [("assassin_skin",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#*
+  ["ca2_chainmail_skin", "chainmail_skin", [("chainmail_skin",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_leather_skin", "leather_skin", [("leather_skin",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #1 
+  ["ca2_bra_0", "No chest piece", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#1
+  ["ca2_scale_armor_top", "scale_armor_top", [("scale_armor_top",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_sonja_bra", "sonja_bra", [("sonja_bra",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_angela_chest", "angela_chest", [("angela_chest",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_loin_top", "loin_top", [("loin_top",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_risty_chest", "risty_chest", [("risty_chest",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #2
+  ["ca2_panty_0", "No panty", [("invalid_item",0)], itp_type_body_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#2
+  ["ca2_morag_thong", "morag_thong", [("morag_thong",0)], itp_type_body_armor, 0, 96,weight(1)|abundance(50),imodbits_none], #*
+  ["ca2_angela_panty", "angela_panty", [("angela_panty",0)], itp_type_body_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_chain_thong", "chain_thong", [("chain_thong",0)], itp_type_body_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_risty_thong", "risty_thong", [("risty_thong",0)], itp_type_body_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #3
+  ["ca2_belt_0", "No belt piece", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#3
+  ["ca2_assassin_belt", "assassin_belt", [("assassin_belt",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none], #*
+  ["ca2_sonja_belt", "sonja_belt", [("sonja_belt",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_angela_assguard", "angela_assguard", [("angela_assguard",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_risty_belt", "risty_belt", [("risty_belt",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #4
+  ["ca2_ass_0", "No bottom piece", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#4
+  ["ca2_assassin_cover", "assassin_cover", [("assassin_cover",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none], #*
+  ["ca2_angela_cover", "angela_cover", [("angela_cover",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none], #*
+  ["ca2_scale_armor_skirt", "scale_armor_skirt", [("scale_armor_skirt",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_sonja_bottom", "sonja_bottom", [("sonja_bottom",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_loin_skirt", "loin_skirt", [("loin_skirt",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #5  
+  ["ca2_knee_0", "No knee piece", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#5
+  ["ca2_angela_knees", "angela_knees", [("angela_knees",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_assassin_plated_bootleg", "assassin_plated_bootleg", [("assassin_plated_bootleg",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_assassin_bootleg", "assassin_bootleg", [("assassin_bootleg",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_sonja_legstrap", "sonja_legstrap", [("sonja_legstrap",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none], 
+  ["ca2_scale_armor_knee", "scale_armor_knee", [("scale_armor_knee",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #6 
+  ["ca2_pdn_l_0", "No left pauldron", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#6
+  ["ca2_plate_armor_pauldron_l", "plate_armor_pauldron_l", [("plate_armor_pauldron_l",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_scale_armor_pauldron_l", "scale_armor_pauldron_l", [("scale_armor_pauldron_l",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_assassin_shoulder_l", "assassin_shoulder_l", [("assassin_shoulder_l",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_angela_pauldron_l", "angela_pauldron_l", [("angela_pauldron_l",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_angela_shoulder_l", "angela_shoulder_l", [("angela_shoulder_l",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_assassin_pauldron_l", "assassin_pauldron_l", [("assassin_pauldron_l",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_sonja_armband_l", "sonja_armband_l", [("sonja_armband_l",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_risty_rerebrace_l", "risty_rerebrace_l", [("risty_rerebrace_l",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #7
+  ["ca2_pdn_r_0", "No left pauldron", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#6
+  ["ca2_plate_armor_pauldron_r", "plate_armor_pauldron_r", [("plate_armor_pauldron_r",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_scale_armor_pauldron_r", "scale_armor_pauldron_r", [("scale_armor_pauldron_r",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_assassin_shoulder_r", "assassin_shoulder_r", [("assassin_shoulder_r",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_angela_pauldron_r", "angela_pauldron_r", [("angela_pauldron_r",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_angela_shoulder_r", "angela_shoulder_r", [("angela_shoulder_r",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_assassin_pauldron_r", "assassin_pauldron_r", [("assassin_pauldron_r",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_sonja_armband_r", "sonja_armband_r", [("sonja_armband_r",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_risty_rerebrace_r", "risty_rerebrace_r", [("risty_rerebrace_r",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #8
+  ["ca2_elb_l_0", "No left elbow piece", [("invalid_item",0)], itp_type_goods, 0, 96,weight(1)|abundance(50),imodbits_none],#8
+  ["ca2_plate_armor_elbow_l", "plate_armor_elbow_l", [("plate_armor_elbow_l",0)], itp_type_goods, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_assassin_sleeve_l", "assassin_sleeve_l", [("assassin_sleeve_l",0)], itp_type_goods, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_angela_elbow_l", "angela_elbow_l", [("angela_elbow_l",0)], itp_type_goods, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #9
+  ["ca2_elb_r_0", "No right elbow piece", [("invalid_item",0)], itp_type_goods, 0, 96,weight(1)|abundance(50),imodbits_none],#9
+  ["ca2_plate_armor_elbow_r", "plate_armor_elbow_r", [("plate_armor_elbow_r",0)], itp_type_goods, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_assassin_sleeve_r", "assassin_sleeve_r", [("assassin_sleeve_r",0)], itp_type_goods, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_angela_elbow_r", "angela_elbow_r", [("angela_elbow_r",0)], itp_type_goods, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #10
+  ["ca2_brc_l_0", "No left bracer", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#10
+  ["ca2_plate_bracer_l", "plate_bracer_l", [("plate_bracer_l",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_sonja_glove_l", "sonja_glove_l", [("sonja_glove_l",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_angela_bracer_l", "angela_bracer_l", [("angela_bracer_l",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_risty_bracer_l", "risty_bracer_l", [("risty_bracer_l",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #11
+  ["ca2_brc_r_0", "No right bracer", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#11
+  ["ca2_plate_bracer_r", "plate_bracer_r", [("plate_bracer_r",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_sonja_glove_r", "sonja_glove_r", [("sonja_glove_r",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_angela_bracer_r", "angela_bracer_r", [("angela_bracer_r",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca2_risty_bracer_r", "risty_bracer_r", [("risty_bracer_r",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #12
+  ["ca2_neck_0", "No neck piece", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#12
+  ["ca2_sonja_jewel", "sonja_jewel", [("sonja_jewel",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #13
+  ["ca2_cape_0", "No cape", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#13
+  ["ca2_angela_band", "angela_band", [("angela_band",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+
+ #ca3
+  #0
+  ["ca3_skin_0", "No cover", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#0
+  ["ca3_assassin_skin", "assassin_skin", [("assassin_skin",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#*
+  ["ca3_chainmail_skin", "chainmail_skin", [("chainmail_skin",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_leather_skin", "leather_skin", [("leather_skin",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #1
+  ["ca3_bra_0", "No chest piece", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#1
+  ["ca3_plate_armor_top", "plate_armor_top", [("plate_armor_top",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none], 
+  ["ca3_scale_armor_top", "scale_armor_top", [("scale_armor_top",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_angela_chest", "angela_chest", [("angela_chest",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_sonja_bra", "sonja_bra", [("sonja_bra",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_loin_top", "loin_top", [("loin_top",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_risty_chest", "risty_chest", [("risty_chest",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #2
+  ["ca3_panty_0", "No panty", [("invalid_item",0)], itp_type_body_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#2
+  ["ca3_morag_thong", "morag_thong", [("morag_thong",0)], itp_type_body_armor, 0, 96,weight(1)|abundance(50),imodbits_none], #*
+  ["ca3_angela_panty", "angela_panty", [("angela_panty",0)], itp_type_body_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_chain_thong", "chain_thong", [("chain_thong",0)], itp_type_body_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_risty_thong", "risty_thong", [("risty_thong",0)], itp_type_body_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #3
+  ["ca3_belt_0", "No belt piece", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#3
+  ["ca3_assassin_belt", "assassin_belt", [("assassin_belt",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none], #*
+  ["ca3_angela_assguard", "angela_assguard", [("angela_assguard",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_sonja_belt", "sonja_belt", [("sonja_belt",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_risty_belt", "risty_belt", [("risty_belt",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #4
+  ["ca3_ass_0", "No bottom piece", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#4
+  ["ca3_assassin_cover", "assassin_cover", [("assassin_cover",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none], #*
+  ["ca3_angela_cover", "angela_cover", [("angela_cover",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none], #*
+  ["ca3_scale_armor_skirt", "scale_armor_skirt", [("scale_armor_skirt",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_sonja_bottom", "sonja_bottom", [("sonja_bottom",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_loin_skirt", "loin_skirt", [("loin_skirt",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #5 
+  ["ca3_knee_0", "No knee piece", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#5
+  ["ca3_plate_armor_bootleg", "plate_armor_bootleg", [("plate_armor_bootleg",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_angela_knees", "angela_knees", [("angela_knees",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_assassin_plated_bootleg", "assassin_plated_bootleg", [("assassin_plated_bootleg",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_assassin_bootleg", "assassin_bootleg", [("assassin_bootleg",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_sonja_legstrap", "sonja_legstrap", [("sonja_legstrap",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none], 
+  ["ca3_scale_armor_knee", "scale_armor_knee", [("scale_armor_knee",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #6
+  ["ca3_pdn_l_0", "No left pauldron", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#6
+  ["ca3_plate_armor_pauldron_l", "plate_armor_pauldron_l", [("plate_armor_pauldron_l",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_scale_armor_pauldron_l", "scale_armor_pauldron_l", [("scale_armor_pauldron_l",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_assassin_shoulder_l", "assassin_shoulder_l", [("assassin_shoulder_l",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_angela_pauldron_l", "angela_pauldron_l", [("angela_pauldron_l",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_angela_shoulder_l", "angela_shoulder_l", [("angela_shoulder_l",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_assassin_pauldron_l", "assassin_pauldron_l", [("assassin_pauldron_l",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_sonja_armband_l", "sonja_armband_l", [("sonja_armband_l",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_risty_rerebrace_l", "risty_rerebrace_l", [("risty_rerebrace_l",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #7
+  ["ca3_pdn_r_0", "No left pauldron", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#6
+  ["ca3_plate_armor_pauldron_r", "plate_armor_pauldron_r", [("plate_armor_pauldron_r",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_scale_armor_pauldron_r", "scale_armor_pauldron_r", [("scale_armor_pauldron_r",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_assassin_shoulder_r", "assassin_shoulder_r", [("assassin_shoulder_r",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_angela_pauldron_r", "angela_pauldron_r", [("angela_pauldron_r",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_angela_shoulder_r", "angela_shoulder_r", [("angela_shoulder_r",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_assassin_pauldron_r", "assassin_pauldron_r", [("assassin_pauldron_r",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_sonja_armband_r", "sonja_armband_r", [("sonja_armband_r",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_risty_rerebrace_r", "risty_rerebrace_r", [("risty_rerebrace_r",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #8
+  ["ca3_elb_l_0", "No left elbow piece", [("invalid_item",0)], itp_type_goods, 0, 96,weight(1)|abundance(50),imodbits_none],#8
+  ["ca3_plate_armor_elbow_l", "plate_armor_elbow_l", [("plate_armor_elbow_l",0)], itp_type_goods, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_angela_elbow_l", "angela_elbow_l", [("angela_elbow_l",0)], itp_type_goods, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_assassin_sleeve_l", "assassin_sleeve_l", [("assassin_sleeve_l",0)], itp_type_goods, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #9
+  ["ca3_elb_r_0", "No right elbow piece", [("invalid_item",0)], itp_type_goods, 0, 96,weight(1)|abundance(50),imodbits_none],#9
+  ["ca3_plate_armor_elbow_r", "plate_armor_elbow_r", [("plate_armor_elbow_r",0)], itp_type_goods, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_angela_elbow_r", "angela_elbow_r", [("angela_elbow_r",0)], itp_type_goods, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_assassin_sleeve_r", "assassin_sleeve_r", [("assassin_sleeve_r",0)], itp_type_goods, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #10
+  ["ca3_brc_l_0", "No left bracer", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#10
+  ["ca3_plate_bracer_l", "plate_bracer_l", [("plate_bracer_l",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_sonja_glove_l", "sonja_glove_l", [("sonja_glove_l",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_angela_bracer_l", "angela_bracer_l", [("angela_bracer_l",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_risty_bracer_l", "risty_bracer_l", [("risty_bracer_l",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #11
+  ["ca3_brc_r_0", "No right bracer", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#11
+  ["ca3_plate_bracer_r", "plate_bracer_r", [("plate_bracer_r",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_sonja_glove_r", "sonja_glove_r", [("sonja_glove_r",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_angela_bracer_r", "angela_bracer_r", [("angela_bracer_r",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["ca3_risty_bracer_r", "risty_bracer_r", [("risty_bracer_r",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #12
+  ["ca3_neck_0", "No neck piece", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#12
+  ["ca3_sonja_jewel", "sonja_jewel", [("sonja_jewel",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  #13
+  ["ca3_cape_0", "No cape", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#13
+  ["ca3_angela_band", "angela_band", [("angela_band",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+
+ #plate helm
+  #0  
+  ["cph_dec_0", "No decoration", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#11
+  ["cph_plate_helm_wings", "plate_helm_wings", [("plate_helm_wings",0)], itp_type_head_armor, 0, 96,weight(1)|abundance(50),imodbits_none],
+  ["cph_angela_helm_wings_up", "angela_helm_wings_up", [("angela_helm_wings_up",0)], itp_type_head_armor, 0, 96,weight(1)|abundance(50),imodbits_none],  
+
+ #angela helm
+  #0
+  ["cah_face_0", "No upward wings", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#11
+  ["cah_angela_helm_face", "angela_helm_face", [("angela_helm_face",0)], itp_type_head_armor, 0, 96,weight(1)|abundance(50),imodbits_none],    
+  #1  
+  ["cah_wings_up_0", "No upward wings", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#11
+  ["cah_angela_helm_wings_up", "angela_helm_wings_up", [("angela_helm_wings_up",0)], itp_type_head_armor, 0, 96,weight(1)|abundance(50),imodbits_none],  
+  #2
+  ["cah_wings_down_0", "No downward wings", [("invalid_item",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#11
+  ["cah_angela_helm_wings_down", "angela_helm_wings_down", [("angela_helm_wings_down",0)], itp_type_head_armor, 0, 96,weight(1)|abundance(50),imodbits_none],    
+
+  #DtheHun GLOVES
+["future_gauntlets01","Placeholder", [("scale_gauntlets_b_L",0)], itp_type_hand_armor,0, 710, weight(0.75)|abundance(100)|body_armor(5)|difficulty(0),imodbits_armor],
+["future_gauntlets02","Placeholder", [("scale_gauntlets_b_L",0)], itp_type_hand_armor,0, 710, weight(0.75)|abundance(100)|body_armor(5)|difficulty(0),imodbits_armor],
+["future_gauntlets03","Placeholder", [("scale_gauntlets_b_L",0)], itp_type_hand_armor,0, 710, weight(0.75)|abundance(100)|body_armor(5)|difficulty(0),imodbits_armor],
+["future_gauntlets04","Placeholder", [("scale_gauntlets_b_L",0)], itp_type_hand_armor,0, 710, weight(0.75)|abundance(100)|body_armor(5)|difficulty(0),imodbits_armor],
+["future_gauntlets05","Placeholder", [("scale_gauntlets_b_L",0)], itp_type_hand_armor,0, 710, weight(0.75)|abundance(100)|body_armor(5)|difficulty(0),imodbits_armor],
+
+#DtheHun BOOTS
+["risty_sandals", "Risty's sandals", [("risty_sandals",0)], itp_merchandise| itp_type_foot_armor | itp_attach_armature  ,0,
+ 1000 , weight(2)|abundance(0)|head_armor(0)|body_armor(0)|leg_armor(24)|difficulty(0) ,imodbits_armor,
+  [(ti_on_init_item, 
+	[
+		(store_trigger_param_1, ":agent_no"), # -1 if not in scene 
+		(store_trigger_param_2, ":troop_no"),
+		(call_script, "script_set_calves", ":agent_no", ":troop_no"),
+	])
+  ]
+],
+["plate_boots_dthun", "Plate Boots", [("plate_boots_dthun",0)], itp_merchandise| itp_type_foot_armor | itp_attach_armature,0,
+2770 , weight(3.5)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(33)|difficulty(6) ,imodbits_plate ],
+["diabassa_boots", "Assassin Boots", [("diabassa_boots",0)], itp_merchandise| itp_type_foot_armor | itp_attach_armature  ,0,
+1666 , weight(1.5)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(28)|difficulty(0) ,imodbits_armor ],
+["sonja_boots", "Hyrcanian Boots", [("sonja_boots",0)], itp_merchandise| itp_type_foot_armor | itp_attach_armature  ,0,
+2100 , weight(2.5)|abundance(0)|head_armor(0)|body_armor(0)|leg_armor(31)|difficulty(0) ,imodbits_armor,
+  [(ti_on_init_item, 
+	[
+		(store_trigger_param_1, ":agent_no"), # -1 if not in scene 
+		(store_trigger_param_2, ":troop_no"),
+		(call_script, "script_set_calves", ":agent_no", ":troop_no"),
+	])
+  ]
+],
+["angela_boots", "Angelic Boots", [("angela_boots",0)], itp_merchandise| itp_type_foot_armor | itp_attach_armature,0,
+1982 , weight(3.0)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(30)|difficulty(5) ,imodbits_plate ],
+#DtheHun ARMORS
+["body_fem", "Clothing", [("custom_armor1",0)], itp_unique  |itp_type_body_armor  |itp_covers_legs |itp_force_show_body ,0,
+ 0 , weight(0)|abundance(0)|head_armor(0)|body_armor(0)|leg_armor(0)|difficulty(0) ,imodbits_none,
+  [(ti_on_init_item,
+    [
+		#(store_trigger_param_1, ":agent_no"),
+		(store_trigger_param_2, ":troop_no"),
+	#ARMOR
+		(cur_item_add_mesh, "@custom_skin"), # for inventory skin color
+	#TATTOO CHANGE
+		(troop_get_slot, ":color", ":troop_no", slot_troop_tattoo),
+		(gt, ":color", 0),
+		(str_clear, s1),
+		(val_add, ":color", "str_ca_skin"),
+		(str_store_string, s1, ":color"),
+		#(cur_item_set_material, s1, 0),  #Base mesh
+		(cur_item_set_material, s1, 1),  #Body - Tatoo? - freez in invetory if no second mesh	  
+	])
+  ]
+],
+["loin_skirt", "Leather Skirt", [("custom_armor1",0)], itp_unique  |itp_type_body_armor  |itp_covers_legs |itp_force_show_body ,0,
+ 0 , weight(0)|abundance(50)|head_armor(0)|body_armor(0)|leg_armor(0)|difficulty(0) ,imodbits_cloth,
+  [(ti_on_init_item,
+    [
+		(store_trigger_param_1, ":agent_no"),
+		(store_trigger_param_2, ":troop_no"),
+	#ARMOR
+		(cur_item_add_mesh, "@custom_skin"), # for inventory skin color
+		(try_begin),
+			(neq, ":agent_no", -1),
+			(try_begin),
+				(agent_get_slot, ":hit_count", ":agent_no", slot_agent_hip_hit_count),
+				(le, ":hit_count", 0),
+				(cur_item_add_mesh, "@loin_skirt"),
+				(cur_item_add_mesh, "@loin_panty"),
+			(try_end),
+		(else_try), #add them in inventory where ":agent_no" = -1
+			(cur_item_add_mesh, "@loin_skirt"),
+			(cur_item_add_mesh, "@loin_panty"),			
+		(try_end),
+	#TATTOO CHANGE
+		(troop_get_slot, ":color", ":troop_no", slot_troop_tattoo),
+		(gt, ":color", 0),
+		(str_clear, s1),
+		(val_add, ":color", "str_ca_skin"),
+		(str_store_string, s1, ":color"),
+		#(cur_item_set_material, s1, 0),  #Base mesh
+		(cur_item_set_material, s1, 1),  #Body - Tatoo? - freez in invetory if no second mesh
+	])
+  ]
+],
+["loin_top", "Leather Top", [("custom_armor1",0)], itp_unique  |itp_type_body_armor  |itp_covers_legs |itp_force_show_body ,0,
+ 0 , weight(0)|abundance(50)|head_armor(0)|body_armor(0)|leg_armor(0)|difficulty(0) ,imodbits_cloth,
+  [(ti_on_init_item,
+    [
+		(store_trigger_param_1, ":agent_no"),
+		(store_trigger_param_2, ":troop_no"),
+	#ARMOR
+		(cur_item_add_mesh, "@custom_skin"), # for inventory skin color
+		(try_begin),
+			(neq, ":agent_no", -1),
+			(try_begin),
+				(agent_get_slot, ":hit_count", ":agent_no", slot_agent_chest_hit_count),
+				(le, ":hit_count", 0),
+				(cur_item_add_mesh, "@loin_top"),
+			(try_end),
+		(else_try),
+			(cur_item_add_mesh, "@loin_top"),			
+		(try_end),
+	#TATTOO CHANGE
+		(troop_get_slot, ":color", ":troop_no", slot_troop_tattoo),
+		(gt, ":color", 0),
+		(str_clear, s1),
+		(val_add, ":color", "str_ca_skin"),
+		(str_store_string, s1, ":color"),
+		#(cur_item_set_material, s1, 0),  #Base mesh
+		(cur_item_set_material, s1, 1),  #Body - Tatoo? - freez in invetory if no second mesh
+	])
+  ]
+],
+["loincloth", "Loincloth", [("custom_armor1",0)], itp_unique  |itp_type_body_armor  |itp_covers_legs |itp_force_show_body ,0,
+ 0 , weight(0)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(0)|difficulty(0) ,imodbits_cloth,
+  [(ti_on_init_item,
+    [
+	    (store_trigger_param_1, ":agent_no"),
+		(store_trigger_param_2, ":troop_no"),
+	#ARMOR
+		(cur_item_add_mesh, "@custom_skin"), # for inventory skin color
+		(try_begin),
+			(neq, ":agent_no", -1),
+			(try_begin),
+				(agent_get_slot, ":hit_count", ":agent_no", slot_agent_chest_hit_count),
+				(le, ":hit_count", 0),
+				(cur_item_add_mesh, "@loin_top"),
+			(try_end),
+			(try_begin),
+				(agent_get_slot, ":hit_count", ":agent_no", slot_agent_hip_hit_count),
+				(le, ":hit_count", 0),
+				(cur_item_add_mesh, "@loin_skirt"),
+				(cur_item_add_mesh, "@loin_panty"),
+			(try_end),
+		(else_try),
+			(cur_item_add_mesh, "@loin_top"),
+			(cur_item_add_mesh, "@loin_skirt"),
+			(cur_item_add_mesh, "@loin_panty"),
+		(try_end),
+	#TATTOO
+		(troop_get_slot, ":color", ":troop_no", slot_troop_tattoo),
+	    (gt, ":color", 0),
+		(str_clear, s1),
+		(val_add, ":color", "str_ca_skin"),
+		(str_store_string, s1, ":color"),
+		#(cur_item_set_material, s1, 0),  #Base mesh
+		(cur_item_set_material, s1, 1),  #Body - Tatoo? - freez in invetory if no second mesh
+	])
+  ]
+],
+["scale_armor_dthun", "Scale Armor", [("custom_armor1",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_force_show_body ,0,
+2500 , weight(25)|abundance(100)|head_armor(0)|body_armor(42)|leg_armor(12)|difficulty(6) ,imodbits_armor,
+  [(ti_on_init_item,
+	[
+	  (store_trigger_param_1, ":agent_no"),
+      (store_trigger_param_2, ":troop_no"),
+	#ARMOR
+		(cur_item_add_mesh, "@custom_skin"), # for inventory skin color
+		(try_begin),
+			(neq, ":agent_no", -1),
+			(try_begin),
+				(agent_get_slot, ":hit_count", ":agent_no", slot_agent_chest_hit_count),
+				(le, ":hit_count", 0),
+				(cur_item_add_mesh, "@scale_armor_top"),
+			(try_end),
+			(try_begin),
+				(agent_get_slot, ":hit_count", ":agent_no", slot_agent_hip_hit_count),
+				(le, ":hit_count", 0),
+				(cur_item_add_mesh, "@scale_armor_skirt"),
+			(try_end),
+		(else_try),
+			(cur_item_add_mesh, "@scale_armor_top"),
+			(cur_item_add_mesh, "@scale_armor_skirt"),
+		(try_end),
+		(cur_item_add_mesh, "@leather_skin"), #FIX SKIN
+		(cur_item_add_mesh, "@scale_armor_pauldron_l"),
+		(cur_item_add_mesh, "@scale_armor_pauldron_r"),
+		(cur_item_add_mesh, "@scale_armor_knee"),
+	#TATTOO CHANGE
+		(troop_get_slot, ":color", ":troop_no", slot_troop_tattoo),
+		(gt, ":color", 0),
+		(str_clear, s1),
+		(val_add, ":color", "str_ca_skin"),
+		(str_store_string, s1, ":color"),
+		#(cur_item_set_material, s1, 0),  #Base mesh
+		(cur_item_set_material, s1, 1),  #Body - Tatoo? - freez in invetory if no second mesh
+	])
+  ]
+],
+["risty_armor", "Risty's Armor", [("custom_armor1",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_force_show_body ,0,
+ 1700 , weight(12)|abundance(100)|head_armor(0)|body_armor(36)|leg_armor(8)|difficulty(6) ,imodbits_armor,
+  [(ti_on_init_item,
+	[
+		(store_trigger_param_1, ":agent_no"),
+		(store_trigger_param_2, ":troop_no"),
+	#ARMOR
+		(cur_item_add_mesh, "@custom_skin"), # for inventory skin color
+		(try_begin),
+			(neq, ":agent_no", -1),
+			(try_begin),
+				(agent_get_slot, ":hit_count", ":agent_no", slot_agent_chest_hit_count),
+				(le, ":hit_count", 0),
+				(cur_item_add_mesh, "@risty_chest"),
+			(try_end),
+			(try_begin),
+				(agent_get_slot, ":hit_count", ":agent_no", slot_agent_hip_hit_count),
+				(le, ":hit_count", 1),
+				(cur_item_add_mesh, "@risty_thong"),
+				(le, ":hit_count", 0),
+				(cur_item_add_mesh, "@risty_belt"),
+			(try_end),
+		(else_try),
+			(cur_item_add_mesh, "@risty_chest"),
+			(cur_item_add_mesh, "@risty_thong"),
+			(cur_item_add_mesh, "@risty_belt"),
+		(try_end),
+		(cur_item_add_mesh, "@risty_rerebrace_l"),
+		(cur_item_add_mesh, "@risty_rerebrace_r"),
+		(cur_item_add_mesh, "@risty_bracer_l"),
+		(cur_item_add_mesh, "@risty_bracer_r"),	
+	#TATTOO CHANGE
+		(troop_get_slot, ":color", ":troop_no", slot_troop_tattoo),
+		(gt, ":color", 0),
+		(str_clear, s1),
+		(val_add, ":color", "str_ca_skin"),
+		(str_store_string, s1, ":color"),
+		#(cur_item_set_material, s1, 0),  #Base mesh
+		(cur_item_set_material, s1, 1),  #Body - Tatoo? - freez in invetory if no second mesh
+	])
+  ]
+],
+
+ # ":ass_cover" : random "assassin cover" requires "assassin skin" OR "morag_thong"
+
+["custom_armor1", "Light Custom Armor", [("custom_armor1",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_force_show_body ,0,
+1000 , weight(14)|abundance(100)|head_armor(0)|body_armor(30)|leg_armor(10)|difficulty(0) ,imodbits_cloth,
+  [(ti_on_init_item,
+    [
+	  (cur_item_add_mesh, "@custom_skin"), # for inventory skin color
+      (store_trigger_param_1, ":agent_no"),
+      (store_trigger_param_2, ":troop_no"),
+	#SET IT!
+	  (assign, ":item_script_no", "script_init_custom_armor1"),
+	  (assign, reg1, slot_troop_armor_slots_begin),	#->	script_custom_item_prepare_component
+	  (assign, reg2, slot_agent_armor_slots_begin),	#->				-||-
+	#AMORTIZATION
+	  (assign, ":use_agent_slots", 0),		#0: use "troop_armor_slot"-s for inventory, first load in scene
+	  (assign, ":chest_hits", 0),
+	  (assign, ":hip_hits", 0),  
+	  (try_begin),
+		(neq, ":agent_no", -1),
+	  #AGENT / TROOP 
+		(agent_get_slot, ":use_agent_slots", ":agent_no", slot_agent_has_been_here_before), #0: -||- OR 1: use "agent_armor_slot"-s from second load in scene
+		(agent_set_slot, ":agent_no", slot_agent_has_been_here_before, 1),
+	  #LOST COMPONENTS
+		(try_begin),
+			(agent_get_slot, ":chest_hits", ":agent_no", slot_agent_chest_hit_count),
+		(try_end),
+		(try_begin),
+			(agent_get_slot, ":hip_hits", ":agent_no", slot_agent_hip_hit_count),
+		(try_end),
+	  (try_end),	  
+	#SKIN: assassin*, leather,
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 0, 0,3, 0), 
+	#CHEST: sonja, loin, risty
+	  (try_begin),
+		(lt, ":chest_hits", 1),
+		(call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 1, 1,3, 0),
+	  (try_end),
+	#PANTY: morag*, angela, chain, risty
+	  (try_begin),
+		(lt, ":hip_hits", 2),
+		(call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 2, 1,5, 0),
+	  (try_end),
+	#BELT: assassin*, sonja, angela, -risty
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 3, 0,4, 0),
+	#SKIRT: assassin*, angela**, sonja, loin
+	  (try_begin),
+		(lt, ":hip_hits", 1),
+		(call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 4, 0,5, 1),
+	  (try_end),
+	#KNEE: assassin, sonja, -scale 
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 5, 0,3, 0),
+	#PAULDRON LEFT: plate, scale, assa_pauld, sonja, -risty
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 6, 0,5, 0),
+	#PAULDRON RIGHT: plate, scale, assa_pauld, sonja, -risty
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 7, 0,5, 0),
+	#ELBOW LEFT: plate, assassin
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 8, 0,3, 0),
+	#ELBOW RIGHT: plate, assassin
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 9, 0,3, 0),
+	#BRACER LEFT: plate, sonja, Risty
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 10, 0,4, 0),
+	#BRACER RIGHT: plate, sonja, Risty
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 11, 0,4, 0),
+	#NECK:
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 12, 0,1, 0),
+	#CAPE:
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 13, 0,1, 0),
+	#NECK: -sonja
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 12, 0,1, 0),
+	#CAPE: -angela
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 13, 0,1, 0),
+	#TATTOO CHANGE
+	  (troop_get_slot, ":color", ":troop_no", slot_troop_tattoo),
+	  (gt, ":color", 0),
+      (str_clear, s1),
+      (val_add, ":color", "str_ca_skin"),
+      (str_store_string, s1, ":color"),
+	  #(cur_item_set_material, s1, 0),  #Base mesh
+	  (cur_item_set_material, s1, 1),  #Body - Tatoo? - freez in invetory if no second mesh
+    ])
+  ]	
+],
+
+["custom_armor2", "Medium Custom Armor", [("custom_armor1",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_force_show_body ,0,
+3000, weight(18)|abundance(100)|head_armor(0)|body_armor(42)|leg_armor(12)|difficulty(6) ,imodbits_plate,
+  [(ti_on_init_item,
+    [
+	  (cur_item_add_mesh, "@custom_skin"), # for inventory skin color
+      (store_trigger_param_1, ":agent_no"),
+      (store_trigger_param_2, ":troop_no"),
+	#SET IT!
+	  (assign, ":item_script_no", "script_init_custom_armor2"),
+	  (assign, reg1, slot_troop_armor_slots_begin),	#->	script_custom_item_prepare_component
+	  (assign, reg2, slot_agent_armor_slots_begin),	#->				-||-	 
+	#AMORTIZATION
+	  (assign, ":use_agent_slots", 0),		#0: use "troop_armor_slot"-s for inventory, first load in scene
+	  (assign, ":chest_hits", 0),
+	  (assign, ":hip_hits", 0),  
+	  (try_begin),
+		(neq, ":agent_no", -1),
+	  #AGENT / TROOP 
+		(agent_get_slot, ":use_agent_slots", ":agent_no", slot_agent_has_been_here_before), #0: -||- OR 1: use "agent_armor_slot"-s from second load in scene
+		(agent_set_slot, ":agent_no", slot_agent_has_been_here_before, 1),
+	  #LOST COMPONENTS
+		(try_begin),
+			(agent_get_slot, ":chest_hits", ":agent_no", slot_agent_chest_hit_count),
+		(try_end),
+		(try_begin),
+			(agent_get_slot, ":hip_hits", ":agent_no", slot_agent_hip_hit_count),
+		(try_end),
+	  (try_end),	  
+	#SKIN: assassin*, chainmail, leather
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 0, 0,4, 0), 
+	#CHEST: scale, angela, sonja, -loin, -risty
+	  (try_begin),
+		(lt, ":chest_hits", 1),
+		(call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 1, 1,4, 0),
+	  (try_end),
+	#PANTY: morag*, angela, chain, risty
+	  (try_begin),
+		(lt, ":hip_hits", 2),
+		(call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 2, 1,5, 0),
+	  (try_end),
+	#BELT: assassin*, sonja, angela, -risty
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 3, 0,4, 0),
+	#SKIRT: assassin*, angela**, scale, sonja, -loin
+	  (try_begin),
+		(lt, ":hip_hits", 1),
+		(call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 4, 0,5, 1),
+	  (try_end),
+	#KNEE: angela, plated_assassin, assassin, sonja, -scale,
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 5, 0,5, 0),
+	#PAULDRON LEFT: plate, scale, assa_shoul, ang_pauld, ang_shoul, assa_pauld, sonja, risty
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 6, 0,8, 0),
+	#PAULDRON RIGHT: plate, scale, assa_shoul, ang_pauld, ang_shoul, assa_pauld, sonja, risty
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 7, 0,8, 0),	  
+	#ELBOW LEFT: plate, assassin, angela
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 8, 0,4, 0),
+	#ELBOW RIGHT: plate, assassin, angela
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 9, 0,4, 0),
+	#BRACER LEFT: plate, sonja, angela, Risty
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 10, 0,5, 0),
+	#BRACER RIGHT: plate, sonja, angela, Risty
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 11, 0,5, 0),
+	#NECK: -sonja
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 12, 0,1, 0),
+	#CAPE: -angela
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 13, 0,1, 0),
+	#TATTOO CHANGE
+	  (troop_get_slot, ":color", ":troop_no", slot_troop_tattoo),
+	  (gt, ":color", 0),
+      (str_clear, s1),
+      (val_add, ":color", "str_ca_skin"),
+      (str_store_string, s1, ":color"),
+	  #(cur_item_set_material, s1, 0),  #Base mesh
+	  (cur_item_set_material, s1, 1),  #Body - Tatoo? - freez in invetory if no second mesh
+    ])
+  ]	
+],
+
+["custom_armor3", "Heavy Custom Armor", [("custom_armor3",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_force_show_body ,0,
+ 9000 , weight(27)|abundance(100)|head_armor(0)|body_armor(55)|leg_armor(17)|difficulty(8) ,imodbits_plate,
+  [(ti_on_init_item,
+    [
+	  (cur_item_add_mesh, "@custom_skin"), # for inventory skin color
+      (store_trigger_param_1, ":agent_no"),
+      (store_trigger_param_2, ":troop_no"),
+	#SET IT!
+	  (assign, ":item_script_no", "script_init_custom_armor3"),
+	  (assign, reg1, slot_troop_armor_slots_begin),	#->	script_custom_item_prepare_component
+	  (assign, reg2, slot_agent_armor_slots_begin),	#->				-||-
+	#AMORTIZATION
+	  (assign, ":use_agent_slots", 0),		#0: use "troop_armor_slot"-s for inventory, first load in scene
+	  (assign, ":chest_hits", 0),
+	  (assign, ":hip_hits", 0),  
+	  (try_begin),
+		(neq, ":agent_no", -1),
+	  #AGENT / TROOP 
+		(agent_get_slot, ":use_agent_slots", ":agent_no", slot_agent_has_been_here_before), #0: -||- OR 1: use "agent_armor_slot"-s from second load in scene
+		(agent_set_slot, ":agent_no", slot_agent_has_been_here_before, 1),
+	  #LOST COMPONENTS
+		(try_begin),
+			(agent_get_slot, ":chest_hits", ":agent_no", slot_agent_chest_hit_count),
+		(try_end),
+		(try_begin),
+			(agent_get_slot, ":hip_hits", ":agent_no", slot_agent_hip_hit_count),
+		(try_end),
+	  (try_end),	  
+	#SKIN: assassin*, chainmail, leather
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 0, 0,4, 0), 
+	#CHEST: plate, scale, angela, -sonja, -loin, -risty
+	  (try_begin),
+		(lt, ":chest_hits", 1),
+		(call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 1, 1,4, 0),
+	  (try_end),
+	#PANTY: morag*, angela, chain, risty
+	  (try_begin),
+		(lt, ":hip_hits", 2),
+		(call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 2, 1,5, 0),
+	  (try_end),
+	#BELT: assassin*, sonja, angela, -risty
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 3, 0,4, 0),
+	#SKIRT: assassin*, angela**, scale, sonja, -loin
+	  (try_begin),
+		(lt, ":hip_hits", 1),
+		(call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 4, 0,5, 1),#1: assa. cover
+	  (try_end),
+	#KNEE: plate, angela, plated_assassin, -assassin, -sonja, -scale
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 5, 1,6, 0),
+	#PAULDRON LEFT: plate, scale, assa_shoul, angela_pauld, angela_shoul, -assa_pauld, -sonja, -risty
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 6, 1,6, 0),
+	#PAULDRON RIGHT: plate, scale, assa_shoul, angela_pauld, angela_shoul -assa_pauld, -sonja, -risty
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 7, 1,4, 2),#2: symm. pauldron
+	#ELBOW LEFT: plate, angela, -assassin, 
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 8, 0,3, 0),
+	#ELBOW RIGHT: plate, angela, -assassin
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 9, 0,3, 0),
+	#BRACER LEFT: plate, sonja, angela, Risty
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 10, 1,5, 0),
+	#BRACER RIGHT: plate, sonja, angela, Risty
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 11, 1,5, 0),
+	#NECK: -sonja
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 12, 0,1, 0),
+	#CAPE: -angela
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 13, 0,1, 0),
+	#TATTOO CHANGE
+	  (troop_get_slot, ":color", ":troop_no", slot_troop_tattoo),
+	  (gt, ":color", 0),
+      (str_clear, s1),
+      (val_add, ":color", "str_ca_skin"),
+      (str_store_string, s1, ":color"),
+	  #(cur_item_set_material, s1, 0),  #Base mesh
+	  (cur_item_set_material, s1, 1),  #Body - Tatoo? - freez in invetory if no second mesh
+    ])
+  ]	
+],
+["plate_armor_dthun", "Plate Armor", [("custom_armor1",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_force_show_body ,0,
+6900 , weight(27)|abundance(100)|head_armor(0)|body_armor(55)|leg_armor(17)|difficulty(8) ,imodbits_armor,
+  [(ti_on_init_item,
+	[
+		(store_trigger_param_1, ":agent_no"),
+		(store_trigger_param_2, ":troop_no"),
+	#ARMOR
+		(cur_item_add_mesh, "@custom_skin"), # for inventory skin color
+		(try_begin),
+			(neq, ":agent_no", -1),
+			(try_begin),
+				(agent_get_slot, ":hit_count", ":agent_no", slot_agent_chest_hit_count),
+				(le, ":hit_count", 0),
+				(cur_item_add_mesh, "@plate_armor_top"),
+			(try_end),
+			(try_begin),
+				(agent_get_slot, ":hit_count", ":agent_no", slot_agent_hip_hit_count),
+				(le, ":hit_count", 0),
+				(cur_item_add_mesh, "@chain_thong"),
+			(try_end),
+		(else_try),
+			(cur_item_add_mesh, "@plate_armor_top"),
+			(cur_item_add_mesh, "@chain_thong"),		
+		(try_end),
+		(cur_item_add_mesh, "@chainmail_skin"),	#FIX SKIN
+		(cur_item_add_mesh, "@plate_armor_elbow_l"),
+		(cur_item_add_mesh, "@plate_armor_elbow_r"),
+		(cur_item_add_mesh, "@plate_armor_pauldron_l"),
+		(cur_item_add_mesh, "@plate_armor_pauldron_r"),
+		(cur_item_add_mesh, "@plate_armor_bootleg"),
+	#TATTOO CHANGE
+		(troop_get_slot, ":color", ":troop_no", slot_troop_tattoo),
+		(gt, ":color", 0),
+		(str_clear, s1),
+		(val_add, ":color", "str_ca_skin"),
+		(str_store_string, s1, ":color"),
+		#(cur_item_set_material, s1, 0),  #Base mesh
+		(cur_item_set_material, s1, 1),  #Body - Tatoo? - freez in invetory if no second mesh
+	])
+  ]
+],
+["diabassa_armor", "Assassin's dress", [("custom_armor1",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_force_show_body ,0,
+3000 , weight(12)|abundance(100)|head_armor(0)|body_armor(40)|leg_armor(12)|difficulty(6) ,imodbits_armor,
+  [(ti_on_init_item,
+	[
+		(store_trigger_param_1, ":agent_no"),
+		(store_trigger_param_2, ":troop_no"),
+		(cur_item_add_mesh, "@custom_skin"), # for inventory skin color
+		(try_begin),
+			(neq, ":agent_no", -1),
+			(try_begin),
+				(agent_get_slot, ":hit_count", ":agent_no", slot_agent_chest_hit_count),
+				(le, ":hit_count", 0),
+				(cur_item_add_mesh, "@assassin_skin"), #no chest piece -> removes skin
+			(try_end),
+			(try_begin),
+				(agent_get_slot, ":hit_count", ":agent_no", slot_agent_hip_hit_count),
+				(le, ":hit_count", 1),
+				(cur_item_add_mesh, "@morag_thong"),
+				(le, ":hit_count", 0),
+				(cur_item_add_mesh, "@assassin_cover"),
+			(try_end),
+		(else_try),
+			(cur_item_add_mesh, "@assassin_skin"), # DINAMIC SKIN
+			(cur_item_add_mesh, "@assassin_cover"),
+			(cur_item_add_mesh, "@morag_thong"),	
+		(try_end),
+		(cur_item_add_mesh, "@assassin_belt"),
+		(cur_item_add_mesh, "@assassin_plated_bootleg"),
+		(cur_item_add_mesh, "@assassin_shoulder_l"),
+		(cur_item_add_mesh, "@assassin_shoulder_r"),
+		(cur_item_add_mesh, "@assassin_sleeve_l"),
+		(cur_item_add_mesh, "@assassin_sleeve_r"),
+		(cur_item_add_mesh, "@plate_bracer_l"),
+		(cur_item_add_mesh, "@plate_bracer_r"),
+	#TATTOO CHANGE
+		(troop_get_slot, ":color", ":troop_no", slot_troop_tattoo),
+		(gt, ":color", 0),
+		(str_clear, s1),
+		(val_add, ":color", "str_ca_skin"),
+		(str_store_string, s1, ":color"),
+		#(cur_item_set_material, s1, 0),  #Base mesh
+		(cur_item_set_material, s1, 1),  #Body - Tatoo? - freez in invetory if no second mesh
+	])
+  ]
+],
+["sonja_armor", "Hyrcanian Armor", [("custom_armor1",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_force_show_body ,0,
+696 , weight(14)|abundance(100)|head_armor(0)|body_armor(30)|leg_armor(10)|difficulty(0) ,imodbits_armor,
+  [(ti_on_init_item,
+	[
+		(store_trigger_param_1, ":agent_no"),
+		(store_trigger_param_2, ":troop_no"),
+		(cur_item_add_mesh, "@custom_skin"), # for inventory skin color
+		(try_begin),
+			(neq, ":agent_no", -1),
+			(try_begin),
+				(agent_get_slot, ":hit_count", ":agent_no", slot_agent_chest_hit_count),
+				(le, ":hit_count", 0),
+				(cur_item_add_mesh, "@sonja_bra"),
+			(try_end),
+			(try_begin),
+				(agent_get_slot, ":hit_count", ":agent_no", slot_agent_hip_hit_count),
+				(le, ":hit_count", 0),
+				(cur_item_add_mesh, "@sonja_bottom"),
+				(cur_item_add_mesh, "@loin_panty"),
+			(try_end),
+		(else_try),
+			(cur_item_add_mesh, "@sonja_bra"),
+			(cur_item_add_mesh, "@sonja_bottom"),
+			(cur_item_add_mesh, "@loin_panty"),			
+		(try_end),
+		(cur_item_add_mesh, "@sonja_belt"),
+		(cur_item_add_mesh, "@sonja_legstrap"),
+		(cur_item_add_mesh, "@sonja_armband_r"),
+		(cur_item_add_mesh, "@sonja_glove_l"),
+		(cur_item_add_mesh, "@sonja_glove_r"),
+	#TATTOO CHANGE
+		(troop_get_slot, ":color", ":troop_no", slot_troop_tattoo),
+		(gt, ":color", 0),
+		(str_clear, s1),
+		(val_add, ":color", "str_ca_skin"),
+		(str_store_string, s1, ":color"),
+		#(cur_item_set_material, s1, 0),  #Base mesh
+		(cur_item_set_material, s1, 1),  #Body - Tatoo? - freez in invetory if no second mesh
+	])
+  ]
+],
+["future_armor10", "Placeholder", [("custom_armor1",0)], itp_type_body_armor  |itp_covers_legs |itp_force_show_body ,0,
+ 2558 , weight(25)|abundance(100)|head_armor(0)|body_armor(52)|leg_armor(13)|difficulty(8) ,imodbits_armor ],
+["future_armor11", "Placeholder", [("custom_armor1",0)], itp_type_body_armor  |itp_covers_legs |itp_force_show_body ,0,
+ 2558 , weight(25)|abundance(100)|head_armor(0)|body_armor(52)|leg_armor(13)|difficulty(8) ,imodbits_armor ],
+["future_armor07", "Placeholder", [("custom_armor1",0)], itp_type_body_armor  |itp_covers_legs |itp_force_show_body ,0,
+ 2558 , weight(25)|abundance(100)|head_armor(0)|body_armor(52)|leg_armor(13)|difficulty(8) ,imodbits_armor ],
+["future_armor12", "Placeholder", [("custom_armor1",0)], itp_type_body_armor  |itp_covers_legs |itp_force_show_body ,0,
+ 2558 , weight(25)|abundance(100)|head_armor(0)|body_armor(52)|leg_armor(13)|difficulty(8) ,imodbits_armor ],
+["future_armor13", "Placeholder", [("custom_armor1",0)], itp_type_body_armor  |itp_covers_legs |itp_force_show_body ,0,
+ 2558 , weight(25)|abundance(100)|head_armor(0)|body_armor(52)|leg_armor(13)|difficulty(8) ,imodbits_armor ],
+["future_armor14", "Placeholder", [("custom_armor1",0)], itp_type_body_armor  |itp_covers_legs |itp_force_show_body ,0,
+ 2558 , weight(25)|abundance(100)|head_armor(0)|body_armor(52)|leg_armor(13)|difficulty(8) ,imodbits_armor ],
+
+ 
+#DtheHun HELMS
+["plate_helm_dthun", "Plate Helm", [("plate_helm_dthun",0)], itp_merchandise| itp_type_head_armor ,0, 811, weight(2.5)|abundance(100)|head_armor(51)|body_armor(0)|leg_armor(0)|difficulty(6) ,imodbits_plate,
+  [(ti_on_init_item,
+    [
+      (store_trigger_param_1, ":agent_no"),
+      (store_trigger_param_2, ":troop_no"),
+	#SET IT!
+	  (assign, ":item_script_no", "script_init_plate_helm_dthun"),
+	  (assign, reg1, slot_troop_helm_slots_begin),	#->	script_custom_item_prepare_component
+	  #(assign, reg2, slot_agent_helm_slots_begin),	#->				-||-
+	  
+	  (assign, ":use_agent_slots", 0),		#0: use "troop_armor_slot"-s for inventory, first load in scene 
+	#WINGS none, plate, angela
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 0, 0,3, 0),	
+    ])
+  ]	
+],
+["angela_helm", "Angelic diadem", [("angela_helm_band",0)], itp_merchandise| itp_type_head_armor| itp_doesnt_cover_hair ,0, 666, weight(1.5)|abundance(100)|head_armor(42)|body_armor(0)|leg_armor(0)|difficulty(0) ,imodbits_plate,
+  [(ti_on_init_item,
+    [
+      (store_trigger_param_1, ":agent_no"),
+      (store_trigger_param_2, ":troop_no"),
+	#SET IT!
+	  (assign, ":item_script_no", "script_init_angela_helm"),
+	  (assign, reg1, slot_troop_helm_slots_begin),	#->	script_custom_item_prepare_component
+	  #(assign, reg2, slot_agent_helm_slots_begin),	#->				-||-
+	  
+	  (assign, ":use_agent_slots", 0),		#0: use "troop_armor_slot"-s for inventory, first load in scene 
+	#FACE
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 0, 1,2, 0),	
+	#WINGS UP
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 1, 0,2, 0),	
+	#WINGS UP
+	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 2, 0,2, 0),
+	])
+  ]	
+	 # (cur_item_add_mesh, "@angela_helm_face"),
+	 # (cur_item_add_mesh, "@angela_helm_wings_up"),
+	 # (cur_item_add_mesh, "@angela_helm_wings_down"),
+],
+["future_helm02", "Placeholder", [("great_helmet_new_b",0)], itp_type_head_armor |itp_covers_head ,0, 811 , weight(2.5)|abundance(100)|head_armor(51)|body_armor(0)|leg_armor(0)|difficulty(10) ,imodbits_plate ],
+["future_helm03", "Placeholder", [("great_helmet_new_b",0)], itp_type_head_armor |itp_covers_head ,0, 811 , weight(2.5)|abundance(100)|head_armor(51)|body_armor(0)|leg_armor(0)|difficulty(10) ,imodbits_plate ],
+["future_helm04", "Placeholder", [("great_helmet_new_b",0)], itp_type_head_armor |itp_covers_head ,0, 811 , weight(2.5)|abundance(100)|head_armor(51)|body_armor(0)|leg_armor(0)|difficulty(10) ,imodbits_plate ],
+["future_helm05", "Placeholder", [("great_helmet_new_b",0)], itp_type_head_armor |itp_covers_head ,0, 811 , weight(2.5)|abundance(100)|head_armor(51)|body_armor(0)|leg_armor(0)|difficulty(10) ,imodbits_plate ],
+
+
+#DtheHun WEAPONS
+["sonja_sword", "Sword", [("sonja_sword",0)], itp_type_two_handed_wpn|itp_merchandise|itp_primary, itc_bastardsword|itcf_carry_sword_left_hip,
+ 696 , weight(2.0)|difficulty(7)|spd_rtng(112) | weapon_length(95)|swing_damage(37 , cut) | thrust_damage(27 ,  pierce),imodbits_sword_high ],
+["angela_sword", "Angelic Sword", [("angela_sword",0),("angela_sword_scabbard", ixmesh_carry)], itp_type_two_handed_wpn|itp_merchandise|itp_primary, itc_bastardsword|itcf_carry_sword_left_hip|itcf_show_holster_when_drawn,
+ 696 , weight(2.0)|difficulty(7)|spd_rtng(102) | weapon_length(95)|swing_damage(50 , cut) | thrust_damage(33 ,  pierce),imodbits_sword_high ],
+["future_weapon03", "Placeholder", [("mace_morningstar_new",0)], itp_crush_through|itp_type_two_handed_wpn|itp_primary|itp_wooden_parry|itp_unbalanced, itc_morningstar|itcf_carry_mace_left_hip, 
+305 , weight(4.5)|difficulty(13)|spd_rtng(95) | weapon_length(85)|swing_damage(38 , pierce) | thrust_damage(0 ,  pierce),imodbits_mace ],
+["future_weapon04", "Placeholder", [("mace_morningstar_new",0)], itp_crush_through|itp_type_two_handed_wpn|itp_primary|itp_wooden_parry|itp_unbalanced, itc_morningstar|itcf_carry_mace_left_hip, 
+305 , weight(4.5)|difficulty(13)|spd_rtng(95) | weapon_length(85)|swing_damage(38 , pierce) | thrust_damage(0 ,  pierce),imodbits_mace ],
+["future_weapon05", "Placeholder", [("mace_morningstar_new",0)], itp_crush_through|itp_type_two_handed_wpn|itp_primary|itp_wooden_parry|itp_unbalanced, itc_morningstar|itcf_carry_mace_left_hip, 
+305 , weight(4.5)|difficulty(13)|spd_rtng(95) | weapon_length(85)|swing_damage(38 , pierce) | thrust_damage(0 ,  pierce),imodbits_mace ],
+
+#DtheHun SHIELDS
+["future_shield01", "Placeholder",   [("tableau_shield_kite_1" ,0)], itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,  
+33 , weight(2)|hit_points(165)|body_armor(5)|spd_rtng(96)|shield_width(36)|shield_height(70),imodbits_shield,
+ [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_kite_shield_1", ":agent_no", ":troop_no")])]],
+["future_shield02", "Placeholder",   [("tableau_shield_kite_1" ,0)], itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,  
+33 , weight(2)|hit_points(165)|body_armor(5)|spd_rtng(96)|shield_width(36)|shield_height(70),imodbits_shield,
+ [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_kite_shield_1", ":agent_no", ":troop_no")])]],
+["future_shield03", "Placeholder",   [("tableau_shield_kite_1" ,0)], itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,  
+33 , weight(2)|hit_points(165)|body_armor(5)|spd_rtng(96)|shield_width(36)|shield_height(70),imodbits_shield,
+ [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_kite_shield_1", ":agent_no", ":troop_no")])]],
+["future_shield04", "Placeholder",   [("tableau_shield_kite_1" ,0)], itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,  
+33 , weight(2)|hit_points(165)|body_armor(5)|spd_rtng(96)|shield_width(36)|shield_height(70),imodbits_shield,
+ [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_kite_shield_1", ":agent_no", ":troop_no")])]],
+["future_shield05", "Placeholder",   [("tableau_shield_kite_1" ,0)], itp_type_shield|itp_wooden_parry, itcf_carry_kite_shield,  
+33 , weight(2)|hit_points(165)|body_armor(5)|spd_rtng(96)|shield_width(36)|shield_height(70),imodbits_shield,
+ [(ti_on_init_item, [(store_trigger_param_1, ":agent_no"),(store_trigger_param_2, ":troop_no"),(call_script, "script_shield_item_set_banner", "tableau_kite_shield_1", ":agent_no", ":troop_no")])]],
+
+ #DtheHun RANGED
+["future_ranged01", "Placeholder", [("throwing_knife",0)], itp_type_thrown |itp_primary ,itcf_throw_knife, 76 , weight(2.5)|difficulty(0)|spd_rtng(121) | shoot_speed(25) | thrust_damage(19 ,  cut)|max_ammo(14)|weapon_length(0),imodbits_thrown ],
+["future_ranged02", "Placeholder", [("throwing_knife",0)], itp_type_thrown |itp_primary ,itcf_throw_knife, 76 , weight(2.5)|difficulty(0)|spd_rtng(121) | shoot_speed(25) | thrust_damage(19 ,  cut)|max_ammo(14)|weapon_length(0),imodbits_thrown ],
+["future_ranged03", "Placeholder", [("throwing_knife",0)], itp_type_thrown |itp_primary ,itcf_throw_knife, 76 , weight(2.5)|difficulty(0)|spd_rtng(121) | shoot_speed(25) | thrust_damage(19 ,  cut)|max_ammo(14)|weapon_length(0),imodbits_thrown ],
+["future_ranged04", "Placeholder", [("throwing_knife",0)], itp_type_thrown |itp_primary ,itcf_throw_knife, 76 , weight(2.5)|difficulty(0)|spd_rtng(121) | shoot_speed(25) | thrust_damage(19 ,  cut)|max_ammo(14)|weapon_length(0),imodbits_thrown ],
+["future_ranged05", "Placeholder", [("throwing_knife",0)], itp_type_thrown |itp_primary ,itcf_throw_knife, 76 , weight(2.5)|difficulty(0)|spd_rtng(121) | shoot_speed(25) | thrust_damage(19 ,  cut)|max_ammo(14)|weapon_length(0),imodbits_thrown ],
 
 ["items_end", "Items End", [("shield_round_a",0)], 0, 0, 1, 0, 0],
 

@@ -3232,6 +3232,23 @@ Still I am sorry that I'll leave you soon. You must promise me, you'll come visi
 "Let me see your equipment.", "member_trade",[]],
 [anyone,"member_trade", [], "Very well, it's all here...", "do_member_trade",[(set_player_troop, "trp_player"),(change_screen_equip_other)]], #set back to trp_player before open equipment or you get two screens of the NPCs equipment.
 
+#DtheHun
+  [anyone|plyr,"member_talk", [		
+		(call_script, "script_find_customizable_item_equipped_on_troop", "$g_talk_troop"),
+		(neq, "$g_current_opened_item_details", -1),
+	],
+	"Let me customize your equipment.", "member_customize",
+	[]
+  ],
+  [anyone,"member_customize", [], 
+	"Very well, it's all here...", "close_window",
+	[
+		(assign, "$g_current_opened_troop_dthehun", "$g_talk_troop"),
+		(start_presentation, "prsnt_customize_armor"),
+    ]
+  ],
+#/DtheHun  
+
 [anyone,"do_member_trade", [], "Anything else?", "member_talk",[]],
 
 [anyone|plyr,"member_talk", [], "What can you tell me about your skills?", "view_member_char_requested",[]],

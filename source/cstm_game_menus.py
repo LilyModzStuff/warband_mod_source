@@ -180,7 +180,14 @@ def modmerge(var_set):
 			(eq, "$cstm_open_troop_tree_view", 1),
 			
 			(assign, "$cstm_open_troop_tree_view", 0),
+			(try_begin), # Fix first time constable issue.
+				(gt, "$cstm_troops_begin", 0),
+				
+				(assign, "$cstm_selected_troop", -1),
 			(start_presentation, "prsnt_cstm_view_custom_troop_tree"),
+			(else_try),
+				(jump_to_menu, "mnu_cstm_choose_troop_tree"),
+			(try_end),
 		(try_end),
 	]
 	

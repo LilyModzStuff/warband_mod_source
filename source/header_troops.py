@@ -9,7 +9,10 @@ from header_common import *
 #Troop flags
 tf_male           = 0
 tf_female         = 1
-tf_undead         = 2
+tf_man_nude      = 2
+tf_woman_nude    = 3
+tf_calfwoman      = 3 # Should be 4 but game flips out
+#tf_undead         = 5
 troop_type_mask   = 0x0000000f
 tf_hero              = 0x00000010
 tf_inactive          = 0x00000020

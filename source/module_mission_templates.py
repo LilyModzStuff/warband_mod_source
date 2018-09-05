@@ -2485,6 +2485,186 @@ realistic_wounding = (ti_on_agent_hit, 0, 0, [], [
       (agent_set_slot, ":inflicted_agent_id", slot_agent_last_damage, ":inflicted_damage"),
   ])
 
+  
+###DtheHun
+player_dance = (
+  0, 0, 0,
+  [
+    (key_clicked, key_k),
+	
+    (troop_get_type, ":is_female", "trp_player"),
+    (ge, ":is_female", 1),
+
+    (get_player_agent_no, ":agent"),	
+	
+    (agent_is_alive, ":agent"),
+    (agent_is_human, ":agent"),
+    (agent_get_horse, ":horse", ":agent"),
+    (le, ":horse", 0),
+    (agent_get_animation, ":anim", ":agent"),
+	(try_begin),
+        (eq, ":anim", "anim_dancer_good"),
+        (agent_set_animation, ":agent", "anim_unequip_dagger_front_left"),
+	(else_try),
+		(neq, ":anim", "anim_jump"),
+		(neq, ":anim", "anim_jump_loop"),
+		(neq, ":anim", "anim_jump_end"),
+		(neq, ":anim", "anim_jump_end_hard"),
+		(neq, ":anim", "anim_kick_right_leg"),
+		(agent_set_animation, ":agent", "anim_dancer_good"),
+	(try_end),
+  ],
+  []
+)
+
+grant_body_start = (
+  ti_on_agent_spawn, 0, 0, [],
+  [
+	(store_trigger_param_1, ":agent_no"),
+	(call_script, "script_done_skin", ":agent_no"),
+  ]
+)
+
+grant_body_after_inventory = (
+  0, 0, 0, [(le, "$g_body_done", 0),], #inventory tableau script sets it 0 -> will trigger after inventory [mission]/after companion equip [dialog])
+  [
+	(assign, "$g_body_done", 1),
+	(try_for_agents, ":agent_no"),
+		(call_script, "script_done_skin", ":agent_no"),
+	(try_end),
+   ]
+)
+
+grant_body_multiplayer = (
+  ti_on_agent_spawn, 0, 0, [],
+  [
+	#(assign, "$g_cenzura", cenzura),	#can not be changed
+	(store_trigger_param_1, ":agent_no"),
+	(call_script, "script_done_skin_multiplayer", ":agent_no"),
+  ]
+)
+
+#INPUT: agent_no, attacker_no, damage, pos0
+
+lose_armor_parts = (	# $g_cenzura != 1 -> can lose it
+  ti_on_agent_hit, 0, 0, [
+  #(neq, "$g_cenzura", 1),
+  ], 
+  [
+		(store_trigger_param_1, ":agent_no"),
+		#(store_trigger_param_2, ":attacker_no"),
+        (store_trigger_param_3, ":damage"),
+		(ge, ":damage", 4),
+		(agent_get_troop_id, ":hit_troop", ":agent_no"),
+		(troop_get_type, ":is_female", ":hit_troop"),
+		(ge, ":is_female", 1),
+		(agent_get_item_slot, ":item_id", ":agent_no", ek_body),
+        (ge, ":item_id", 0),		
+		(try_for_range, ":fem_item", "itm_loin_skirt", "itm_banded_armor"),
+			(eq, ":item_id", ":fem_item"),
+			(agent_get_position, pos3, ":agent_no"),
+			(get_sq_distance_between_position_heights, ":hit_height", pos0, pos3),
+			#(assign, reg1, ":hit_height"),
+			#(display_message, "@hit height {reg1}"),
+			(assign, ":hit_count", 3),	#not yelling if it remains 2 or become greater		
+			(try_begin), #loose top
+				(is_between, ":hit_height", 130, 170),
+				(agent_get_slot, ":hit_count", ":agent_no", slot_agent_chest_hit_count),
+				(val_add, ":hit_count", 1),
+				(agent_set_slot, ":agent_no", slot_agent_chest_hit_count, ":hit_count"),
+				(try_begin),
+					(le, ":hit_count", 1), # 1: bra/skin
+					(agent_unequip_item, ":agent_no", ":item_id"),
+					(agent_equip_item, ":agent_no", ":item_id"),		
+					(try_begin),	#set permanent component lose
+						#(eq, "$g_cenzura", 2),
+						(troop_is_hero, ":hit_troop"),
+						(troop_set_slot, ":hit_troop", slot_troop_armor_slots_begin + 1, 0),
+					(try_end),							
+				(try_end),
+				(val_add, ":hit_count", 1), #yell only once for bra: 1->2:YES  2->3:NO
+			(else_try), #loose skirt / panty
+				(is_between, ":hit_height", 60, 100),
+				(agent_get_slot, ":hit_count",  ":agent_no", slot_agent_hip_hit_count),
+				(val_add, ":hit_count", 1),
+				(agent_set_slot, ":agent_no", slot_agent_hip_hit_count, ":hit_count"),
+				(try_begin),
+					(le, ":hit_count", 2), #1: skirt  2: panty
+					(agent_unequip_item, ":agent_no", ":item_id"),
+					(agent_equip_item, ":agent_no", ":item_id"),			
+					(try_begin),	#set permanent component lose
+						#(eq, "$g_cenzura", 2),
+						(troop_is_hero, ":hit_troop"),
+						(try_begin),
+							(eq, ":hit_count", 1), #1: skirt
+							(troop_set_slot, ":hit_troop", slot_troop_armor_slots_begin + 4, 0),
+						(else_try),
+							#(eq, ":hit_count", 2), #1: panty
+							(troop_set_slot, ":hit_troop", slot_troop_armor_slots_begin + 2, 0),
+						(try_end),
+					(try_end),
+				(try_end),					
+			(try_end),
+			(try_begin),	# yelling twice per hit region
+				(le, ":hit_count", 2),		
+				(particle_system_burst, "psys_gourd_smoke", pos0, 3),
+				(particle_system_burst, "psys_dummy_straw", pos0, 10),			
+				(store_agent_hit_points, ":health", ":agent_no",1),
+				(lt, ":damage", ":health"),
+				(agent_play_sound, ":agent_no", "snd_woman_lose_armor"),				
+			(try_end),
+		(try_end),	
+		#(assign, reg0, ":damage"),
+		#(set_trigger_result, reg0),
+   ]
+)
+  
+inventory_or_customize = (
+	ti_inventory_key_pressed, 0, 0,
+      [
+		(try_begin),
+			(game_key_is_down, gk_view_char),
+			(call_script, "script_find_customizable_item_equipped_on_troop", "$g_player_troop"),
+			(try_begin),
+				(neq, "$g_current_opened_item_details", -1),
+				(assign, "$g_current_opened_troop_dthehun", "$g_player_troop"),			
+				(start_presentation, "prsnt_customize_armor"),
+			(else_try),
+				(display_message,"str_dont_have_custom_item"),
+			(try_end),				
+		(else_try),
+		    (set_trigger_result,1),
+		(try_end),
+      ], [])
+	  
+inventory_or_customize_town = (
+	ti_inventory_key_pressed, 0, 0,
+      [
+		(try_begin),
+			(game_key_is_down, gk_view_char),
+			(eq, "$g_mt_mode", tcm_default),
+			(call_script, "script_find_customizable_item_equipped_on_troop", "$g_player_troop"),
+			(try_begin),
+				(neq, "$g_current_opened_item_details", -1),
+				(assign, "$g_current_opened_troop_dthehun", "$g_player_troop"),		
+				(start_presentation, "prsnt_customize_armor"),
+			(else_try),
+				(display_message,"str_dont_have_custom_item"),
+			(try_end),	
+		(else_try),
+		    (try_begin),
+		      (eq, "$g_mt_mode", tcm_default),
+		      (set_trigger_result,1),
+		    (else_try),
+		      (eq, "$g_mt_mode", tcm_disguised),
+		      (display_message,"str_cant_use_inventory_disguised"),
+		    (else_try),
+		      (display_message, "str_cant_use_inventory_now"),
+		    (try_end),
+		(try_end),
+      ], [])
+#/DtheHun
+
 # realistic_wounding2 = (ti_on_agent_killed_or_wounded, 0, 0, [],
    # [
     # (store_trigger_param_1, ":dead_agent_no"),

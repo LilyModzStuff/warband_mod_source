@@ -4087,6 +4087,11 @@ TOTAL:  {reg5}"),
               (position_set_z, pos1, 75),
               (set_game_menu_tableau_mesh, "tableau_troop_note_mesh", ":player_party", pos1),
               (try_end),
+
+			 #custom armor #2/1
+			 (call_script, "script_find_customizable_item_equipped_on_troop", "$g_player_troop"),
+			 (assign, "$g_current_opened_troop_dthehun", "$g_player_troop"),
+			 #
      ],
     [
 
@@ -4111,6 +4116,21 @@ TOTAL:  {reg5}"),
         ]
        ),
 
+       #("queens_blade", [], "Queens blade options.",
+       #[(jump_to_menu, "mnu_queens_blade"),
+       # ],
+       #),
+	   
+	  #custom armor	#2/2
+	  ("custom_armor",[
+        (neq, "$g_current_opened_item_details", -1),
+        (str_store_item_name, s0, "$g_current_opened_item_details"),
+      ],"Customize {s0}",
+        [
+        (start_presentation, "prsnt_customize_armor"),
+        ]),
+	  #/custom armor
+       
       ("action_food",[],"Change your party's food consumption habits.",
        [(start_presentation, "prsnt_food_options"),
         ]
@@ -22854,6 +22874,81 @@ goods, and books will never be sold. ^^You can change some settings here freely.
       ("leave",[],"Leave the shipyard.",[(jump_to_menu, "mnu_town")]),
     ]
   ),
+
+# Here for reference, but we have our own options for this sort of thing. 
+#
+#DtheHun
+#  ("queens_blade",0,
+#   "Select a action:",
+#   "none",
+#   [
+#     ],
+#    [
+#      #("cenzura_level",[(neq, cenzura, 1),], "Set level of censure",
+#      # [
+#      #  (jump_to_menu, "mnu_cenzura_level"),
+#	  # ]
+#      # ),	   
+#
+#      ("set_troop_custom_armor_slots",[], "Set custom armor slots for troops random",
+#       [
+#		 (call_script, "script_set_custom_armor_slots"),
+#         (jump_to_menu, "mnu_camp"),
+#	   ]
+#       ),	   
+#	   
+#      ("return",[],"Return",
+#       [
+#         (jump_to_menu, "mnu_camp"),
+#        ]
+#       ),
+#     ]
+#   ),
+#  ("cenzura_level",0,
+#   "Current setting is {s1}. Set the level of censorship:",
+#   "none",
+#	[
+#  	  (str_clear, s1),
+#	  (try_begin),
+#		(eq, "$g_cenzura", 1),
+#		(str_store_string, s1, "@Censored"),
+#	  (else_try),
+#		(eq, "$g_cenzura", 2),
+#		(str_store_string, s1, "@Uncensored with permanent armor lose"),
+#	  (else_try),
+#		(str_store_string, s1, "@Uncensored"),
+#	  (try_end),
+#     ],
+#    [	  
+#      ("cenzura_1",[(neq, "$g_cenzura", 1),], "Censored",
+#       [
+#		(assign, "$g_cenzura", 1),
+#		(display_message, "@Set game mode to Censored DONE"),
+#		(jump_to_menu, "mnu_camp_action"),
+#	   ]
+#      ),
+#      ("cenzura_0",[(neq, "$g_cenzura", 0),], "Uncensored",
+#       [
+#		(assign, "$g_cenzura", 0),
+#		(display_message, "@Set game mode to Uncensored DONE"),
+#        (jump_to_menu, "mnu_camp_action"),
+#	   ]
+#      ),
+#      ("cenzura_2",[(neq, "$g_cenzura", 2),], "Uncensored with prermanent armor lose",
+#       [
+#		(assign, "$g_cenzura", 2),
+#		(display_message, "@Set game mode to Uncensored with permanent armor lose DONE"),
+#        (jump_to_menu, "mnu_camp_action"),
+#	   ]
+#      ),
+#      ("return",[],"Return",
+#       [
+#         (jump_to_menu, "mnu_camp_action"),
+#        ]
+#       ),
+#    ]
+#  ),	  
+#/DtheHun
 
  ]
 import header_scenes

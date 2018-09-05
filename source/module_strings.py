@@ -4927,6 +4927,30 @@ Even in the last case, the player can make formations up to four lines by orderi
   ("november_reg1_reg2_v2", "November {reg1}, {reg2}"),
   ("december_reg1_reg2_v2", "December {reg1}, {reg2}"),
 
+#DtheHun  
+ #custom item
+  ("tutorial_custom_item", "You may have customizable item equipped. Press ""Wiew Outfit"" and ""Inventory Window"" keys to open the Customization Window in character view, or find it in the Camp Actions Menu."),
+  ("dont_have_custom_item", "You don't have any customizable item equipped!"),
+ #tattoos
+  ("ca_skin", "No_tattoo"),
+  ("ca_amazon", "Amazon_tattoo"),
+  ("ca_risty", "Risty_tattoo"),
+  ("ca_custom", "Custom_tattoo"),
+ #response
+ #censure
+  ("censure_response_0", "It's not you, it's me."),
+  ("censure_response_1", "No way!"),
+  ("censure_response_2", "How about this one?"),
+  ("censure_response_3", "You can't be serious!"),
+  ("censure_response_4", "Not my style."),
+  ("censure_response_5", "It's just too revealing."),
+  ("censure_response_6", "I need more cover."),
+  ("censure_response_7", "That would be inappropriate."),
+  ("censure_response_8", "I have a better idea."),
+  ("censure_response_9", "I have a better idea."),
+  ("censure_response_10", "Are you kidding me?"),
+  ("censure_response_end", "END"),
+  
 #utility for skill names
 ]+[
 ("skl_"+skills[x][0], skills[x][1]) for x in range(0, len(skills))]

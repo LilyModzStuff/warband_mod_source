@@ -52,3 +52,6 @@ tableau_retired_troop_color = 50
 tableau_retirement_troop = 51
 tableau_dplmc_lord_profile = 52
 tableau_wse_charger = 53
+tableau_custom_armor_window = 54
+tableau_custom_armor_alpha_mask = 55
+tableau_custom_armor_color = 56
