@@ -675,6 +675,11 @@ meshes = [
 #Troop Ratio Bar
  ("status_troop_ratio_bar", 0, "slider_hor", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("status_troop_ratio_bar_button", 0, "handle_hor", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+
+  ("custom_bg", 0, "meeting_window", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("custom_button_up", 0, "button1_up", 0, 0, 0, 0, 0, 0, 1.4, 1.4, 1.4),
+  ("custom_button_down", 0, "button1_down", 0, 0, 0, 0, 0, 0, 1.4, 1.4, 1.4),
+
 ]
 # modmerger_start version=201 type=2
 try:

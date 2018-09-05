@@ -104,7 +104,8 @@ scripts = [
 	  (assign, "$f_player_prost", 0),
 
 	  (assign, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_HIGH),
-	  (assign, "$g_dplmc_ai_changes", DPLMC_GOLD_CHANGES_HIGH),
+	  (assign, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_HIGH),
+	  (call_script, "script_set_custom_armor_slots"), # Custom armor init
 
       (try_for_range, ":edible", "itm_raw_date_fruit", food_end),
         (neq, ":edible", "itm_furs"),
@@ -62645,7 +62646,7 @@ scripts = [
   ]),
 
   ("dplmc_store_troop_is_female_reg",
-  [
+  [ # Needs to be updated for new skin
     (store_script_param_1, ":troop_no"),
     (store_script_param_2, ":reg_no"),
     (troop_get_type, ":is_female", ":troop_no"),
@@ -77327,6 +77328,737 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 #VIKING CONQUEST END
 #COMBAT OSP END
 
+#custom armor 
+  #script_add_troop_to_custom_armor_tableau
+  # INPUT: troop_no, item (g_current_opened_item_details), side (g_custom_armor_angle)
+  # OUTPUT: none
+  ("add_troop_to_custom_armor_tableau",	# NOT USED YET - Pure Somebody code
+    [
+       (store_script_param, ":troop_no",1),
+       (store_mul, ":side", "$g_custom_armor_angle", 60), #add some more sides
+       
+       (set_fixed_point_multiplier, 100),
+
+       (cur_tableau_clear_override_items),
+       
+	   (cur_tableau_set_override_flags, af_override_weapons),
+	 
+       (init_position, pos2),
+       (position_rotate_z, pos2, ":side"),
+       (cur_tableau_set_camera_parameters, 1, 4, 6, 10, 10000),
+
+       (init_position, pos5),
+       (assign, ":cam_height", 105),
+#       (val_mod, ":camera_distance", 5),
+       (assign, ":camera_distance", 380),
+       (assign, ":camera_yaw", -15),
+       (assign, ":camera_pitch", -18),
+       (val_clamp, "$g_custom_armor_angle", 0, anim_walk_forward_crouch - anim_walk_backward),
+       (store_add, ":animation", "$g_custom_armor_angle", "anim_walk_backward"),
+
+       (position_set_z, pos5, ":cam_height"),
+
+       # camera looks towards -z axis
+       (position_rotate_x, pos5, -90),
+       (position_rotate_z, pos5, 180),
+
+       # now apply yaw and pitch
+       (position_rotate_y, pos5, ":camera_yaw"),
+       (position_rotate_x, pos5, ":camera_pitch"),
+       (position_move_z, pos5, ":camera_distance", 0),
+       (position_move_x, pos5, 5, 0),
+
+	   (try_begin), #shouldn't be necessary, it's already on the troop (player character) - good for hand items
+         (gt, "$g_current_opened_item_details", -1),
+         (cur_tableau_add_override_item, "$g_current_opened_item_details"),
+       (try_end),
+	   
+		(call_script, "script_show_body_on_tableau", ":troop_no"), # force show body item for tattoos, and loins if cenzored
+		#custom armor
+		
+       (cur_tableau_add_troop, ":troop_no", pos2, ":animation", -1),	   	   
+       (cur_tableau_set_camera_position, pos5),
+
+       (copy_position, pos8, pos5),
+       (position_rotate_x, pos8, -90), #y axis aligned with camera now. z is up
+       (position_rotate_z, pos8, 30),
+       (position_rotate_x, pos8, -60),
+       (cur_tableau_add_sun_light, pos8, 155,155,155),
+     ]),
+#DtheHun 
+  ("init_custom_armor1",
+    [
+    (store_script_param, ":agent_no", 1),
+    #(store_script_param, ":troop_no", 2),
+    (store_script_param, ":sub_part", 3),
+    (store_script_param, ":sub_comp", 4),
+	(str_clear, s1),
+  #SAVE AGENT ARMOR SLOT FOR SCENE
+	(try_begin),
+		(neq, ":agent_no", -1),
+		(store_add, ":agent_armor_slot", slot_agent_armor_slots_begin, ":sub_part"),
+		(agent_set_slot, ":agent_no", ":agent_armor_slot", ":sub_comp"),
+	(try_end),
+  #MAKE COMPONENT MESH STRING OUTPUT
+    (assign, ":value", -1),
+    (assign, "$g_custom_armor_param_count", 8),
+	(try_begin), #SKIN none, assassin*, leather
+      (eq, ":sub_part", 0),
+      (is_between, ":sub_comp", 0, 3), #2 + none
+      (store_add, ":value", ":sub_comp", "itm_ca1_skin_0"),
+    (else_try), #CHEST none, loin, sonja, risty
+      (eq, ":sub_part", 1),
+      (is_between, ":sub_comp", 0, 4), #3 + none
+      (store_add, ":value", ":sub_comp", "itm_ca1_bra_0"),
+	(else_try), #PANTY none, morag*, chain, risty, angela
+      (eq, ":sub_part", 2),
+      (is_between, ":sub_comp", 0, 5), #4 + none
+      (store_add, ":value", ":sub_comp", "itm_ca1_panty_0"),
+	(else_try), #BELT none, assassin*, sonja, angela, risty
+      (eq, ":sub_part", 3),
+      (is_between, ":sub_comp", 0, 5), #4 + none
+      (store_add, ":value", ":sub_comp", "itm_ca1_belt_0"),
+    (else_try), #BUTT none, assassin*, angela?, sonja, loin
+      (eq, ":sub_part", 4),
+      (is_between, ":sub_comp", 0, 5), #4 + none
+      (store_add, ":value", ":sub_comp", "itm_ca1_ass_0"),
+    (else_try), #KNEE none, scale, sonja, assassin
+      (eq, ":sub_part", 5),
+      (is_between, ":sub_comp", 0, 4), #3 + none
+      (store_add, ":value", ":sub_comp", "itm_ca1_knee_0"),  
+    (else_try), #PAULDRON LEFT none, plate, scale, assa_pauld, sonja, risty
+      (eq, ":sub_part", 6),
+      (is_between, ":sub_comp", 0, 6), #5 + none
+      (store_add, ":value", ":sub_comp", "itm_ca1_pdn_l_0"),
+    (else_try), #PAULDRON RIGHT none, plate, scale, assa_pauld, sonja, risty
+      (eq, ":sub_part", 7),
+      (is_between, ":sub_comp", 0, 6), #5 + none
+      (store_add, ":value", ":sub_comp", "itm_ca1_pdn_r_0"),
+    (else_try), #ELBOW LEFT none, plate, assassin_sleeves
+      (eq, ":sub_part", 8),
+      (is_between, ":sub_comp", 0, 3), #2 + none
+      (store_add, ":value", ":sub_comp", "itm_ca1_elb_l_0"),
+    (else_try), #ELBOW RIGHT none, plate, plate, assassin_sleeves
+      (eq, ":sub_part", 9),
+      (is_between, ":sub_comp", 0, 3), #2 + none
+      (store_add, ":value", ":sub_comp", "itm_ca1_elb_r_0"),
+    (else_try), #BRACER LEFT none, plate, sonja, Risty 
+      (eq, ":sub_part", 10),
+      (is_between, ":sub_comp", 0, 4), #3 + none
+      (store_add, ":value", ":sub_comp", "itm_ca1_brc_l_0"),
+    (else_try), #BRACER RIGHT none, plate, sonja, Risty 
+      (eq, ":sub_part", 11),
+      (is_between, ":sub_comp", 0, 4), #3 + none
+      (store_add, ":value", ":sub_comp", "itm_ca1_brc_r_0"),	  
+	(else_try), #NECK none, 
+      (eq, ":sub_part", 12),
+      (is_between, ":sub_comp", 0, 2), #1 + none
+      (store_add, ":value", ":sub_comp", "itm_ca1_neck_0"),
+    (else_try), #CAPE none,
+      (eq, ":sub_part", 13),
+      (is_between, ":sub_comp", 0, 2), #1 + none
+      (store_add, ":value", ":sub_comp", "itm_ca1_cape_0"),	  
+	(else_try), #END
+      (assign, "$g_custom_armor_param_count", 0),
+    (try_end),
+    (try_begin),
+      (neq, ":value", -1),
+      (str_store_item_name, s1, ":value"), 	#<- item name (string)
+    (try_end),
+	(assign, reg0, ":value"), 				#<- item_no	
+    ]
+  ),
+  
+  ("init_custom_armor2",
+    [
+    (store_script_param, ":agent_no", 1),
+    #(store_script_param, ":troop_no", 2),
+    (store_script_param, ":sub_part", 3),
+    (store_script_param, ":sub_comp", 4),
+	(str_clear, s1),
+  #SAVE AGENT ARMOR SLOT FOR SCENE
+	(try_begin),
+		(neq, ":agent_no", -1),
+		(store_add, ":agent_armor_slot", slot_agent_armor_slots_begin, ":sub_part"),
+		(agent_set_slot, ":agent_no", ":agent_armor_slot", ":sub_comp"),
+	(try_end),
+  #MAKE COMPONENT MESH STRING OUTPUT
+    (assign, ":value", -1),
+    (assign, "$g_custom_armor_param_count", 10),
+	(try_begin), #SKIN none, assassin*, chainmail, leather
+      (eq, ":sub_part", 0),
+      (is_between, ":sub_comp", 0, 4), #3 + none
+      (store_add, ":value", ":sub_comp", "itm_ca2_skin_0"),
+    (else_try), #CHEST none, scale, angela, sonja, -loin, -risty
+      (eq, ":sub_part", 1),
+      (is_between, ":sub_comp", 0, 6), #5 + none
+      (store_add, ":value", ":sub_comp", "itm_ca2_bra_0"),
+	(else_try), #PANTY none, assassin*, chain, risty, angela
+      (eq, ":sub_part", 2),
+      (is_between, ":sub_comp", 0, 5), #4 + none
+      (store_add, ":value", ":sub_comp", "itm_ca2_panty_0"),
+	(else_try), #BELT none, assassin*, sonja, angela, -risty
+      (eq, ":sub_part", 3),
+      (is_between, ":sub_comp", 0, 5), #4 + none
+      (store_add, ":value", ":sub_comp", "itm_ca2_belt_0"),
+    (else_try), #BUTT none, assassin*, angela, scale, sonja, loin
+      (eq, ":sub_part", 4),
+      (is_between, ":sub_comp", 0, 6), #5 + none
+      (store_add, ":value", ":sub_comp", "itm_ca2_ass_0"),
+    (else_try), #KNEE none, angela, plated_assassin, assassin, sonja, -scale
+      (eq, ":sub_part", 5),
+      (is_between, ":sub_comp", 0, 6), #5 + none
+      (store_add, ":value", ":sub_comp", "itm_ca2_knee_0"),  
+    (else_try), #PAULDRON LEFT none, plate, scale, assa_pauld, ang_shoul, ang_pauld, assa_shoul, sonja,-risty
+      (eq, ":sub_part", 6),
+      (is_between, ":sub_comp", 0, 9), #8 + none
+      (store_add, ":value", ":sub_comp", "itm_ca2_pdn_l_0"),
+    (else_try), #PAULDRON RIGHT none, plate, scale, assa_pauld, ang_shoul, ang_pauld, assa_shoul, sonja, -risty
+      (eq, ":sub_part", 7),
+      (is_between, ":sub_comp", 0, 9), #8 + none
+      (store_add, ":value", ":sub_comp", "itm_ca2_pdn_r_0"),
+    (else_try), #ELBOW LEFT none, plate, assassin_sleeves, angela
+      (eq, ":sub_part", 8),
+      (is_between, ":sub_comp", 0, 4), #3 + none
+      (store_add, ":value", ":sub_comp", "itm_ca2_elb_l_0"),
+    (else_try), #ELBOW RIGHT none, plate, assassin_sleeves, angela
+      (eq, ":sub_part", 9),
+      (is_between, ":sub_comp", 0, 4), #3 + none
+      (store_add, ":value", ":sub_comp", "itm_ca2_elb_r_0"),
+    (else_try), #BRACER LEFT none, plate, sonja, angela,  Risty 
+      (eq, ":sub_part", 10),
+      (is_between, ":sub_comp", 0, 5), #4 + none
+      (store_add, ":value", ":sub_comp", "itm_ca2_brc_l_0"),
+    (else_try), #BRACER RIGHT none, plate, sonja, angela, Risty 
+      (eq, ":sub_part", 11),
+      (is_between, ":sub_comp", 0, 5), #4 + none
+      (store_add, ":value", ":sub_comp", "itm_ca2_brc_r_0"),
+    (else_try), #NECK none, -sonja
+      (eq, ":sub_part", 12),
+      (is_between, ":sub_comp", 0, 2), #1 + none
+      (store_add, ":value", ":sub_comp", "itm_ca2_neck_0"),
+    (else_try), #CAPE none, -angela 
+      (eq, ":sub_part", 13),
+      (is_between, ":sub_comp", 0, 2), #1 + none
+      (store_add, ":value", ":sub_comp", "itm_ca2_cape_0"),	  
+	(else_try), #END
+      (assign, "$g_custom_armor_param_count", 0),
+    (try_end),
+    (try_begin),
+      (neq, ":value", -1),
+      (str_store_item_name, s1, ":value"), 	#<- item name (string)
+    (try_end),
+	(assign, reg0, ":value"), 				#<- item_no	   
+    ]
+  ),
+  
+  ("init_custom_armor3",
+    [
+    (store_script_param, ":agent_no", 1),
+    #(store_script_param, ":troop_no", 2),
+    (store_script_param, ":sub_part", 3),
+    (store_script_param, ":sub_comp", 4),
+	(str_clear, s1),
+  #SAVE AGENT ARMOR SLOT FOR SCENE
+	(try_begin),
+		(neq, ":agent_no", -1),
+		(store_add, ":agent_armor_slot", slot_agent_armor_slots_begin, ":sub_part"),
+		(agent_set_slot, ":agent_no", ":agent_armor_slot", ":sub_comp"),
+	(try_end),
+  #MAKE COMPONENT MESH STRING OUTPUT
+    (assign, ":value", -1),
+    (assign, "$g_custom_armor_param_count", 12),
+	(try_begin), #SKIN none, assassin*, chainmail, leather
+      (eq, ":sub_part", 0),
+      (is_between, ":sub_comp", 0, 4), #3 + none
+      (store_add, ":value", ":sub_comp", "itm_ca3_skin_0"),
+    (else_try), #CHEST none, plate, scale, angela, -loin, -sonja, -risty
+      (eq, ":sub_part", 1),
+      (is_between, ":sub_comp", 0, 7), #6 + none
+      (store_add, ":value", ":sub_comp", "itm_ca3_bra_0"),
+	(else_try), #PANTY none, morag*, chain, risty, angela
+      (eq, ":sub_part", 2),
+      (is_between, ":sub_comp", 0, 5), #4 + none
+      (store_add, ":value", ":sub_comp", "itm_ca3_panty_0"),
+	(else_try), #BELT none, assassin*, ?angela, sonja, -risty
+      (eq, ":sub_part", 3),
+      (is_between, ":sub_comp", 0, 5), #4 + none
+      (store_add, ":value", ":sub_comp", "itm_ca3_belt_0"),
+    (else_try), #BUTT none, assassin*, ?angela, scale, sonja, -loin
+      (eq, ":sub_part", 4),
+      (is_between, ":sub_comp", 0, 5), #4 + none
+      (store_add, ":value", ":sub_comp", "itm_ca3_ass_0"),
+    (else_try), #KNEE none, plate, plated_assassin, angela, -assassin, -sonja, -scale
+      (eq, ":sub_part", 5),
+      (is_between, ":sub_comp", 0, 7), #6 + none
+      (store_add, ":value", ":sub_comp", "itm_ca3_knee_0"),  
+    (else_try), #PAULDRON LEFT none, plate, scale, assa_shoul, ang_pauld, ang_shold, -assa_pauld, -sonja, -risty, 
+      (eq, ":sub_part", 6),
+      (is_between, ":sub_comp", 0, 9), #8 + none
+      (store_add, ":value", ":sub_comp", "itm_ca3_pdn_l_0"),
+    (else_try), #PAULDRON RIGHT none, plate, scale, assa_shoul, ang_pauld, ang_shold, -assa_pauld, -sonja, -risty,
+      (eq, ":sub_part", 7),
+      (is_between, ":sub_comp", 0, 9), #8 + none
+      (store_add, ":value", ":sub_comp", "itm_ca3_pdn_r_0"),
+    (else_try), #ELBOW LEFT none, plate, angela, -assassin_sleeves
+      (eq, ":sub_part", 8),
+      (is_between, ":sub_comp", 0, 4), #3 + none
+      (store_add, ":value", ":sub_comp", "itm_ca3_elb_l_0"),
+    (else_try), #ELBOW RIGHT none, plate, angela, -assassin_sleeves
+      (eq, ":sub_part", 9),
+      (is_between, ":sub_comp", 0, 4), #3 + none
+      (store_add, ":value", ":sub_comp", "itm_ca3_elb_r_0"),
+    (else_try), #BRACER LEFT none, plate, sonja, angela, Risty 
+      (eq, ":sub_part", 10),
+      (is_between, ":sub_comp", 0, 5), #4 + none
+      (store_add, ":value", ":sub_comp", "itm_ca3_brc_l_0"),
+    (else_try), #BRACER RIGHT none, plate, sonja, angela, Risty 
+      (eq, ":sub_part", 11),
+      (is_between, ":sub_comp", 0, 5), #4 + none
+      (store_add, ":value", ":sub_comp", "itm_ca3_brc_r_0"),
+    (else_try), #NECK none, -sonja
+      (eq, ":sub_part", 12),
+      (is_between, ":sub_comp", 0, 2), #1 + none
+      (store_add, ":value", ":sub_comp", "itm_ca3_neck_0"),
+    (else_try), #CAPE none, -angela 
+      (eq, ":sub_part", 13),
+      (is_between, ":sub_comp", 0, 2), #1 + none
+      (store_add, ":value", ":sub_comp", "itm_ca3_cape_0"),	 
+	(else_try), #END
+      (assign, "$g_custom_armor_param_count", 0),
+    (try_end),
+    (try_begin),
+      (neq, ":value", -1),
+      (str_store_item_name, s1, ":value"), 	#<- item name (string)
+    (try_end),
+	(assign, reg0, ":value"), 				#<- item_no	
+    ]
+  ),
+  
+  ("init_plate_helm_dthun",
+    [
+    (store_script_param, ":agent_no", 1),
+    #(store_script_param, ":troop_no", 2),
+    (store_script_param, ":sub_part", 3),
+    (store_script_param, ":sub_comp", 4),
+	(str_clear, s1),
+  #SAVE AGENT ARMOR SLOT FOR SCENE
+	(try_begin),
+		(neq, ":agent_no", -1),
+		(store_add, ":agent_armor_slot", slot_agent_helm_slots_begin, ":sub_part"),
+		(agent_set_slot, ":agent_no", ":agent_armor_slot", ":sub_comp"),
+	(try_end),
+  #MAKE COMPONENT MESH STRING OUTPUT
+    (assign, ":value", -1),
+    (assign, "$g_custom_armor_param_count", 5),  
+	(try_begin), #DECORATION: none, plate_wings, angela_wings
+      (eq, ":sub_part", 0),
+      (is_between, ":sub_comp", 0, 3), #2 + none
+      (store_add, ":value", ":sub_comp", "itm_cph_dec_0"),
+	(else_try), #END
+      (assign, "$g_custom_armor_param_count", 0),
+    (try_end),
+    (try_begin),
+      (neq, ":value", -1),
+      (str_store_item_name, s1, ":value"), 	#<- item name (string)
+    (try_end),
+	(assign, reg0, ":value"), 				#<- item_no	
+    ]
+  ),
+  ("init_angela_helm",
+    [
+    (store_script_param, ":agent_no", 1),
+    #(store_script_param, ":troop_no", 2),
+    (store_script_param, ":sub_part", 3),
+    (store_script_param, ":sub_comp", 4),
+	(str_clear, s1),
+  #SAVE AGENT ARMOR SLOT FOR SCENE
+	(try_begin),
+		(neq, ":agent_no", -1),
+		(store_add, ":agent_armor_slot", slot_agent_helm_slots_begin, ":sub_part"),
+		(agent_set_slot, ":agent_no", ":agent_armor_slot", ":sub_comp"),
+	(try_end),
+  #MAKE COMPONENT MESH STRING OUTPUT
+    (assign, ":value", -1),
+    (assign, "$g_custom_armor_param_count", 5),
+	(try_begin), #FACE: none, angela
+      (eq, ":sub_part", 0),
+      (is_between, ":sub_comp", 0, 2), #1 + none
+      (store_add, ":value", ":sub_comp", "itm_cah_face_0"),	
+	(else_try), #WING_UP: none, angela
+      (eq, ":sub_part", 1),
+      (is_between, ":sub_comp", 0, 2), #1 + none
+      (store_add, ":value", ":sub_comp", "itm_cah_wings_up_0"),
+	(else_try), #WING_DOWN: none, angela
+      (eq, ":sub_part", 2),
+      (is_between, ":sub_comp", 0, 2), #1 + none
+      (store_add, ":value", ":sub_comp", "itm_cah_wings_down_0"),
+	(else_try), #END
+      (assign, "$g_custom_armor_param_count", 0),
+    (try_end),
+    (try_begin),
+      (neq, ":value", -1),
+      (str_store_item_name, s1, ":value"), 	#<- item name (string)
+    (try_end),
+	(assign, reg0, ":value"), 				#<- item_no	
+    ]
+  ),
+#/custom armor  
+  ("sir_lady", [ #male 1, female 0, (player, talk_troop) -> (reg33, reg6)
+		(troop_get_type, ":is_female", "trp_player"),
+		(try_begin),
+			(ge, ":is_female", 1),
+			(assign, reg33, 0),
+		(else_try),
+			(assign, reg33, 1),
+		(try_end),
+		#(troop_get_type, ":is_female", "$g_talk_troop"),
+		#(try_begin),
+		#	(ge, ":is_female", 1),
+		#	(assign, reg6, 0),
+		#(else_try),
+		#	(assign, reg6, 1),
+		#(try_end),
+	]
+  ),
+
+#DtheHun   
+   
+  #script_add_troop_to_custom_armor_tableau
+  # INPUT: troop_no, item (g_current_opened_item_details), side (g_custom_armor_angle)
+  # OUTPUT: reg0 (-1):do nothing, (0):equip body, (1):equip loincloth - for additional troop equip if must (character -> face morpf)
+  ("show_body_on_tableau",
+    [
+		(store_script_param, ":troop_no", 1),
+		(assign, reg0, -1),		
+		(try_begin),
+			(troop_get_type, ":is_female", ":troop_no"),
+			(ge, ":is_female", 1),
+			(troop_get_inventory_slot, ":item_no", ":troop_no", ek_body),
+			(eq, ":item_no", -1), #-1:none equipped
+			(cur_tableau_clear_override_items),
+			(cur_tableau_set_override_flags, af_override_everything), # makes it possible to set_override ek_body item without adding it to troop
+			(try_begin),
+				#(eq, "$g_cenzura", 1),
+				(eq, 0, 1),
+				(cur_tableau_add_override_item, "itm_loincloth"),
+				(assign, reg0, 1),
+			(else_try),
+				(cur_tableau_add_override_item, "itm_body_fem"),
+				(assign, reg0, 0),
+			(try_end),	
+			(try_for_range, ":item_slot", ek_head, ek_horse), # do removed clothes back
+				(troop_get_inventory_slot, ":item_no", ":troop_no", ":item_slot"),
+				(ge, ":item_no", 0),
+				(cur_tableau_add_override_item, ":item_no"),
+			(try_end),
+		(try_end),
+     ]),
+	 
+  #script_add_troop_to_custom_armor_tableau
+  # INPUT: troop_no, item (g_current_opened_item_details), side (g_custom_armor_angle)
+  # OUTPUT: none
+  ("remove_body_from_inventory",
+    [
+		(store_script_param, ":troop_no", 1),
+		(troop_get_type, ":is_female", ":troop_no"),
+		(try_begin),
+			(ge, ":is_female", 1),	#check: body/loincloth equipped ->remove it from inventory (equipped in character window for face morph scene)
+			(try_begin),	# troop has it from opening character tab till next inventory opening -> can lose it in battle, has unique flag -> won't see back (hopefully noone equips it)
+				(troop_has_item_equipped, ":troop_no", "itm_body_fem"),
+				(troop_remove_item, ":troop_no", "itm_body_fem"),
+			(else_try),	
+				(troop_has_item_equipped, ":troop_no", "itm_loincloth"),
+				(troop_remove_item, ":troop_no", "itm_loincloth"),			
+			(else_try),
+				#(eq, "$g_cenzura", 1),
+				(eq, 0, 1),
+				(try_begin),
+					(troop_has_item_equipped, ":troop_no", "itm_loin_top"),
+					(troop_remove_item, ":troop_no", "itm_loin_top"),
+				(else_try),	
+					(troop_has_item_equipped, ":troop_no", "itm_loin_skirt"),
+					(troop_remove_item, ":troop_no", "itm_loin_skirt"),			
+				(try_end),
+			(try_end),
+		(try_end),
+     ]),
+	 
+  ("done_skin",
+	[
+		(store_script_param, ":agent_no", 1),
+		(try_begin),
+			(agent_is_active, ":agent_no"),
+			(agent_is_alive, ":agent_no"),
+			(agent_is_human, ":agent_no"),
+			(agent_get_troop_id, ":troop_no", ":agent_no"),
+			(troop_get_type, ":is_female", ":troop_no"),
+			(ge, ":is_female", 1),
+			(agent_get_item_slot, ":body_armor", ":agent_no", ek_body),
+			(try_begin),
+				(neq, ":body_armor", -1),
+				(agent_unequip_item, ":agent_no", ":body_armor"),	# (may have changed in inventory, and have the same base name -> changes only second time without unequipping)
+			(try_end),
+			(try_begin),
+				(this_or_next|eq, ":body_armor", -1),
+				(this_or_next|eq, ":body_armor", "itm_body_fem"), # <- remained back from character window equip
+				(this_or_next|eq, ":body_armor", "itm_loin_top"),
+				(eq, ":body_armor",  "itm_loin_skirt"),	# <- trp_looter_woman
+				(try_begin), #Nincs -> cenzura -> "loincloth" felvesz
+					(eq, "$g_cenzura", 1),
+					(agent_equip_item, ":agent_no", "itm_loincloth"),
+				(else_try), #Volt rajta?					
+					(this_or_next|eq, ":body_armor", -1),
+					(eq, ":body_armor", "itm_body_fem"),
+					(troop_get_inventory_slot, ":item_no", ":troop_no", ek_body),
+					(try_begin),
+					#Had the troop clothes training before mission?
+						#mtf_override body -> equip loin parts corresponding to base armor components (bra?, bottom?)
+						(gt, ":item_no", -1),
+						(neq, ":item_no", "itm_body_fem"), # <- remained back from character window equip
+						(try_begin), #save first customizable
+						#Custom
+							(item_slot_ge, ":item_no", slot_item_num_components, 1),
+							(assign, ":cur_mesh_slot", slot_troop_armor_slots_begin), 	#0.: skin slot
+							(try_begin),
+							#Has Skin -> loincloth
+								(troop_get_slot, ":skin", ":troop_no", ":cur_mesh_slot"),
+								(neq, ":skin", 0),
+								(agent_equip_item, ":agent_no", "itm_loincloth"),
+							(else_try),
+							#!Skin, Panty, Bra -> loincloth
+								(val_add, ":cur_mesh_slot", 1),							#1.: chest slot
+								(troop_get_slot, ":bra", ":troop_no", ":cur_mesh_slot"),
+								(val_add, ":cur_mesh_slot", 1),							#2.: panty slot
+								(troop_get_slot, ":panty", ":troop_no", ":cur_mesh_slot"),
+							   #(eq, ":skin", 0),
+								(neq, ":bra", 0),
+								(neq, ":panty", 0),
+								(agent_equip_item, ":agent_no", "itm_loincloth"),					
+							(else_try),
+							#!Skin, Bra, !Panty -> loin_top
+							   #(eq, ":skin", 0),
+								(neq, ":bra", 0),
+								(eq, ":panty", 0),
+								(agent_equip_item, ":agent_no", "itm_loin_top"),						
+							(else_try),
+							#!Skin, !Bra, Panty -> loin_skirt
+							   #(eq, ":skin", 0),
+								(eq, ":bra", 0),
+								(neq, ":panty", 0),
+								(agent_equip_item, ":agent_no", "itm_loin_skirt"),					
+							(else_try),
+							#!Skin, !Bra, !Panty -> body for TATTOOS
+							   #(eq, ":skin", 0),
+							   #(eq, ":bra", 0),
+							   #(eq, ":panty", 0),
+								(agent_equip_item, ":agent_no", "itm_body_fem"),
+							(try_end),
+						(else_try),
+						#Egyeb ruha	-> "loincloth" felvesz
+							(agent_equip_item, ":agent_no", "itm_loincloth"),
+						(try_end),
+					(else_try),
+					#Was nude before mission -> body for TATTOOS
+						(agent_equip_item, ":agent_no", "itm_body_fem"),
+					(try_end),
+				(try_end),	
+			(else_try),	#Equip back original item
+				(agent_equip_item, ":agent_no", ":body_armor"),
+			(try_end),
+		(try_end),
+	]
+  ),
+  
+  ("done_skin_multiplayer",
+	[
+		(store_script_param, ":agent_no", 1),
+		(try_begin),
+			(agent_is_active, ":agent_no"),
+			(agent_is_alive, ":agent_no"),
+			(agent_is_human, ":agent_no"),
+			(agent_get_item_slot, ":body_armor", ":agent_no", ek_body),	
+			(eq, ":body_armor", -1),
+			(agent_equip_item, ":agent_no", "itm_loincloth"), # man also equip - troop_type always 0 - "is_female" not working
+		(try_end),
+	]
+  ),
+  
+  ("set_custom_armor_slots",
+	[   
+	   #set slots random for everyone
+		(try_for_range, ":npc", 0, "trp_coop_companion_equipment_ui_0"),
+			(try_for_range, ":slot_no", slot_troop_armor_slots_begin, slot_troop_helm_slots_end),
+				(troop_set_slot, ":npc", ":slot_no", -1), # random = -1
+			(try_end),
+		(try_end),
+	   
+	    #(display_message, "@Initializing troop slots DONE"),
+		
+	   #Light
+		(item_set_slot, "itm_custom_armor1", slot_item_num_components, 14), #14 customizable
+		(item_set_slot, "itm_custom_armor1", slot_item_init_script, "script_init_custom_armor1"),
+	   #Medium
+		(item_set_slot, "itm_custom_armor2", slot_item_num_components, 14), #14 customizable
+		(item_set_slot, "itm_custom_armor2", slot_item_init_script, "script_init_custom_armor2"),
+	   #Heavy
+		(item_set_slot, "itm_custom_armor3", slot_item_num_components, 14), #14 customizable
+		(item_set_slot, "itm_custom_armor3", slot_item_init_script, "script_init_custom_armor3"),
+	   #Plate Helm
+		(item_set_slot, "itm_plate_helm_dthun", slot_item_num_components, 1), #1 customizable
+		(item_set_slot, "itm_plate_helm_dthun", slot_item_init_script, "script_init_plate_helm_dthun"),
+	   #Angela Helm
+		(item_set_slot, "itm_angela_helm", slot_item_num_components, 3), #3 customizable
+		(item_set_slot, "itm_angela_helm", slot_item_init_script, "script_init_angela_helm"),
+		#(try_for_range, ":slot_no", slot_item_player_slots_begin, slot_item_player_slots_end + 1), # troop slots added insted item slots 
+		#  (item_set_slot, "itm_plate_helm_dthun", ":slot_no", -1), # random = -1
+		#(try_end),
+		
+		#(display_message, "@Initializing armor slots DONE"),
+		
+		#(troop_set_slot, "trp_player", slot_troop_tattoo, 0),
+	]
+  ),
+  
+  #script_find_customizable_item_equipped_on_troop
+  # INPUT: 	troop_no
+  # OUTPUT: none  
+  # SETS: 	item (g_current_opened_item_details)
+  ("find_customizable_item_equipped_on_troop", 
+	[
+	 (store_script_param, ":troop_no", 1),
+	 (assign, "$g_current_opened_item_details", -1),
+	 (assign, ":begin", ek_item_0), #should add a global as iterator
+     (try_for_range_backwards, ":item_slot", ":begin", ek_foot),	#backwards: body armor first
+		(troop_get_inventory_slot, ":item_no", ":troop_no", ":item_slot"),
+		(gt, ":item_no", -1),
+		(item_slot_ge, ":item_no", slot_item_num_components, 1),
+		(assign, "$g_current_opened_item_details", ":item_no"),
+		(assign, ":begin", ek_foot),  
+     (else_try),	#to be able to change tattoo without custom item
+		(troop_get_type, ":is_female", ":troop_no"),
+		(ge, ":is_female", 1),
+		(troop_get_inventory_slot, ":item_no", ":troop_no", ek_body),
+		(try_begin),
+			(gt, ":item_no", -1),
+			(assign, "$g_current_opened_item_details", ":item_no"),
+		(else_try),
+			(assign, "$g_current_opened_item_details", "itm_body_fem"),
+		(try_end),	
+     (try_end),
+	]
+  ),
+  #script_item_add_component
+  # INPUT: 	1:agent_no, 2:troop_no, 3:use_agent_slots, 4:item_script_no, 5:mesh_num, 6:random_begin, 7:random_end, 8:special_part
+  # 	$g_presentation_obj_item_select_2, reg1(:troop_item_slots_begin), reg2(:agent_item_slots_begin)
+  # OUTPUT: ":special_part" (reg3)  
+  # SETS: 	item (g_current_opened_item_details)  
+  ("custom_item_prepare_component",
+	[
+	  (store_script_param, ":agent_no", 1),
+	  (store_script_param, ":troop_no", 2),
+      (store_script_param, ":use_agent_slots", 3),
+	  (store_script_param, ":item_script_no", 4),
+      (store_script_param, ":mesh_num", 5),
+	  (store_script_param, ":random_begin", 6),
+	  (store_script_param, ":random_end", 7),
+	  (store_script_param, ":special_part", 8),	#(has requirements) 0: nothing, 1: assa. cover, 2:symm. with prev, 3: angela cover
+	#GET
+	  (store_add, ":troop_item_slot_no", reg1 , ":mesh_num"),
+	  (store_add, ":agent_item_slot_no", reg2 , ":mesh_num"),	#<- only body 
+
+	  (try_begin),
+		(try_begin),
+			(eq, ":use_agent_slots", 0),
+			(troop_get_slot, ":value", ":troop_no", ":troop_item_slot_no"), # slot_troop_armor_slots_begin + :mesh_num (0-13)
+		(else_try),
+			(agent_get_slot, ":value", ":agent_no", ":agent_item_slot_no"), #
+		(try_end),
+      #RANDOMIZE
+		(eq, ":value", -1),
+		(try_begin),
+			(eq, "$g_dthehun_sync_random", 1),
+			(troop_get_slot, ":value", "trp_temp_array_a", ":troop_item_slot_no"), # get prev random for tableau mask be sync.
+		(else_try),
+			(store_random_in_range, ":value", ":random_begin", ":random_end"),
+			(try_begin), #special_part
+			  #ass cover
+				(eq, ":special_part", 1),
+				(try_begin), 
+					(this_or_next|eq, ":value", 1),	# assassin  
+								 (eq, ":value", 2),	# Angela
+					(try_begin),
+						(this_or_next|troop_slot_eq, "trp_temp_array_a", slot_troop_armor_slots_begin + 0, 1), 	#has assa skin
+						(this_or_next|troop_slot_eq, "trp_temp_array_a", slot_troop_armor_slots_begin + 2, 1), 	#has assa panty
+						(this_or_next|troop_slot_eq, "trp_temp_array_a", slot_troop_armor_slots_begin + 2, 2), 	#has Angela panty
+						(troop_slot_eq, "trp_temp_array_a", slot_troop_armor_slots_begin + 3, 1), 				#has assa belt	
+					(else_try),	#<- there is nothing to hanging on it
+						(store_random_in_range, ":value", 1, ":random_end"), #<- new shuffle
+						(eq, ":value", 1),
+						(assign, ":value", 0),
+					(try_end),
+				(try_end),
+			(else_try),
+			  # symm. with previous component
+				(eq, ":special_part", 2),
+				(store_random_in_range, ":rand", 0, 6),	#(less than 16.66% could be asymmetric)
+				(ge, ":rand", 1),
+				(store_sub, ":prev_troop_item_slot_no", ":troop_item_slot_no", 1),
+				(troop_get_slot, ":prev_value", "trp_temp_array_a", ":prev_troop_item_slot_no"),
+				(assign, ":value", ":prev_value"),
+			(try_end),
+		(try_end),
+	  (try_end),
+	  (troop_set_slot, "trp_temp_array_a", ":troop_item_slot_no", ":value"), # remember randomization for tableau alpha
+	  (try_begin),
+		(neq, ":value", 0),
+		(call_script, ":item_script_no", ":agent_no", ":troop_no", ":mesh_num", ":value"),#
+		(neg|str_is_empty, s1),
+		(cur_item_add_mesh, s1),
+	  (try_end),
+	]
+  ),
+ 
+  # Should use this to make all customizable armor remove underwear
+  #script_set_calves - This is for SANDALS!!!
+  # INPUT: 	1:agent_no, 2:troop_no,2, reg1(:troop_item_slots_begin), reg2(:agent_item_slots_begin)
+  # OUTPUT:	NONE
+ ("set_calves", [
+	(store_trigger_param_1, ":agent_no"), # -1 if not in scene 
+	(store_trigger_param_2, ":troop_no"),
+	(try_begin),
+		(eq, ":agent_no", -1),	#not in scene (presentation)
+		(is_between, ":troop_no", "trp_town_1_armorer", "trp_merchants_end"),	#trade - item from merchant inventory gives merchant no despite player equips it
+		(assign, ":troop_no", "trp_player"),
+	(try_end),
+	(try_begin),
+		(troop_get_type, ":troop_type", ":troop_no"),
+		(try_begin),
+			(this_or_next|eq, ":troop_type", tf_female), #female || calfwoman (don't change male!)
+			(eq, ":troop_type", tf_calfwoman),
+			(try_begin),
+				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_risty_sandals"), #tf_calfwoman and has sandals on -> no change
+				(troop_has_item_equipped , ":troop_no", "itm_sonja_boots"),
+				(try_begin),
+					(eq, ":troop_type", tf_female),
+					(troop_set_type, ":troop_no", tf_calfwoman),
+					(assign, ":troop_changed", 1),
+				(try_end),
+			(else_try),
+				(eq, ":troop_type", tf_calfwoman),
+				(troop_set_type, ":troop_no", tf_female),
+				(assign, ":troop_changed", 1),
+			(try_end),
+			(ge, ":agent_no", 0), # in scene - warnings from map else
+			(eq, ":troop_changed", 1),
+			(troop_get_inventory_slot, ":item_no", ":troop_no", ek_body),
+			(ge, ":item_no", 0), # has body armor -> must refresh to see the change in scene
+			(agent_unequip_item, ":agent_no", ":item_no"),
+			(agent_equip_item, ":agent_no", ":item_no"),
+		(try_end),
+	(try_end),
+	]
+  ),
 
 # script_pos_helper
 # Description: Little Pos Helper by Kuba
@@ -77350,6 +78082,9 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 		(overlay_set_text, "$g_little_pos_helper", "@{reg1},{reg2}"),
     (try_end),
  ]),
+ 
+ 
+ 
 ]# modmerger_start version=201 type=2
 try:
     component_name = "scripts"
