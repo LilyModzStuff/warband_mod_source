@@ -7,6 +7,9 @@ quests = [
    "{!}You have been granted leave from the party of {s13} of {s14}."),
   ("freelancer_captured", "Enlisted: Captured", 0,
    "{!}Your commander's party has been defeated and you have been captured. Return to the service of {s13} of {s14}."),
+  ("freelancer_revolt", "Enlisted: Revolting", 0,
+   "{!}You have revolted from the party of {s13} of {s14}."),
+  ("freelancer_end", "Freelancer Quests End", 0, "{!}."), ##FOR EASE OF LOOPING
 ]
 from util_common import *
 from util_wrappers import *

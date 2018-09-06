@@ -28,42 +28,22 @@ triggers = [
 #+freelancer start
 
 #  CHECKS IF "$enlisted_party" IS DEFEATED
-
     (0.0, 0, 0, [
         (eq, "$freelancer_state", 1),
         (gt, "$enlisted_party", 0),
         (neg|party_is_active, "$enlisted_party"),
+		(check_quest_active, "qst_freelancer_enlisted"),
     ],
     [
-        (assign, "$freelancer_state", 0),
-        (call_script, "script_freelancer_detach_party"),
-		
-		#to prevent companions from being lost forever
-		(call_script, "script_party_restore"), 
-		(party_get_num_companion_stacks, ":num_stacks", "p_main_party"),
-        (try_for_range_backwards, ":cur_stack", 0, ":num_stacks"),
-			(party_stack_get_troop_id, ":return_troop", "p_main_party", ":cur_stack"),
-			(neg|troop_is_hero, ":return_troop"),
-			(party_stack_get_size, ":stack_size", "p_main_party", ":cur_stack"),
-			(party_remove_members, "p_main_party", ":return_troop", ":stack_size"),
-		(try_end),
-
-        #removes faction relation given at enlist
-		(store_troop_faction, ":commander_faction", "$enlisted_lord"),
-        (try_for_range, ":cur_faction", kingdoms_begin, kingdoms_end),
-            (neq, ":commander_faction", ":cur_faction"),
-			(faction_slot_eq, ":cur_faction", slot_faction_state, sfs_active),
-            (call_script, "script_set_player_relation_with_faction", ":cur_faction", 0),
-        (try_end),
-
+		(call_script, "script_freelancer_event_player_captured"),		
 		(assign, "$g_encountered_party", "$g_enemy_party"),
 		(jump_to_menu, "mnu_captivity_start_wilderness"),
     ]),
 
  #  CHECKS IF "$enlisted_party" HAS JOINED BATTLE
-
     (0.0, 0, 0, [
         (eq, "$freelancer_state", 1),
+		(check_quest_active, "qst_freelancer_enlisted"),
 		
 		#collected nearby enemies->detach (post-battle)
 		(try_begin), 
@@ -90,64 +70,95 @@ triggers = [
     ]),
 
 #  CHECKS IF PLAYER WON THE REVOLT
-
     (1.0, 0, 0, [
-        (eq, "$freelancer_state", 0),
-        (gt, "$enlisted_party", 0),
-        (neg|party_is_active, "$enlisted_party"),
-
-		(store_troop_faction, ":commander_faction", "$enlisted_lord"),
-        (store_relation, ":relation", "fac_player_supporters_faction", ":commander_faction"),
-        (lt, ":relation", 0),
-
-        (party_get_attached_party_with_rank, ":attached_party", "p_main_party", 0),
-        (eq, "p_temp_party_2", ":attached_party"),
+        (check_quest_active, "qst_freelancer_revolt"),
     ],
-    [
-        (assign, "$enlisted_party", -1),
-        (party_detach, "p_temp_party_2"),
-        (store_skill_level, ":cur_leadership", "skl_leadership", "trp_player"),
-        (store_skill_level, ":cur_persuasion", "skl_persuasion", "trp_player"),
-        (store_add, ":chance", ":cur_persuasion", ":cur_leadership"),
-        (val_add, ":chance", 10),
-        (store_random_in_range, ":prisoner_state", 0, ":chance"),
+    [	
+		(quest_get_slot, ":revolt_joiners", "qst_freelancer_revolt", slot_quest_target_party),
+		(try_begin),
+			(quest_slot_eq, "qst_freelancer_revolt", slot_quest_current_state, 0),
+			(try_begin),
+				(neg|party_is_active, "$enlisted_party"), #victory
+				(try_begin),
+					(gt, ":revolt_joiners", 0),
+					(party_is_active, ":revolt_joiners"),
+					(party_detach, ":revolt_joiners"),
+					(quest_set_slot, "qst_freelancer_revolt", slot_quest_current_state, 1),
+				(else_try),
+					(call_script, "script_finish_quest", "qst_freelancer_revolt", 100),
+				(try_end),
+			(else_try),  #Defeat, enlisted party still active
+				(try_begin),
+					(gt, ":revolt_joiners", 0),
+					(party_is_active, ":revolt_joiners"),
+					(party_detach, ":revolt_joiners"),
+					(remove_party, ":revolt_joiners"),
+				(try_end),
+				(call_script, "script_fail_quest", "qst_freelancer_revolt"),
+				(call_script, "script_end_quest", "qst_freelancer_revolt"),
+			(try_end),
+			(assign, "$enlisted_party", 0),
+		(try_end),
+		
+		(quest_slot_ge, "qst_freelancer_revolt", slot_quest_current_state, 1),
 
-        (try_begin),
-            (is_between, ":prisoner_state", 0, 5),
-            (call_script, "script_party_calculate_strength", "p_main_party", 0),
-            (assign, ":main_strength", reg0),
-            (call_script, "script_party_calculate_strength", "p_temp_party_2", 0),
-            (assign, ":temp_strength", reg0),
-            (ge, ":temp_strength", ":main_strength"),
+		(try_begin),
+		    (quest_slot_eq, "qst_freelancer_revolt", slot_quest_current_state, 1),
 
-            (party_get_num_prisoner_stacks, ":num_stacks", "p_temp_party_2"),
-            (try_for_range, ":cur_stack", 0, ":num_stacks"),
-                (party_prisoner_stack_get_troop_id, ":cur_troops", "p_temp_party_2", ":cur_stack"),
-                (party_prisoner_stack_get_size, ":cur_size", "p_temp_party_2", ":cur_stack"),
-                (party_remove_prisoners, "p_temp_party_2", ":cur_troops", ":cur_size"),
-            (try_end),
+			(store_skill_level, ":cur_leadership", "skl_leadership", "trp_player"),
+			(store_skill_level, ":cur_persuasion", "skl_persuasion", "trp_player"),
+			(store_add, ":chance", ":cur_persuasion", ":cur_leadership"),
+			(val_add, ":chance", 10),
+			(store_random_in_range, ":prisoner_state", 0, ":chance"),
 
-            (tutorial_box, "@The released prisoners were not be trusted and they are preparing to attack you!", "@Warning!"),
-            (start_encounter, "p_temp_party_2"),
-            (change_screen_map),
-        (else_try),
-            (is_between, ":prisoner_state", 5, 10),
-            (tutorial_box, "@The released prisoners scattered as soon as the battle finished. You will not be seeing them again.", "@Notice!"),
-            (party_clear, "p_temp_party_2"),
-        (else_try),
-            (tutorial_box, "@The released prisoners have remained loyal and will join your party", "@Notice!"),
-            (party_get_num_companion_stacks, ":num_stacks", "p_temp_party_2"),
-            (try_for_range, ":cur_stack", 0, ":num_stacks"),
-                (party_stack_get_troop_id, ":cur_troops", "p_temp_party_2", ":cur_stack"),
-                (party_stack_get_size, ":cur_size", "p_temp_party_2", ":cur_stack"),
-                (party_add_members, "p_main_party", ":cur_troops", ":cur_size"),
-            (try_end),
-            (party_clear, "p_temp_party_2"),
-        (try_end),
+			(try_begin),
+				(is_between, ":prisoner_state", 0, 5),
+				(call_script, "script_party_calculate_strength", "p_main_party", 0),
+				(assign, ":main_strength", reg0),
+				(call_script, "script_party_calculate_strength", ":revolt_joiners", 0),
+				(assign, ":temp_strength", reg0),
+				(ge, ":temp_strength", ":main_strength"),
+
+				(party_get_num_prisoner_stacks, ":num_stacks", ":revolt_joiners"),
+				(try_for_range, ":cur_stack", 0, ":num_stacks"),
+					(party_prisoner_stack_get_troop_id, ":cur_troops", ":revolt_joiners", ":cur_stack"),
+					(party_prisoner_stack_get_size, ":cur_size", ":revolt_joiners", ":cur_stack"),
+					(party_remove_prisoners, ":revolt_joiners", ":cur_troops", ":cur_size"),
+				(try_end),
+
+				(quest_set_slot, "qst_freelancer_revolt", slot_quest_current_state, 2),
+				
+				(dialog_box, "@The released prisoners were not be trusted and they are preparing to attack you!", "@Warning!"),
+				(start_encounter, ":revolt_joiners"),
+				(change_screen_map),
+			(else_try),
+				(is_between, ":prisoner_state", 5, 10),
+				(dialog_box, "@The released prisoners scattered as soon as the battle finished. You will not be seeing them again.", "@Notice!"),
+				(remove_party, ":revolt_joiners"),
+				(call_script, "script_finish_quest", "qst_freelancer_revolt", 100),
+				(quest_set_slot, "qst_freelancer_revolt", slot_quest_current_state, 0),
+			(else_try),
+				(dialog_box, "@The released prisoners have remained loyal and will join your party", "@Notice!"),
+				(call_script, "script_party_add_party", "p_main_party", ":revolt_joiners"),
+				(remove_party, ":revolt_joiners"),
+				(call_script, "script_finish_quest", "qst_freelancer_revolt", 100),
+				(quest_set_slot, "qst_freelancer_revolt", slot_quest_current_state, 0),
+			(try_end),
+		(else_try), #After fight with released prisoners
+			(quest_slot_eq, "qst_freelancer_revolt", slot_quest_current_state, 2),
+			(try_begin),
+				(neg|party_is_active, ":revolt_joiners"),
+				(neq, "$g_player_is_captive", 1),
+				(call_script, "script_finish_quest", "qst_freelancer_revolt", 100),
+			(else_try),
+				(call_script, "script_fail_quest", "qst_freelancer_revolt"),
+				(call_script, "script_end_quest", "qst_freelancer_revolt"),
+			(try_end),
+			(quest_set_slot, "qst_freelancer_revolt", slot_quest_current_state, 0),
+		(try_end),
     ]),
 
 # IF LEFT MOUSE CLICK GO TO SOLDIER'S MENU
-
     (0.0, 0, 0, [
         (eq, "$freelancer_state", 1),
         (key_clicked, key_left_mouse_button),
@@ -166,22 +177,25 @@ triggers = [
         (eq, "$freelancer_state", 2),
     ],
     [
-		(troop_get_slot, ":days_left", "trp_player", slot_troop_days_on_mission),
-		(try_begin),
-		  (gt, ":days_left", 5),
-		  (val_sub, ":days_left", 1),
-		  (troop_set_slot, "trp_player", slot_troop_days_on_mission, ":days_left"),
-		(else_try),		  
-		  (is_between, ":days_left", 1, 5),
-		  (assign, reg0, ":days_left"),
-		  (display_message, "@You have {reg0} days left till you are declared as a deserter!"),
-		  (val_sub, ":days_left", 1),
-		  (troop_set_slot, "trp_player", slot_troop_days_on_mission, ":days_left"),
-		(else_try), #declare deserter
-		  (eq, ":days_left", 0),
-		  (call_script, "script_event_player_deserts"),
-          (display_message, "@You have now been declared as a deserter!"),
-		(try_end),  
+		(try_for_range, ":cur_quest", freelancer_quests_begin, freelancer_quests_end),
+			(check_quest_active, ":cur_quest"),
+			(quest_get_slot, ":days_left", ":cur_quest", slot_quest_expiration_days),
+			(ge, ":days_left", 1),
+			(val_sub, ":days_left", 1), #to give extra warning...before this whole trigger is merged over to simple triggers or into the quest pack
+			(try_begin),
+				(eq, ":days_left", 5),
+				(str_store_troop_name, s13, "$enlisted_lord"),
+				(dialog_box, "@You have 5 days remaining in your leave from the party of {s13} before you will be declared a deserter.", "@Notice!"),
+			(else_try),
+				(is_between, ":days_left", 2, 5),
+				(assign, reg0, ":days_left"),
+				(display_message, "@You have {reg0} days left until you are declared as a deserter!"),
+			(else_try),
+				(eq, ":days_left", 1),
+				(str_store_troop_name, s13, "$enlisted_lord"),
+				(dialog_box, "@You must check in with your commander {s13} immediately or you will be declared a deserter!", "@Warning!"),
+			(try_end),
+		(try_end),
     ]),
 
 

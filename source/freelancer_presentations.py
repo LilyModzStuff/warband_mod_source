@@ -15,7 +15,7 @@ from module_constants import *
 presentations = [
 # __Freelancer Report: Commander_:Start_________________________________________________
 
-  ("taragoth_lords_report", 0, mesh_load_window, [
+  ("taragoth_lords_report", 0, mesh_note_window, [ #mesh_background_general, [
 
 	(ti_on_presentation_load,
 	[
@@ -72,16 +72,16 @@ presentations = [
 		(val_sub, ":cur_y", ":cur_y_adder"),
 		
 		#xp-to-next promotion
-		(troop_get_slot, ":service_xp_start", "trp_player", slot_troop_freelancer_start_xp),
+		(quest_get_slot, ":service_xp_start", "qst_freelancer_enlisted", slot_quest_freelancer_start_xp),
         (troop_get_xp, ":service_xp_cur", "trp_player"),
         (val_sub, ":service_xp_cur", ":service_xp_start"),
-		(troop_get_upgrade_troop, ":upgrade_troop", "$player_cur_troop", 0),
 		(str_store_string, s1, "@N/A"),
 		(try_begin),
+			(troop_get_upgrade_troop, ":upgrade_troop", "$player_cur_troop", 0),
 			(gt, ":upgrade_troop", 1), #make sure troop is valid and not player troop
-			(call_script, "script_game_get_upgrade_xp", "$player_cur_troop"),
-			(store_sub, reg0, reg0, ":service_xp_cur"), #required XP from script
-			(gt, reg0, 0),
+			(quest_get_slot, reg0, "qst_freelancer_enlisted", slot_quest_freelancer_upgrade_xp),
+			(val_sub, reg0, ":service_xp_cur"), #required XP from script
+			(val_max, reg0, 0),
 			(str_store_string, s1, "str_reg0"),
 		(try_end),
 		(create_text_overlay, reg0, "@Experience to next promotion: {s1}", tf_left_align),
@@ -91,7 +91,7 @@ presentations = [
 
 		#enlisted_time
 		(store_current_day, ":cur_day"),
-		(troop_get_slot, ":service_day_start", "trp_player", slot_troop_freelancer_start_date),
+		(quest_get_slot, ":service_day_start", "qst_freelancer_enlisted", slot_quest_freelancer_start_date),
 		(store_sub, ":service_length", ":cur_day", ":service_day_start"),
 		(assign, reg20, ":service_length"),
 		(create_text_overlay, reg0, "@Days in service: {reg20}", tf_left_align),
@@ -110,7 +110,10 @@ presentations = [
 		(val_sub, ":cur_y", ":cur_y_adder"),
 		
 		#next_pay
-		(str_store_date, s25, "$g_next_pay_time"),
+		(quest_get_slot, ":nextpay", "qst_freelancer_enlisted", slot_quest_freelancer_next_payday),
+		#(store_current_hours, reg0),
+		#(val_sub, ":nextpay", reg0), #<number_of_hours_to_add_to_the_current_date> ??
+		(str_store_date, s25, ":nextpay"), 
 		(create_text_overlay, reg0, "@Next Pay/Promotion day: {s25}", tf_left_align),
 		(position_set_y, pos1, ":cur_y"),
 		(overlay_set_position, reg0, pos1),
