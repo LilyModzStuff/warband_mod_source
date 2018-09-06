@@ -97,12 +97,15 @@ scripts = [
 	  (assign, "$g_nohomo", 1),
 	  (assign, "$g_keep_companions", 0),
       (assign, "$g_dark_hunters_enabled", 0),
-      (assign, "$g_realistic_wounding", 0), #new game
-      (assign, "$g_polygamy", 0), #new game
-	  (assign, "$g_enable_shield_bash", 3),
+      (assign, "$g_realistic_wounding", 0),
+      (assign, "$g_polygamy", 0),
+	  (assign, "$g_enable_shield_bash", 2),
 	  (assign, "$f_con", 0),
 	  (assign, "$f_player_prost", 0),
 
+	  (assign, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_HIGH),
+	  (assign, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_HIGH),
+      
       (try_for_range, ":edible", "itm_raw_date_fruit", food_end),
         (neq, ":edible", "itm_furs"),
         (item_set_slot, ":edible", slot_item_edible, 1),

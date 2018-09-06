@@ -16480,6 +16480,8 @@ goods, and books will never be sold. ^^You can change some settings here freely.
          (else_try),
              (set_camera_follow_party, "$capturer_party"),
              (assign, "$g_player_is_captive", 1),
+		 	 (call_script, "script_event_player_discharge"),
+		 	 (call_script, "script_party_restore"),
              (store_random_in_range, ":random_hours", 18, 30),
              (call_script, "script_event_player_captured_as_prisoner"),
              (call_script, "script_stay_captive_for_hours", ":random_hours"),

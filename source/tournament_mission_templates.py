@@ -797,6 +797,9 @@ tpe_standard_triggers = [
 	(0, 0, ti_once, [(main_hero_fallen),],
 	   [(display_message, "@You have fallen during this round, but will be able to continue onto the next round when only one team remains."),
 	    (troop_set_slot, "trp_tpe_presobj", tpe_time_of_death, "$g_wp_tpe_timer"),
+		  (eq, "$g_dplmc_cam_activated", 0),
+		  #(store_mission_timer_a, "$g_dplmc_main_hero_fallen_seconds"),
+		  (assign, "$g_dplmc_cam_activated", "$g_dplmc_cam_default"),
 	    # (try_begin),
 			# (eq, MOD_PBOD_INSTALLED, 1), # (dependency) PBOD - Custom camera
 			# (display_message, "@You may move your camera around using the arrow keys."),

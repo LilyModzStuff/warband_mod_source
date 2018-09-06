@@ -408,6 +408,8 @@ dialogs = [
   [anyone,"start", [(eq,"$talk_context",tc_player_defeated)],
    "Hah! I caught you! You are my prisoner now.", "close_window",
    [
+	(call_script, "script_event_player_discharge"),
+	(call_script, "script_party_restore"),
    	(party_get_num_companion_stacks, ":num_stacks", "p_main_party"),
 	(assign,":has_female", 0),
    	(try_for_range, ":i_stack", 0, ":num_stacks"), #now include heroes

@@ -40,6 +40,7 @@ scripts = [
 		
 		(try_begin),
 			(party_is_active, "$enlisted_party"),
+
 			(party_relocate_near_party, "p_main_party", "$enlisted_party", 2),
 			(party_set_flags, "$enlisted_party", pf_always_visible, 0),
 		(try_end),	
@@ -146,12 +147,20 @@ scripts = [
 		(troop_set_slot, "trp_player", slot_troop_days_on_mission, 0),
 		(troop_set_slot, "trp_player", slot_troop_banner_scene_prop, 0),
 		(assign, "$freelancer_state", 0),
+		(try_begin),
+			 (neq, "$g_player_is_captive", 1),
 		(call_script, "script_freelancer_detach_party"),
 		(rest_for_hours, 0,0,0),
 		(display_message, "@You have left your commander!"), 
+	    (try_end),
 
         #(call_script, "script_cancel_quest", "qst_freelancer_enlisted"),
+		(try_begin),
+			(eq, "$g_player_is_captive", 1),
+			(call_script, "script_fail_quest", "qst_freelancer_enlisted"),
+		(else_try),
 		(call_script, "script_finish_quest", "qst_freelancer_enlisted", 100), #percentage--make based on days served?
+		(try_end),
     ]),
 	
 #  RUNS IF THE PLAYER GOES ON VACATION
