@@ -62610,9 +62610,7 @@ scripts = [
 	   (assign, ":troop_no", "trp_player"),
 	(try_end),
   	(troop_get_type, ":is_female", ":troop_no"),
-	#The following will make it so, for example, tf_undead does not appear to be female.
-	#Mods where this is relevant will likely want to tweak it, but this will work in at
-	#least one that I know of that has non-human lords.
+	(val_mod, ":is_female", 2), # Makes even number skins "0" odd number "1" - tf_female is eqal to 1
 	(eq, ":is_female", tf_female),
   ]),
 
@@ -62630,37 +62628,23 @@ scripts = [
   ("dplmc_store_troop_is_female",
   [
     (store_script_param_1, ":troop_no"),
+	(ge, ":troop_no", 0),
     (try_begin),
        (eq, ":troop_no", active_npcs_including_player_begin),
        (assign, ":troop_no", "trp_player"),
     (try_end),
-    (troop_get_type, reg0, ":troop_no"),
-    (try_begin),
-        #(neq, reg0, 0),
-        (neq, reg0, 1),
-        (neq, reg0, 3),
-        (assign, reg0, 0),#e.g. this would apply to tf_undead
-    (else_try),
-        (assign, reg0, 1),
-    (try_end),
+    (troop_get_type, ":is_female", ":troop_no"),
+	(val_mod, ":is_female", 2), # Makes even number skins "0" odd number "1" - tf_female is eqal to 1
+	(assign, reg0, ":is_female"),
   ]),
 
   ("dplmc_store_troop_is_female_reg",
-  [ # Needs to be updated for new skin
+  [
     (store_script_param_1, ":troop_no"),
     (store_script_param_2, ":reg_no"),
+    (ge, ":troop_no", 0),
     (troop_get_type, ":is_female", ":troop_no"),
-    #The following will make it so, for example, tf_undead does not appear to be female.
-    #Mods where this is relevant will likely want to tweak it, but this will work in at
-    #least one that I know of that has non-human lords.
-    (try_begin),
-        #(neq, ":is_female", 0),
-        (neq, ":is_female", 1),
-        (neq, ":is_female", 3),
-        (assign, ":is_female", 0),
-    (else_try),
-        (assign, ":is_female", 1),
-    (try_end),
+	(val_mod, ":is_female", 2), # Makes even number skins "0" odd number "1" - tf_female is eqal to 1
         ##Can asign to registers 0,1,2,3, 65, or 4
     (try_begin),
       (eq, ":reg_no", 4),
@@ -62703,27 +62687,12 @@ scripts = [
   [
 	(store_script_param_1, ":troop_1"),
 	(store_script_param_2, ":troop_2"),
+    (ge, ":troop_1", 0),
+    (ge, ":troop_1", 0),
 	(troop_get_type, ":is_female_1", ":troop_1"),
 	(troop_get_type, ":is_female_2", ":troop_2"),
-	#The following will make it so, for example, tf_undead does not appear to be female.
-	#Mods where this is relevant will likely want to tweak it, but this will work in at
-	#least one that I know of that has non-human lords.
-	(try_begin),
-		#(neq, ":is_female_1", 0),
-		(neq, ":is_female_1", 1),
-        (neq, ":is_female_1", 3),
-		(assign, ":is_female_1", 0),
-    (else_try),
-		(assign, ":is_female_1", 1),
-	(try_end),
-	(try_begin),
-		#(neq, ":is_female_2", 0),
-		(neq, ":is_female_2", 1),
-        (neq, ":is_female_2", 3),
-		(assign, ":is_female_2", 0),
-    (else_try),
-		(assign, ":is_female_2", 1),
-	(try_end),
+	(val_mod, ":is_female_1", 2), # Makes even number skins "0" odd number "1" - tf_female is eqal to 1
+	(val_mod, ":is_female_2", 2), # Makes even number skins "0" odd number "1" - tf_female is eqal to 1
 	(assign, reg0, ":is_female_1"),
 	(assign, reg1, ":is_female_2"),
   ]),
@@ -78019,7 +77988,6 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	]
   ),
  
-  # Should use this to make all customizable armor remove underwear
   #script_set_calves - This is for SANDALS!!!
   # INPUT: 	1:agent_no, 2:troop_no,2, reg1(:troop_item_slots_begin), reg2(:agent_item_slots_begin)
   # OUTPUT:	NONE
@@ -78034,13 +78002,25 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	(try_begin),
 		(troop_get_type, ":troop_type", ":troop_no"),
 		(try_begin),
-			(this_or_next|eq, ":troop_type", tf_female), #female || calfwoman (don't change male!)
+			(this_or_next|eq, ":troop_type", tf_female), #female || tf_woman_nude || calfwoman (don't change male!)
+			(this_or_next|eq, ":troop_type", tf_woman_nude),
 			(eq, ":troop_type", tf_calfwoman),
 			(try_begin),
 				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_risty_sandals"), #tf_calfwoman and has sandals on -> no change
-				(troop_has_item_equipped , ":troop_no", "itm_sonja_boots"),
+				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_sonja_boots"),
+				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_sonja_armor"),
+				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_diabassa_armor"),
+				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_plate_armor_dthun"),
+				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_custom_armor3"),
+				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_custom_armor2"),
+				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_risty_armor"),
+				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_scale_armor_dthun"),
+				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_loincloth"),
+				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_loin_top"),
+				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_loin_skirt"),
+				(troop_has_item_equipped , ":troop_no", "itm_body_fem"),
 				(try_begin),
-					(eq, ":troop_type", tf_female),
+					(this_or_next|eq, ":troop_type", tf_female),(eq, ":troop_type", tf_woman_nude),
 					(troop_set_type, ":troop_no", tf_calfwoman),
 					(assign, ":troop_changed", 1),
 				(try_end),
@@ -78060,6 +78040,102 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	]
   ),
 
+ # script_roll_for_charisma
+ # ex:
+ # (call_script, "script_roll_for_charisma", Difficulty_Modifier, Target_Troop, Propositioning_Troop),
+ # Outputs none
+ ("roll_for_charisma", [
+  (store_trigger_param_1, ":difmod"),
+  (store_trigger_param_2, ":target"), # Should default to 0, which is the player troop
+  (store_trigger_param_3, ":roller"),
+  
+  (assign, ":end", 0),
+
+    (store_attribute_level, ":cha", ":roller", ca_charisma),
+    (assign, ":required_cha", 12),
+	(val_add, ":required_cha", ":difmod"),
+    (troop_get_slot, ":renown", ":roller", slot_troop_renown),
+    (val_div, ":renown", 100),
+    
+    (store_skill_level, ":persuasion", "skl_persuasion", ":roller"),
+    
+    (call_script, "script_dplmc_store_is_female_troop_1_troop_2", ":target", ":roller"),
+    (assign, ":target_gender", reg0),
+	(assign, ":roller_gender", reg1),
+
+    (try_begin),
+		# Same-gender is a lot harder.
+		(eq, ":target_gender", ":roller_gender"),
+        (val_add, ":required_cha", 8),
+    (else_try),
+		# Women are harder.
+		(eq, ":target_gender", 1),
+        (val_add, ":required_cha", 6),
+	(else_try),
+		# Men are easier.
+        (eq, ":target_gender", 0),
+        (val_sub, ":required_cha", 6),
+    (try_end),
+        
+    (try_begin),
+        (is_between, ":target", heroes_begin, heroes_end),
+        
+        (val_div, ":renown", 2),
+        
+        (try_begin), # Noble ladies are even harder.
+            (is_between, ":target", kingdom_ladies_begin, kingdom_ladies_end),
+            (val_add, ":required_cha", 10),
+            (try_begin),
+                (this_or_next|troop_slot_eq, ":target", slot_lord_reputation_type, lrep_moralist),
+                (troop_slot_eq, ":target", slot_lord_reputation_type, lrep_conventional),
+                (val_add, ":required_cha", 10),
+            (else_try),
+                (troop_slot_eq, ":target", slot_lord_reputation_type, lrep_adventurous),
+                (val_sub, ":required_cha", 5),
+            (else_try),
+                (troop_slot_eq, ":target", slot_lord_reputation_type, lrep_ambitious),
+                (val_add, ":required_cha", 5),
+                (val_sub, ":required_cha", ":renown"),
+            (try_end),
+        (try_end),
+    (try_end),
+	
+	(try_begin), # Pretenders are MUCH harder. O . O . F .
+		(eq, ":target", "$supported_pretender"),
+		(troop_get_slot, ":troop_renown", ":target", slot_troop_renown),
+		(try_begin),
+			(gt, ":troop_renown", ":renown"),
+			(store_sub, ":renown_diff", ":troop_renown", ":renown"),
+			(val_div, ":renown_diff", 50),
+			(val_add, ":required_cha", ":renown_diff"),
+		(try_end),
+		(val_add, ":required_cha", 20),
+	(try_end),
+    
+    (call_script, "script_troop_get_relation_with_troop", ":roller", ":target"),
+    (assign, ":rel", reg0),
+    (try_begin), # Negative relation is a no-go
+        (lt, ":rel", 0),
+        (assign, ":end", 1),
+    (try_end),
+    (val_div, ":rel", 5), # Every 5 relation is equal to 1 Cha
+    (val_sub, ":required_cha", ":rel"),
+    (val_sub, ":persuasion"),
+    (val_sub, ":required_cha", ":renown"),
+    
+    (val_max, ":required_cha", 9),
+    
+    (try_begin),
+        (ge, "$cheat_mode", 1),
+		(eq, ":roller", "trp_player"),
+        (assign, reg0, ":required_cha"),
+        (display_message, "@Required Charisma: {reg0}"),
+    (try_end),
+    
+	(eq, ":end", 0),
+    (ge, ":cha", ":required_cha"),
+  ]),
+  
 # script_pos_helper
 # Description: Little Pos Helper by Kuba
 # Input1: ti_on_presentation_***

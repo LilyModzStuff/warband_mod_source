@@ -414,8 +414,8 @@ dialogs = [
 		(party_stack_get_troop_id, ":troop_id", "p_main_party", ":i_stack"),
 		(str_store_troop_name, s4, ":troop_id"),
 		(troop_is_hero, ":troop_id"),
-		(troop_get_type, ":is_female", ":troop_id"),
-		(this_or_next|eq, ":is_female", tf_female),(eq, "$g_nohomo", 0),
+		(this_or_next|eq, "$g_nohomo", 0),
+		(call_script, "script_cf_dplmc_troop_is_female", ":troop_id"),
 		(assign,":has_female", 1),
 		#(display_message,"@{s4} is a female.",0xFFFF60D0),
 	(try_end),
@@ -516,85 +516,8 @@ dialogs = [
     (assign, ":continue", 1),
     (assign, "$g_pre_consent", 0),
   (else_try),
-    (store_attribute_level, ":cha", "trp_player", ca_charisma),
-    (assign, ":required_cha", 12),
-    (troop_get_slot, ":player_renown", "trp_player", slot_troop_renown),
-    (val_div, ":player_renown", 100),
-
-    (store_skill_level, ":persuasion", "skl_persuasion", "trp_player"),
-
-    (call_script, "script_dplmc_store_troop_is_female_reg", "$g_talk_troop", 65),
-    (assign, ":is_female", reg65),
-    (try_begin),
-        (eq, ":is_female", 1),
-        (val_add, ":required_cha", 6),
+   (call_script, "script_roll_for_charisma", 0, "$g_talk_troop", trp_player),
     (try_end),
-
-    (try_begin),
-        (is_between, "$g_talk_troop", heroes_begin, heroes_end),
-
-        (val_div, ":player_renown", 2),
-
-        (try_begin),
-            (eq, "$g_talk_troop", "$supported_pretender"),
-            (troop_get_slot, ":troop_renown", "$g_talk_troop", slot_troop_renown),
-            (try_begin),
-                (gt, ":troop_renown", ":player_renown"),
-                (store_sub, ":renown_diff", ":troop_renown", ":player_renown"),
-                (val_div, ":renown_diff", 50),
-                (val_add, ":required_cha", ":renown_diff"),
-            (try_end),
-            (val_add, ":required_cha", 20),
-        (try_end),
-
-        (try_begin),
-            (is_between, "$g_talk_troop", kingdom_ladies_begin, kingdom_ladies_end),
-            (val_add, ":required_cha", 10),
-            (try_begin),
-                (this_or_next|troop_slot_eq, "$g_talk_troop", slot_lord_reputation_type, lrep_moralist),
-                (troop_slot_eq, "$g_talk_troop", slot_lord_reputation_type, lrep_conventional),
-                (val_add, ":required_cha", 10),
-            (else_try),
-                (troop_slot_eq, "$g_talk_troop", slot_lord_reputation_type, lrep_adventurous),
-                (val_sub, ":required_cha", 5),
-            (else_try),
-                (troop_slot_eq, "$g_talk_troop", slot_lord_reputation_type, lrep_ambitious),
-                (val_add, ":required_cha", 5),
-                (val_sub, ":required_cha", ":player_renown"),
-            (try_end),
-        (try_end),
-    (try_end),
-
-    (call_script, "script_troop_get_relation_with_troop", "trp_player", "$g_talk_troop"),
-    (assign, ":rel", reg0),
-    (try_begin),
-        (lt, ":rel", 0),
-        (assign, ":end", 1),
-    (try_end),
-    (val_div, ":rel", 5),
-    (val_sub, ":required_cha", ":rel"),
-    (val_sub, ":persuasion"),
-    (val_sub, ":required_cha", ":player_renown"),
-
-    (try_begin),
-        (eq, "$character_gender", 1),
-        (val_sub, ":required_cha", 6),
-    (else_try),
-        (val_add, ":required_cha", 6),
-    (try_end),
-    (val_max, ":required_cha", 9),
-
-    (try_begin),
-        (ge, "$cheat_mode", 1),
-        (assign, reg0, ":required_cha"),
-        (display_message, "@Required Charisma: {reg0}"),
-    (try_end),
-
-    (ge, ":cha", ":required_cha"),
-    (assign, ":continue", 1),
-  (try_end),
-  (eq, ":end", 0),
-  (eq, ":continue", 1),
   ],
   "Very well, let's do it.", "close_window",[
      (agent_get_entry_no, ":entry_no", "$g_talk_agent"),
@@ -2434,6 +2357,7 @@ If you would like to practice your horsemanship, you can take my horse here. The
 ], "You find more girls, bring them to me. I'll put them to good use.", "close_window",[]],
 [trp_brothel_madam|plyr,"brothel_talk",[], "Let's go over the accounts.", "brothel_accounts",[]],
 [trp_brothel_madam|plyr,"brothel_talk",[], "I can no longer keep operating this tavern and bath-house.", "brothel_sell_off",[]],
+[trp_brothel_madam|plyr,"brothel_talk",[(eq, "$character_gender", 1),], "Give me the keys to a room, I want to work a shift.", "brothel_self_prostitution",[]],
 #[trp_brothel_madam|plyr,"brothel_talk",[], "I would like to upgrade this establishment to cater to a wealthier clientele.", "brothel_accounts",[]],
 [trp_brothel_madam|plyr,"brothel_talk",[], "Nothing right now. Good-bye.", "close_window",[]],
 
@@ -2451,6 +2375,25 @@ If you would like to practice your horsemanship, you can take my horse here. The
 (assign, reg2, ":num_courtesans"),
 
 ], "We currently have {reg0} common girls and {reg2} ladies working for us. After factoring in room and board, rents, and other expenses, we are currently making {reg1} denars per week.", "close_window",[]],
+
+[trp_brothel_madam,"brothel_self_prostitution", 
+	[
+		(try_begin),
+			(eq, "$f_player_prost", 2),
+			(str_store_string, s3, "@Of course madam, I have the best room in the house for you. Here is the key."),
+		(else_try),
+			(str_store_string, s3, "@M-madam it would be highly unusual for you, that is... the proprietor to...^^Ah of course I mean, as you wish ma'am. It is your choice, after all. I have the best room in the house for you."),
+		(try_end),
+	],
+	"{s3}", "close_window",
+	[
+	(assign, "$f_player_prost", 2),
+	(assign, "$g_currently_soliciting", 0),
+	(jump_to_menu, "mnu_town_tavern_prostitution"),
+	(stop_all_sounds, 1),
+	(finish_mission),
+	]
+],
 
 [trp_brothel_madam, "brothel_sell_off", [
 ], "If you sell off this establishment, you will be able to get 2000 denars in return. Is that what you want?", "brothel_sell_off_2",[]],
@@ -34638,7 +34581,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
    ]],
 
 ######################################
-   #!@#$
+   #
    [
 	anyone|plyr,
 	"lady_talk",
@@ -37797,21 +37740,20 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
 ########################################################################################
 
-	[#!@#$
+	[
 		anyone|plyr,
 		"tavernkeeper_talk",
 		[
 		(neg|party_slot_eq, "$current_town", slot_town_has_brothel, 1),
 		(le, "$sneaked_into_town", disguise_none), # Causes problems, so don't give the player a chance to do it.
-		(eq, "$f_player_prost", 1),
+		(ge, "$f_player_prost", 1),
 		(party_get_num_companion_stacks, ":num_stacks", "p_main_party"),
 		(assign,":has_females", 0),
 		(try_for_range, ":i_stack", 0, ":num_stacks"), #now include heroes
 			(party_stack_get_troop_id, ":troop_id", "p_main_party", ":i_stack"),
 			(str_store_troop_name, s4, ":troop_id"),
 			(troop_is_hero, ":troop_id"),
-			(troop_get_type, ":is_female", ":troop_id"),
-			(eq, ":is_female", tf_female),
+			(call_script, "script_cf_dplmc_troop_is_female", ":troop_id"),
 			(val_add, ":has_females", 1),
 		(try_end),
 		(try_begin),
@@ -37857,8 +37799,8 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 	(try_for_range, ":i_stack", 0, ":num_stacks"), #Check for female heroes
 	  (party_stack_get_troop_id, ":stack_troop","p_main_party",":i_stack"),
 	  (troop_is_hero, ":stack_troop"),
-	  (troop_get_type, ":is_female", ":stack_troop"),
-	  (eq, ":is_female", tf_female),
+		(this_or_next|eq, "$g_nohomo", 0),
+		(call_script, "script_cf_dplmc_troop_is_female", ":stack_troop"),
 	  (troop_set_slot,"trp_temp_array_a",":fems",":stack_troop"),
 	  (val_add,":fems",1),
 	  (str_store_troop_name,s4,":stack_troop"),
