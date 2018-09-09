@@ -3192,7 +3192,7 @@ Still I am sorry that I'll leave you soon. You must promise me, you'll come visi
   ],
 #/DtheHun  
 
-[anyone,"do_member_trade", [], "Anything else?", "member_talk",[]],
+[anyone,"do_member_trade", [], "Anything else?", "member_talk",[(set_player_troop, "trp_player")]],
 
 [anyone|plyr,"member_talk", [], "What can you tell me about your skills?", "view_member_char_requested",[]],
 [anyone,"view_member_char_requested", [], "All right, let me tell you...", "do_member_view_char", [(set_player_troop,"$g_talk_troop"),[change_screen_view_character]]],
