@@ -3234,7 +3234,7 @@ Still I am sorry that I'll leave you soon. You must promise me, you'll come visi
 "Let me see your equipment.", "member_trade",[]],
 [anyone,"member_trade", [], "Very well, it's all here...", "do_member_trade",[(set_player_troop, "trp_player"),(change_screen_equip_other)]], #set back to trp_player before open equipment or you get two screens of the NPCs equipment.
 
-[anyone,"do_member_trade", [], "Anything else?", "member_talk",[]],
+[anyone,"do_member_trade", [], "Anything else?", "member_talk",[(set_player_troop, "trp_player")]],
 
 [anyone|plyr,"member_talk", [], "What can you tell me about your skills?", "view_member_char_requested",[]],
 [anyone,"view_member_char_requested", [], "All right, let me tell you...", "do_member_view_char", [(set_player_troop,"$g_talk_troop"),[change_screen_view_character]]],
