@@ -3516,7 +3516,7 @@ scripts = [
 		(troop_set_slot, "trp_player", slot_troop_tournament_team_request, 4),
 		(troop_set_slot, TPE_OPTIONS, tpe_val_show_health, 1),
 		(assign, "$g_wp_tpe_active", 1),
-		(assign, "$tpe_quests_active", 1),
+		(assign, "$tpe_quests_active", 0),
 		(assign, "$tpe_quest_reactions", TPE_QUEST_REACTIONS_MEDIUM),
 		(assign, "$g_wp_tpe_renown_scaling", 1),
 		(assign, "$g_wp_tpe_option_icd_active", 1),

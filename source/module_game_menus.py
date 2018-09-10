@@ -22739,12 +22739,23 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 				(try_end),
 				
 				(store_attribute_level, ":cha", ":troop_id", ca_charisma),
-				(val_mul, ":cha", 1.2),
-				(assign, reg5, ":cha"),
+				(val_mul, ":cha", 5), # This is really a dumb thing to do but I'm not sure this command takes floats
+				(val_div, ":cha", 4), # Ends up being 1.25 multiplier, +/- however rounding works.
+				(store_random_in_range, ":rand", -3, 6),
+				(val_add, ":cha", ":rand"),
+				(val_clamp, ":cha", 1, 1000),
 				(val_add, ":cash", ":cha"),
+				(assign, reg5, ":cha"),
 				(str_store_troop_name,s4,":troop_id"),
 				
 				(display_message, "@{s4}'s customer paid her {reg5} denars.",0xFFFFD800),
+			(try_end),
+			(try_begin), # Now the tavernkeepers actually do take a third.
+				(store_div, ":fee", ":cash", 3),
+				(assign, reg5, ":fee"),
+				(display_message, "@The tavernkeep's fee is {reg5} denars.", message_negative),
+				(val_sub, ":cash", ":fee"),
+				(val_clamp, ":cash", 1, 1000),
 			(try_end),
 			
 			(assign, "$f_temp_var", 0),
