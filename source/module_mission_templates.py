@@ -5046,6 +5046,8 @@ mission_templates = [
 			(ge, "$g_sexual_content", 1),
 			(agent_get_troop_id, ":troop_id", ":agent_no"),
 			(assign, ":tribute_entertainer", 0),
+			(neq, "$talk_context", tc_prison_break),
+			(call_script, "script_cf_dplmc_troop_is_female", ":troop_id"),
 			(try_begin),
 				(troop_slot_ge, ":troop_id", slot_troop_prisoner_of_party, "$g_encountered_party"),
 				(assign, ":tribute_entertainer", 1),
