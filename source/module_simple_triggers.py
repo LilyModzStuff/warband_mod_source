@@ -7598,6 +7598,15 @@ simple_triggers = [
        (assign, "$quest_auto_menu", "mnu_town_tavern_prostitution"),
        ]
    ),
+  #-## TBS - Beer drinking
+   (1, [
+	(troop_get_slot, ":last_beers_time", "trp_player", slot_last_beers_time),
+	(store_current_hours, ":cur_hrs"),
+	(val_sub, ":cur_hrs", ":last_beers_time"),
+	(ge, ":cur_hrs", 18), # If 18 hours have passed since you drank beers
+	(troop_set_slot, "trp_player", slot_beers_for_the_day, 0),
+   ]),
+#-## TBS - Beer drinking end
 
   ##diplomacy end
 ]# modmerger_start version=201 type=2

@@ -1298,3 +1298,6 @@ last_feast_location
 g_nohomo
 g_player_debt
 g_player_deposit
+g_wp_player_hr_active
+g_wp_ai_hr_active
+g_wp_difficulty

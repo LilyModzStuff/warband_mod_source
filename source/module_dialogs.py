@@ -37780,6 +37780,39 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
 ########################################################################################
 
+
+#Buy beer for party
+#-## TBS - Beer drinking
+  [anyone|plyr,"tavernkeeper_talk", [
+	  (neq, "$sneaked_into_town", 1), # It'd be suspicious to order 200 or so beers while undercover
+	  (neg|troop_slot_ge, "trp_player", slot_beers_for_the_day, 9), # Maximum of 9 beers per day
+	  (store_party_size, reg1, "p_main_party"),
+	  (store_mul, reg2, reg1, 7), # 7 denars per beer - making it more expensive to counter the big amount of morale possible to gain
+      ], "I want {reg1} beers for my company. ({reg2} denars.)", "tavernkeeper_drink_beer",[]],
+	  
+  [anyone,"tavernkeeper_drink_beer",
+   [
+	(store_troop_gold, ":player_cash", "trp_player"),
+	(store_party_size, ":party_size", "p_main_party"),
+	(store_mul, ":beer_cost", ":party_size", 7),
+	(try_begin),
+		(ge, ":player_cash", ":beer_cost"),
+		(troop_remove_gold, "trp_player", ":beer_cost"),
+		(display_message, "@Your army's morale has improved!", 0x33ff33),
+		(call_script, "script_change_player_party_morale", 2),
+		(troop_get_slot, ":cur_beers", "trp_player", slot_beers_for_the_day),
+		(val_add, ":cur_beers", 1),
+		(troop_set_slot, "trp_player", slot_beers_for_the_day, ":cur_beers"),
+		(store_current_hours, ":cur_hrs"),
+		(troop_set_slot, "trp_player", slot_last_beers_time, ":cur_hrs"),
+		(str_store_string, s1, "@Of course, {sir/madam}. I shall have them delivered to your company as soon as possible."),
+	(else_try),
+		(str_store_string, s1, "@You don't have enough money, {mate/lass}..."),
+	(try_end),
+    ], "{s1}", "close_window",[]],
+#-## TBS - Beer drinking end
+
+
 	[#!@#$
 		anyone|plyr,
 		"tavernkeeper_talk",

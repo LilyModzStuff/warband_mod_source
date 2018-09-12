@@ -2638,6 +2638,11 @@ Team1_Cavalry_Destination	= 57	#pos57
 Team2_Cavalry_Destination	= 58	#pos58
 Team3_Cavalry_Destination	= 59	#pos59
 # modmerger_start version=201 type=1
+#-## TBS - Beer drinking
+# These are troop slots, so check for conflicting numbers in your mod.
+slot_beers_for_the_day = 420
+slot_last_beers_time   = 421
+#-## TBS - Beer drinking end
 try:
     from util_common import logger
     from modmerger_options import mods_active

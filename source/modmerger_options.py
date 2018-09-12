@@ -36,6 +36,7 @@ mods_active = [
         "sort",
         "xgm_mod_options",
         "c3",
+        "health_regen",
 	"recruit"
 ]
 
