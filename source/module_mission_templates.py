@@ -2485,18 +2485,18 @@ realistic_wounding = (ti_on_agent_hit, 0, 0, [], [
       (agent_set_slot, ":inflicted_agent_id", slot_agent_last_damage, ":inflicted_damage"),
   ])
 
-  
+
 ###DtheHun
 player_dance = (
   0, 0, 0,
   [
     (key_clicked, key_k),
-	
+
     (troop_get_type, ":is_female", "trp_player"),
     (ge, ":is_female", 1),
 
-    (get_player_agent_no, ":agent"),	
-	
+    (get_player_agent_no, ":agent"),
+
     (agent_is_alive, ":agent"),
     (agent_is_human, ":agent"),
     (agent_get_horse, ":horse", ":agent"),
@@ -2549,7 +2549,7 @@ grant_body_multiplayer = (
 lose_armor_parts = (	# $g_cenzura != 1 -> can lose it
   ti_on_agent_hit, 0, 0, [
   #(neq, "$g_cenzura", 1),
-  ], 
+  ],
   [
 		(store_trigger_param_1, ":agent_no"),
 		#(store_trigger_param_2, ":attacker_no"),
@@ -2559,14 +2559,14 @@ lose_armor_parts = (	# $g_cenzura != 1 -> can lose it
 		(troop_get_type, ":is_female", ":hit_troop"),
 		(ge, ":is_female", 1),
 		(agent_get_item_slot, ":item_id", ":agent_no", ek_body),
-        (ge, ":item_id", 0),		
+        (ge, ":item_id", 0),
 		(try_for_range, ":fem_item", "itm_loin_skirt", "itm_banded_armor"),
 			(eq, ":item_id", ":fem_item"),
 			(agent_get_position, pos3, ":agent_no"),
 			(get_sq_distance_between_position_heights, ":hit_height", pos0, pos3),
 			#(assign, reg1, ":hit_height"),
 			#(display_message, "@hit height {reg1}"),
-			(assign, ":hit_count", 3),	#not yelling if it remains 2 or become greater		
+			(assign, ":hit_count", 3),	#not yelling if it remains 2 or become greater
 			(try_begin), #loose top
 				(is_between, ":hit_height", 130, 170),
 				(agent_get_slot, ":hit_count", ":agent_no", slot_agent_chest_hit_count),
@@ -2575,12 +2575,12 @@ lose_armor_parts = (	# $g_cenzura != 1 -> can lose it
 				(try_begin),
 					(le, ":hit_count", 1), # 1: bra/skin
 					(agent_unequip_item, ":agent_no", ":item_id"),
-					(agent_equip_item, ":agent_no", ":item_id"),		
+					(agent_equip_item, ":agent_no", ":item_id"),
 					(try_begin),	#set permanent component lose
 						#(eq, "$g_cenzura", 2),
 						(troop_is_hero, ":hit_troop"),
 						(troop_set_slot, ":hit_troop", slot_troop_armor_slots_begin + 1, 0),
-					(try_end),							
+					(try_end),
 				(try_end),
 				(val_add, ":hit_count", 1), #yell only once for bra: 1->2:YES  2->3:NO
 			(else_try), #loose skirt / panty
@@ -2591,7 +2591,7 @@ lose_armor_parts = (	# $g_cenzura != 1 -> can lose it
 				(try_begin),
 					(le, ":hit_count", 2), #1: skirt  2: panty
 					(agent_unequip_item, ":agent_no", ":item_id"),
-					(agent_equip_item, ":agent_no", ":item_id"),			
+					(agent_equip_item, ":agent_no", ":item_id"),
 					(try_begin),	#set permanent component lose
 						#(eq, "$g_cenzura", 2),
 						(troop_is_hero, ":hit_troop"),
@@ -2603,22 +2603,22 @@ lose_armor_parts = (	# $g_cenzura != 1 -> can lose it
 							(troop_set_slot, ":hit_troop", slot_troop_armor_slots_begin + 2, 0),
 						(try_end),
 					(try_end),
-				(try_end),					
+				(try_end),
 			(try_end),
 			(try_begin),	# yelling twice per hit region
-				(le, ":hit_count", 2),		
+				(le, ":hit_count", 2),
 				(particle_system_burst, "psys_gourd_smoke", pos0, 3),
-				(particle_system_burst, "psys_dummy_straw", pos0, 10),			
+				(particle_system_burst, "psys_dummy_straw", pos0, 10),
 				(store_agent_hit_points, ":health", ":agent_no",1),
 				(lt, ":damage", ":health"),
-				(agent_play_sound, ":agent_no", "snd_woman_lose_armor"),				
+				(agent_play_sound, ":agent_no", "snd_woman_lose_armor"),
 			(try_end),
-		(try_end),	
+		(try_end),
 		#(assign, reg0, ":damage"),
 		#(set_trigger_result, reg0),
    ]
 )
-  
+
 inventory_or_customize = (
 	ti_inventory_key_pressed, 0, 0,
       [
@@ -2627,16 +2627,16 @@ inventory_or_customize = (
 			(call_script, "script_find_customizable_item_equipped_on_troop", "$g_player_troop"),
 			(try_begin),
 				(neq, "$g_current_opened_item_details", -1),
-				(assign, "$g_current_opened_troop_dthehun", "$g_player_troop"),			
+				(assign, "$g_current_opened_troop_dthehun", "$g_player_troop"),
 				(start_presentation, "prsnt_customize_armor"),
 			(else_try),
 				(display_message,"str_dont_have_custom_item"),
-			(try_end),				
+			(try_end),
 		(else_try),
 		    (set_trigger_result,1),
 		(try_end),
       ], [])
-	  
+
 inventory_or_customize_town = (
 	ti_inventory_key_pressed, 0, 0,
       [
@@ -2646,11 +2646,11 @@ inventory_or_customize_town = (
 			(call_script, "script_find_customizable_item_equipped_on_troop", "$g_player_troop"),
 			(try_begin),
 				(neq, "$g_current_opened_item_details", -1),
-				(assign, "$g_current_opened_troop_dthehun", "$g_player_troop"),		
+				(assign, "$g_current_opened_troop_dthehun", "$g_player_troop"),
 				(start_presentation, "prsnt_customize_armor"),
 			(else_try),
 				(display_message,"str_dont_have_custom_item"),
-			(try_end),	
+			(try_end),
 		(else_try),
 		    (try_begin),
 		      (eq, "$g_mt_mode", tcm_default),
@@ -3668,28 +3668,58 @@ common_siege_check_defeat_condition = (
       (try_end),
     ##diplomacy end
     ])
-
-common_battle_order_panel = (
-  0, 0, 0, [
-    (game_key_clicked, gk_view_orders),
-    (neg|is_presentation_active, "prsnt_battle"),
-  ],
+##CC
+common_battle_order_panel =(
+  0, 0, ti_once, [],
   [
-    (start_presentation, "prsnt_battle"),
-    ])
+    (try_begin),
+      (eq, "$g_minimap_style", 0),
+      (assign, ":dest_presentation", "prsnt_mini_map_bar"),
+    (else_try),
+      (assign, ":dest_presentation", "prsnt_mini_map"),
+    (try_end),
+    (neg|is_presentation_active, ":dest_presentation"),
+    (start_presentation, ":dest_presentation"),
+  ])
+
 
 common_battle_order_panel_tick = (
-  0.1, 0, 0, [
-  (is_presentation_active, "prsnt_battle"),
-  ],
+  0, 0, 0, [],
   [
-    (call_script, "script_update_order_panel_statistics_and_map"),
-    ])
-(0, 0, ti_once,
-    [],
-    [
+    (try_begin),
+      (eq, "$g_minimap_style", 0),
+      (assign, ":dest_presentation", "prsnt_mini_map_bar"),
+    (else_try),
+      (assign, ":dest_presentation", "prsnt_mini_map"),
+    (try_end),
+    (try_begin),
+      (neg|is_presentation_active, "prsnt_battle"),
+      (neg|is_presentation_active, ":dest_presentation"),
+      (start_presentation, ":dest_presentation"),
       (start_presentation, "prsnt_troop_ratio_bar"),
-    ]),
+    (try_end),
+    (try_begin),
+      (is_presentation_active, "prsnt_battle"),
+      (call_script, "script_update_order_panel_statistics_and_map"),
+    (else_try),
+      (is_presentation_active, "prsnt_mini_map"),
+      (try_begin),
+        (ge, "$g_minimap_style", 1),
+        (call_script, "script_update_order_panel_map"),
+      (try_end),
+      (call_script, "script_update_agent_hp_bar"),
+    (else_try),
+      (is_presentation_active, "prsnt_mini_map_bar"),
+      (call_script, "script_update_map_bar"),
+      (call_script, "script_update_agent_hp_bar"),
+    (try_end),
+    ])
+## CC
+#(0, 0, ti_once,
+#    [],
+#    [
+#      (start_presentation, "prsnt_troop_ratio_bar"),
+#    ]),
 
 common_battle_inventory = (
   ti_inventory_key_pressed, 0, 0, [],

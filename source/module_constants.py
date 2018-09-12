@@ -2671,6 +2671,21 @@ Team0_Cavalry_Destination	= 56	#pos56
 Team1_Cavalry_Destination	= 57	#pos57
 Team2_Cavalry_Destination	= 58	#pos58
 Team3_Cavalry_Destination	= 59	#pos59
+##CC
+
+slot_agent_hp_bar_overlay_id      = 31
+slot_agent_hp_bar_bg_overlay_id   = 32
+slot_agent_name_overlay_id        = 35
+
+slot_agent_siege_state            = 33
+slot_agent_target_ladder          = 34
+
+slot_agent_horse_stamina          = 36
+slot_agent_horse_is_charging      = 37
+slot_agent_dest_hp                = 38
+
+slot_agent_weapon_xp              = 39
+##CC
 # modmerger_start version=201 type=1
 try:
     from util_common import logger

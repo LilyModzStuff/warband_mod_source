@@ -17919,9 +17919,20 @@ presentations = [
         (set_fixed_point_multiplier, 1000),
         (store_div, ":map_ratio", ":map_height", 100),
         (store_div, ":map_ratio", ":map_width", ":map_ratio"),
+
+        ## CC
+        (assign, ":minimap_ratio", 100),
+        (try_begin),
+          (eq, "$g_minimap_style", 1),
+          (assign, ":minimap_ratio", 60),
+        (else_try),
+          (eq, "$g_minimap_style", 2),
+          (assign, ":minimap_ratio", 80),
+        (try_end),
+        ## CC
         (try_begin),
           (gt, ":map_ratio", 100),
-          (assign, "$g_battle_map_width", 300),
+(store_mul, "$g_battle_map_width", ":minimap_ratio", 3), ## CC
           (store_div, "$g_battle_map_scale", ":map_width", "$g_battle_map_width"),
           (store_div, "$g_battle_map_height", ":map_height", "$g_battle_map_scale"),
         (else_try),
@@ -19088,6 +19099,16 @@ presentations = [
             (overlay_animate_to_color, "$g_presentation_but8_weapon_usage", 250, 0xFFFFFF),
             (overlay_animate_to_color, "$g_presentation_obj_battle_name8", 250, 0xFFFFFF),
           (try_end),
+         (presentation_set_duration, 0),
+          ## CC
+          (try_begin),
+            (eq, "$g_minimap_style", 0),
+            (assign, ":dest_presentation", "prsnt_mini_map_bar"),
+          (else_try),
+            (assign, ":dest_presentation", "prsnt_mini_map"),
+          (try_end),
+          (start_presentation, ":dest_presentation"),
+          ## CC
         (try_end),
     ]),
     # (ti_on_presentation_run,
@@ -21062,7 +21083,7 @@ presentations = [
 	#custom armor
   #takes g_current_opened_item_details as parameter
   #takes g_current_opened_troop_dthehun as parameter
-  ("customize_armor", prsntf_manual_end_only, 0, [ 
+  ("customize_armor", prsntf_manual_end_only, 0, [
     (ti_on_presentation_load,
      [(set_fixed_point_multiplier, 1000),
 
@@ -21097,7 +21118,7 @@ presentations = [
 
       (item_get_slot, ":sub_part_total", "$g_current_opened_item_details", slot_item_num_components),
       (item_get_slot, ":script_no", "$g_current_opened_item_details", slot_item_init_script),
-   
+
 #COMBOS2 begin
 	  (try_begin),
         (gt, ":script_no", 0),
@@ -21121,23 +21142,23 @@ presentations = [
 			(create_image_button_overlay, ":overlay", "mesh_custom_button_up", "mesh_custom_button_down"),
 			(position_set_x, pos1, ":cur_x"),
 			(position_set_y, pos1, ":cur_y"),
-			(overlay_set_position, ":overlay", pos1),		
-		#item_image	
+			(overlay_set_position, ":overlay", pos1),
+		#item_image
 			(store_add, ":mesh_x", ":cur_x", 50),
 			(store_add, ":mesh_y", ":cur_y", 50),
 			(position_set_x, pos2, ":mesh_x"),
-			(position_set_y, pos2, ":mesh_y"),		
+			(position_set_y, pos2, ":mesh_y"),
 			(troop_get_slot, ":cur_value", "$g_current_opened_troop_dthehun", ":cur_mesh_slot"),
 			(call_script, ":script_no", -1, "$g_current_opened_troop_dthehun", ":sub_part", ":cur_value"), #-> s1(item_name), reg0(item_no)
 			(try_begin),
 				(neg|str_is_empty, s1),
-				(assign, ":item_no", reg0),	
-				(create_mesh_overlay_with_item_id, reg0, ":item_no"),		  # <- 0: Invalid Item, n: Item Copmponent 
+				(assign, ":item_no", reg0),
+				(create_mesh_overlay_with_item_id, reg0, ":item_no"),		  # <- 0: Invalid Item, n: Item Copmponent
 			(else_try),
 				(create_mesh_overlay_with_item_id, reg0, "itm_chest_b"), # <- RANDOM - add item overlay keep indexes unchanged
 			(try_end),
 			(overlay_set_position, reg0, pos2),
-			(overlay_set_size, reg0, pos3),		
+			(overlay_set_size, reg0, pos3),
 			(val_sub, ":cur_y", 100), #resize this depending on amount in each combo?
 			(try_begin),
 				(lt, ":cur_y", 0),	#new column for combos #DtheHun
@@ -21148,7 +21169,7 @@ presentations = [
 		(try_end),
         #store as global
         (assign, "$g_presentation_obj_item_select_1", ":sub_part"),
-      
+
 		(try_begin),
 		#show component selection palette
 			(neq, "$g_presentation_state", 0),	#1-14
@@ -21176,7 +21197,7 @@ presentations = [
 				(try_begin),
 				#add subcomponent images
 					(neg|str_is_empty, s1),
-					(assign, ":item_no", reg0),	
+					(assign, ":item_no", reg0),
 					(create_mesh_overlay_with_item_id, reg0, ":item_no"),
 					(store_add, ":mesh_x", ":cur_x", 50),
 					(store_add, ":mesh_y", ":cur_y", 50),
@@ -21184,7 +21205,7 @@ presentations = [
 					(position_set_y, pos2, ":mesh_y"),
 					(overlay_set_position, reg0, pos2),
 					(overlay_set_size, reg0, pos3),
-				(try_end),	
+				(try_end),
 				(val_sub, ":cur_y", 100),
 				(try_begin),
 					(lt, ":cur_y", 0),	#new column for combos #DtheHun
@@ -21196,7 +21217,7 @@ presentations = [
 		(try_end),
       (try_end),
 	#COMBOS2 end
-	
+
 	#TEXT: NUM OF COMPONENTS
       (assign, reg1, ":sub_part_total"),
       (val_max, reg1, 0),
@@ -21228,11 +21249,11 @@ presentations = [
         (try_for_range, ":color", ":colors_begin", ":colors_end"),
           (overlay_add_item, "$g_presentation_credits_obj_2", ":color"), 	# string no
         (try_end),
-        (troop_get_slot, ":cur_color", "$g_current_opened_troop_dthehun", slot_troop_tattoo),		
+        (troop_get_slot, ":cur_color", "$g_current_opened_troop_dthehun", slot_troop_tattoo),
         (overlay_set_val, "$g_presentation_credits_obj_2", ":cur_color"), 	# label index (0,1,2,3...)
       (try_end),
 	  (try_begin),
-	    (item_slot_ge, "$g_current_opened_item_details", slot_item_num_components, 1),	#item is customizable 
+	    (item_slot_ge, "$g_current_opened_item_details", slot_item_num_components, 1),	#item is customizable
 	#SELECTED ITEM ICON
 		(position_set_y, pos1, 600),
 		(try_begin),
@@ -21248,27 +21269,27 @@ presentations = [
 		(try_for_range_backwards, ":item_slot", ek_item_0, ":end"),
 			(troop_get_inventory_slot, ":item_no", "$g_current_opened_troop_dthehun", ":item_slot"),
 			(gt, ":item_no", -1),										#has equipped item in the slot
-			(item_slot_ge, ":item_no", slot_item_num_components, 1),	#item is customizable 
+			(item_slot_ge, ":item_no", slot_item_num_components, 1),	#item is customizable
 			(try_begin),
 				(eq, ":had_active", 0),
 				(try_begin),
 					(eq, ":first_item", -1),
 					(assign, ":first_item", ":item_no"),
 				(try_end),
-				(try_begin),	
+				(try_begin),
 					(eq, ":item_no", "$g_current_opened_item_details"),
 					(assign, ":had_active", 1),
 				(try_end),
 			(else_try),
 				(eq, ":had_active", 1),
-				(assign, ":next_item", ":item_no"), 
+				(assign, ":next_item", ":item_no"),
 				(assign, ":end", -1), #END CYCLE
 				(assign, ":had_active", 2),
 			(try_end),
 		(try_end),
 		(try_begin),
 			(eq, ":had_active", 1), #last item was active, no next item setted -> set first item (could remain the same)
-			(assign, ":next_item", ":first_item"), 
+			(assign, ":next_item", ":first_item"),
 		(try_end),
 		(try_begin),
 			(neq, ":next_item", "$g_current_opened_item_details"), #only if next item is not the same as the selected
@@ -21286,33 +21307,33 @@ presentations = [
 			(try_for_range, ":item_slot", ek_item_0, ":end"),
 				(troop_get_inventory_slot, ":item_no", "$g_current_opened_troop_dthehun", ":item_slot"),
 				(gt, ":item_no", -1),										#has equipped item in the slot
-				(item_slot_ge, ":item_no", slot_item_num_components, 1),	#item is customizable 
+				(item_slot_ge, ":item_no", slot_item_num_components, 1),	#item is customizable
 				(try_begin),
 					(eq, ":had_active", 0),
 					(try_begin),
 						(eq, ":first_item", -1),
 						(assign, ":first_item", ":item_no"),
 					(try_end),
-					(try_begin),	
+					(try_begin),
 						(eq, ":item_no", "$g_current_opened_item_details"),
 						(assign, ":had_active", 1),
 					(try_end),
 				(else_try),
 					(eq, ":had_active", 1),
-					(assign, ":next_item", ":item_no"), 
+					(assign, ":next_item", ":item_no"),
 					(assign, ":end", -1), #END CYCLE
 					(assign, ":had_active", 2),
 				(try_end),
 			(try_end),
 			(try_begin),
 				(eq, ":had_active", 1), #last item was active, no next item setted -> set first item (could remain the same)
-				(assign, ":next_item", ":first_item"), 
+				(assign, ":next_item", ":first_item"),
 			(try_end),
 			(try_begin), # add button only if prev item != next item (there are more than 2 customizable items equipped)
 				(neq, ":prev_item", ":next_item"),
 				(create_mesh_overlay_with_item_id, "$g_presentation_credits_obj_4", ":next_item", tf_center_justify|tf_single_line|tf_with_outline),	#BUTTON - ITEM SELECT
 				#(str_store_item_name, s1, ":next_item"),
-				#(create_button_overlay, "$g_presentation_credits_obj_4", "@{s1}", tf_center_justify|tf_single_line|tf_with_outline),	#BUTTON - ITEM SELECT 
+				#(create_button_overlay, "$g_presentation_credits_obj_4", "@{s1}", tf_center_justify|tf_single_line|tf_with_outline),	#BUTTON - ITEM SELECT
 				(position_set_x, pos1, 620),
 				#(position_set_y, pos1, 600),
 				(overlay_set_position, "$g_presentation_credits_obj_4", pos1),
@@ -21322,20 +21343,20 @@ presentations = [
 		  (position_set_y, pos1, 30),
 		  (create_game_button_overlay, "$g_presentation_credits_obj_5", "@Fix"),		#BUTTON - SET FIX
 		  (position_set_x, pos1, 500),
-		  (overlay_set_position, "$g_presentation_credits_obj_5", pos1),	  
+		  (overlay_set_position, "$g_presentation_credits_obj_5", pos1),
 		#RANDOMIZE
 		  (create_game_button_overlay, "$g_presentation_obj_profile_banner_selection_1", "@Mix"),	#BUTTON - RANDOMIZE
 		  (position_set_x, pos1, 320),
 		  (overlay_set_position, "$g_presentation_obj_profile_banner_selection_1", pos1),
 	  (try_end),
-	#DONE 
+	#DONE
 	  (create_game_button_overlay, "$g_presentation_obj_profile_banner_selection_2", "str_done"),	#BUTTON - DONE
       (position_set_x, pos1, 680),
 	  (position_set_y, pos1, 30),
       (overlay_set_position, "$g_presentation_obj_profile_banner_selection_2", pos1),
       (presentation_set_duration, 999999),
     ]),
-      
+
     (ti_on_presentation_mouse_enter_leave,
        [(store_trigger_param_1, ":object"),
 		(eq, 1, 0),	#NOT IN USE
@@ -21376,22 +21397,22 @@ presentations = [
     (ti_on_presentation_event_state_change,
       [
         (store_trigger_param_1, ":object"),
-        (store_trigger_param_2, ":value"),	
+        (store_trigger_param_2, ":value"),
 	#  (assign, reg0, ":object"),
     #  (assign, reg1, ":value"),
-	#  (display_message, "@reg = object: {reg0} value: {reg1}"),	
-        (assign, ":continue", 0),	
+	#  (display_message, "@reg = object: {reg0} value: {reg1}"),
+        (assign, ":continue", 0),
 		(item_get_slot, ":sub_part_total", "$g_current_opened_item_details", slot_item_num_components),
 		#(item_get_slot, ":script_no", "$g_current_opened_item_details", slot_item_init_script),
 		(try_begin),
 	#CHARACTER window
           (eq, ":object", "$g_presentation_credits_obj_1"), #tableau, switch view sides
           (val_add, "$g_custom_armor_angle", 1),
-          (val_mod, "$g_custom_armor_angle", 6), #60x6  
+          (val_mod, "$g_custom_armor_angle", 6), #60x6
 		(else_try),
 	#TATTOO toggler
           (eq, ":object", "$g_presentation_credits_obj_2"), #combolabel, switch tattoos
-		  (troop_set_slot, "$g_current_opened_troop_dthehun", slot_troop_tattoo, ":value"),		  
+		  (troop_set_slot, "$g_current_opened_troop_dthehun", slot_troop_tattoo, ":value"),
         (else_try),
 	#RANDOMIZE reset slots to (-1)
 			(eq, ":object", "$g_presentation_obj_profile_banner_selection_1"),
@@ -21430,13 +21451,13 @@ presentations = [
           (presentation_set_duration, 0),																		 #- /NOT IN USE
         (else_try),
 	#COMBOS - item components || subcomponents palette
-		  (ge, "$g_presentation_obj_item_select_1", 0),	#	-1: by default, 0:for 1 customizable element, ... 
+		  (ge, "$g_presentation_obj_item_select_1", 0),	#	-1: by default, 0:for 1 customizable element, ...
 		# object -> selected component index
 		  (store_sub, ":mesh_num", ":object", 1),
 		  (val_div, ":mesh_num", 2),
 		  (val_add, ":mesh_num", 1),
 		  (assign, "$g_presentation_state", ":mesh_num"), #(1-14)
-		  (val_sub, ":mesh_num", 1),	#(0-13)  
+		  (val_sub, ":mesh_num", 1),	#(0-13)
 	#	(assign, reg0 ,":sub_part_total"),
 	#	(display_message, "@SPT: {reg0}"),
 			(try_begin),
@@ -21444,8 +21465,8 @@ presentations = [
 				(assign, "$g_presentation_state", "$g_presentation_obj_item_select_1"),	# keep open palette for last mesh
 				(store_sub, ":component", ":mesh_num", ":sub_part_total"),
 	#		  (assign, reg0 ,":mesh_num"),
-	#		  (display_message, "@MN: {reg0}"),		
-				
+	#		  (display_message, "@MN: {reg0}"),
+
 				(store_sub, ":cur_mesh_slot", "$g_presentation_obj_item_select_1", 1),
 				(item_get_type, ":item_type", "$g_current_opened_item_details"),
 				(try_begin),
@@ -21455,7 +21476,7 @@ presentations = [
 					(eq, ":item_type", itp_type_head_armor),
 					(val_add, ":cur_mesh_slot", slot_troop_helm_slots_begin),
 				(try_end),
-				
+
 				(try_begin),
 				# CENSORED
 					#(eq, "$g_cenzura", 1),
@@ -21466,18 +21487,18 @@ presentations = [
 						(eq, ":component", 0),						# remove
 						(try_begin),
 							(eq, ":cur_mesh_slot", slot_troop_armor_slots_begin + 0),	#SKIN -> grant CHEST piece and PANTY
-							(try_begin),	
+							(try_begin),
 								(troop_get_slot, ":substitute", "$g_current_opened_troop_dthehun", slot_troop_armor_slots_begin + 1),
 								(eq, ":substitute", 0),	# not has chest piece
 								(troop_set_slot, "$g_current_opened_troop_dthehun", slot_troop_armor_slots_begin + 1, 1),	#equip first CHEST
 								(assign, ":censure_response", 1),
-							(try_end),	
+							(try_end),
 							(try_begin),
 								(troop_get_slot, ":substitute", "$g_current_opened_troop_dthehun", slot_troop_armor_slots_begin + 2),
 								(eq, ":substitute", 0),	# not has panty
 								(troop_set_slot, "$g_current_opened_troop_dthehun", slot_troop_armor_slots_begin + 2, 1),	#equip first PANTY
 								(assign, ":censure_response", 1),
-							(try_end),				
+							(try_end),
 						(else_try),
 							(eq, ":cur_mesh_slot", slot_troop_armor_slots_begin + 1),	#CHEST -> grant SKIN piece
 							(troop_get_slot, ":substitute", "$g_current_opened_troop_dthehun", slot_troop_armor_slots_begin + 0),
@@ -21513,7 +21534,7 @@ presentations = [
 				#SPECIAL CASES (assa cover, Angela cover)
 				(try_begin),
 					(eq, ":item_type", itp_type_body_armor),	# body armor component
-					(try_begin),			
+					(try_begin),
 						(this_or_next|eq, ":component", 1),						# add assa cover
 						             (eq, ":component", 2),						# add Angela cover
 						(eq, ":cur_mesh_slot", slot_troop_armor_slots_begin + 4),	#SKIRT: assa cover -> grant something to hang it from
@@ -21521,7 +21542,7 @@ presentations = [
 							(this_or_next|troop_slot_eq, "trp_temp_array_a", slot_troop_armor_slots_begin + 0, 1), 	#has assa skin
 							(this_or_next|troop_slot_eq, "trp_temp_array_a", slot_troop_armor_slots_begin + 2, 1), 	#has assa panty
 							(this_or_next|troop_slot_eq, "trp_temp_array_a", slot_troop_armor_slots_begin + 2, 2), 	#has Angela panty
-							(troop_slot_eq, "trp_temp_array_a", slot_troop_armor_slots_begin + 3, 1), 				#has assa belt	
+							(troop_slot_eq, "trp_temp_array_a", slot_troop_armor_slots_begin + 3, 1), 				#has assa belt
 						(else_try),	#<- there is nothing to hanging on it
 							(troop_set_slot, "$g_current_opened_troop_dthehun", slot_troop_armor_slots_begin + 2, 1),	#equip assa panty
 						(try_end),
@@ -21530,7 +21551,7 @@ presentations = [
 				# Do the change anyway (if the game mode is CENSORED, substitution has already been granted at this point)
 				(troop_set_slot, "$g_current_opened_troop_dthehun", ":cur_mesh_slot", ":component"), # set(remove) component mesh
 			(try_end),
-		  
+
         (try_end),
         (try_begin),
           (eq, ":continue", 0),
@@ -21546,13 +21567,13 @@ presentations = [
           (try_end),
         (try_end),
       ]),
-	  
-	  
+
+
 	(ti_on_presentation_mouse_press, #click on items
-       [	
+       [
 		(store_trigger_param_1, ":object"),
 		(assign, ":continue", 0),
-		(try_begin),	   
+		(try_begin),
 	  #ITEM toggler - previous
 			(eq, ":object", "$g_presentation_credits_obj_3"),
 			(assign, "$g_presentation_state", 0),
@@ -21563,27 +21584,27 @@ presentations = [
 			(try_for_range_backwards, ":item_slot", ek_item_0, ":end"),
 				(troop_get_inventory_slot, ":item_no", "$g_current_opened_troop_dthehun", ":item_slot"),
 				(gt, ":item_no", -1),										#has equipped item in the slot
-				(item_slot_ge, ":item_no", slot_item_num_components, 1),	#item is customizable 
+				(item_slot_ge, ":item_no", slot_item_num_components, 1),	#item is customizable
 				(try_begin),
 					(eq, ":had_active", 0),
 					(try_begin),
 						(eq, ":first_item", -1),
 						(assign, ":first_item", ":item_no"),
 					(try_end),
-					(try_begin),	
+					(try_begin),
 						(eq, ":item_no", "$g_current_opened_item_details"),
 						(assign, ":had_active", 1),
 					(try_end),
 				(else_try),
 					(eq, ":had_active", 1),
-					(assign, ":next_item", ":item_no"), 
+					(assign, ":next_item", ":item_no"),
 					(assign, ":end", -1), #END CYCLE
 					(assign, ":had_active", 2),
 				(try_end),
 			(try_end),
 			(try_begin),
 				(eq, ":had_active", 1), #last item was active, no next item setted -> set first item (could remain the same)
-				(assign, ":next_item", ":first_item"), 
+				(assign, ":next_item", ":first_item"),
 			(try_end),
 			(assign, "$g_current_opened_item_details", ":next_item"),
         (else_try),
@@ -21597,27 +21618,27 @@ presentations = [
 			(try_for_range, ":item_slot", ek_item_0, ":end"),
 				(troop_get_inventory_slot, ":item_no", "$g_current_opened_troop_dthehun", ":item_slot"),
 				(gt, ":item_no", -1),										#has equipped item in the slot
-				(item_slot_ge, ":item_no", slot_item_num_components, 1),	#item is customizable 
+				(item_slot_ge, ":item_no", slot_item_num_components, 1),	#item is customizable
 				(try_begin),
 					(eq, ":had_active", 0),
 					(try_begin),
 						(eq, ":first_item", -1),
 						(assign, ":first_item", ":item_no"),
 					(try_end),
-					(try_begin),	
+					(try_begin),
 						(eq, ":item_no", "$g_current_opened_item_details"),
 						(assign, ":had_active", 1),
 					(try_end),
 				(else_try),
 					(eq, ":had_active", 1),
-					(assign, ":next_item", ":item_no"), 
+					(assign, ":next_item", ":item_no"),
 					(assign, ":end", -1), #END CYCLE
 					(assign, ":had_active", 2),
 				(try_end),
 			(try_end),
 			(try_begin),
 				(eq, ":had_active", 1), #last item was active, no next item setted -> set first item (could remain the same)
-				(assign, ":next_item", ":first_item"), 
+				(assign, ":next_item", ":first_item"),
 			(try_end),
 			(assign, "$g_current_opened_item_details", ":next_item"),
         (try_end),
@@ -21625,8 +21646,8 @@ presentations = [
           (eq, ":continue", 1),
           (start_presentation, "prsnt_customize_armor"),
 		(try_end),
-	  ]),	  
-	 	 
+	  ]),
+
 	#ESC - close
 	(ti_on_presentation_run, # remove body mesh on ESC quit from scene customization (also adding ESC quit to map action menu customization)
        [
@@ -21641,7 +21662,798 @@ presentations = [
 	  ]),
     ]),
 	#/custom armor
-	
+#CC
+("mini_map", prsntf_read_only, 0, [
+    (ti_on_presentation_load,
+     [
+      (set_fixed_point_multiplier, 1000),
+
+      (create_mesh_overlay, reg0, "mesh_white_plane"),
+      (position_set_x, pos1, 1200),
+      (position_set_y, pos1, 800),
+      (overlay_set_position, reg0, pos1),
+
+      (try_begin),
+        (ge, "$g_minimap_style", 1), # old style
+        (try_for_agents, ":agent_no"),
+          (agent_set_slot, ":agent_no", slot_agent_map_overlay_id, 0),
+        (try_end),
+
+        (get_scene_boundaries, pos2, pos3),
+        (position_transform_position_to_local, pos4, pos2, pos3),
+        (set_fixed_point_multiplier, 1000),
+        (position_get_x, ":map_width", pos4),
+        (position_get_y, ":map_height", pos4),
+        (set_fixed_point_multiplier, 1000),
+        (store_div, ":map_ratio", ":map_height", 100),
+        (store_div, ":map_ratio", ":map_width", ":map_ratio"),
+        (assign, ":minimap_ratio", 100),
+        (try_begin),
+          (eq, "$g_minimap_style", 1),
+          (assign, ":minimap_ratio", 60),
+        (else_try),
+          (eq, "$g_minimap_style", 2),
+          (assign, ":minimap_ratio", 80),
+        (try_end),
+        (try_begin),
+          (gt, ":map_ratio", 100),
+          (store_mul, "$g_battle_map_width", ":minimap_ratio", 3),
+          (store_div, "$g_battle_map_scale", ":map_width", "$g_battle_map_width"),
+          (store_div, "$g_battle_map_height", ":map_height", "$g_battle_map_scale"),
+        (else_try),
+          (store_mul, "$g_battle_map_height", ":minimap_ratio", 3),
+          (store_div, "$g_battle_map_scale", ":map_height", "$g_battle_map_height"),
+          (store_div, "$g_battle_map_width", ":map_width", "$g_battle_map_scale"),
+        (try_end),
+
+        (create_mesh_overlay, "$g_battle_map_plane", "mesh_white_plane"),
+        (overlay_set_color, "$g_battle_map_plane", 0),
+        (store_add, ":map_bordered_width", "$g_battle_map_width", 20),
+        (store_add, ":map_bordered_height", "$g_battle_map_height", 20),
+        (store_mul, ":map_scale_x", ":map_bordered_width", 50),
+        (store_mul, ":map_scale_y", ":map_bordered_height", 50),
+        (position_set_x, pos1, ":map_scale_x"),
+        (position_set_y, pos1, ":map_scale_y"),
+        (overlay_set_size, "$g_battle_map_plane", pos1),
+        (store_sub, ":map_pos_x", 990, ":map_bordered_width"),
+        (store_sub, ":map_pos_y", 740, ":map_bordered_height"),
+        (position_set_x, pos1, ":map_pos_x"),
+        (position_set_y, pos1, ":map_pos_y"),
+        (overlay_set_position, "$g_battle_map_plane", pos1),
+        (overlay_set_alpha, "$g_battle_map_plane", 0x22),
+
+        ## show player chest
+        (try_begin),
+          (scene_prop_get_instance, ":player_chest", "spr_inventory", 0),
+          (ge, ":player_chest", 0),
+          (create_mesh_overlay, "$g_player_chest_overlay", "mesh_white_plane"),
+          (overlay_set_color, "$g_player_chest_overlay", 0xFF00FF),
+          (position_set_x, pos1, 250),
+          (position_set_y, pos1, 250),
+          (overlay_set_size, "$g_player_chest_overlay", pos1),
+        (try_end),
+      (try_end),
+
+      ## horse stamina
+      (create_text_overlay, "$g_horse_stamina_overlay", "@0", tf_center_justify),
+      (position_set_x, pos1, 925),
+      (position_set_y, pos1, 40),
+      (overlay_set_position, "$g_horse_stamina_overlay", pos1),
+      (position_set_x, pos1, 600),
+      (position_set_y, pos1, 600),
+      (overlay_set_size, "$g_horse_stamina_overlay", pos1),
+      (overlay_set_color, "$g_horse_stamina_overlay", 0xFFFFFF),
+      (overlay_set_alpha, "$g_horse_stamina_overlay", 0),
+
+      # update
+      (call_script, "script_update_order_panel_map"),
+
+      ## hp bar
+      (try_for_agents, ":agent_no"),
+        (agent_set_slot, ":agent_no", slot_agent_hp_bar_overlay_id, 0),
+        (agent_set_slot, ":agent_no", slot_agent_hp_bar_bg_overlay_id, 0),
+        #(agent_set_slot, ":agent_no", slot_agent_name_overlay_id, 0),
+      (try_end),
+      (call_script, "script_update_agent_hp_bar"),
+
+      (presentation_set_duration, 999999),
+     ]),
+    (ti_on_presentation_run,
+     [
+      (set_fixed_point_multiplier, 1000),
+
+      (try_begin),
+        (game_key_clicked, gk_view_orders),
+        (presentation_set_duration, 0),
+        (start_presentation, "prsnt_battle"),
+      (try_end),
+     ]),
+  ]),
+
+  ("mini_map_bar", prsntf_read_only, 0, [
+    (ti_on_presentation_load,
+     [
+      (set_fixed_point_multiplier, 1000),
+
+      (create_mesh_overlay, reg1, "mesh_white_plane"),
+      (position_set_x, pos1, 1200),
+      (position_set_y, pos1, 800),
+      (overlay_set_position, reg1, pos1),
+
+      (create_mesh_overlay, reg1, "mesh_battle_map_bar"),
+      (position_set_x, pos1, 500),
+      (position_set_y, pos1, 700),
+      (overlay_set_position, reg1, pos1),
+      (overlay_set_alpha, reg1, 0xFF),
+
+      ## init map dot and hp bar
+      (try_for_agents, ":agent_no"),
+        (agent_set_slot, ":agent_no", slot_agent_map_overlay_id, 0),
+        (agent_set_slot, ":agent_no", slot_agent_hp_bar_overlay_id, 0),
+        (agent_set_slot, ":agent_no", slot_agent_hp_bar_bg_overlay_id, 0),
+        #(agent_set_slot, ":agent_no", slot_agent_name_overlay_id, 0),
+      (try_end),
+
+      ## player chest
+      (create_mesh_overlay, "$g_player_chest_overlay", "mesh_white_plane"),
+      (position_set_x, pos1, 500),
+      (position_set_y, pos1, 500),
+      (overlay_set_size, "$g_player_chest_overlay", pos1),
+      (overlay_set_color, "$g_player_chest_overlay", 0xFF00FF),
+      (overlay_set_alpha, "$g_player_chest_overlay", 0),
+
+      ## horse stamina
+      (create_text_overlay, "$g_horse_stamina_overlay", "@0", tf_center_justify),
+      (position_set_x, pos1, 925),
+      (position_set_y, pos1, 40),
+      (overlay_set_position, "$g_horse_stamina_overlay", pos1),
+      (position_set_x, pos1, 600),
+      (position_set_y, pos1, 600),
+      (overlay_set_size, "$g_horse_stamina_overlay", pos1),
+      (overlay_set_color, "$g_horse_stamina_overlay", 0xFFFFFF),
+      (overlay_set_alpha, "$g_horse_stamina_overlay", 0),
+
+      ## enemies-allies-us
+      # position
+      (assign, ":pos_x", 380),
+      (assign, ":pos_y", 725),
+      (create_text_overlay, "$g_battle_enemies_ready", s7, tf_center_justify),
+      (position_set_x, pos1, ":pos_x"),
+      (position_set_y, pos1, ":pos_y"),
+      (overlay_set_position, "$g_battle_enemies_ready", pos1),
+      (val_sub, ":pos_y", 10),
+      (create_text_overlay, "$g_battle_allies_ready", s7, tf_center_justify),
+      (position_set_x, pos1, ":pos_x"),
+      (position_set_y, pos1, ":pos_y"),
+      (overlay_set_position, "$g_battle_allies_ready", pos1),
+      (val_sub, ":pos_y", 10),
+      (create_text_overlay, "$g_battle_us_ready", s7, tf_center_justify),
+      (position_set_x, pos1, ":pos_x"),
+      (position_set_y, pos1, ":pos_y"),
+      (overlay_set_position, "$g_battle_us_ready", pos1),
+
+      # size
+      (position_set_x, pos1, 600),
+      (position_set_y, pos1, 600),
+      (overlay_set_size, "$g_battle_enemies_ready", pos1),
+      (overlay_set_size, "$g_battle_allies_ready", pos1),
+      (overlay_set_size, "$g_battle_us_ready", pos1),
+      # color
+      (overlay_set_color, "$g_battle_enemies_ready", 0xFFFFFF),
+      (overlay_set_color, "$g_battle_allies_ready", 0xFFFFFF),
+      (overlay_set_color, "$g_battle_us_ready", 0xFFFFFF),
+
+      ## update map dot and hp bar
+      (call_script, "script_update_map_bar"),
+      (call_script, "script_update_agent_hp_bar"),
+
+      (presentation_set_duration, 999999),
+      # ####### mouse fix pos system #######
+      # (call_script, "script_mouse_fix_pos_ready"),
+      # ####### mouse fix pos system #######
+     ]),
+    (ti_on_presentation_run,
+     [
+      (set_fixed_point_multiplier, 1000),
+
+      # ####### mouse fix pos system #######
+      # (call_script, "script_mouse_fix_pos_run"),
+      # ####### mouse fix pos system #######
+      (try_begin),
+        (game_key_clicked, gk_view_orders),
+        (presentation_set_duration, 0),
+        (start_presentation, "prsnt_battle"),
+      (try_end),
+     ]),
+  ]),
+
+
+
+  ("cc_mod_option", 0, mesh_note_window, [
+    (ti_on_presentation_load,
+      [
+        (presentation_set_duration, 999999),
+        (set_fixed_point_multiplier, 1000),
+
+        (str_clear, s0),
+        (create_text_overlay, "$g_presentation_obj_6", s0, tf_scrollable),
+        (position_set_x, pos1, 25),
+        (position_set_y, pos1, 90),
+        (overlay_set_position, "$g_presentation_obj_6", pos1),
+        (position_set_x, pos1, 625),
+        (position_set_y, pos1, 630),
+        (overlay_set_area_size, "$g_presentation_obj_6", pos1),
+        (set_container_overlay, "$g_presentation_obj_6"),
+
+        (position_set_x, pos1, 25),
+        (position_set_x, pos2, 550),
+        (position_set_x, pos4, 155),
+
+        (position_set_x, pos3, 1000),
+        (position_set_y, pos3, 500),
+
+        (assign, ":pos_y", 25),
+        (assign, ":y_offset", 50),
+        # line_offset
+        (store_mul, ":line_offset", ":y_offset", -25),
+        (val_div, ":line_offset", 100),
+        ## fog
+        (create_text_overlay, reg0, "@Fog strength:", tf_left_align),
+        (position_set_y, pos1, ":pos_y"),
+        (overlay_set_position, reg0, pos1),
+        (create_number_box_overlay, "$g_presentation_obj_admin_panel_10", 0, 101),
+        (position_set_y, pos2, ":pos_y"),
+        (overlay_set_position, "$g_presentation_obj_admin_panel_10", pos2),
+        (get_global_haze_amount, ":cur_fog_amount"),
+        (overlay_set_val, "$g_presentation_obj_admin_panel_10", ":cur_fog_amount"),
+
+        (create_slider_overlay, "$g_presentation_obj_admin_panel_1", 0, 101),
+        (overlay_set_val, "$g_presentation_obj_admin_panel_1", ":cur_fog_amount"),
+        (overlay_set_size, "$g_presentation_obj_admin_panel_1", pos3),
+        (store_sub, ":cur_y", ":pos_y", 15),
+        (position_set_y, pos4, ":cur_y"),
+        (overlay_set_position, "$g_presentation_obj_admin_panel_1", pos4),
+        (val_add, ":pos_y", ":y_offset"),
+        ## cloud
+        (create_text_overlay, reg0, "@Cloud amount:", tf_left_align),
+        (position_set_y, pos1, ":pos_y"),
+        (overlay_set_position, reg0, pos1),
+        (create_number_box_overlay, "$g_presentation_obj_admin_panel_7", 0, 101),
+        (position_set_y, pos2, ":pos_y"),
+        (overlay_set_position, "$g_presentation_obj_admin_panel_7", pos2),
+        (get_global_cloud_amount, ":cur_cloud_amount"),
+        (overlay_set_val, "$g_presentation_obj_admin_panel_7", ":cur_cloud_amount"),
+
+        (create_slider_overlay, "$g_presentation_obj_admin_panel_2", 0, 101),
+        (overlay_set_val, "$g_presentation_obj_admin_panel_2", ":cur_cloud_amount"),
+        (overlay_set_size, "$g_presentation_obj_admin_panel_2", pos3),
+        (store_sub, ":cur_y", ":pos_y", 15),
+        (position_set_y, pos4, ":cur_y"),
+        (overlay_set_position, "$g_presentation_obj_admin_panel_2", pos4),
+        (val_add, ":pos_y", ":y_offset"),
+        ## rain/snow
+        (create_text_overlay, reg0, "@Probability of rain/snow (%):", tf_left_align),
+        (position_set_y, pos1, ":pos_y"),
+        (overlay_set_position, reg0, pos1),
+        (create_number_box_overlay, "$g_presentation_obj_admin_panel_11", 0, 101),
+        (position_set_y, pos2, ":pos_y"),
+        (overlay_set_position, "$g_presentation_obj_admin_panel_11", pos2),
+        (overlay_set_val, "$g_presentation_obj_admin_panel_11", "$g_rand_rain_limit"),
+
+        (create_slider_overlay, "$g_presentation_obj_admin_panel_3", 0, 101),
+        (overlay_set_val, "$g_presentation_obj_admin_panel_3", "$g_rand_rain_limit"),
+        (overlay_set_size, "$g_presentation_obj_admin_panel_3", pos3),
+        (store_sub, ":cur_y", ":pos_y", 15),
+        (position_set_y, pos4, ":cur_y"),
+        (overlay_set_position, "$g_presentation_obj_admin_panel_3", pos4),
+        (val_add, ":pos_y", ":y_offset"),
+
+        # division line, offset: 25%
+        (store_add, ":line_pos_y", ":pos_y", ":line_offset"),
+        (call_script, "script_prsnt_line", 600, 2, 25, ":line_pos_y", 0),
+
+        ## shot distance
+        (create_text_overlay, reg0, "@Report shot distance:", tf_left_align),
+        (position_set_y, pos1, ":pos_y"),
+        (overlay_set_position, reg0, pos1),
+        (create_check_box_overlay, "$g_presentation_obj_5", "mesh_checkbox_off", "mesh_checkbox_on"),
+        (position_set_y, pos2, ":pos_y"),
+        (overlay_set_position, "$g_presentation_obj_5", pos2),
+        (overlay_set_val, "$g_presentation_obj_5", "$g_report_shot_distance"),
+        (val_add, ":pos_y", ":y_offset"),
+
+        # ## show regain hp info
+        # (create_text_overlay, reg0, "@Show messages about regainning HP:", tf_left_align),
+        # (position_set_y, pos1, ":pos_y"),
+        # (overlay_set_position, reg0, pos1),
+        # (create_check_box_overlay, "$g_presentation_obj_admin_panel_5", "mesh_checkbox_off", "mesh_checkbox_on"),
+        # (position_set_y, pos2, ":pos_y"),
+        # (overlay_set_position, "$g_presentation_obj_admin_panel_5", pos2),
+        # (overlay_set_val, "$g_presentation_obj_admin_panel_5", "$g_show_regain_hp_info"),
+        # (val_add, ":pos_y", ":y_offset"),
+
+        # regulars pickup weapons from the ground
+        # (create_text_overlay, reg0, "@Regulars pickup weapons from the ground:", tf_left_align),
+        # (position_set_y, pos1, ":pos_y"),
+        # (overlay_set_position, reg0, pos1),
+        # (create_check_box_overlay, "$g_presentation_obj_31", "mesh_checkbox_off", "mesh_checkbox_on"),
+        # (position_set_y, pos2, ":pos_y"),
+        # (overlay_set_position, "$g_presentation_obj_31", pos2),
+        # (overlay_set_val, "$g_presentation_obj_31", "$g_regulars_pickup_weapons"),
+        # (val_add, ":pos_y", ":y_offset"),
+
+        # heroes pickup weapons from the ground
+        # (create_text_overlay, reg0, "@Heroes pickup weapons from the ground:", tf_left_align),
+        # (position_set_y, pos1, ":pos_y"),
+        # (overlay_set_position, reg0, pos1),
+        # (create_check_box_overlay, "$g_presentation_obj_32", "mesh_checkbox_off", "mesh_checkbox_on"),
+        # (position_set_y, pos2, ":pos_y"),
+        # (overlay_set_position, "$g_presentation_obj_32", pos2),
+        # (overlay_set_val, "$g_presentation_obj_32", "$g_heroes_pickup_weapons"),
+        # (val_add, ":pos_y", ":y_offset"),
+
+        ## horse charging for AI troops
+        (create_text_overlay, reg0, "@Horse charging for AI troops:", tf_left_align),
+        (position_set_y, pos1, ":pos_y"),
+        (overlay_set_position, reg0, pos1),
+        (create_check_box_overlay, "$g_presentation_obj_2", "mesh_checkbox_off", "mesh_checkbox_on"),
+        (position_set_y, pos2, ":pos_y"),
+        (overlay_set_position, "$g_presentation_obj_2", pos2),
+        (overlay_set_val, "$g_presentation_obj_2", "$g_horse_charging_for_ai"),
+        (val_add, ":pos_y", ":y_offset"),
+
+        ## horse charging for player
+        (create_text_overlay, reg0, "@Horse charging for the player:", tf_left_align),
+        (position_set_y, pos1, ":pos_y"),
+        (overlay_set_position, reg0, pos1),
+        (create_check_box_overlay, "$g_presentation_obj_3", "mesh_checkbox_off", "mesh_checkbox_on"),
+        (position_set_y, pos2, ":pos_y"),
+        (overlay_set_position, "$g_presentation_obj_3", pos2),
+        (overlay_set_val, "$g_presentation_obj_3", "$g_horse_charging_for_player"),
+        (val_add, ":pos_y", ":y_offset"),
+
+        ## cavalry convert to other troop class
+        #(create_text_overlay, reg0, "@When cavalry is dismounted, convert to:", tf_left_align),
+        #(position_set_y, pos1, ":pos_y"),
+        #(overlay_set_position, reg0, pos1),
+        #(position_set_x, pos5, 1000),
+        #(position_set_y, pos5, 900),
+        #(overlay_set_size, reg0, pos5),
+        #(create_combo_button_overlay, "$g_presentation_obj_27"),
+        #(position_set_x, pos2, 520),
+        #(position_set_y, pos2, ":pos_y"),
+        #(overlay_set_position, "$g_presentation_obj_27", pos2),
+        #(position_set_x, pos5, 600),
+        #(position_set_y, pos5, 600),
+        #(overlay_set_size, "$g_presentation_obj_27", pos5),
+        #(try_for_range_backwards, ":class_id", -1, 9),
+          #(try_begin),
+            #(eq, ":class_id", -1),
+            #(str_store_string, s0, "@Disabled"),
+          #(else_try),
+            #(str_store_class_name, s0, ":class_id"),
+          #(try_end),
+          #(overlay_add_item, "$g_presentation_obj_27", s0),
+        #(try_end),
+        #(store_sub, ":presentation_obj_val", 8, "$g_cavalry_2nd_class"),
+        #(overlay_set_val, "$g_presentation_obj_27", ":presentation_obj_val"),
+        #(position_set_x, pos2, 475), # back to default value
+        #(val_add, ":pos_y", ":y_offset"),
+
+        ## archers convert to other troop class
+        #(create_text_overlay, reg0, "@When archer's ammo has run out, convert to:", tf_left_align),
+        #(position_set_y, pos1, ":pos_y"),
+        #(overlay_set_position, reg0, pos1),
+        #(position_set_x, pos5, 1000),
+        #(position_set_y, pos5, 900),
+        #(overlay_set_size, reg0, pos5),
+        #(create_combo_button_overlay, "$g_presentation_obj_28"),
+        #(position_set_x, pos2, 520),
+        #(position_set_y, pos2, ":pos_y"),
+        #(overlay_set_position, "$g_presentation_obj_28", pos2),
+        #(position_set_x, pos5, 600),
+        #(position_set_y, pos5, 600),
+        #(overlay_set_size, "$g_presentation_obj_28", pos5),
+        #(try_for_range_backwards, ":class_id", -1, 9),
+          #(try_begin),
+            #(eq, ":class_id", -1),
+            #(str_store_string, s0, "@Disabled"),
+          #(else_try),
+            #(str_store_class_name, s0, ":class_id"),
+          #(try_end),
+          #(overlay_add_item, "$g_presentation_obj_28", s0),
+        #(try_end),
+        #(store_sub, ":presentation_obj_val", 8, "$g_archer_2nd_class"),
+        #(overlay_set_val, "$g_presentation_obj_28", ":presentation_obj_val"),
+        #(position_set_x, pos2, 475), # back to default value
+        #(val_add, ":pos_y", ":y_offset"),
+
+        # division line, offset: 25%
+        (store_add, ":line_pos_y", ":pos_y", ":line_offset"),
+        (call_script, "script_prsnt_line", 600, 2, 25, ":line_pos_y", 0),
+
+        ## show daily hint
+        (create_text_overlay, reg0, "@Auto-save every 24 hours:", tf_left_align),
+        (position_set_y, pos1, ":pos_y"),
+        (overlay_set_position, reg0, pos1),
+        (create_check_box_overlay, "$g_presentation_obj_admin_panel_25", "mesh_checkbox_off", "mesh_checkbox_on"),
+        (position_set_y, pos2, ":pos_y"),
+        (overlay_set_position, "$g_presentation_obj_admin_panel_25", pos2),
+        (overlay_set_val, "$g_presentation_obj_admin_panel_25", "$g_auto_save"),
+        (val_add, ":pos_y", ":y_offset"),
+
+        ## show daily hint
+        (create_text_overlay, reg0, "@Show daily hint:", tf_left_align),
+        (position_set_y, pos1, ":pos_y"),
+        (overlay_set_position, reg0, pos1),
+        (create_check_box_overlay, "$g_presentation_obj_admin_panel_15", "mesh_checkbox_off", "mesh_checkbox_on"),
+        (position_set_y, pos2, ":pos_y"),
+        (overlay_set_position, "$g_presentation_obj_admin_panel_15", pos2),
+        (overlay_set_val, "$g_presentation_obj_admin_panel_15", "$show_daily_hint"),
+        (val_add, ":pos_y", ":y_offset"),
+
+        (try_begin),
+          (eq, "$cheat_mode", 1),
+          ## add bandit hero
+          (create_text_overlay, reg0, "@Cheat: Add bandit heroes:", tf_left_align),
+          (position_set_y, pos1, ":pos_y"),
+          (overlay_set_position, reg0, pos1),
+          (create_check_box_overlay, "$g_presentation_obj_admin_panel_16", "mesh_checkbox_off", "mesh_checkbox_on"),
+          (position_set_y, pos2, ":pos_y"),
+          (overlay_set_position, "$g_presentation_obj_admin_panel_16", pos2),
+          (overlay_set_val, "$g_presentation_obj_admin_panel_16", "$g_add_bandit_heroes"),
+          (val_add, ":pos_y", ":y_offset"),
+        (try_end),
+
+        ## skill penalty
+        (create_text_overlay, reg0, "@Skill penalty by encumbrance:", tf_left_align),
+        (position_set_y, pos1, ":pos_y"),
+        (overlay_set_position, reg0, pos1),
+        (create_check_box_overlay, "$g_presentation_obj_admin_panel_14", "mesh_checkbox_off", "mesh_checkbox_on"),
+        (position_set_y, pos2, ":pos_y"),
+        (overlay_set_position, "$g_presentation_obj_admin_panel_14", pos2),
+        (overlay_set_val, "$g_presentation_obj_admin_panel_14", "$g_encumbrance_penalty"),
+        (val_add, ":pos_y", ":y_offset"),
+
+        ## NPCs' complaints
+        (create_text_overlay, reg0, "@Disable NPCs' complaints:", tf_left_align),
+        (position_set_y, pos1, ":pos_y"),
+        (overlay_set_position, reg0, pos1),
+        (create_check_box_overlay, "$g_presentation_obj_admin_panel_13", "mesh_checkbox_off", "mesh_checkbox_on"),
+        (position_set_y, pos2, ":pos_y"),
+        (overlay_set_position, "$g_presentation_obj_admin_panel_13", pos2),
+        (overlay_set_val, "$g_presentation_obj_admin_panel_13", "$disable_npc_complaints"),
+        (val_add, ":pos_y", ":y_offset"),
+        ## morale threshold
+        (create_text_overlay, reg0, "@Morale threshold on consuming food:", tf_left_align),
+        (position_set_y, pos1, ":pos_y"),
+        (overlay_set_position, reg0, pos1),
+        (create_number_box_overlay, "$g_presentation_obj_admin_panel_12", 33, 100),
+        (position_set_y, pos2, ":pos_y"),
+        (overlay_set_position, "$g_presentation_obj_admin_panel_12", pos2),
+        (val_clamp, "$g_morale_threshold", 33, 100),
+        (overlay_set_val, "$g_presentation_obj_admin_panel_12", "$g_morale_threshold"),
+
+        (create_slider_overlay, "$g_presentation_obj_admin_panel_6", 33, 100),
+        (overlay_set_val, "$g_presentation_obj_admin_panel_6", "$g_morale_threshold"),
+        (overlay_set_size, "$g_presentation_obj_admin_panel_6", pos3),
+        (store_sub, ":cur_y", ":pos_y", 15),
+        (position_set_y, pos4, ":cur_y"),
+        (overlay_set_position, "$g_presentation_obj_admin_panel_6", pos4),
+        (val_add, ":pos_y", ":y_offset"),
+
+        ## global parties speed
+        (create_text_overlay, reg0, "@Movement speed of all parties (%):", tf_left_align),
+        (position_set_y, pos1, ":pos_y"),
+        (overlay_set_position, reg0, pos1),
+        (create_number_box_overlay, "$g_presentation_obj_admin_panel_18", 20, 151),
+        (position_set_y, pos2, ":pos_y"),
+        (overlay_set_position, "$g_presentation_obj_admin_panel_18", pos2),
+        (store_add, ":global_speed_ratio", "$global_speed_modifier", 100),
+        (val_clamp, ":global_speed_ratio", 20, 151),
+        (overlay_set_val, "$g_presentation_obj_admin_panel_18", ":global_speed_ratio"),
+
+        (create_slider_overlay, "$g_presentation_obj_admin_panel_8", 20, 151),
+        (overlay_set_val, "$g_presentation_obj_admin_panel_8", ":global_speed_ratio"),
+        (overlay_set_size, "$g_presentation_obj_admin_panel_8", pos3),
+        (store_sub, ":cur_y", ":pos_y", 15),
+        (position_set_y, pos4, ":cur_y"),
+        (overlay_set_position, "$g_presentation_obj_admin_panel_8", pos4),
+        (val_add, ":pos_y", ":y_offset"),
+
+        ## rebellion
+        (create_text_overlay, reg0, "@Times limit of a faction's rebellion:", tf_left_align),
+        (position_set_y, pos1, ":pos_y"),
+        (overlay_set_position, reg0, pos1),
+        (create_number_box_overlay, "$g_presentation_obj_admin_panel_23", 1, 10),
+        (position_set_y, pos2, ":pos_y"),
+        (overlay_set_position, "$g_presentation_obj_admin_panel_23", pos2),
+        (overlay_set_val, "$g_presentation_obj_admin_panel_23", "$g_rebellion_times_limit"),
+        (val_add, ":pos_y", ":y_offset"),
+
+        ## restoration
+        (create_text_overlay, reg0, "@Times limit of a faction's restoration:", tf_left_align),
+        (position_set_y, pos1, ":pos_y"),
+        (overlay_set_position, reg0, pos1),
+        (create_number_box_overlay, "$g_presentation_obj_admin_panel_24", 1, 10),
+        (position_set_y, pos2, ":pos_y"),
+        (overlay_set_position, "$g_presentation_obj_admin_panel_24", pos2),
+        (overlay_set_val, "$g_presentation_obj_admin_panel_24", "$g_restoration_times_limit"),
+        (val_add, ":pos_y", ":y_offset"),
+
+        # division line, offset: 25%
+        (store_add, ":line_pos_y", ":pos_y", ":line_offset"),
+        (call_script, "script_prsnt_line", 600, 2, 25, ":line_pos_y", 0),
+
+        # names of enemy
+        # (create_text_overlay, reg0, "@Show names of enemy troops:", tf_left_align),
+        # (position_set_y, pos1, ":pos_y"),
+        # (overlay_set_position, reg0, pos1),
+        # (create_check_box_overlay, "$g_presentation_obj_22", "mesh_checkbox_off", "mesh_checkbox_on"),
+        # (position_set_y, pos2, ":pos_y"),
+        # (overlay_set_position, "$g_presentation_obj_22", pos2),
+        # (val_min, "$g_name_of_enemy", 1),
+        # (overlay_set_val, "$g_presentation_obj_22", "$g_name_of_enemy"),
+        # (val_add, ":pos_y", ":y_offset"),
+        # names of ally
+        # (create_text_overlay, reg0, "@Show names of ally troops:", tf_left_align),
+        # (position_set_y, pos1, ":pos_y"),
+        # (overlay_set_position, reg0, pos1),
+        # (create_check_box_overlay, "$g_presentation_obj_21", "mesh_checkbox_off", "mesh_checkbox_on"),
+        # (position_set_y, pos2, ":pos_y"),
+        # (overlay_set_position, "$g_presentation_obj_21", pos2),
+        # (val_min, "$g_name_of_ally", 1),
+        # (overlay_set_val, "$g_presentation_obj_21", "$g_name_of_ally"),
+        # (val_add, ":pos_y", ":y_offset"),
+
+        ## HP bars of enemy
+        (create_text_overlay, reg0, "@Show HP bars of enemy troops:", tf_left_align),
+        (position_set_y, pos1, ":pos_y"),
+        (overlay_set_position, reg0, pos1),
+        (create_check_box_overlay, "$g_presentation_obj_admin_panel_21", "mesh_checkbox_off", "mesh_checkbox_on"),
+        (position_set_y, pos2, ":pos_y"),
+        (overlay_set_position, "$g_presentation_obj_admin_panel_21", pos2),
+        (overlay_set_val, "$g_presentation_obj_admin_panel_21", "$g_hp_bar_enemy"),
+        (val_add, ":pos_y", ":y_offset"),
+        ## HP bars of ally
+        (create_text_overlay, reg0, "@Show HP bars of ally troops:", tf_left_align),
+        (position_set_y, pos1, ":pos_y"),
+        (overlay_set_position, reg0, pos1),
+        (create_check_box_overlay, "$g_presentation_obj_admin_panel_22", "mesh_checkbox_off", "mesh_checkbox_on"),
+        (position_set_y, pos2, ":pos_y"),
+        (overlay_set_position, "$g_presentation_obj_admin_panel_22", pos2),
+        (overlay_set_val, "$g_presentation_obj_admin_panel_22", "$g_hp_bar_ally"),
+        (val_add, ":pos_y", ":y_offset"),
+        ## distance limit
+        (create_text_overlay, reg0, "@Distance limit for showing HP bars:", tf_left_align),
+        (position_set_y, pos1, ":pos_y"),
+        (overlay_set_position, reg0, pos1),
+        (create_number_box_overlay, "$g_presentation_obj_admin_panel_20", 3, 81),
+        (position_set_y, pos2, ":pos_y"),
+        (overlay_set_position, "$g_presentation_obj_admin_panel_20", pos2),
+        (val_max, "$g_hp_bar_dis_limit", 3),
+        (overlay_set_val, "$g_presentation_obj_admin_panel_20", "$g_hp_bar_dis_limit"),
+
+        (create_slider_overlay, "$g_presentation_obj_admin_panel_9", 3, 81),
+        (overlay_set_val, "$g_presentation_obj_admin_panel_9", "$g_hp_bar_dis_limit"),
+        (overlay_set_size, "$g_presentation_obj_admin_panel_9", pos3),
+        (store_sub, ":cur_y", ":pos_y", 15),
+        (position_set_y, pos4, ":cur_y"),
+        (overlay_set_position, "$g_presentation_obj_admin_panel_9", pos4),
+        (val_add, ":pos_y", ":y_offset"),
+
+        (set_container_overlay, -1),
+
+        (str_store_string, s0, "@About morale threshold: If your party's morale is below this value, the speed of consuming food will be twice as much as normal, and the bonus to party morale of all food will be also doubled."),
+        (create_text_overlay, reg0, s0, tf_double_space|tf_scrollable),
+        (position_set_x, pos1, 700),
+        (position_set_y, pos1, 450),
+        (overlay_set_position, reg0, pos1),
+        (position_set_x, pos1, 800),
+        (position_set_y, pos1, 800),
+        (overlay_set_size, reg0, pos1),
+        (position_set_x, pos1, 250),
+        (position_set_y, pos1, 200),
+        (overlay_set_area_size, reg0, pos1),
+
+        ## cheat mode
+        (create_text_overlay, reg0, "@Enable cheat mode:", tf_left_align),
+        (position_set_x, pos1, 700),
+        (position_set_y, pos1, 75),
+        (overlay_set_position, reg0, pos1),
+        (create_check_box_overlay, "$g_presentation_obj_admin_panel_19", "mesh_checkbox_off", "mesh_checkbox_on"),
+        (position_set_x, pos1, 910),
+        (position_set_y, pos1, 80),
+        (overlay_set_position, "$g_presentation_obj_admin_panel_19", pos1),
+        (overlay_set_val, "$g_presentation_obj_admin_panel_19", "$cheat_mode"),
+
+        # minimap_style
+        (create_text_overlay, reg0, "@Battle Minimap:", tf_center_justify),
+        (position_set_x, pos1, 840),
+        (position_set_y, pos1, 480),
+        (overlay_set_position, reg0, pos1),
+        (create_combo_button_overlay, "$g_presentation_obj_admin_panel_4"),
+        (position_set_x, pos1, 840),
+        (position_set_y, pos1, 430),
+        (overlay_set_position, "$g_presentation_obj_admin_panel_4", pos1),
+        (overlay_add_item, "$g_presentation_obj_admin_panel_4", "@New Style"),
+        (overlay_add_item, "$g_presentation_obj_admin_panel_4", "@Old Style (Small)"),
+        (overlay_add_item, "$g_presentation_obj_admin_panel_4", "@Old Style (Medium)"),
+        (overlay_add_item, "$g_presentation_obj_admin_panel_4", "@Old Style (Large)"),
+        (overlay_add_item, "$g_presentation_obj_admin_panel_4", "@Off"),
+        (try_begin),
+          (eq, "$g_minimap_style", -1),
+          (overlay_set_val, "$g_presentation_obj_admin_panel_4", 4),
+        (else_try),
+          (overlay_set_val, "$g_presentation_obj_admin_panel_4", "$g_minimap_style"),
+        (try_end),
+
+        # # g_random_scene_size
+        # (create_text_overlay, reg0, "@Random Battlefield Size:", tf_center_justify),
+        # (position_set_x, pos1, 840),
+        # (position_set_y, pos1, 250),
+        # (overlay_set_position, reg0, pos1),
+        # (create_combo_button_overlay, "$g_presentation_obj_admin_panel_17"),
+        # (position_set_x, pos1, 840),
+        # (position_set_y, pos1, 200),
+        # (overlay_set_position, "$g_presentation_obj_admin_panel_17", pos1),
+        # (overlay_add_item, "$g_presentation_obj_admin_panel_17", "@Small"),
+        # (overlay_add_item, "$g_presentation_obj_admin_panel_17", "@Normal"),
+        # (overlay_add_item, "$g_presentation_obj_admin_panel_17", "@Large"),
+        # (overlay_add_item, "$g_presentation_obj_admin_panel_17", "@Extra Large"),
+        # (overlay_set_val, "$g_presentation_obj_admin_panel_17", "$g_random_scene_size"),
+
+        # done
+        (create_game_button_overlay, "$g_presentation_obj_1", "@Done"),
+        (position_set_x, pos1, 920),
+        (position_set_y, pos1, 5),
+        (overlay_set_position, "$g_presentation_obj_1", pos1),
+
+        # ###### mouse fix pos system #######
+        # (call_script, "script_mouse_fix_pos_ready"),
+        # ###### mouse fix pos system #######
+      ]),
+
+      # (ti_on_presentation_run,
+        # [
+        # ###### mouse fix pos system #######
+        # (call_script, "script_mouse_fix_pos_run"),
+        # ###### mouse fix pos system #######
+      # ]),
+
+    (ti_on_presentation_event_state_change,
+      [
+        (store_trigger_param_1, ":object"),
+        (store_trigger_param_2, ":value"),
+
+        (try_begin),
+          (eq, ":object", "$g_presentation_obj_admin_panel_1"),
+          (set_global_haze_amount, ":value"),
+          (overlay_set_val, "$g_presentation_obj_admin_panel_10", ":value"),
+        (else_try),
+          (eq, ":object", "$g_presentation_obj_admin_panel_2"),
+          (set_global_cloud_amount, ":value"),
+          (overlay_set_val, "$g_presentation_obj_admin_panel_7", ":value"),
+        (else_try),
+          (eq, ":object", "$g_presentation_obj_admin_panel_3"),
+          (assign, "$g_rand_rain_limit", ":value"),
+          (overlay_set_val, "$g_presentation_obj_admin_panel_11", ":value"),
+        (else_try),
+          (eq, ":object", "$g_presentation_obj_admin_panel_4"),
+          (try_begin),
+            (eq, ":value", 4),
+            (assign, "$g_minimap_style", -1),
+          (else_try),
+            (assign, "$g_minimap_style", ":value"),
+          (try_end),
+        # (else_try),
+          # (eq, ":object", "$g_presentation_obj_admin_panel_17"),
+          # (assign, "$g_random_scene_size", ":value"),
+        (else_try),
+          (eq, ":object", "$g_presentation_obj_admin_panel_6"),
+          (assign, "$g_morale_threshold", ":value"),
+          (overlay_set_val, "$g_presentation_obj_admin_panel_12", ":value"),
+        (else_try),
+          (eq, ":object", "$g_presentation_obj_admin_panel_8"),
+          (store_sub, "$global_speed_modifier", ":value", 100),
+          (overlay_set_val, "$g_presentation_obj_admin_panel_18", ":value"),
+        (else_try),
+          (eq, ":object", "$g_presentation_obj_admin_panel_9"),
+          (assign, "$g_hp_bar_dis_limit", ":value"),
+          (overlay_set_val, "$g_presentation_obj_admin_panel_20", ":value"),
+        (else_try),
+          (eq, ":object", "$g_presentation_obj_5"),
+          (assign, "$g_report_shot_distance", ":value"),
+        (else_try),
+          (eq, ":object", "$g_presentation_obj_admin_panel_22"),
+          (assign, "$g_hp_bar_ally", ":value"),
+        (else_try),
+          (eq, ":object", "$g_presentation_obj_admin_panel_23"),
+          (assign, "$g_rebellion_times_limit", ":value"),
+        (else_try),
+          (eq, ":object", "$g_presentation_obj_admin_panel_24"),
+          (assign, "$g_restoration_times_limit", ":value"),
+        (else_try),
+          (eq, ":object", "$g_presentation_obj_admin_panel_25"),
+          (assign, "$g_auto_save", ":value"),
+        (else_try),
+          (eq, ":object", "$g_presentation_obj_admin_panel_21"),
+          (assign, "$g_hp_bar_enemy", ":value"),
+        (else_try),
+          (eq, ":object", "$g_presentation_obj_admin_panel_14"),
+          (assign, "$g_encumbrance_penalty", ":value"),
+        (else_try),
+          (eq, ":object", "$g_presentation_obj_admin_panel_20"),
+          (assign, "$g_hp_bar_dis_limit", ":value"),
+          (overlay_set_val, "$g_presentation_obj_admin_panel_9", ":value"),
+        (else_try),
+          (eq, ":object", "$g_presentation_obj_admin_panel_13"),
+          (assign, "$disable_npc_complaints", ":value"),
+        (else_try),
+          (eq, ":object", "$g_presentation_obj_admin_panel_19"),
+          (assign, "$cheat_mode", ":value"),
+          (start_presentation, "prsnt_mod_option"),
+        (else_try),
+          (eq, ":object", "$g_presentation_obj_admin_panel_12"),
+          (assign, "$g_morale_threshold", ":value"),
+          (overlay_set_val, "$g_presentation_obj_admin_panel_6", ":value"),
+        # (else_try),
+          # (eq, ":object", "$g_presentation_obj_admin_panel_5"),
+          # (assign, "$g_show_regain_hp_info", ":value"),
+        (else_try),
+          (eq, ":object", "$g_presentation_obj_admin_panel_18"),
+          (store_sub, "$global_speed_modifier", ":value", 100),
+          (overlay_set_val, "$g_presentation_obj_admin_panel_8", ":value"),
+        (else_try),
+          (eq, ":object", "$g_presentation_obj_admin_panel_11"),
+          (assign, "$g_rand_rain_limit", ":value"),
+          (overlay_set_val, "$g_presentation_obj_admin_panel_3", ":value"),
+        (else_try),
+          (eq, ":object", "$g_presentation_obj_admin_panel_7"),
+          (set_global_cloud_amount, ":value"),
+          (overlay_set_val, "$g_presentation_obj_admin_panel_2", ":value"),
+        (else_try),
+          (eq, ":object", "$g_presentation_obj_admin_panel_10"),
+          (set_global_haze_amount, ":value"),
+          (overlay_set_val, "$g_presentation_obj_admin_panel_1", ":value"),
+        # (else_try),
+          # (eq, ":object", "$g_presentation_obj_22"),
+          # (assign, "$g_name_of_enemy", ":value"),
+        # (else_try),
+          # (eq, ":object", "$g_presentation_obj_21"),
+          # (assign, "$g_name_of_ally", ":value"),
+        #(else_try),
+          #(eq, ":object", "$g_presentation_obj_27"),
+          #(store_sub, "$g_cavalry_2nd_class", 8, ":value"),
+        #(else_try),
+          #(eq, ":object", "$g_presentation_obj_28"),
+          #(store_sub, "$g_archer_2nd_class", 8, ":value"),
+        (else_try),
+          (eq, ":object", "$g_presentation_obj_2"),
+          (assign, "$g_horse_charging_for_ai", ":value"),
+        (else_try),
+          (eq, ":object", "$g_presentation_obj_3"),
+          (assign, "$g_horse_charging_for_player", ":value"),
+        # (else_try),
+          # (eq, ":object", "$g_presentation_obj_31"),
+          # (assign, "$g_regulars_pickup_weapons", ":value"),
+        # (else_try),
+          # (eq, ":object", "$g_presentation_obj_32"),
+          # (assign, "$g_heroes_pickup_weapons", ":value"),
+        (else_try),
+          (eq, ":object", "$g_presentation_obj_admin_panel_15"),
+          (assign, "$show_daily_hint", ":value"),
+        (else_try),
+          (eq, ":object", "$g_presentation_obj_admin_panel_16"),
+          (assign, "$g_add_bandit_heroes", ":value"),
+        (else_try),
+          (eq, ":object", "$g_presentation_obj_1"),
+          (presentation_set_duration, 0),
+        (try_end),
+      ]),
+    ]),
+
+##CC
   ]
 # modmerger_start version=201 type=2
 try:

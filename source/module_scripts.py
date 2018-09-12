@@ -90,7 +90,22 @@ scripts = [
   ("game_start",
    [
       (faction_set_slot, "fac_player_supporters_faction", slot_faction_state, sfs_inactive),
+#CC
+      # hp bars
+      (assign, "$g_hp_bar_dis_limit", 30),
+      (assign, "$g_hp_bar_ally", 0),
+      (assign, "$g_hp_bar_enemy", 1),
+      # (assign, "$g_name_of_ally", 0),
+      # (assign, "$g_name_of_enemy", 1),
 
+      # minimap off = -1
+      # new style = 0
+      # old style 60% = 1
+      # old style 80% = 2
+      # old style 100% = 3
+      (assign, "$g_minimap_style", 0),
+      (assign, "$g_show_regain_hp_info", 1),
+#CC
       (assign, "$first_time", 0),	#squelch compiler warnings
       (assign, "$fuck_stamina", 1),
       (assign, "$g_sexual_content", 0),
@@ -77297,7 +77312,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 #VIKING CONQUEST END
 #COMBAT OSP END
 
-#custom armor 
+#custom armor
   #script_add_troop_to_custom_armor_tableau
   # INPUT: troop_no, item (g_current_opened_item_details), side (g_custom_armor_angle)
   # OUTPUT: none
@@ -77305,13 +77320,13 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     [
        (store_script_param, ":troop_no",1),
        (store_mul, ":side", "$g_custom_armor_angle", 60), #add some more sides
-       
+
        (set_fixed_point_multiplier, 100),
 
        (cur_tableau_clear_override_items),
-       
+
 	   (cur_tableau_set_override_flags, af_override_weapons),
-	 
+
        (init_position, pos2),
        (position_rotate_z, pos2, ":side"),
        (cur_tableau_set_camera_parameters, 1, 4, 6, 10, 10000),
@@ -77341,11 +77356,11 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
          (gt, "$g_current_opened_item_details", -1),
          (cur_tableau_add_override_item, "$g_current_opened_item_details"),
        (try_end),
-	   
+
 		(call_script, "script_show_body_on_tableau", ":troop_no"), # force show body item for tattoos, and loins if cenzored
 		#custom armor
-		
-       (cur_tableau_add_troop, ":troop_no", pos2, ":animation", -1),	   	   
+
+       (cur_tableau_add_troop, ":troop_no", pos2, ":animation", -1),
        (cur_tableau_set_camera_position, pos5),
 
        (copy_position, pos8, pos5),
@@ -77354,7 +77369,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
        (position_rotate_x, pos8, -60),
        (cur_tableau_add_sun_light, pos8, 155,155,155),
      ]),
-#DtheHun 
+#DtheHun
   ("init_custom_armor1",
     [
     (store_script_param, ":agent_no", 1),
@@ -77394,7 +77409,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (else_try), #KNEE none, scale, sonja, assassin
       (eq, ":sub_part", 5),
       (is_between, ":sub_comp", 0, 4), #3 + none
-      (store_add, ":value", ":sub_comp", "itm_ca1_knee_0"),  
+      (store_add, ":value", ":sub_comp", "itm_ca1_knee_0"),
     (else_try), #PAULDRON LEFT none, plate, scale, assa_pauld, sonja, risty
       (eq, ":sub_part", 6),
       (is_between, ":sub_comp", 0, 6), #5 + none
@@ -77411,22 +77426,22 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (eq, ":sub_part", 9),
       (is_between, ":sub_comp", 0, 3), #2 + none
       (store_add, ":value", ":sub_comp", "itm_ca1_elb_r_0"),
-    (else_try), #BRACER LEFT none, plate, sonja, Risty 
+    (else_try), #BRACER LEFT none, plate, sonja, Risty
       (eq, ":sub_part", 10),
       (is_between, ":sub_comp", 0, 4), #3 + none
       (store_add, ":value", ":sub_comp", "itm_ca1_brc_l_0"),
-    (else_try), #BRACER RIGHT none, plate, sonja, Risty 
+    (else_try), #BRACER RIGHT none, plate, sonja, Risty
       (eq, ":sub_part", 11),
       (is_between, ":sub_comp", 0, 4), #3 + none
-      (store_add, ":value", ":sub_comp", "itm_ca1_brc_r_0"),	  
-	(else_try), #NECK none, 
+      (store_add, ":value", ":sub_comp", "itm_ca1_brc_r_0"),
+	(else_try), #NECK none,
       (eq, ":sub_part", 12),
       (is_between, ":sub_comp", 0, 2), #1 + none
       (store_add, ":value", ":sub_comp", "itm_ca1_neck_0"),
     (else_try), #CAPE none,
       (eq, ":sub_part", 13),
       (is_between, ":sub_comp", 0, 2), #1 + none
-      (store_add, ":value", ":sub_comp", "itm_ca1_cape_0"),	  
+      (store_add, ":value", ":sub_comp", "itm_ca1_cape_0"),
 	(else_try), #END
       (assign, "$g_custom_armor_param_count", 0),
     (try_end),
@@ -77434,10 +77449,10 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (neq, ":value", -1),
       (str_store_item_name, s1, ":value"), 	#<- item name (string)
     (try_end),
-	(assign, reg0, ":value"), 				#<- item_no	
+	(assign, reg0, ":value"), 				#<- item_no
     ]
   ),
-  
+
   ("init_custom_armor2",
     [
     (store_script_param, ":agent_no", 1),
@@ -77477,7 +77492,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (else_try), #KNEE none, angela, plated_assassin, assassin, sonja, -scale
       (eq, ":sub_part", 5),
       (is_between, ":sub_comp", 0, 6), #5 + none
-      (store_add, ":value", ":sub_comp", "itm_ca2_knee_0"),  
+      (store_add, ":value", ":sub_comp", "itm_ca2_knee_0"),
     (else_try), #PAULDRON LEFT none, plate, scale, assa_pauld, ang_shoul, ang_pauld, assa_shoul, sonja,-risty
       (eq, ":sub_part", 6),
       (is_between, ":sub_comp", 0, 9), #8 + none
@@ -77494,11 +77509,11 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (eq, ":sub_part", 9),
       (is_between, ":sub_comp", 0, 4), #3 + none
       (store_add, ":value", ":sub_comp", "itm_ca2_elb_r_0"),
-    (else_try), #BRACER LEFT none, plate, sonja, angela,  Risty 
+    (else_try), #BRACER LEFT none, plate, sonja, angela,  Risty
       (eq, ":sub_part", 10),
       (is_between, ":sub_comp", 0, 5), #4 + none
       (store_add, ":value", ":sub_comp", "itm_ca2_brc_l_0"),
-    (else_try), #BRACER RIGHT none, plate, sonja, angela, Risty 
+    (else_try), #BRACER RIGHT none, plate, sonja, angela, Risty
       (eq, ":sub_part", 11),
       (is_between, ":sub_comp", 0, 5), #4 + none
       (store_add, ":value", ":sub_comp", "itm_ca2_brc_r_0"),
@@ -77506,10 +77521,10 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (eq, ":sub_part", 12),
       (is_between, ":sub_comp", 0, 2), #1 + none
       (store_add, ":value", ":sub_comp", "itm_ca2_neck_0"),
-    (else_try), #CAPE none, -angela 
+    (else_try), #CAPE none, -angela
       (eq, ":sub_part", 13),
       (is_between, ":sub_comp", 0, 2), #1 + none
-      (store_add, ":value", ":sub_comp", "itm_ca2_cape_0"),	  
+      (store_add, ":value", ":sub_comp", "itm_ca2_cape_0"),
 	(else_try), #END
       (assign, "$g_custom_armor_param_count", 0),
     (try_end),
@@ -77517,10 +77532,10 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (neq, ":value", -1),
       (str_store_item_name, s1, ":value"), 	#<- item name (string)
     (try_end),
-	(assign, reg0, ":value"), 				#<- item_no	   
+	(assign, reg0, ":value"), 				#<- item_no
     ]
   ),
-  
+
   ("init_custom_armor3",
     [
     (store_script_param, ":agent_no", 1),
@@ -77560,8 +77575,8 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (else_try), #KNEE none, plate, plated_assassin, angela, -assassin, -sonja, -scale
       (eq, ":sub_part", 5),
       (is_between, ":sub_comp", 0, 7), #6 + none
-      (store_add, ":value", ":sub_comp", "itm_ca3_knee_0"),  
-    (else_try), #PAULDRON LEFT none, plate, scale, assa_shoul, ang_pauld, ang_shold, -assa_pauld, -sonja, -risty, 
+      (store_add, ":value", ":sub_comp", "itm_ca3_knee_0"),
+    (else_try), #PAULDRON LEFT none, plate, scale, assa_shoul, ang_pauld, ang_shold, -assa_pauld, -sonja, -risty,
       (eq, ":sub_part", 6),
       (is_between, ":sub_comp", 0, 9), #8 + none
       (store_add, ":value", ":sub_comp", "itm_ca3_pdn_l_0"),
@@ -77577,11 +77592,11 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (eq, ":sub_part", 9),
       (is_between, ":sub_comp", 0, 4), #3 + none
       (store_add, ":value", ":sub_comp", "itm_ca3_elb_r_0"),
-    (else_try), #BRACER LEFT none, plate, sonja, angela, Risty 
+    (else_try), #BRACER LEFT none, plate, sonja, angela, Risty
       (eq, ":sub_part", 10),
       (is_between, ":sub_comp", 0, 5), #4 + none
       (store_add, ":value", ":sub_comp", "itm_ca3_brc_l_0"),
-    (else_try), #BRACER RIGHT none, plate, sonja, angela, Risty 
+    (else_try), #BRACER RIGHT none, plate, sonja, angela, Risty
       (eq, ":sub_part", 11),
       (is_between, ":sub_comp", 0, 5), #4 + none
       (store_add, ":value", ":sub_comp", "itm_ca3_brc_r_0"),
@@ -77589,10 +77604,10 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (eq, ":sub_part", 12),
       (is_between, ":sub_comp", 0, 2), #1 + none
       (store_add, ":value", ":sub_comp", "itm_ca3_neck_0"),
-    (else_try), #CAPE none, -angela 
+    (else_try), #CAPE none, -angela
       (eq, ":sub_part", 13),
       (is_between, ":sub_comp", 0, 2), #1 + none
-      (store_add, ":value", ":sub_comp", "itm_ca3_cape_0"),	 
+      (store_add, ":value", ":sub_comp", "itm_ca3_cape_0"),
 	(else_try), #END
       (assign, "$g_custom_armor_param_count", 0),
     (try_end),
@@ -77600,10 +77615,10 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (neq, ":value", -1),
       (str_store_item_name, s1, ":value"), 	#<- item name (string)
     (try_end),
-	(assign, reg0, ":value"), 				#<- item_no	
+	(assign, reg0, ":value"), 				#<- item_no
     ]
   ),
-  
+
   ("init_plate_helm_dthun",
     [
     (store_script_param, ":agent_no", 1),
@@ -77619,7 +77634,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	(try_end),
   #MAKE COMPONENT MESH STRING OUTPUT
     (assign, ":value", -1),
-    (assign, "$g_custom_armor_param_count", 5),  
+    (assign, "$g_custom_armor_param_count", 5),
 	(try_begin), #DECORATION: none, plate_wings, angela_wings
       (eq, ":sub_part", 0),
       (is_between, ":sub_comp", 0, 3), #2 + none
@@ -77631,7 +77646,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (neq, ":value", -1),
       (str_store_item_name, s1, ":value"), 	#<- item name (string)
     (try_end),
-	(assign, reg0, ":value"), 				#<- item_no	
+	(assign, reg0, ":value"), 				#<- item_no
     ]
   ),
   ("init_angela_helm",
@@ -77653,7 +77668,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	(try_begin), #FACE: none, angela
       (eq, ":sub_part", 0),
       (is_between, ":sub_comp", 0, 2), #1 + none
-      (store_add, ":value", ":sub_comp", "itm_cah_face_0"),	
+      (store_add, ":value", ":sub_comp", "itm_cah_face_0"),
 	(else_try), #WING_UP: none, angela
       (eq, ":sub_part", 1),
       (is_between, ":sub_comp", 0, 2), #1 + none
@@ -77669,10 +77684,10 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (neq, ":value", -1),
       (str_store_item_name, s1, ":value"), 	#<- item name (string)
     (try_end),
-	(assign, reg0, ":value"), 				#<- item_no	
+	(assign, reg0, ":value"), 				#<- item_no
     ]
   ),
-#/custom armor  
+#/custom armor
   ("sir_lady", [ #male 1, female 0, (player, talk_troop) -> (reg33, reg6)
 		(troop_get_type, ":is_female", "trp_player"),
 		(try_begin),
@@ -77691,15 +77706,15 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	]
   ),
 
-#DtheHun   
-   
+#DtheHun
+
   #script_add_troop_to_custom_armor_tableau
   # INPUT: troop_no, item (g_current_opened_item_details), side (g_custom_armor_angle)
   # OUTPUT: reg0 (-1):do nothing, (0):equip body, (1):equip loincloth - for additional troop equip if must (character -> face morpf)
   ("show_body_on_tableau",
     [
 		(store_script_param, ":troop_no", 1),
-		(assign, reg0, -1),		
+		(assign, reg0, -1),
 		(try_begin),
 			(troop_get_type, ":is_female", ":troop_no"),
 			(ge, ":is_female", 1),
@@ -77715,7 +77730,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 			(else_try),
 				(cur_tableau_add_override_item, "itm_body_fem"),
 				(assign, reg0, 0),
-			(try_end),	
+			(try_end),
 			(try_for_range, ":item_slot", ek_head, ek_horse), # do removed clothes back
 				(troop_get_inventory_slot, ":item_no", ":troop_no", ":item_slot"),
 				(ge, ":item_no", 0),
@@ -77723,7 +77738,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 			(try_end),
 		(try_end),
      ]),
-	 
+
   #script_add_troop_to_custom_armor_tableau
   # INPUT: troop_no, item (g_current_opened_item_details), side (g_custom_armor_angle)
   # OUTPUT: none
@@ -77736,23 +77751,23 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 			(try_begin),	# troop has it from opening character tab till next inventory opening -> can lose it in battle, has unique flag -> won't see back (hopefully noone equips it)
 				(troop_has_item_equipped, ":troop_no", "itm_body_fem"),
 				(troop_remove_item, ":troop_no", "itm_body_fem"),
-			(else_try),	
+			(else_try),
 				(troop_has_item_equipped, ":troop_no", "itm_loincloth"),
-				(troop_remove_item, ":troop_no", "itm_loincloth"),			
+				(troop_remove_item, ":troop_no", "itm_loincloth"),
 			(else_try),
 				#(eq, "$g_cenzura", 1),
 				(eq, 0, 1),
 				(try_begin),
 					(troop_has_item_equipped, ":troop_no", "itm_loin_top"),
 					(troop_remove_item, ":troop_no", "itm_loin_top"),
-				(else_try),	
+				(else_try),
 					(troop_has_item_equipped, ":troop_no", "itm_loin_skirt"),
-					(troop_remove_item, ":troop_no", "itm_loin_skirt"),			
+					(troop_remove_item, ":troop_no", "itm_loin_skirt"),
 				(try_end),
 			(try_end),
 		(try_end),
      ]),
-	 
+
   ("done_skin",
 	[
 		(store_script_param, ":agent_no", 1),
@@ -77776,7 +77791,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 				(try_begin), #Nincs -> cenzura -> "loincloth" felvesz
 					(eq, "$g_cenzura", 1),
 					(agent_equip_item, ":agent_no", "itm_loincloth"),
-				(else_try), #Volt rajta?					
+				(else_try), #Volt rajta?
 					(this_or_next|eq, ":body_armor", -1),
 					(eq, ":body_armor", "itm_body_fem"),
 					(troop_get_inventory_slot, ":item_no", ":troop_no", ek_body),
@@ -77803,19 +77818,19 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 							   #(eq, ":skin", 0),
 								(neq, ":bra", 0),
 								(neq, ":panty", 0),
-								(agent_equip_item, ":agent_no", "itm_loincloth"),					
+								(agent_equip_item, ":agent_no", "itm_loincloth"),
 							(else_try),
 							#!Skin, Bra, !Panty -> loin_top
 							   #(eq, ":skin", 0),
 								(neq, ":bra", 0),
 								(eq, ":panty", 0),
-								(agent_equip_item, ":agent_no", "itm_loin_top"),						
+								(agent_equip_item, ":agent_no", "itm_loin_top"),
 							(else_try),
 							#!Skin, !Bra, Panty -> loin_skirt
 							   #(eq, ":skin", 0),
 								(eq, ":bra", 0),
 								(neq, ":panty", 0),
-								(agent_equip_item, ":agent_no", "itm_loin_skirt"),					
+								(agent_equip_item, ":agent_no", "itm_loin_skirt"),
 							(else_try),
 							#!Skin, !Bra, !Panty -> body for TATTOOS
 							   #(eq, ":skin", 0),
@@ -77831,14 +77846,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 					#Was nude before mission -> body for TATTOOS
 						(agent_equip_item, ":agent_no", "itm_body_fem"),
 					(try_end),
-				(try_end),	
+				(try_end),
 			(else_try),	#Equip back original item
 				(agent_equip_item, ":agent_no", ":body_armor"),
 			(try_end),
 		(try_end),
 	]
   ),
-  
+
   ("done_skin_multiplayer",
 	[
 		(store_script_param, ":agent_no", 1),
@@ -77846,24 +77861,24 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 			(agent_is_active, ":agent_no"),
 			(agent_is_alive, ":agent_no"),
 			(agent_is_human, ":agent_no"),
-			(agent_get_item_slot, ":body_armor", ":agent_no", ek_body),	
+			(agent_get_item_slot, ":body_armor", ":agent_no", ek_body),
 			(eq, ":body_armor", -1),
 			(agent_equip_item, ":agent_no", "itm_loincloth"), # man also equip - troop_type always 0 - "is_female" not working
 		(try_end),
 	]
   ),
-  
+
   ("set_custom_armor_slots",
-	[   
+	[
 	   #set slots random for everyone
 		(try_for_range, ":npc", 0, "trp_coop_companion_equipment_ui_0"),
 			(try_for_range, ":slot_no", slot_troop_armor_slots_begin, slot_troop_helm_slots_end),
 				(troop_set_slot, ":npc", ":slot_no", -1), # random = -1
 			(try_end),
 		(try_end),
-	   
+
 	    #(display_message, "@Initializing troop slots DONE"),
-		
+
 	   #Light
 		(item_set_slot, "itm_custom_armor1", slot_item_num_components, 14), #14 customizable
 		(item_set_slot, "itm_custom_armor1", slot_item_init_script, "script_init_custom_armor1"),
@@ -77879,21 +77894,21 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	   #Angela Helm
 		(item_set_slot, "itm_angela_helm", slot_item_num_components, 3), #3 customizable
 		(item_set_slot, "itm_angela_helm", slot_item_init_script, "script_init_angela_helm"),
-		#(try_for_range, ":slot_no", slot_item_player_slots_begin, slot_item_player_slots_end + 1), # troop slots added insted item slots 
+		#(try_for_range, ":slot_no", slot_item_player_slots_begin, slot_item_player_slots_end + 1), # troop slots added insted item slots
 		#  (item_set_slot, "itm_plate_helm_dthun", ":slot_no", -1), # random = -1
 		#(try_end),
-		
+
 		#(display_message, "@Initializing armor slots DONE"),
-		
+
 		#(troop_set_slot, "trp_player", slot_troop_tattoo, 0),
 	]
   ),
-  
+
   #script_find_customizable_item_equipped_on_troop
   # INPUT: 	troop_no
-  # OUTPUT: none  
+  # OUTPUT: none
   # SETS: 	item (g_current_opened_item_details)
-  ("find_customizable_item_equipped_on_troop", 
+  ("find_customizable_item_equipped_on_troop",
 	[
 	 (store_script_param, ":troop_no", 1),
 	 (assign, "$g_current_opened_item_details", -1),
@@ -77903,7 +77918,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 		(gt, ":item_no", -1),
 		(item_slot_ge, ":item_no", slot_item_num_components, 1),
 		(assign, "$g_current_opened_item_details", ":item_no"),
-		(assign, ":begin", ek_foot),  
+		(assign, ":begin", ek_foot),
      (else_try),	#to be able to change tattoo without custom item
 		(troop_get_type, ":is_female", ":troop_no"),
 		(ge, ":is_female", 1),
@@ -77913,15 +77928,15 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 			(assign, "$g_current_opened_item_details", ":item_no"),
 		(else_try),
 			(assign, "$g_current_opened_item_details", "itm_body_fem"),
-		(try_end),	
+		(try_end),
      (try_end),
 	]
   ),
   #script_item_add_component
   # INPUT: 	1:agent_no, 2:troop_no, 3:use_agent_slots, 4:item_script_no, 5:mesh_num, 6:random_begin, 7:random_end, 8:special_part
   # 	$g_presentation_obj_item_select_2, reg1(:troop_item_slots_begin), reg2(:agent_item_slots_begin)
-  # OUTPUT: ":special_part" (reg3)  
-  # SETS: 	item (g_current_opened_item_details)  
+  # OUTPUT: ":special_part" (reg3)
+  # SETS: 	item (g_current_opened_item_details)
   ("custom_item_prepare_component",
 	[
 	  (store_script_param, ":agent_no", 1),
@@ -77934,7 +77949,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	  (store_script_param, ":special_part", 8),	#(has requirements) 0: nothing, 1: assa. cover, 2:symm. with prev, 3: angela cover
 	#GET
 	  (store_add, ":troop_item_slot_no", reg1 , ":mesh_num"),
-	  (store_add, ":agent_item_slot_no", reg2 , ":mesh_num"),	#<- only body 
+	  (store_add, ":agent_item_slot_no", reg2 , ":mesh_num"),	#<- only body
 
 	  (try_begin),
 		(try_begin),
@@ -77953,14 +77968,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 			(try_begin), #special_part
 			  #ass cover
 				(eq, ":special_part", 1),
-				(try_begin), 
-					(this_or_next|eq, ":value", 1),	# assassin  
+				(try_begin),
+					(this_or_next|eq, ":value", 1),	# assassin
 								 (eq, ":value", 2),	# Angela
 					(try_begin),
 						(this_or_next|troop_slot_eq, "trp_temp_array_a", slot_troop_armor_slots_begin + 0, 1), 	#has assa skin
 						(this_or_next|troop_slot_eq, "trp_temp_array_a", slot_troop_armor_slots_begin + 2, 1), 	#has assa panty
 						(this_or_next|troop_slot_eq, "trp_temp_array_a", slot_troop_armor_slots_begin + 2, 2), 	#has Angela panty
-						(troop_slot_eq, "trp_temp_array_a", slot_troop_armor_slots_begin + 3, 1), 				#has assa belt	
+						(troop_slot_eq, "trp_temp_array_a", slot_troop_armor_slots_begin + 3, 1), 				#has assa belt
 					(else_try),	#<- there is nothing to hanging on it
 						(store_random_in_range, ":value", 1, ":random_end"), #<- new shuffle
 						(eq, ":value", 1),
@@ -77987,12 +78002,12 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	  (try_end),
 	]
   ),
- 
+
   #script_set_calves - This is for SANDALS!!!
   # INPUT: 	1:agent_no, 2:troop_no,2, reg1(:troop_item_slots_begin), reg2(:agent_item_slots_begin)
   # OUTPUT:	NONE
  ("set_calves", [
-	(store_trigger_param_1, ":agent_no"), # -1 if not in scene 
+	(store_trigger_param_1, ":agent_no"), # -1 if not in scene
 	(store_trigger_param_2, ":troop_no"),
 	(try_begin),
 		(eq, ":agent_no", -1),	#not in scene (presentation)
@@ -78048,7 +78063,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
   (store_trigger_param_1, ":difmod"),
   (store_trigger_param_2, ":target"), # Should default to 0, which is the player troop
   (store_trigger_param_3, ":roller"),
-  
+
   (assign, ":end", 0),
 
     (store_attribute_level, ":cha", ":roller", ca_charisma),
@@ -78056,9 +78071,9 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	(val_add, ":required_cha", ":difmod"),
     (troop_get_slot, ":renown", ":roller", slot_troop_renown),
     (val_div, ":renown", 100),
-    
+
     (store_skill_level, ":persuasion", "skl_persuasion", ":roller"),
-    
+
     (call_script, "script_dplmc_store_is_female_troop_1_troop_2", ":target", ":roller"),
     (assign, ":target_gender", reg0),
 	(assign, ":roller_gender", reg1),
@@ -78076,12 +78091,12 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (eq, ":target_gender", 0),
         (val_sub, ":required_cha", 6),
     (try_end),
-        
+
     (try_begin),
         (is_between, ":target", heroes_begin, heroes_end),
-        
+
         (val_div, ":renown", 2),
-        
+
         (try_begin), # Noble ladies are even harder.
             (is_between, ":target", kingdom_ladies_begin, kingdom_ladies_end),
             (val_add, ":required_cha", 10),
@@ -78099,7 +78114,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
             (try_end),
         (try_end),
     (try_end),
-	
+
 	(try_begin), # Pretenders are MUCH harder. O . O . F .
 		(eq, ":target", "$supported_pretender"),
 		(troop_get_slot, ":troop_renown", ":target", slot_troop_renown),
@@ -78111,7 +78126,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 		(try_end),
 		(val_add, ":required_cha", 20),
 	(try_end),
-    
+
     (call_script, "script_troop_get_relation_with_troop", ":roller", ":target"),
     (assign, ":rel", reg0),
     (try_begin), # Negative relation is a no-go
@@ -78122,20 +78137,20 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (val_sub, ":required_cha", ":rel"),
     (val_sub, ":persuasion"),
     (val_sub, ":required_cha", ":renown"),
-    
+
     (val_max, ":required_cha", 9),
-    
+
     (try_begin),
         (ge, "$cheat_mode", 1),
 		(eq, ":roller", "trp_player"),
         (assign, reg0, ":required_cha"),
         (display_message, "@Required Charisma: {reg0}"),
     (try_end),
-    
+
 	(eq, ":end", 0),
     (ge, ":cha", ":required_cha"),
   ]),
-  
+
 # script_pos_helper
 # Description: Little Pos Helper by Kuba
 # Input1: ti_on_presentation_***
@@ -78158,9 +78173,511 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 		(overlay_set_text, "$g_little_pos_helper", "@{reg1},{reg2}"),
     (try_end),
  ]),
- 
- 
- 
+ # script_update_order_panel_map
+  # Input: none
+  # Output: none
+  ("update_order_panel_map",
+   [
+    (set_fixed_point_multiplier, 1000),
+
+    (get_scene_boundaries, pos2, pos3),
+    (try_begin),
+      (ge, "$g_minimap_style", 1), # old style
+      (try_for_agents,":cur_agent"),
+        (agent_is_human, ":cur_agent"),
+        (agent_get_slot, ":agent_overlay", ":cur_agent", slot_agent_map_overlay_id),
+        (try_begin),
+          (agent_is_alive, ":cur_agent"),
+          (call_script, "script_update_agent_position_on_map", ":cur_agent"),
+        (else_try),
+          (overlay_set_alpha, ":agent_overlay", 0),
+        (try_end),
+      (try_end),
+      # player_chest
+      (try_begin),
+        (scene_prop_get_instance, ":player_chest", "spr_inventory", 0),
+        (ge, ":player_chest", 0),
+        (prop_instance_get_position, pos1, ":player_chest"),
+        (call_script, "script_convert_3d_pos_to_map_pos"),
+        (overlay_set_position, "$g_player_chest_overlay", pos0),
+        (overlay_set_alpha, "$g_player_chest_overlay", 0xFF),
+      (else_try),
+        (overlay_set_alpha, "$g_player_chest_overlay", 0),
+      (try_end),
+    (try_end),
+
+    # Horse Stamina
+    (get_player_agent_no, ":player_agent"),
+    (agent_get_horse, ":horse_agent", ":player_agent"),
+    (try_begin),
+      (eq, "$g_horse_charging_for_player", 1),
+      (ge, ":horse_agent", 0),
+      (agent_get_slot, ":horse_stamina", ":player_agent", slot_agent_horse_stamina),
+      (store_agent_hit_points, ":horse_hp", ":horse_agent"),
+      (assign, reg1, ":horse_stamina"),
+      (assign, reg2, ":horse_hp"),
+      (overlay_set_text, "$g_horse_stamina_overlay", "@Horse Stamina: {reg1}/{reg2}"),
+      (overlay_set_alpha, "$g_horse_stamina_overlay", 0xFF),
+    (else_try),
+      (overlay_set_alpha, "$g_horse_stamina_overlay", 0),
+    (try_end),
+  ]),
+
+  # script_update_map_bar
+  # Input: none
+  # Output: none
+  ("update_map_bar",
+   [
+    (set_fixed_point_multiplier, 1000),
+
+    (get_player_agent_no, ":player_agent"),
+    (try_for_agents,":cur_agent"),
+      (agent_is_human, ":cur_agent"),
+      (agent_get_slot, ":agent_overlay", ":cur_agent", slot_agent_map_overlay_id),
+      (try_begin),
+        (agent_is_alive, ":cur_agent"),
+        (call_script, "script_update_agent_position_on_map_bar", ":cur_agent"),
+      (else_try),
+        (overlay_set_alpha, ":agent_overlay", 0),
+      (try_end),
+    (try_end),
+    # player_chest
+    (try_begin),
+      (scene_prop_get_instance, ":player_chest", "spr_inventory", 0),
+      (ge, ":player_chest", 0),
+      (prop_instance_get_position, pos1, ":player_chest"),
+      (call_script, "script_convert_3d_pos_to_map_bar_pos", -5),
+      (overlay_set_position, "$g_player_chest_overlay", pos0),
+      (overlay_set_alpha, "$g_player_chest_overlay", 0xFF),
+    (else_try),
+      (overlay_set_alpha, "$g_player_chest_overlay", 0),
+    (try_end),
+    # Horse Stamina
+    (agent_get_horse, ":horse_agent", ":player_agent"),
+    (try_begin),
+      (eq, "$g_horse_charging_for_player", 1),
+      (ge, ":horse_agent", 0),
+      (agent_get_slot, ":horse_stamina", ":player_agent", slot_agent_horse_stamina),
+      (store_agent_hit_points, ":horse_hp", ":horse_agent"),
+      (assign, reg1, ":horse_stamina"),
+      (assign, reg2, ":horse_hp"),
+      (overlay_set_text, "$g_horse_stamina_overlay", "@Horse Stamina: {reg1}/{reg2}"),
+      (overlay_set_alpha, "$g_horse_stamina_overlay", 0xFF),
+    (else_try),
+      (overlay_set_alpha, "$g_horse_stamina_overlay", 0),
+    (try_end),
+    # enemies-allies-us
+    (assign, ":num_us_ready_men", 0),
+    (assign, ":num_allies_ready_men", 0),
+    (assign, ":num_enemies_ready_men", 0),
+    (agent_get_team, ":player_team", ":player_agent"),
+    (try_for_agents,":agent_no"),
+      (agent_is_human, ":agent_no"),
+      (agent_is_alive, ":agent_no"),
+      (neq, ":agent_no", ":player_agent"),
+      (agent_get_team, ":agent_team", ":agent_no"),
+      (try_begin),
+        (neg|agent_is_ally, ":agent_no"),
+        (val_add, ":num_enemies_ready_men", 1),
+      (else_try),
+        (eq, ":agent_team", ":player_team"),
+        (val_add, ":num_us_ready_men", 1),
+      (else_try),
+        (val_add, ":num_allies_ready_men", 1),
+      (try_end),
+    (try_end),
+    (assign, reg10, ":num_enemies_ready_men"),
+    (assign, reg11, ":num_allies_ready_men"),
+    (assign, reg12, ":num_us_ready_men"),
+    (overlay_set_text, "$g_battle_enemies_ready", "@{!}{reg10}"),
+    (overlay_set_text, "$g_battle_allies_ready", "@{!}{reg11}"),
+    (overlay_set_text, "$g_battle_us_ready", "@{!}{reg12}"),
+  ]),
+  #Presentation line
+ ("prsnt_line",
+    [
+      (store_script_param, ":size_x", 1),
+      (store_script_param, ":size_y", 2),
+      (store_script_param, ":pos_x", 3),
+      (store_script_param, ":pos_y", 4),
+      (store_script_param, ":color", 5),
+
+      (create_mesh_overlay, reg1, "mesh_white_plane"),
+      (val_mul, ":size_x", 50),
+      (val_mul, ":size_y", 50),
+      (position_set_x, pos0, ":size_x"),
+      (position_set_y, pos0, ":size_y"),
+      (overlay_set_size, reg1, pos0),
+      (position_set_x, pos0, ":pos_x"),
+      (position_set_y, pos0, ":pos_y"),
+      (overlay_set_position, reg1, pos0),
+      (overlay_set_color, reg1, ":color"),
+  ]),
+  # script_update_agent_position_on_map_bar
+  # Input: arg1 = agent_no
+  # Output: none
+  ("update_agent_position_on_map_bar",
+   [(store_script_param_1, ":agent_no"),
+    (agent_get_slot, ":agent_overlay", ":agent_no", slot_agent_map_overlay_id),
+
+    (get_player_agent_no, ":player_agent"),
+    (try_begin),
+      (le, ":agent_overlay", 0),
+      (set_fixed_point_multiplier, 1000),
+      (try_begin),
+        (eq, ":agent_no", ":player_agent"),
+        (create_mesh_overlay, reg1, "mesh_player_dot"),
+        (position_set_x, pos1, 800),
+        (position_set_y, pos1, 800),
+        (overlay_set_size, reg1, pos1),
+      (else_try),
+        (create_mesh_overlay, reg1, "mesh_white_dot"),
+        (position_set_x, pos1, 300),
+        (position_set_y, pos1, 300),
+        (overlay_set_size, reg1, pos1),
+      (try_end),
+      (agent_set_slot, ":agent_no", slot_agent_map_overlay_id, reg1),
+      (assign, ":agent_overlay", reg1),
+    (try_end),
+
+    (agent_get_team, ":player_team", ":player_agent"),
+    (try_begin),
+      (neq, ":agent_no", ":player_agent"),
+      (agent_get_team, ":agent_team", ":agent_no"),
+      (try_begin),
+        (neg|agent_is_ally, ":agent_no"),
+        (overlay_set_color, ":agent_overlay", 0xFF4040),
+        (assign, ":y_offset", 10),
+      (else_try),
+        (eq, ":agent_team", ":player_team"),
+        (overlay_set_color, ":agent_overlay", 0x80FF80),
+        (assign, ":y_offset", -10),
+      (else_try),
+        (overlay_set_color, ":agent_overlay", 0x8080FF),
+        (assign, ":y_offset", 0),
+      (try_end),
+    (try_end),
+
+    (try_begin),
+      (eq, ":agent_no", ":player_agent"),
+      (agent_get_look_position, pos1, ":agent_no"),
+      (position_get_rotation_around_z, ":rot", pos1),
+      (init_position, pos10),
+      (position_rotate_z, pos10, ":rot"),
+      (overlay_set_mesh_rotation, ":agent_overlay", pos10),
+      (position_set_x, pos0, 620),
+      (position_set_y, pos0, 721),
+    (else_try),
+      (agent_get_position, pos1, ":agent_no"),
+      (call_script, "script_convert_3d_pos_to_map_bar_pos", ":y_offset"),
+    (try_end),
+    (overlay_set_position, ":agent_overlay", pos0),
+  ]),
+
+  # script_convert_3d_pos_to_map_bar_pos
+  ("convert_3d_pos_to_map_bar_pos",
+   [
+    (store_script_param_1, ":y_offset"),
+
+    (set_fixed_point_multiplier, 1000),
+    (position_move_z, pos1, 170),
+    (position_get_screen_projection, pos3, pos1),
+    (position_get_x, ":pos_x", pos3),
+    (try_begin),
+      (is_between, ":pos_x", -200, 1201),
+      (val_clamp, ":pos_x", 0, 1001),
+    (else_try), # hide on the left
+      (lt, ":pos_x", -200),
+      (assign, ":pos_x", -250),
+    (else_try), # hide on the right
+      (gt, ":pos_x", 1200),
+      (assign, ":pos_x", 1250),
+    (try_end),
+    (val_sub, ":pos_x", 500),
+    (val_mul, ":pos_x", 20),
+    (val_div, ":pos_x", 100),
+    (val_add, ":pos_x", 500),
+    (store_add, ":pos_y", 721, ":y_offset"),
+    (position_set_x, pos0, ":pos_x"),
+    (position_set_y, pos0, ":pos_y"),
+  ]),
+
+  # # script_convert_map_pos_to_3d_pos
+  # ("convert_map_pos_to_3d_pos",
+   # [
+    # (set_fixed_point_multiplier, 1000),
+    # (store_sub, ":map_x", 980, "$g_battle_map_width"),
+    # (store_sub, ":map_y", 730, "$g_battle_map_height"),
+    # (position_get_x, ":point_x_pos", pos1),
+    # (position_get_y, ":point_y_pos", pos1),
+    # (val_sub, ":point_x_pos", ":map_x"),
+    # (val_sub, ":point_y_pos", ":map_y"),
+    # (val_mul, ":point_x_pos", "$g_battle_map_scale"),
+    # (val_mul, ":point_y_pos", "$g_battle_map_scale"),
+    # (position_set_x, pos3, ":point_x_pos"),
+    # (position_set_y, pos3, ":point_y_pos"),
+    # (set_fixed_point_multiplier, 1000),
+    # (position_transform_position_to_parent, pos0, pos2, pos3),
+  # ]),
+
+  ("update_agent_hp_bar",
+   [
+    (set_fixed_point_multiplier, 1000),
+
+    (get_player_agent_no, ":player_agent"),
+    (try_for_agents,":agent_no"),
+      (agent_is_human, ":agent_no"),
+      (neq, ":agent_no", ":player_agent"),
+      (agent_get_slot, ":agent_hp_overlay", ":agent_no", slot_agent_hp_bar_overlay_id),
+      (agent_get_slot, ":agent_hp_bg_overlay", ":agent_no", slot_agent_hp_bar_bg_overlay_id),
+      #(agent_get_slot, ":agent_name_overlay", ":agent_no", slot_agent_name_overlay_id),
+      (try_begin),
+        (agent_is_alive, ":agent_no"),
+        # (agent_get_slot, ":agent_hp_overlay", ":agent_no", slot_agent_hp_bar_overlay_id),
+        # (agent_get_slot, ":agent_hp_bg_overlay", ":agent_no", slot_agent_hp_bar_bg_overlay_id),
+        # (agent_get_slot, ":agent_name_overlay", ":agent_no", slot_agent_name_overlay_id),
+
+        (assign, ":create_hp_bar", 0),
+        #(assign, ":create_name", 0),
+        (try_begin), # create or not
+          (agent_is_ally, ":agent_no"),
+          (assign, ":create_hp_bar", "$g_hp_bar_ally"),
+          #(assign, ":create_name", "$g_name_of_ally"),
+        (else_try),
+          (assign, ":create_hp_bar", "$g_hp_bar_enemy"),
+          #(assign, ":create_name", "$g_name_of_enemy"),
+        (try_end),
+
+        (try_begin),
+          (le, ":agent_hp_overlay", 0),
+          (le, ":agent_hp_bg_overlay", 0),
+          #(le, ":agent_name_overlay", 0),
+          (set_fixed_point_multiplier, 1000),
+          (try_begin),
+            (eq, ":create_hp_bar", 1),
+            # hp bg
+            (create_mesh_overlay, reg1, "mesh_white_plane"),
+            (overlay_set_alpha, reg1, 0x44),
+            (agent_set_slot, ":agent_no", slot_agent_hp_bar_bg_overlay_id, reg1),
+            (assign, ":agent_hp_bg_overlay", reg1),
+            # hp
+            (create_mesh_overlay, reg1, "mesh_white_plane"),
+            (overlay_set_alpha, reg1, 0x44),
+            (agent_set_slot, ":agent_no", slot_agent_hp_bar_overlay_id, reg1),
+            (assign, ":agent_hp_overlay", reg1),
+          (try_end),
+          # (try_begin),
+            # (eq, ":create_name", 1),
+            ## name
+            # (agent_get_troop_id, ":troop_id", ":agent_no"),
+            # (str_store_troop_name, s1, ":troop_id"),
+            # (create_text_overlay, reg1, "@{s1}", tf_center_justify),
+            # (overlay_set_alpha, reg1, 0xCC),
+            # (agent_set_slot, ":agent_no", slot_agent_name_overlay_id, reg1),
+            # (assign, ":agent_name_overlay", reg1),
+          # (try_end),
+        (try_end),
+
+        # color
+        (agent_get_team, ":player_team", ":player_agent"),
+        (agent_get_team, ":agent_team", ":agent_no"),
+        (agent_get_troop_id, ":troop_id", ":agent_no"),
+        (try_begin),
+          (eq, ":agent_team", ":player_team"),
+          (assign, ":dest_color", 0x00FF00),
+        (else_try),
+          (agent_is_ally, ":agent_no"),
+          (assign, ":dest_color", 0x0000FF),
+        (else_try),
+          (troop_is_hero, ":troop_id"),
+          (assign, ":dest_color", 0xFFFF00),
+        (else_try),
+          (assign, ":dest_color", 0xFF0000),
+        (try_end),
+        (try_begin),
+          (gt, ":agent_hp_overlay", 0),
+          (gt, ":agent_hp_bg_overlay", 0),
+          (overlay_set_color, ":agent_hp_overlay", ":dest_color"),
+          (overlay_set_color, ":agent_hp_bg_overlay", 0x000000),
+        (try_end),
+        # (try_begin),
+          # (gt, ":agent_name_overlay", 0),
+          # (overlay_set_color, ":agent_name_overlay", ":dest_color"),
+        # (try_end),
+
+        # size & position
+        # (this_or_next|gt, ":agent_name_overlay", 0),
+        (gt, ":agent_hp_overlay", 0),
+
+        (agent_get_position, pos1, ":agent_no"),
+        (agent_get_horse, ":horse_agent", ":agent_no"),
+        (try_begin),
+          (ge, ":horse_agent", 0),
+          (position_move_z, pos1, 280, 1),
+        (else_try),
+          (position_move_z, pos1, 180, 1),
+        (try_end),
+        (position_get_screen_projection, pos2, pos1),
+        (position_get_x, ":head_x_pos", pos2),
+        (position_get_y, ":head_y_pos", pos2),
+        # base size
+        (copy_position, pos6, pos1),
+        (copy_position, pos7, pos1),
+        (position_move_z, pos7, 100, 1),
+        (position_get_screen_projection, pos6, pos6),
+        (position_get_screen_projection, pos7, pos7),
+        (position_get_y, ":screen_y_pos_1", pos6),
+        (position_get_y, ":screen_y_pos_2", pos7),
+        (store_sub, ":base_x", ":screen_y_pos_2", ":screen_y_pos_1"),
+        (val_mul, ":base_x", 3),
+        (val_div, ":base_x", 4),
+        (val_clamp, ":base_x", 20, 161),
+        (store_div, ":base_y", ":base_x", 20),
+        (try_begin),
+          (is_between, ":head_x_pos", -100, 1100),
+          (is_between, ":head_y_pos", -100, 850),
+          (agent_get_position, pos3, ":agent_no"),
+          (agent_get_position, pos4, ":player_agent"),
+          (get_distance_between_positions_in_meters, ":distance", pos3, pos4),
+          (try_begin),
+            (troop_is_hero, ":troop_id"),
+            (val_div, ":distance", 2),
+          (try_end),
+          (le, ":distance", "$g_hp_bar_dis_limit"),
+          # agent no
+          (agent_get_horse, ":horse_agent", ":agent_no"),
+          (try_begin),
+            (ge, ":horse_agent", 0),
+            (position_move_z, pos3, 280, 1),
+          (else_try),
+            (position_move_z, pos3, 180, 1),
+          (try_end),
+          # player agent
+          (agent_get_horse, ":player_horse", ":player_agent"),
+          (try_begin),
+            (ge, ":player_horse", 0),
+            (position_move_z, pos4, 280, 1),
+          (else_try),
+            (position_move_z, pos4, 180, 1),
+          (try_end),
+          (position_move_z, pos3, 50, 1),
+          (position_move_z, pos4, 50, 1),
+          (position_has_line_of_sight_to_position, pos3, pos4),
+
+          (try_begin),
+            (gt, ":agent_hp_overlay", 0),
+            (gt, ":agent_hp_bg_overlay", 0),
+            ## hp bg
+            (assign, ":x_offset", ":base_x"),
+            (val_div, ":x_offset", 2),
+            (val_add, ":x_offset", 1),
+            (store_sub, ":hp_bg_x", ":head_x_pos", ":x_offset"),
+            (store_sub, ":hp_bg_y", ":head_y_pos", 1),
+            (position_set_x, pos1, ":hp_bg_x"),
+            (position_set_y, pos1, ":hp_bg_y"),
+            (overlay_set_position, ":agent_hp_bg_overlay", pos1),
+            (store_add, ":bg_width", ":base_x", 2),
+            (val_mul, ":bg_width", 50),
+            (store_add, ":bg_height", ":base_y", 2),
+            (val_mul, ":bg_height", 50),
+            (position_set_x, pos1, ":bg_width"),
+            (position_set_y, pos1, ":bg_height"),
+            (overlay_set_size, ":agent_hp_bg_overlay", pos1),
+            (overlay_set_alpha, ":agent_hp_bg_overlay", 0x44),
+            ## hp
+            (store_add, ":hp_x", ":hp_bg_x", 1),
+            (store_add, ":hp_y", ":hp_bg_y", 1),
+            (position_set_x, pos1, ":hp_x"),
+            (position_set_y, pos1, ":hp_y"),
+            (overlay_set_position, ":agent_hp_overlay", pos1),
+            (store_agent_hit_points, ":agent_hp",":agent_no"),
+            (store_mul, ":hp_width", ":agent_hp", 50),
+            (val_mul, ":hp_width", ":base_x"),
+            (val_div, ":hp_width", 100),
+            (val_min, ":hp_width", ":bg_width"),
+            (store_mul, ":hp_height", ":base_y", 50),
+            (position_set_x, pos1, ":hp_width"),
+            (position_set_y, pos1, ":hp_height"),
+            (overlay_set_size, ":agent_hp_overlay", pos1),
+            (overlay_set_alpha, ":agent_hp_overlay", 0x44),
+          (try_end),
+
+          # name
+          # (try_begin),
+            # (gt, ":agent_name_overlay", 0),
+            # (assign, ":name_x", ":head_x_pos"),
+            # (store_add, ":name_y", ":head_y_pos", 5),
+            # (position_set_x, pos1, ":name_x"),
+            # (position_set_y, pos1, ":name_y"),
+            # (overlay_set_position, ":agent_name_overlay", pos1),
+            # (store_mul, ":name_size", ":base_x", 9),
+            # (position_set_x, pos1, ":name_size"),
+            # (position_set_y, pos1, ":name_size"),
+            # (overlay_set_size, ":agent_name_overlay", pos1),
+            # (overlay_set_alpha, ":agent_name_overlay", 0xCC),
+          # (try_end),
+        (else_try),
+          (overlay_set_alpha, ":agent_hp_overlay", 0),
+          (overlay_set_alpha, ":agent_hp_bg_overlay", 0),
+          # (overlay_set_alpha, ":agent_name_overlay", 0),
+        (try_end),
+      (else_try),
+        (try_begin),
+          (gt, ":agent_hp_overlay", 0),
+          (gt, ":agent_hp_bg_overlay", 0),
+          (overlay_set_alpha, ":agent_hp_overlay", 0),
+          (overlay_set_alpha, ":agent_hp_bg_overlay", 0),
+        (try_end),
+        # (try_begin),
+          # (gt, ":agent_name_overlay", 0),
+          # (overlay_set_alpha, ":agent_name_overlay", 0),
+        # (try_end),
+        (agent_set_slot, ":agent_no", slot_agent_hp_bar_overlay_id, 0),
+        (agent_set_slot, ":agent_no", slot_agent_hp_bar_bg_overlay_id, 0),
+        #(agent_set_slot, ":agent_no", slot_agent_name_overlay_id, 0),
+      (try_end),
+    (try_end),
+  ]),
+
+  #("get_troop_backup_hp_times_factor",
+    #[
+      #(store_script_param, ":troop_no", 1),
+
+      #(store_character_level, ":troop_level", ":troop_no"),
+      #(store_mul, ":backup_hp_factor", ":troop_level", 4),
+      #(assign, reg0, ":backup_hp_factor"),
+    #]),
+
+  #("get_agent_backup_hp_times_factor",
+    #[
+      #(store_script_param, ":agent_no", 1),
+
+      #(agent_get_party_id, ":party_no", ":agent_no"),
+      #(try_begin),
+        #(le, ":party_no", -1),
+        #(assign, ":backup_hp_factor", 0),
+      #(else_try),
+        #(party_stack_get_troop_id, ":leader", ":party_no", 0),
+        #(troop_is_hero, ":leader"),
+        #(store_skill_level, ":leadership_level", "skl_leadership", ":leader"),
+        #(store_mul, ":backup_hp_factor", ":leadership_level", 6),
+        #(try_begin),
+          #(eq, ":party_no", "p_main_party"),
+          #(agent_get_troop_id, ":troop_no", ":agent_no"),
+          #(call_script, "script_game_get_morale_of_troops_from_faction", ":troop_no"),
+          #(assign, ":troop_morale", reg0),
+          #(val_clamp, ":troop_morale", 0, 100),
+          #(val_mul, ":backup_hp_factor", ":troop_morale"),
+          #(val_div, ":backup_hp_factor", 99),
+        #(try_end),
+      #(else_try),
+        #(assign, ":backup_hp_factor", 0),
+      #(try_end),
+      #(assign, reg0, ":backup_hp_factor"),
+    #]),
+    #CC
+
+
 ]# modmerger_start version=201 type=2
 try:
     component_name = "scripts"

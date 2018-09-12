@@ -679,7 +679,37 @@ meshes = [
   ("custom_bg", 0, "meeting_window", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("custom_button_up", 0, "button1_up", 0, 0, 0, 0, 0, 0, 1.4, 1.4, 1.4),
   ("custom_button_down", 0, "button1_down", 0, 0, 0, 0, 0, 0, 1.4, 1.4, 1.4),
+##CC
 
+## CC
+  ("longer_button", 0, "longer_button", 0, 0, 0, 0, 0, 0, 0.4, 0.5, 0.5),
+  ("longer_button_down", 0, "longer_button_down", 0, 0, 0, 0, 0, 0, 0.4, 0.5, 0.5),
+
+  ("options_window", 0, "options_window", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("message_window", 0, "message_window", 0, 0, 0, 0, 0, 0, 0.8, 0.5, 0.5),
+  ("note_window", 0, "note_window", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+
+  ("drop_button", 0, "button_drop", 0, 0, 0, 0, 0, 0, 1, 0.5, 0.5),
+  ("drop_button_down", 0, "button_drop_clicked", 0, 0, 0, 0, 0, 0, 1, 0.5, 0.5),
+  ("drop_button_hl", 0, "button_drop_hl", 0, 0, 0, 0, 0, 0, 1, 0.5, 0.5),
+  ("drop_button_child", 0, "button_drop_child", 0, 0, 0, 0, 0, 0, 1.0, 0.5, 0.5),
+  ("drop_button_child_down", 0, "button_drop_child_clicked", 0, 0, 0, 0, 0, 0, 1.0, 0.5, 0.5),
+  ("drop_button_child_hl", 0, "button_drop_child_hl", 0, 0, 0, 0, 0, 0, 1.0, 0.5, 0.5),
+
+  ("relation_bar", 0, "talk_relation_bar", 0, 0, 0, 0, 0, 0, 1.06, 1, 1),
+  ("reln_pointer", 0, "talk_reln_pointer", 0, 0, 0, 0, 0, 0, 1.06, 1, 1),
+  ("relation_bar_vertical", 0, "talk_relation_bar", 0, 0, 0, 0, 0, 90, 0.52, 0.52, 0.52),
+  ("reln_pointer_vertical", 0, "talk_reln_pointer", 0, 0, 0, 0, 0, 90, 0.52, 0.52, 0.52),
+
+  ("inventory_equipment_panel", 0, "inventory_equipment_panel", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("compass", 0, "compass", 0, 0, 0, 0, 0, 0, 0.6, 0.6, 1),
+
+  ("map_frame_h", 0, "mp_frame_a_h", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("map_frame_v", 0, "mp_frame_a_v", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+
+  ("battle_map_bar", 0, "battle_map_bar", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+## CC
+##CC
 ]
 # modmerger_start version=201 type=2
 try:

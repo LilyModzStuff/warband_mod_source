@@ -4120,7 +4120,7 @@ TOTAL:  {reg5}"),
        #[(jump_to_menu, "mnu_queens_blade"),
        # ],
        #),
-	   
+
 	  #custom armor	#2/2
 	  ("custom_armor",[
         (neq, "$g_current_opened_item_details", -1),
@@ -4130,7 +4130,7 @@ TOTAL:  {reg5}"),
         (start_presentation, "prsnt_customize_armor"),
         ]),
 	  #/custom armor
-       
+
       ("action_food",[],"Change your party's food consumption habits.",
        [(start_presentation, "prsnt_food_options"),
         ]
@@ -20448,7 +20448,8 @@ goods, and books will never be sold. ^^You can change some settings here freely.
     [],
     [
 	  # XGM Mod Menu, contains most basic settings
-      ("camp_mod_opition",[],"Basic Settings", [(start_presentation, "prsnt_mod_option")]),
+      ("camp_mod_opition",[],"Dickplomacy Settings", [(start_presentation, "prsnt_mod_option")]), #Changed to Dickplomacy settings to avoid confusion
+      ("camp_mod_opition",[],"Custom Commander Settings.", [(start_presentation, "prsnt_cc_mod_option")]),
 	  # Formations Mod Settings
       ("formation_mod_option",[],"Formations Mod Settings", [(start_presentation, "prsnt_formation_mod_option")]),
 	  # Camera Hotkeys
@@ -22897,7 +22898,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
     ]
   ),
 
-# Here for reference, but we have our own options for this sort of thing. 
+# Here for reference, but we have our own options for this sort of thing.
 #
 #DtheHun
 #  ("queens_blade",0,
@@ -22910,15 +22911,15 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 #      # [
 #      #  (jump_to_menu, "mnu_cenzura_level"),
 #	  # ]
-#      # ),	   
+#      # ),
 #
 #      ("set_troop_custom_armor_slots",[], "Set custom armor slots for troops random",
 #       [
 #		 (call_script, "script_set_custom_armor_slots"),
 #         (jump_to_menu, "mnu_camp"),
 #	   ]
-#       ),	   
-#	   
+#       ),
+#
 #      ("return",[],"Return",
 #       [
 #         (jump_to_menu, "mnu_camp"),
@@ -22941,7 +22942,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 #		(str_store_string, s1, "@Uncensored"),
 #	  (try_end),
 #     ],
-#    [	  
+#    [
 #      ("cenzura_1",[(neq, "$g_cenzura", 1),], "Censored",
 #       [
 #		(assign, "$g_cenzura", 1),
@@ -22969,7 +22970,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 #        ]
 #       ),
 #    ]
-#  ),	  
+#  ),
 #/DtheHun
 
  ]
