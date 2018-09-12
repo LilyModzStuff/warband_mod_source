@@ -2376,7 +2376,7 @@ If you would like to practice your horsemanship, you can take my horse here. The
 
 ], "We currently have {reg0} common girls and {reg2} ladies working for us. After factoring in room and board, rents, and other expenses, we are currently making {reg1} denars per week.", "close_window",[]],
 
-[trp_brothel_madam,"brothel_self_prostitution", 
+[trp_brothel_madam,"brothel_self_prostitution",
 	[
 		(try_begin),
 			(eq, "$f_player_prost", 2),
@@ -3176,21 +3176,21 @@ Still I am sorry that I'll leave you soon. You must promise me, you'll come visi
 [anyone,"member_trade", [], "Very well, it's all here...", "do_member_trade",[(set_player_troop, "trp_player"),(change_screen_equip_other)]], #set back to trp_player before open equipment or you get two screens of the NPCs equipment.
 
 #DtheHun
-  [anyone|plyr,"member_talk", [		
+  [anyone|plyr,"member_talk", [
 		(call_script, "script_find_customizable_item_equipped_on_troop", "$g_talk_troop"),
 		(neq, "$g_current_opened_item_details", -1),
 	],
 	"Let me customize your equipment.", "member_customize",
 	[]
   ],
-  [anyone,"member_customize", [], 
+  [anyone,"member_customize", [],
 	"Very well, it's all here...", "close_window",
 	[
 		(assign, "$g_current_opened_troop_dthehun", "$g_talk_troop"),
 		(start_presentation, "prsnt_customize_armor"),
     ]
   ],
-#/DtheHun  
+#/DtheHun
 
 [anyone,"do_member_trade", [], "Anything else?", "member_talk",[(set_player_troop, "trp_player")]],
 
@@ -37739,7 +37739,36 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
    "Do you know who in this realm might have a job for a {man/woman} like myself?", "tavernkeeper_job_ask",[]],
 
 ########################################################################################
+#Buy beer for party
+#-## TBS - Beer drinking
+  [anyone|plyr,"tavernkeeper_talk", [
+	  (neq, "$sneaked_into_town", 1), # It'd be suspicious to order 200 or so beers while undercover
+	  (neg|troop_slot_ge, "trp_player", slot_beers_for_the_day, 9), # Maximum of 9 beers per day
+	  (store_party_size, reg1, "p_main_party"),
+	  (store_mul, reg2, reg1, 7), # 7 denars per beer - making it more expensive to counter the big amount of morale possible to gain
+      ], "I want {reg1} beers for my company. ({reg2} denars.)", "tavernkeeper_drink_beer",[]],
 
+  [anyone,"tavernkeeper_drink_beer",
+   [
+	(store_troop_gold, ":player_cash", "trp_player"),
+	(store_party_size, ":party_size", "p_main_party"),
+	(store_mul, ":beer_cost", ":party_size", 7),
+	(try_begin),
+		(ge, ":player_cash", ":beer_cost"),
+		(troop_remove_gold, "trp_player", ":beer_cost"),
+		(display_message, "@Your army's morale has improved!", 0x33ff33),
+		(call_script, "script_change_player_party_morale", 2),
+		(troop_get_slot, ":cur_beers", "trp_player", slot_beers_for_the_day),
+		(val_add, ":cur_beers", 1),
+		(troop_set_slot, "trp_player", slot_beers_for_the_day, ":cur_beers"),
+		(store_current_hours, ":cur_hrs"),
+		(troop_set_slot, "trp_player", slot_last_beers_time, ":cur_hrs"),
+		(str_store_string, s1, "@Of course, {sir/madam}. I shall have them delivered to your company as soon as possible."),
+	(else_try),
+		(str_store_string, s1, "@You don't have enough money, {mate/lass}..."),
+	(try_end),
+    ], "{s1}", "close_window",[]],
+#-## TBS - Beer drinking end
 	[
 		anyone|plyr,
 		"tavernkeeper_talk",

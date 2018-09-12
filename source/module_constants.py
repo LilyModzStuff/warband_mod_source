@@ -2686,6 +2686,13 @@ slot_agent_dest_hp                = 38
 
 slot_agent_weapon_xp              = 39
 ##CC
+
+
+#-## TBS - Beer drinking
+# These are troop slots, so check for conflicting numbers in your mod.
+slot_beers_for_the_day = 420
+slot_last_beers_time   = 421
+#-## TBS - Beer drinking end
 # modmerger_start version=201 type=1
 try:
     from util_common import logger
