@@ -500,11 +500,11 @@ battle_panel_triggers = [ #4 triggers
       (try_end),
   ]),
 
-(0, 0, ti_once,
-    [],
-    [
-      (start_presentation, "prsnt_troop_ratio_bar"),
-    ]),
+#(0, 0, ti_once,
+#    [],
+#    [
+#      (start_presentation, "prsnt_troop_ratio_bar"),
+#    ]),
 
   # (0.1, 0, 0, [ this is left from Native code
       # (is_presentation_active, "prsnt_battle")
@@ -1792,12 +1792,12 @@ common_shield_bash = (0,0,0,[
 (call_script, "script_shield_bash"),
 ])
 #Troop ratio bar expansion script to call it through left ctrl
-common_troop_ratio = (0,0,0,[
-(key_clicked, key_left_control),
-],
-[
-(start_presentation, "prsnt_troop_ratio_bar"),
-])
+#common_troop_ratio = (0,0,0,[
+#(key_clicked, key_left_control),
+#],
+#[
+#(start_presentation, "prsnt_troop_ratio_bar"),
+#])
 #Mixed gender troops by Dusk Voyager (OSP)
 random_mixed_gender = (ti_on_agent_spawn, 0, 0, [],
   [
@@ -3696,7 +3696,7 @@ common_battle_order_panel_tick = (
       (neg|is_presentation_active, "prsnt_battle"),
       (neg|is_presentation_active, ":dest_presentation"),
       (start_presentation, ":dest_presentation"),
-      (start_presentation, "prsnt_troop_ratio_bar"),
+      #(start_presentation, "prsnt_troop_ratio_bar"),
     (try_end),
     (try_begin),
       (is_presentation_active, "prsnt_battle"),
@@ -5386,7 +5386,7 @@ mission_templates = [
       	  ai_shield_bash,
       	  common_shield_bash,
       	  common_gore,
-          common_troop_ratio,
+          #common_troop_ratio,
           random_mixed_gender,
 
       (ti_question_answered, 0, 0, [],
@@ -5590,7 +5590,7 @@ mission_templates = [
       	  ai_shield_bash,
       	  common_shield_bash,
       	  common_gore,
-          common_troop_ratio,
+          #common_troop_ratio,
           random_mixed_gender,
       common_battle_init_banner,
 
@@ -5721,7 +5721,7 @@ mission_templates = [
       	  ai_shield_bash,
       	  common_shield_bash,
       	  common_gore,
-          common_troop_ratio,
+          #common_troop_ratio,
           random_mixed_gender,
       common_battle_init_banner,
 
@@ -6044,7 +6044,7 @@ mission_templates = [
       	  ai_shield_bash,
       	  common_shield_bash,
       	  common_gore,
-          common_troop_ratio,
+          #common_troop_ratio,
           random_mixed_gender,
       common_battle_init_banner,
 
@@ -6244,7 +6244,7 @@ mission_templates = [
       	  ai_shield_bash,
       	  common_shield_bash,
       	  common_gore,
-          common_troop_ratio,
+          #common_troop_ratio,
           random_mixed_gender,
       common_battle_init_banner,
 
@@ -6349,7 +6349,7 @@ mission_templates = [
       	  ai_shield_bash,
       	  common_shield_bash,
       	  common_gore,
-          common_troop_ratio,
+          #common_troop_ratio,
           random_mixed_gender,
       common_battle_init_banner,
       common_siege_question_answered,
@@ -6453,7 +6453,7 @@ mission_templates = [
  	  ai_shield_bash,
  	  common_shield_bash,
  	  common_gore,
-      common_troop_ratio,
+      #common_troop_ratio,
       random_mixed_gender,
       common_battle_init_banner,
       common_siege_question_answered,
