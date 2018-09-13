@@ -21847,6 +21847,8 @@ presentations = [
       (call_script, "script_update_map_bar"),
       (call_script, "script_update_agent_hp_bar"),
 #Troop Ratio bar
+(try_begin),
+(ge, "$g_troop_ratio_bar", 1),
 (assign, "$presentation_troop_ratio_bar_active", 1),
 (set_fixed_point_multiplier, 1000),
 (create_mesh_overlay, "$g_presentation_obj_1", "mesh_status_troop_ratio_bar"),
@@ -21874,6 +21876,7 @@ presentations = [
 (overlay_set_position, "$g_presentation_obj_6", pos1),
 (create_mesh_overlay, "$g_presentation_obj_7", "mesh_status_troop_ratio_bar_button"),
 (create_mesh_overlay, "$g_presentation_obj_8", "mesh_status_troop_ratio_bar_button"),
+(try_end),
       (presentation_set_duration, 999999),
       # ####### mouse fix pos system #######
       # (call_script, "script_mouse_fix_pos_ready"),
@@ -21881,8 +21884,13 @@ presentations = [
      ]),
     (ti_on_presentation_run,
      [
+     (try_begin),
+     (ge, "$g_troop_ratio_bar", 1),
       (store_trigger_param_1, ":var0"),
+      (try_end),
       (set_fixed_point_multiplier, 1000),
+      (try_begin),
+      (ge, "$g_troop_ratio_bar", 1),
  (assign, ":var1", 0),
  (assign, ":var2", 0),
  (assign, ":var3", 0),
@@ -21931,6 +21939,7 @@ presentations = [
  (position_set_x, pos1, ":var10"),
  (position_set_y, pos1, 700),
  (overlay_set_position, "$g_presentation_obj_8", pos1),
+ (try_end),
       # ####### mouse fix pos system #######
       # (call_script, "script_mouse_fix_pos_run"),
       # ####### mouse fix pos system #######
