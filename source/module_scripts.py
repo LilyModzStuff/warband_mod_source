@@ -39805,6 +39805,8 @@ scripts = [
 
        (try_begin),
          (ge, ":banner_mesh", 0),
+         (eq, "$black_jack",0),#plus blackjack 21
+
 
          (init_position, pos1),
          (position_set_z, pos1, -1500),

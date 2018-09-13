@@ -37739,6 +37739,43 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
    "Do you know who in this realm might have a job for a {man/woman} like myself?", "tavernkeeper_job_ask",[]],
 
 ########################################################################################
+##plus
+  #blackjack
+  [anyone|plyr,"tavernkeeper_talk",
+   [],
+   "Play 'Blackjack'", "tavernkeeper_blackjack_1",[]],
+  [anyone,"tavernkeeper_blackjack_1",
+   [],
+   "What do you want?", "tavernkeeper_blackjack_2",[]],
+  [anyone|plyr,"tavernkeeper_blackjack_2",
+   [],
+   "Start playing.", "tavernkeeper_blackjack_3",[]],
+  [anyone,"tavernkeeper_blackjack_3",
+   [
+    (store_troop_gold,reg1,"trp_player"),
+    (ge,reg1,1),
+       ],
+   "Ok.", "close_window",[
+    (assign, "$black_jack",1),
+    (assign, reg50, 0),
+    (start_presentation, "prsnt_blackjack"),
+    ]],
+  [anyone,"tavernkeeper_blackjack_3",[],
+   "You don't have enough money.", "tavernkeeper_blackjack_1",[]],
+
+  [anyone|plyr,"tavernkeeper_blackjack_2",
+   [],
+   "View Rules.", "tavernkeeper_blackjack_4",[]],
+  [anyone,"tavernkeeper_blackjack_4",
+   [],
+   "Blackjack Rules 1", "tavernkeeper_blackjack_5",[]],
+  [anyone,"tavernkeeper_blackjack_5",
+   [],
+   "Blackjack Rules 2", "tavernkeeper_blackjack_1",[]],
+  [anyone|plyr,"tavernkeeper_blackjack_2",
+   [],
+   "Nothing.", "tavernkeeper_pretalk",[]],
+## end plus
 #Buy beer for party
 #-## TBS - Beer drinking
   [anyone|plyr,"tavernkeeper_talk", [
