@@ -20448,8 +20448,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
     [],
     [
 	  # XGM Mod Menu, contains most basic settings
-      ("camp_mod_opition",[],"Dickplomacy Settings", [(start_presentation, "prsnt_mod_option")]), #Changed to Dickplomacy settings to avoid confusion
-      ("camp_mod_opition",[],"Custom Commander Settings.", [(start_presentation, "prsnt_cc_mod_option")]),
+      ("camp_mod_opition",[],"Main Settings", [(start_presentation, "prsnt_mod_option")]),
 	  # Formations Mod Settings
       ("formation_mod_option",[],"Formations Mod Settings", [(start_presentation, "prsnt_formation_mod_option")]),
 	  # Camera Hotkeys
@@ -22972,6 +22971,37 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 #    ]
 #  ),
 #/DtheHun
+
+  (
+    "startgame_mod_options",0,
+    "Now decide how the world will behave.^Nearly everything may be changed later through the camp menu, but the content option will make some irreversable changes to the game world.",
+    "none",
+    [],
+    [
+	  # XGM Mod Menu, contains most basic settings
+      ("camp_mod_opition",[],"Change Settings", [(start_presentation, "prsnt_mod_option"),(assign, "$f_temp_var", 1),]),
+      ("options_back",[],"Continue",
+       [
+			(try_begin),
+				(eq, "$f_temp_var", 0),
+				(display_message, "@You haven't checked the options yet. Are you sure?"),
+				(assign, "$f_temp_var", 2),
+			(else_try),
+				(eq, "$f_temp_var", 2),
+				(display_message, "@Absolutely sure?"),
+				(assign, "$f_temp_var", 3),
+			(else_try),
+				(eq, "$f_temp_var", 3),
+				(assign, "$f_temp_var", 0),
+				(display_message, "@Ok, fine."),
+				(jump_to_menu, "mnu_c3_finalize"),
+			(else_try),
+				(assign, "$f_temp_var", 0),
+				(jump_to_menu, "mnu_c3_finalize"),
+			(try_end),
+        ]),
+     ]
+  ),
 
  ]
 import header_scenes

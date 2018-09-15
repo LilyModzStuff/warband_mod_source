@@ -54,28 +54,6 @@ mod_options = [
 
 ),
 
-# Disabled because otherwise we have the same exact option on the page twice.
-#     ("camp_same_sex_on", xgm_ov_checkbox, [], "Same sex marriage:", 0,
-#	  "Toggles same sex marriage", 0,
-#        [(try_begin),
-#            (eq, "$g_disable_condescending_comments", 0),
-#            (assign, reg1, 0),
-#                        (else_try),
-#            (eq, "$g_disable_condescending_comments", 1),
-#            (assign, reg1, 1),
-#                (try_end),
-#             ],
-#     [
-#        (try_begin),
-#        (eq, reg1, 0),
-#        (assign, "$g_disable_condescending_comments", 0),
-#        (else_try),
-#        (eq, reg1, 1),
-#        (assign, "$g_disable_condescending_comments", 2),
-#        (try_end),
-#        ],
-#	  ),
-
     ("dplmc_woman_prejudice", xgm_ov_combolabel, ["Historical", "Tolerant", "Utopian"], "Diplomacy - Prejudice:", 0,
 	  "Setting for Diplomacy's prejudice changes.", 0,
 		[
@@ -104,27 +82,6 @@ mod_options = [
         (else_try),
         (eq, reg1, 1),
         (assign, "$g_polygamy", 1),
-        (try_end),
-        ],
-),
-    ("camp_troop_ratio_bar", xgm_ov_checkbox, [], "Troop ratio bar:", 0,
-	  "Toggles troop ratio bar", 0,
-
-             [(try_begin),
-            (eq, "$g_troop_ratio_bar", 0),
-            (assign, reg1, 0),
-                        (else_try),
-            (eq, "$g_troop_ratio_bar", 1),
-            (assign, reg1, 1),
-                (try_end),
-             ],
-     [
-        (try_begin),
-        (eq, reg1, 0),
-        (assign, "$g_troop_ratio_bar", 0),
-        (else_try),
-        (eq, reg1, 1),
-        (assign, "$g_troop_ratio_bar", 1),
         (try_end),
         ],
 ),
@@ -173,7 +130,7 @@ mod_options = [
         ],
 	),
 
-    ( "keep_companions", xgm_ov_checkbox ,  [], # Don't know how to make this more descriptive without being extra lenghty.
+    ( "keep_companions", xgm_ov_checkbox ,  [],
         "Keep Companions:", 0,
         "Setting for keeping companions after defeat", 0,
         [  # initialization block (set value in reg1)
@@ -184,8 +141,19 @@ mod_options = [
         ],
     ),
 
-    ("camp_realistic_wounding", xgm_ov_checkbox, [], "Realistic Wounding:", 0,
-	  "Toggles realistic wounding", 0,
+    ( "disable_complaints", xgm_ov_checkbox ,  [],
+        "Disable Complaints:", 0,        
+        "Setting for disabling companion complaints", 0,
+        [  # initialization block (set value in reg1)
+            (assign, reg1, "$disable_npc_complaints"),
+        ], 
+        [  # update block (value is in reg1)
+            (assign, "$disable_npc_complaints", reg1),            
+        ], 
+    ),
+
+    ("camp_realistic_wounding", xgm_ov_checkbox, [], "Realistic Casualties:", 0,
+	  "Toggles realistic wounding for other damage types", 0,
             [(try_begin),
             (eq, "$g_realistic_wounding", 0),
             (assign, reg1, 0),
@@ -367,6 +335,99 @@ mod_options = [
 
     ("horizontal_divide", xgm_ov_line, [], "", 0,"", 0,[],[],),
 
+    ("minimap_setting", xgm_ov_combolabel, ["Compass Style", "Small Minimap", "Medium Minimap", "Large Minimap", "Disabled"], "Battle Minimap Overlay:", 0,
+	  "Setting for the minimap.", 0,
+		[
+			(try_begin),
+				(eq, "$g_minimap_style", -1),
+				(assign, reg1, 4),
+			(else_try),
+				(assign, reg1, "$g_minimap_style"),
+			(try_end),
+		],
+		[
+			(try_begin),
+				(eq, reg1, 4),
+				(assign, "$g_minimap_style", -1),
+			(else_try),
+				(assign, "$g_minimap_style", reg1),
+			(try_end),
+		],
+	),
+	
+    ("minimap_setting", xgm_ov_combolabel, ["Disabled", "Only Allies", "Only Enemies", "All Troops"], "Troop HP Bars:", 0,
+	  "Setting for troop HP bars.", 0,
+		[
+			(try_begin), # Ally
+				(eq, "$g_hp_bar_enemy", 0),
+				(eq, "$g_hp_bar_ally", 1),
+				(assign, reg1, 1),
+			(else_try), # Enemy
+				(eq, "$g_hp_bar_enemy", 1),
+				(eq, "$g_hp_bar_ally", 0),
+				(assign, reg1, 2),
+			(else_try), # Both
+				(eq, "$g_hp_bar_enemy", 1),
+				(eq, "$g_hp_bar_ally", 1),
+				(assign, reg1, 3),
+			(else_try), # None
+				(assign, reg1, 0),
+			(try_end),
+		],
+		[
+			(try_begin), # Ally
+				(eq, reg1, 1),
+				(assign, "$g_hp_bar_enemy", 0),
+				(assign, "$g_hp_bar_ally", 1),
+			(else_try), # Enemy
+				(eq, reg1, 2),
+				(assign, "$g_hp_bar_enemy", 1),
+				(assign, "$g_hp_bar_ally", 0),
+			(else_try), # Both
+				(eq, reg1, 3),
+				(assign, "$g_hp_bar_enemy", 1),
+				(assign, "$g_hp_bar_ally", 1),
+			(else_try), # None
+				(assign, "$g_hp_bar_enemy", 0),
+				(assign, "$g_hp_bar_ally", 0),
+			(try_end),
+		],
+	),
+	
+    ("minimap_setting", xgm_ov_numberbox, [3,81], "HP Bar Distance Limit:", 0,
+	  "Setting for the HP Bars.", 0,
+		[
+			(assign, reg1, "$g_hp_bar_dis_limit"),
+		],
+		[
+			(assign, "$g_hp_bar_dis_limit", reg1),
+		],
+	),
+	
+    ("camp_troop_ratio_bar", xgm_ov_checkbox, [], "Troop ratio bar:", 0,
+	  "Toggles troop ratio bar", 0,
+
+             [(try_begin),
+            (eq, "$g_troop_ratio_bar", 0),
+            (assign, reg1, 0),
+                        (else_try),
+            (eq, "$g_troop_ratio_bar", 1),
+            (assign, reg1, 1),
+                (try_end),
+             ],
+     [
+        (try_begin),
+        (eq, reg1, 0),
+        (assign, "$g_troop_ratio_bar", 0),
+        (else_try),
+        (eq, reg1, 1),
+        (assign, "$g_troop_ratio_bar", 1),
+        (try_end),
+        ],
+),
+	
+    ("horizontal_divide", xgm_ov_line, [], "", 0,"", 0,[],[],),
+	
     ( "op_cheatmode", xgm_ov_checkbox ,  [],
         "Cheat mode:", 0,
         "This sets the in-game cheat mode", 0,

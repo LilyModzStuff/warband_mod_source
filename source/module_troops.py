@@ -976,7 +976,7 @@ troops = [
    knows_riding_2|knows_weapon_master_2|knows_power_strike_2|knows_athletics_3|knows_trainer_1|knows_leadership_1,
 #  0x00000002050052036a1895d0748f3ca30000000000000f0b0000000000000000],
   0x00000002210122036a2895d4648dbca300000000001c0b0b0000000000000000],
-  ["npc7","Deshavi","Deshavi",tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_loincloth,itm_wrapping_boots, itm_hunting_bow, itm_arrows, itm_quarter_staff],
+  ["npc7","Deshavi","Deshavi",tf_female|tf_hero|tf_unmoveable_in_party_window, 0, reserved,  fac_commoners,[itm_custom_armor1,itm_wrapping_boots, itm_hunting_bow, itm_arrows, itm_quarter_staff],
    str_8|agi_9|int_10|cha_6|level(2),wp(80),knows_tracker_npc|
    knows_tracking_2|knows_athletics_2|knows_spotting_1|knows_pathfinding_1|knows_power_draw_2,
    0x00000001c50840500000000000000e0a00000000000000000000000000000000],

@@ -94,7 +94,7 @@ scripts = [
       # hp bars
       (assign, "$g_hp_bar_dis_limit", 30),
       (assign, "$g_hp_bar_ally", 0),
-      (assign, "$g_hp_bar_enemy", 1),
+      (assign, "$g_hp_bar_enemy", 0),
       # (assign, "$g_name_of_ally", 0),
       # (assign, "$g_name_of_enemy", 1),
 
@@ -103,7 +103,7 @@ scripts = [
       # old style 60% = 1
       # old style 80% = 2
       # old style 100% = 3
-      (assign, "$g_minimap_style", 0),
+      (assign, "$g_minimap_style", -1),
       (assign, "$g_show_regain_hp_info", 1),
 #CC
       (assign, "$first_time", 0),	#squelch compiler warnings
@@ -40280,16 +40280,6 @@ scripts = [
          (troop_is_hero, ":troop_no"),
          (cur_tableau_add_troop, ":troop_no", pos2, ":animation", -1),
        (else_try),
-       #################################################
-   (store_random_in_range, ":gender", 0, 2),
-    (try_begin),
-    (eq, ":gender", 0),
-    (troop_set_type, ":troop_no", 0),
-    (else_try),
-    (eq, ":gender", 1),
-    (troop_set_type, ":troop_no", 1),
-    (try_end),
-#################################################
          (store_mul, ":random_seed", ":troop_no", 126233),
          (val_mod, ":random_seed", 1000),
          (val_add, ":random_seed", 1),
@@ -58297,6 +58287,12 @@ scripts = [
 		(troop_add_merchandise_with_faction, ":cur_merchant", ":cur_faction", itp_type_head_armor, 16),
 		(troop_add_merchandise_with_faction, ":cur_merchant", ":cur_faction", itp_type_foot_armor, 8),
 		(troop_add_merchandise_with_faction, ":cur_merchant", ":cur_faction", itp_type_hand_armor, 4),
+		(try_begin), # Add extra armors
+			(gt, "$g_sexual_content", 0),
+			(troop_add_merchandise_with_faction, ":cur_merchant", fac_undeads, itp_type_body_armor, 3),
+			(troop_add_merchandise_with_faction, ":cur_merchant", fac_undeads, itp_type_head_armor, 1),
+			(troop_add_merchandise_with_faction, ":cur_merchant", fac_undeads, itp_type_foot_armor, 2),
+		(try_end),
 		(troop_ensure_inventory_space, ":cur_merchant", merchant_inventory_space),
 		(troop_sort_inventory, ":cur_merchant"),
 		(store_troop_gold, reg6, ":cur_merchant"),
@@ -77912,26 +77908,46 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
   # SETS: 	item (g_current_opened_item_details)
   ("find_customizable_item_equipped_on_troop",
 	[
+	 
+	#Here's my lazy way.
 	 (store_script_param, ":troop_no", 1),
 	 (assign, "$g_current_opened_item_details", -1),
 	 (assign, ":begin", ek_item_0), #should add a global as iterator
-     (try_for_range_backwards, ":item_slot", ":begin", ek_foot),	#backwards: body armor first
+     (try_for_range, ":item_slot", ":begin", ek_foot),
 		(troop_get_inventory_slot, ":item_no", ":troop_no", ":item_slot"),
 		(gt, ":item_no", -1),
-		(item_slot_ge, ":item_no", slot_item_num_components, 1),
+		(this_or_next|eq, ":item_no", itm_custom_armor1),
+		(this_or_next|eq, ":item_no", itm_custom_armor2),
+		(this_or_next|eq, ":item_no", itm_custom_armor3),
+		(this_or_next|eq, ":item_no", itm_plate_helm_dthun),
+		(eq, ":item_no", itm_angela_helm),
 		(assign, "$g_current_opened_item_details", ":item_no"),
-		(assign, ":begin", ek_foot),
-     (else_try),	#to be able to change tattoo without custom item
+	 (else_try),
 		(troop_get_type, ":is_female", ":troop_no"),
-		(ge, ":is_female", 1),
-		(troop_get_inventory_slot, ":item_no", ":troop_no", ek_body),
-		(try_begin),
-			(gt, ":item_no", -1),
-			(assign, "$g_current_opened_item_details", ":item_no"),
-		(else_try),
+		(eq, ":is_female", 5),
 			(assign, "$g_current_opened_item_details", "itm_body_fem"),
 		(try_end),
-     (try_end),
+	 (gt, "$g_current_opened_item_details", -1),
+	# (store_script_param, ":troop_no", 1),
+	# (assign, "$g_current_opened_item_details", -1),
+	# (assign, ":begin", ek_item_0), #should add a global as iterator
+    # (try_for_range_backwards, ":item_slot", ":begin", ek_foot),	#backwards: body armor first
+	#	(troop_get_inventory_slot, ":item_no", ":troop_no", ":item_slot"),
+	#	(gt, ":item_no", -1),
+	#	(item_slot_ge, ":item_no", slot_item_num_components, 1),
+	#	(assign, "$g_current_opened_item_details", ":item_no"),
+	#	(assign, ":begin", ek_foot),  
+    # (else_try),	#to be able to change tattoo without custom item # Good idea but leads to unexpected results with the other body, best to just disable it.
+	#	(troop_get_type, ":is_female", ":troop_no"),
+	#	(ge, ":is_female", 1),
+	#	(troop_get_inventory_slot, ":item_no", ":troop_no", ek_body),
+	#	(try_begin),
+	#		(gt, ":item_no", -1),
+	#		(assign, "$g_current_opened_item_details", ":item_no"),
+	#	(else_try),
+	#		(assign, "$g_current_opened_item_details", "itm_body_fem"),
+	#	(try_end),	
+    # (try_end),
 	]
   ),
   #script_item_add_component
@@ -78030,6 +78046,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_plate_armor_dthun"),
 				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_custom_armor3"),
 				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_custom_armor2"),
+				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_custom_armor1"),
 				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_risty_armor"),
 				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_scale_armor_dthun"),
 				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_loincloth"),
@@ -78153,6 +78170,23 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (ge, ":cha", ":required_cha"),
   ]),
 
+  # script_change_player_controversy
+  # Input: arg1 = controversy difference
+  # Output: none
+  ("change_player_controversy",
+    [
+      (store_script_param_1, ":controversy_dif"),
+	  (troop_get_slot, ":controversy", "trp_player", slot_troop_controversy),
+	  (troop_set_slot, "trp_player", slot_troop_controversy, ":controversy_dif"),
+      (try_begin),
+        (lt, ":controversy_dif", 0),
+        (display_message, "@Things cool down.", message_positive),
+      (else_try),
+        (gt, ":controversy_dif", 0),
+        (display_message, "@Rumors will certianly spread over this.", message_negative),
+      (try_end),
+  ]),
+  
 # script_pos_helper
 # Description: Little Pos Helper by Kuba
 # Input1: ti_on_presentation_***
@@ -78209,20 +78243,20 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (try_end),
 
     # Horse Stamina
-    (get_player_agent_no, ":player_agent"),
-    (agent_get_horse, ":horse_agent", ":player_agent"),
-    (try_begin),
-      (eq, "$g_horse_charging_for_player", 1),
-      (ge, ":horse_agent", 0),
-      (agent_get_slot, ":horse_stamina", ":player_agent", slot_agent_horse_stamina),
-      (store_agent_hit_points, ":horse_hp", ":horse_agent"),
-      (assign, reg1, ":horse_stamina"),
-      (assign, reg2, ":horse_hp"),
-      (overlay_set_text, "$g_horse_stamina_overlay", "@Horse Stamina: {reg1}/{reg2}"),
-      (overlay_set_alpha, "$g_horse_stamina_overlay", 0xFF),
-    (else_try),
-      (overlay_set_alpha, "$g_horse_stamina_overlay", 0),
-    (try_end),
+    #(get_player_agent_no, ":player_agent"),
+    #(agent_get_horse, ":horse_agent", ":player_agent"),
+    #(try_begin),
+    #  (eq, "$g_horse_charging_for_player", 1),
+    #  (ge, ":horse_agent", 0),
+    #  (agent_get_slot, ":horse_stamina", ":player_agent", slot_agent_horse_stamina),
+    #  (store_agent_hit_points, ":horse_hp", ":horse_agent"),
+    #  (assign, reg1, ":horse_stamina"),
+    #  (assign, reg2, ":horse_hp"),
+    #  (overlay_set_text, "$g_horse_stamina_overlay", "@Horse Stamina: {reg1}/{reg2}"),
+    #  (overlay_set_alpha, "$g_horse_stamina_overlay", 0xFF),
+    #(else_try),
+    #  (overlay_set_alpha, "$g_horse_stamina_overlay", 0),
+    #(try_end),
   ]),
 
   # script_update_map_bar
@@ -78255,19 +78289,19 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (overlay_set_alpha, "$g_player_chest_overlay", 0),
     (try_end),
     # Horse Stamina
-    (agent_get_horse, ":horse_agent", ":player_agent"),
-    (try_begin),
-      (eq, "$g_horse_charging_for_player", 1),
-      (ge, ":horse_agent", 0),
-      (agent_get_slot, ":horse_stamina", ":player_agent", slot_agent_horse_stamina),
-      (store_agent_hit_points, ":horse_hp", ":horse_agent"),
-      (assign, reg1, ":horse_stamina"),
-      (assign, reg2, ":horse_hp"),
-      (overlay_set_text, "$g_horse_stamina_overlay", "@Horse Stamina: {reg1}/{reg2}"),
-      (overlay_set_alpha, "$g_horse_stamina_overlay", 0xFF),
-    (else_try),
-      (overlay_set_alpha, "$g_horse_stamina_overlay", 0),
-    (try_end),
+    #(agent_get_horse, ":horse_agent", ":player_agent"),
+    #(try_begin),
+    #  (eq, "$g_horse_charging_for_player", 1),
+    #  (ge, ":horse_agent", 0),
+    #  (agent_get_slot, ":horse_stamina", ":player_agent", slot_agent_horse_stamina),
+    #  (store_agent_hit_points, ":horse_hp", ":horse_agent"),
+    #  (assign, reg1, ":horse_stamina"),
+    #  (assign, reg2, ":horse_hp"),
+    #  (overlay_set_text, "$g_horse_stamina_overlay", "@Horse Stamina: {reg1}/{reg2}"),
+    #  (overlay_set_alpha, "$g_horse_stamina_overlay", 0xFF),
+    #(else_try),
+    #  (overlay_set_alpha, "$g_horse_stamina_overlay", 0),
+    #(try_end),
     # enemies-allies-us
     (assign, ":num_us_ready_men", 0),
     (assign, ":num_allies_ready_men", 0),

@@ -2853,7 +2853,8 @@ presentations = [
 
 			(try_begin), #route to menu, for better behavior
 				(presentation_set_duration, 0),
-				(jump_to_menu, "mnu_c3_finalize"),
+				#(jump_to_menu, "mnu_c3_finalize"), Options re-direct
+				(jump_to_menu, "mnu_startgame_mod_options"),
 			(try_end),
 
 		(else_try), ####### back #######

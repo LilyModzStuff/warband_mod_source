@@ -301,7 +301,7 @@ dialogs = [
     (agent_set_animation, "$g_talk_agent", "anim_stand_man"),
   ],
    "What is it?","tavern_dialog",[]],
-  [anyone|plyr,"tavern_dialog",[(gt, "$fuck_stamina", 0),(gt, "$g_sexual_content", 0),],
+  [anyone|plyr,"tavern_dialog",[(gt, "$fuck_stamina", 0),(gt, "$g_sexual_content", 0),(this_or_next|eq, "$character_gender", 1),(this_or_next|neq, "$character_gender", reg65),(eq, "$g_nohomo", 0),],
    "Looking for a good time? We could go find a room upstairs.","fuck_decision",[
    (try_begin),
     (eq, "$character_gender", reg65),
@@ -387,7 +387,7 @@ dialogs = [
     (store_conversation_agent, "$g_talk_agent"),
   ],
    "What can I do for you?","prostitute_dialog",[]],
-  [anyone|plyr,"prostitute_dialog",[(gt, "$fuck_stamina", 0),(gt, "$g_sexual_content", 0),],
+  [anyone|plyr,"prostitute_dialog",[(gt, "$fuck_stamina", 0),(gt, "$g_sexual_content", 0),(this_or_next|eq, "$character_gender", 1),(this_or_next|neq, "$character_gender", reg65),(eq, "$g_nohomo", 0),],
    "I want you to show me a good time.","fuck_decision",[
    (try_begin),
     (eq, "$character_gender", reg65),
@@ -493,7 +493,7 @@ dialogs = [
     (try_end),
     ]],
 
-  [anyone|plyr,"camp_soldier_talk", [(gt, "$fuck_stamina", 0),(gt, "$g_sexual_content", 0)], "Isn't it time that we should get to know each other better?", "camp_soldier_fuck",[]],
+  [anyone|plyr,"camp_soldier_talk", [(gt, "$fuck_stamina", 0),(gt, "$g_sexual_content", 0),(this_or_next|eq, "$character_gender", 1),(this_or_next|neq, "$character_gender", reg65),(eq, "$g_nohomo", 0),], "Isn't it time that we should get to know each other better?", "camp_soldier_fuck",[]],
 
   [anyone|plyr,"camp_soldier_talk", [],
 "Let's do some sparring.", "close_window",[
@@ -501,6 +501,18 @@ dialogs = [
     (agent_set_team, ":player_agent", 0),
     (agent_set_team, "$g_talk_agent", 1),
 ]],
+  #### Kidnapped Girl
+  [trp_kidnapped_girl,"camp_soldier_fuck", [(troop_slot_eq, trp_kidnapped_girl, slot_troop_courtesan, -11),], "Please stop, you are making me very uncomfortable. I said before, my father will surely pay you for your work.^I hope you can understand.","close_window",[]],
+  [trp_kidnapped_girl,"camp_soldier_fuck", [(troop_slot_eq, trp_kidnapped_girl, slot_troop_courtesan, 11),(neg|troop_slot_eq, trp_kidnapped_girl, slot_troop_encounters, 0),], "Again? Well, if you insist!", "fuck_decision",[(assign, "$g_pre_consent", 1),(assign, "$g_player_penetrated", 0),]],
+  [trp_kidnapped_girl,"camp_soldier_fuck", [(troop_slot_eq, trp_kidnapped_girl, slot_troop_courtesan, 11),], "It's just I haven't really ever- Ah...", "camp_kidnapped_girl_fuck",[(assign, "$g_pre_consent", 1),(assign, "$g_player_penetrated", 0),]],
+  [anyone|plyr,"camp_kidnapped_girl_fuck", [(troop_slot_eq, trp_kidnapped_girl, slot_troop_courtesan, 11),], "Don't worry, I will show you what to do.", "fuck_decision",[]],
+  #
+  [trp_kidnapped_girl,"camp_soldier_fuck", [], "What do you mean?","camp_kidnapped_girl_check",[]],
+  [anyone|plyr,"camp_kidnapped_girl_check", [], "A pretty girl like you must be able to think of something...", "camp_kidnapped_girl_fuck_opt",[(troop_set_slot, trp_kidnapped_girl, slot_troop_courtesan, 11),]],
+  [trp_kidnapped_girl,"camp_kidnapped_girl_fuck_opt",[(store_attribute_level, ":cha", trp_player, ca_charisma),(gt,":cha",11),], # For the life of me, it won't run the fucking roll_cha script here! Fuck it - I'll do it live!
+  "Ha, is that so?^^Well, my hero. I suppose I can think of something...", "camp_soldier_fuck",[(troop_set_slot, trp_kidnapped_girl, slot_troop_courtesan, 11),]],
+  [trp_kidnapped_girl,"camp_kidnapped_girl_fuck_opt", [], "Oh, I just couldn't. I'm sorry.^^My father will surely pay you for your work.^I hope you can understand.","close_window",[(troop_set_slot, trp_kidnapped_girl, slot_troop_courtesan, -11),]],
+  #### Kidnapped Girl
 
   [anyone,"camp_soldier_fuck", [], "How do you propose that we do that?", "camp_soldier_fuck_1",[]],
   [anyone|plyr,"camp_soldier_fuck_1", [], "Come to my tent, I want you to fuck me.", "fuck_decision",[(assign, "$g_player_penetrated", 1)]],
@@ -509,11 +521,8 @@ dialogs = [
   [anyone,"fuck_decision", [
 
   (store_conversation_troop, "$g_talk_troop"),
-  (assign, ":continue", 0),
-  (assign, ":end", 0),
   (try_begin),
     (eq, "$g_pre_consent", 1),
-    (assign, ":continue", 1),
     (assign, "$g_pre_consent", 0),
   (else_try),
    (call_script, "script_roll_for_charisma", 0, "$g_talk_troop", trp_player),
@@ -543,11 +552,11 @@ dialogs = [
      (try_begin),
         (eq, "$talk_context", tc_tavern_talk),
         (assign, ":scene", "scn_tavern"),
-        (neq, "$g_talk_troop", trp_prostitute),
-        (neq, "$g_talk_troop", trp_courtesan),
-        (store_attribute_level, ":cha", "trp_player", ca_charisma),
-        (val_mul, ":cha", 2),
-        (call_script, "script_troop_add_gold", "trp_player", ":cha"),
+        #(neq, "$g_talk_troop", trp_prostitute),
+        #(neq, "$g_talk_troop", trp_courtesan),
+        #(store_attribute_level, ":cha", "trp_player", ca_charisma),
+        #(val_mul, ":cha", 2),
+        #(call_script, "script_troop_add_gold", "trp_player", ":cha"),
      (else_try),
         (this_or_next|eq, "$talk_context", tc_court_talk),
         (eq,"$talk_context",tc_courtship),
@@ -570,7 +579,7 @@ dialogs = [
         (is_between, "$g_talk_troop", kingdom_ladies_begin, kingdom_ladies_end),
         (neg|troop_slot_eq, "$g_talk_troop", slot_troop_spouse, "trp_player"),
 
-        (call_script, "script_change_player_honor", -5),
+        (call_script, "script_change_player_controversy", 2),
 
         (call_script, "script_get_kingdom_lady_social_determinants", "$g_talk_troop"),
         (assign, ":guardian", reg0),
@@ -831,7 +840,8 @@ dialogs = [
   [anyone,"camp_prisoner_fuck", [],
 "Damn you! You'll regret this, you depraved {bastard/whore}!", "close_window",[
 
-    (call_script, "script_change_player_honor", -15),
+    (call_script, "script_change_player_honor", -2),
+	(call_script, "script_change_player_controversy", 2),
     (try_begin),
         (is_between, "$g_talk_troop", heroes_begin, heroes_end),
         (call_script, "script_change_troop_renown", "$g_talk_troop", -10),
@@ -863,7 +873,7 @@ dialogs = [
   [anyone,"camp_prisoner_fuck_me", [],
 "You really are a depraved {bastard/whore}, you know that?", "close_window",[
 
-    (call_script, "script_change_player_honor", -1),
+    (call_script, "script_change_player_honor", -2),
 
      (store_current_scene, ":scene"),
      (call_script, "script_start_fucking", "$temp_2", ":scene"),]],
@@ -3192,8 +3202,6 @@ Still I am sorry that I'll leave you soon. You must promise me, you'll come visi
   ],
 #/DtheHun
 
-[anyone,"do_member_trade", [], "Anything else?", "member_talk",[(set_player_troop, "trp_player")]],
-
 [anyone|plyr,"member_talk", [], "What can you tell me about your skills?", "view_member_char_requested",[]],
 [anyone,"view_member_char_requested", [], "All right, let me tell you...", "do_member_view_char", [(set_player_troop,"$g_talk_troop"),[change_screen_view_character]]],
 
@@ -3410,7 +3418,8 @@ Still I am sorry that I'll leave you soon. You must promise me, you'll come visi
 [anyone,"member_background_recap_3", [
 ], "Then shortly after, I joined up with you.", "do_member_trade",[]],
 
-[anyone,"do_member_view_char", [], "Anything else?", "member_talk",[]],
+[anyone,"do_member_view_char", [], "I hope that was satisfactory.", "do_member_view_char2",[]],
+[anyone,"do_member_view_char2", [], "Anything else?", "member_talk",[(set_player_troop, "trp_player"),]],
 
 
 [anyone,"member_kingsupport_1", [
@@ -24929,6 +24938,10 @@ I will use this to make amends to those you have wronged, and I will let it be k
  (gt, "$fuck_stamina", 0),
  (neg|troop_slot_eq, "$g_talk_troop", slot_troop_spouse, "trp_player"),
 
+ (this_or_next|eq, "$character_gender", 1),
+ (this_or_next|neq, "$character_gender", reg65),
+ (eq, "$g_nohomo", 0),
+ 
 (neg|troop_slot_ge, "$g_talk_troop", slot_troop_prisoner_of_party, 0),
 (party_count_prisoners_of_type, ":prisoner", "$current_town", "$g_talk_troop"),
 (lt, ":prisoner", 1),
@@ -24953,6 +24966,11 @@ I will use this to make amends to those you have wronged, and I will let it be k
 [
  (eq, "$g_sexual_content", 2),
  (gt, "$fuck_stamina", 0),
+ 
+ (this_or_next|eq, "$character_gender", 1),
+ (this_or_next|neq, "$character_gender", reg65),
+ (eq, "$g_nohomo", 0),
+ 
  (troop_get_slot, ":prison_location", "$g_talk_troop", slot_troop_prisoner_of_party),
  (is_between, ":prison_location", centers_begin, centers_end),
  (party_slot_eq, ":prison_location", slot_town_lord, "trp_player"),
@@ -24960,7 +24978,7 @@ I will use this to make amends to those you have wronged, and I will let it be k
 ],
 "It's time for your daily fucking, {s1}.", "fuck_captive_dungeon",
 [
-    (call_script, "script_change_player_honor", -5),
+    (call_script, "script_change_player_honor", -1),
     (call_script, "script_change_troop_renown", "$g_talk_troop", -10),
     (str_store_troop_name, s0, "$g_talk_troop"),
     (display_message, "@{s0} loses 10 renown"),
@@ -25009,7 +25027,7 @@ I will use this to make amends to those you have wronged, and I will let it be k
    ], "Perhaps your {s11} {s18} would like to watch me fuck you?", "fuck_captive_dungeon_watch",
    [
       (store_repeat_object, "$lord_selected"),
-    (call_script, "script_change_player_honor", -5),
+    (call_script, "script_change_player_honor", -2),
     (call_script, "script_change_troop_renown", "$g_talk_troop", -10),
     (str_store_troop_name, s0, "$g_talk_troop"),
     (display_message, "@{s0} loses 10 renown"),
@@ -25045,7 +25063,8 @@ I will use this to make amends to those you have wronged, and I will let it be k
 
     (troop_set_slot, "$g_talk_troop", slot_troop_courtesan, "$g_encountered_party"),
 
-	(call_script, "script_change_player_honor", -20),
+	(call_script, "script_change_player_honor", -5),
+	(call_script, "script_change_player_controversy", 2),
 	(call_script, "script_troop_change_relation_with_troop", "trp_player", "$g_talk_troop", -30),
     ##diplomacy start+
     #There are other people who this would annoy: The woman's father (usually her legal guardian
@@ -32378,7 +32397,8 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
    [ (eq, "$g_sexual_content", 2),
  (gt, "$fuck_stamina", 0),],
    "I'm going to fuck you until your ransom is paid.", "fuck_captive_dungeon",[
-	(call_script, "script_change_player_honor", -20),
+	(call_script, "script_change_player_honor", -3),
+	(call_script, "script_change_player_controversy", 3),
 	(call_script, "script_troop_change_relation_with_troop", "trp_player", "$g_talk_troop", -30),
     ##diplomacy start+
     #There are other people who this would annoy: The woman's father (usually her legal guardian
@@ -32480,7 +32500,8 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
    ], "Perhaps your {s11} {s18} would like to watch me fuck you?", "fuck_captive_dungeon_watch",
    [
       (store_repeat_object, "$lord_selected"),
-	(call_script, "script_change_player_honor", -20),
+	(call_script, "script_change_player_honor", -4),
+	(call_script, "script_change_player_controversy", 4),
 	(call_script, "script_troop_change_relation_with_troop", "trp_player", "$g_talk_troop", -30),
     ##diplomacy start+
     #There are other people who this would annoy: The woman's father (usually her legal guardian
@@ -32572,7 +32593,8 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
     (troop_set_slot, "$g_talk_troop", slot_troop_courtesan, "$g_encountered_party"),
 
-	(call_script, "script_change_player_honor", -20),
+	(call_script, "script_change_player_honor", -4),
+	(call_script, "script_change_player_controversy", 4),
 	(call_script, "script_troop_change_relation_with_troop", "trp_player", "$g_talk_troop", -30),
     ##diplomacy start+
     #There are other people who this would annoy: The woman's father (usually her legal guardian
@@ -34055,7 +34077,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
    "My {reg65?lady:lord}, I tire of these games. Have your nurse leave and let me show you what true love really is.", "fuck_decision",[
    ##diplomacy end+
 	 (assign, "$g_time_to_spare", 0),
-	 (call_script, "script_change_player_honor", -2),
+	 (call_script, "script_change_player_controversy", 1),
      (assign, "$g_player_penetrated", 0),
    ]],
 
@@ -34576,7 +34598,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
      (gt, reg0, 0),
      ],
    "My lady, you seem so lonely these days - maybe I could help warm your bed?", "fuck_decision",[
-	 (call_script, "script_change_player_honor", -2),
+	 (call_script, "script_change_player_controversy", 2),
      (assign, "$g_player_penetrated", 0),
    ]],
 
@@ -36557,7 +36579,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
   [anyone,"start", [(eq, "$talk_context", tc_hero_freed),
                     (store_conversation_troop,":cur_troop"),
                     (eq,":cur_troop","trp_kidnapped_girl"),],
-   "Oh {sir/madam}. Thank you so much for rescuing me. Will you take me to my family now?", "kidnapped_girl_liberated_battle",[]],
+   "Oh {sir/madam}. Thank you so much for rescuing me. How will I ever repay you?", "kidnapped_girl_liberated_battle",[]],
 
   [anyone,"start", [(eq,"$talk_context",tc_hero_freed)],
    "I am in your debt for freeing me friend.", "freed_hero_answer",
@@ -37732,7 +37754,36 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
 
   [anyone|plyr,"tavernkeeper_buy_drinks_2", [], "Actually, cancel that order.", "tavernkeeper_pretalk",[]],
+#Buy beer for party
+#-## TBS - Beer drinking
+  [anyone|plyr,"tavernkeeper_talk", [
+	  (neq, "$sneaked_into_town", 1), # It'd be suspicious to order 200 or so beers while undercover
+	  (neg|troop_slot_ge, "trp_player", slot_beers_for_the_day, 9), # Maximum of 9 beers per day
+	  (store_party_size, reg1, "p_main_party"),
+	  (store_mul, reg2, reg1, 7), # 7 denars per beer - making it more expensive to counter the big amount of morale possible to gain
+      ], "I want {reg1} beers for my company. ({reg2} denars.)", "tavernkeeper_drink_beer",[]],
 
+  [anyone,"tavernkeeper_drink_beer",
+   [
+	(store_troop_gold, ":player_cash", "trp_player"),
+	(store_party_size, ":party_size", "p_main_party"),
+	(store_mul, ":beer_cost", ":party_size", 7),
+	(try_begin),
+		(ge, ":player_cash", ":beer_cost"),
+		(troop_remove_gold, "trp_player", ":beer_cost"),
+		(display_message, "@Your army's morale has improved!", 0x33ff33),
+		(call_script, "script_change_player_party_morale", 2),
+		(troop_get_slot, ":cur_beers", "trp_player", slot_beers_for_the_day),
+		(val_add, ":cur_beers", 1),
+		(troop_set_slot, "trp_player", slot_beers_for_the_day, ":cur_beers"),
+		(store_current_hours, ":cur_hrs"),
+		(troop_set_slot, "trp_player", slot_last_beers_time, ":cur_hrs"),
+		(str_store_string, s1, "@Of course, {sir/madam}. I shall have them delivered to your company as soon as possible."),
+	(else_try),
+		(str_store_string, s1, "@You don't have enough money, {mate/lass}..."),
+	(try_end),
+    ], "{s1}", "close_window",[]],
+#-## TBS - Beer drinking end
   [anyone|plyr,"tavernkeeper_talk", [
   (neq, "$g_encountered_party_faction", "fac_player_supporters_faction"),
   ],
@@ -37776,41 +37827,12 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
    [],
    "Nothing.", "tavernkeeper_pretalk",[]],
 ## end plus
-#Buy beer for party
-#-## TBS - Beer drinking
-  [anyone|plyr,"tavernkeeper_talk", [
-	  (neq, "$sneaked_into_town", 1), # It'd be suspicious to order 200 or so beers while undercover
-	  (neg|troop_slot_ge, "trp_player", slot_beers_for_the_day, 9), # Maximum of 9 beers per day
-	  (store_party_size, reg1, "p_main_party"),
-	  (store_mul, reg2, reg1, 7), # 7 denars per beer - making it more expensive to counter the big amount of morale possible to gain
-      ], "I want {reg1} beers for my company. ({reg2} denars.)", "tavernkeeper_drink_beer",[]],
-
-  [anyone,"tavernkeeper_drink_beer",
-   [
-	(store_troop_gold, ":player_cash", "trp_player"),
-	(store_party_size, ":party_size", "p_main_party"),
-	(store_mul, ":beer_cost", ":party_size", 7),
-	(try_begin),
-		(ge, ":player_cash", ":beer_cost"),
-		(troop_remove_gold, "trp_player", ":beer_cost"),
-		(display_message, "@Your army's morale has improved!", 0x33ff33),
-		(call_script, "script_change_player_party_morale", 2),
-		(troop_get_slot, ":cur_beers", "trp_player", slot_beers_for_the_day),
-		(val_add, ":cur_beers", 1),
-		(troop_set_slot, "trp_player", slot_beers_for_the_day, ":cur_beers"),
-		(store_current_hours, ":cur_hrs"),
-		(troop_set_slot, "trp_player", slot_last_beers_time, ":cur_hrs"),
-		(str_store_string, s1, "@Of course, {sir/madam}. I shall have them delivered to your company as soon as possible."),
-	(else_try),
-		(str_store_string, s1, "@You don't have enough money, {mate/lass}..."),
-	(try_end),
-    ], "{s1}", "close_window",[]],
-#-## TBS - Beer drinking end
 	[
 		anyone|plyr,
 		"tavernkeeper_talk",
 		[
 		(neg|party_slot_eq, "$current_town", slot_town_has_brothel, 1),
+		(eq, "$character_gender", 1), # Eventually male players should be able to pimp out their companions, but not today.
 		(le, "$sneaked_into_town", disguise_none), # Causes problems, so don't give the player a chance to do it.
 		(ge, "$f_player_prost", 1),
 		(party_get_num_companion_stacks, ":num_stacks", "p_main_party"),
@@ -37852,6 +37874,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 	[
 	(ge, "$g_sexual_content", 1),
 	(party_slot_eq, "$current_town", slot_town_has_brothel, 0),
+	(eq, "$character_gender", 1), # Eventually male players should be able to pimp out their companions, but not today.
 	(le, "$sneaked_into_town", disguise_none), # Causes problems, so don't give the player a chance to do it.
 	(try_begin), # 25% chance to give this "quest" unless returning from the previously rejected dialogue
 		(eq, reg50, 4),
@@ -38201,7 +38224,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 
   [anyone,"tavernkeeper_job_result_2", [], "I'll keep my ears open for other opportunities. You may want to ask again from time to time.", "tavernkeeper_job_result_followon",[]],
 
-  [anyone|plyr,"tavernkeeper_job_result_followon",[(neg|party_slot_eq, "$current_town", slot_town_has_brothel, -69),(this_or_next|party_slot_eq, "$current_town", slot_town_has_brothel, -1),(party_slot_eq, "$current_town", slot_town_has_brothel, -2),],"Um, about what you said earlier. The job you had...","tavernkeeper_job_result_followon2",[],],
+  [anyone|plyr,"tavernkeeper_job_result_followon",[(eq, "$character_gender", 1),(neg|party_slot_eq, "$current_town", slot_town_has_brothel, -69),(this_or_next|party_slot_eq, "$current_town", slot_town_has_brothel, -1),(party_slot_eq, "$current_town", slot_town_has_brothel, -2),],"Um, about what you said earlier. The job you had...","tavernkeeper_job_result_followon2",[],],
 
   [anyone,"tavernkeeper_job_result_followon2", [], "Huh? But didn't you say you...? Eh, never mind.^^Uh, right the job. Let's see here...", "tavernkeeper_job_ask",[(party_set_slot, "$current_town", slot_town_has_brothel, 0),(assign, reg50, 4),]],
 
@@ -42485,6 +42508,8 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
   I can't wait to see my family. Good-bye.",
    "close_window",
    [(remove_member_from_party, "trp_kidnapped_girl"),
+	(troop_set_slot, trp_kidnapped_girl, slot_troop_courtesan, 0),
+	(troop_set_slot, trp_kidnapped_girl, slot_troop_encounters, 0),
     (quest_set_slot, "qst_kidnapped_girl", slot_quest_current_state, 4),
     ]],
 
@@ -42503,7 +42528,36 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
   [trp_kidnapped_girl,"start", [],
    "Oh {sir/madam}. Thank you so much for rescuing me. Will you take me to my family now?", "kidnapped_girl_liberated_map",[]],
 
-  [trp_kidnapped_girl|plyr,"kidnapped_girl_liberated_battle", [], "Yes. Come with me. We are going home.", "kidnapped_girl_liberated_battle_2a",[]],
+  [trp_kidnapped_girl|plyr,"kidnapped_girl_liberated_battle", [], "Come with me. We are going home.", "kidnapped_girl_liberated_battle_2a",[]],
+  
+#########
+  [trp_kidnapped_girl|plyr,"kidnapped_girl_liberated_battle",[(gt, "$g_sexual_content", 0),(troop_slot_eq, trp_kidnapped_girl, slot_troop_courtesan, 0),],
+  "Why, a pretty girl like you? I was just thinking the same thing.","kidnapped_girl_fuck_decision",[]],
+  
+  [trp_kidnapped_girl,"kidnapped_girl_fuck_decision",
+	[
+	(troop_slot_eq, trp_kidnapped_girl, slot_troop_courtesan, 0),
+	
+	(call_script, "script_roll_for_charisma", -7, "$g_talk_troop", trp_player),
+	],
+   "Ha, is that so?^Well, my hero. I suppose I can think of something. Meet me outside your tent.^^Hehe...", "kidnapped_girl_liberated_battle",
+	[
+		
+		(troop_set_slot, trp_kidnapped_girl, slot_troop_courtesan, 11),
+    ]
+  ],
+  
+  [trp_kidnapped_girl,"kidnapped_girl_fuck_decision",
+	[
+	
+	],
+   "But I- I don't have anything to give you... Unless- you mean...^^Oh, I- I just couldn't. I'm sorry.^^My father will surely pay you for your work.^I hope you can understand.", "kidnapped_girl_liberated_battle",
+	[
+		(troop_set_slot, trp_kidnapped_girl, slot_troop_courtesan, -11),
+    ]
+  ],
+#########
+  
   [trp_kidnapped_girl,"kidnapped_girl_liberated_battle_2a", [(neg|hero_can_join, "p_main_party")], "Unfortunately. You do not have room in your party for me.", "kidnapped_girl_liberated_battle_2b",[]],
   [trp_kidnapped_girl,"kidnapped_girl_liberated_battle_2a", [], "Oh really? Thank you so much!",
    "close_window",[(party_add_members, "p_main_party","trp_kidnapped_girl",1),
@@ -45298,12 +45352,12 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
                                      (assign, ":is_female", reg65),
                                      (eq, ":is_female", 1),
                                      ],
-   "Take these 300 denars. But in return you must work in my tavern to pay off your debts.", "town_dweller_poor_not_paid",
-   [(troop_remove_gold, "trp_player", 300),
+   "Take these 40 denars. But in return you must work in my tavern to pay off your debts.", "town_dweller_poor_not_paid",
+   [(troop_remove_gold, "trp_player", 40), # This is a 40 month ROI, compared to the original 300
     (party_get_slot, ":num_workers", "$current_town", slot_town_brothel_num_workers),
     (val_add, ":num_workers", 1),
     (party_set_slot, "$current_town", slot_town_brothel_num_workers, ":num_workers"),
-    (call_script, "script_change_player_honor", -1),
+    	(call_script, "script_change_player_controversy", 1),
     (call_script, "script_agent_get_town_walker_details", "$g_talk_agent"),
     (assign, ":walker_no", reg2),
     (call_script, "script_center_set_walker_to_type", "$g_encountered_party", ":walker_no", walkert_needs_money_helped),

@@ -1801,6 +1801,7 @@ common_shield_bash = (0,0,0,[
 #Mixed gender troops by Dusk Voyager (OSP)
 random_mixed_gender = (ti_on_agent_spawn, 0, 0, [],
   [
+   (eq, 0, 1), # Clean disable
    (store_trigger_param_1, ":agent_no"),
    (agent_get_troop_id, ":troop_no", ":agent_no"),
    (neg|troop_is_hero, ":troop_no"),
@@ -2494,7 +2495,7 @@ player_dance = (
 
     (troop_get_type, ":is_female", "trp_player"),
     (ge, ":is_female", 1),
-
+	(gt, "$g_sexual_content", 1),
     (get_player_agent_no, ":agent"),
 
     (agent_is_alive, ":agent"),
@@ -2512,6 +2513,32 @@ player_dance = (
 		(neq, ":anim", "anim_jump_end_hard"),
 		(neq, ":anim", "anim_kick_right_leg"),
 		(agent_set_animation, ":agent", "anim_dancer_good"),
+	(try_end),
+  ],
+  []
+)
+player_undress = (
+  0, 0, 0,
+  [
+    (key_clicked, key_o),
+
+    (troop_get_type, ":is_female", "trp_player"),
+    (ge, ":is_female", 1),
+	(gt, "$g_sexual_content", 1),
+    (get_player_agent_no, ":agent"),	
+	
+    (agent_is_alive, ":agent"),
+    (agent_is_human, ":agent"),
+    (agent_get_horse, ":horse", ":agent"),
+    (le, ":horse", 0),
+	(troop_get_type, ":type", trp_player),
+	(try_begin),
+		(agent_equip_item, ":agent", "itm_red_tourney_armor"), #Remove clothes/hat
+		(agent_unequip_item, ":agent", "itm_red_tourney_armor"),
+		(agent_equip_item, ":agent", "itm_red_tourney_helmet"),
+		(agent_unequip_item, ":agent", "itm_red_tourney_helmet"),
+		(eq, ":type", 1),
+		(troop_set_type, "trp_player", 3),
 	(try_end),
   ],
   []
@@ -2547,9 +2574,7 @@ grant_body_multiplayer = (
 #INPUT: agent_no, attacker_no, damage, pos0
 
 lose_armor_parts = (	# $g_cenzura != 1 -> can lose it
-  ti_on_agent_hit, 0, 0, [
-  #(neq, "$g_cenzura", 1),
-  ],
+  ti_on_agent_hit, 0, 0, [], 
   [
 		(store_trigger_param_1, ":agent_no"),
 		#(store_trigger_param_2, ":attacker_no"),
@@ -2560,7 +2585,7 @@ lose_armor_parts = (	# $g_cenzura != 1 -> can lose it
 		(ge, ":is_female", 1),
 		(agent_get_item_slot, ":item_id", ":agent_no", ek_body),
         (ge, ":item_id", 0),
-		(try_for_range, ":fem_item", "itm_loin_skirt", "itm_banded_armor"),
+		(try_for_range, ":fem_item", "itm_chest_b", "itm_sonja_sword"),
 			(eq, ":item_id", ":fem_item"),
 			(agent_get_position, pos3, ":agent_no"),
 			(get_sq_distance_between_position_heights, ":hit_height", pos0, pos3),
@@ -2576,11 +2601,11 @@ lose_armor_parts = (	# $g_cenzura != 1 -> can lose it
 					(le, ":hit_count", 1), # 1: bra/skin
 					(agent_unequip_item, ":agent_no", ":item_id"),
 					(agent_equip_item, ":agent_no", ":item_id"),
-					(try_begin),	#set permanent component lose
-						#(eq, "$g_cenzura", 2),
-						(troop_is_hero, ":hit_troop"),
-						(troop_set_slot, ":hit_troop", slot_troop_armor_slots_begin + 1, 0),
-					(try_end),
+					#(try_begin),	#set permanent component lose
+					#	(eq, "$g_cenzura", 2),
+					#	(troop_is_hero, ":hit_troop"),
+					#	(troop_set_slot, ":hit_troop", slot_troop_armor_slots_begin + 1, 0),
+					#(try_end),							
 				(try_end),
 				(val_add, ":hit_count", 1), #yell only once for bra: 1->2:YES  2->3:NO
 			(else_try), #loose skirt / panty
@@ -2592,17 +2617,17 @@ lose_armor_parts = (	# $g_cenzura != 1 -> can lose it
 					(le, ":hit_count", 2), #1: skirt  2: panty
 					(agent_unequip_item, ":agent_no", ":item_id"),
 					(agent_equip_item, ":agent_no", ":item_id"),
-					(try_begin),	#set permanent component lose
-						#(eq, "$g_cenzura", 2),
-						(troop_is_hero, ":hit_troop"),
-						(try_begin),
-							(eq, ":hit_count", 1), #1: skirt
-							(troop_set_slot, ":hit_troop", slot_troop_armor_slots_begin + 4, 0),
-						(else_try),
-							#(eq, ":hit_count", 2), #1: panty
-							(troop_set_slot, ":hit_troop", slot_troop_armor_slots_begin + 2, 0),
-						(try_end),
-					(try_end),
+					#(try_begin),	#set permanent component lose
+					#	(eq, "$g_cenzura", 2),
+					#	(troop_is_hero, ":hit_troop"),
+					#	(try_begin),
+					#		(eq, ":hit_count", 1), #1: skirt
+					#		(troop_set_slot, ":hit_troop", slot_troop_armor_slots_begin + 4, 0),
+					#	(else_try),
+					#		#(eq, ":hit_count", 2), #1: panty
+					#		(troop_set_slot, ":hit_troop", slot_troop_armor_slots_begin + 2, 0),
+					#	(try_end),
+					#(try_end),
 				(try_end),
 			(try_end),
 			(try_begin),	# yelling twice per hit region
@@ -2698,7 +2723,7 @@ dplmc_battle_mode_triggers = [
     dplmc_horse_speed,
     common_move_deathcam, common_rotate_deathcam,
     custom_commander_camera, deathcam_cycle_forwards, deathcam_cycle_backwards,
-    dplmc_death_camera, ai_crouch, ai_crouch2, realistic_wounding,	player_dance,
+    dplmc_death_camera, ai_crouch, ai_crouch2, realistic_wounding,	player_dance, player_undress,
 	grant_body_start, grant_body_after_inventory, lose_armor_parts,
   ]
 ##diplomacy end
@@ -2714,6 +2739,7 @@ extra_arena_triggers = [
 	deathcam_cycle_backwards,
 	dplmc_death_camera,
 	player_dance,
+	player_undress,
   ]
 
 multiplayer_server_check_belfry_movement = (
@@ -4159,7 +4185,7 @@ mission_templates = [
 
      ],
      [
-		dedal_tavern_animations,
+		dedal_tavern_animations, player_dance, player_undress,
 		#dedal end
       (1, 0, ti_once, [],
       [
@@ -5068,15 +5094,17 @@ mission_templates = [
      (31,mtef_visitor_source,af_castle_lord,0,1,[])
      ],
     [
+	  player_dance, player_undress,
       (ti_on_agent_spawn, 0, 0, [],
       [
         (store_trigger_param_1, ":agent_no"),
         (call_script, "script_init_town_agent", ":agent_no"),
 		(try_begin),
 			(ge, "$g_sexual_content", 1),
+			(eq, "$talk_context", tc_court_talk),
 			(agent_get_troop_id, ":troop_id", ":agent_no"),
+			(neg|eq, trp_player, ":troop_id"),
 			(assign, ":tribute_entertainer", 0),
-			(neq, "$talk_context", tc_prison_break),
 			(call_script, "script_cf_dplmc_troop_is_female", ":troop_id"),
 			(try_begin),
 				(troop_slot_ge, ":troop_id", slot_troop_prisoner_of_party, "$g_encountered_party"),
@@ -7037,10 +7065,6 @@ mission_templates = [
          (call_script, "script_change_banners_and_chest")]),
 
       common_arena_fight_tab_press,
-	  AI_kick,
-	  ai_shield_bash,
-	  common_shield_bash,
-
 
       (ti_question_answered, 0, 0, [],
        [
@@ -7229,7 +7253,7 @@ mission_templates = [
          (assign, "$g_last_destroyed_gourds", 0),
          ],
        [(call_script, "script_agents_cheer_during_training"),]),
-    ],
+    ] + extra_arena_triggers,
   ),
 
   (
@@ -18403,6 +18427,8 @@ mission_templates = [
          (call_script, "script_replace_scene_items_with_spawn_items_before_ms"),
          #(assign, "$g_conversation_camera", 0),
       ]),
+
+	  player_dance, player_undress,
 
       (ti_tab_pressed, 0, 0, [],
        [(finish_mission,0)]),

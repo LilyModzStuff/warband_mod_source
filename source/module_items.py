@@ -1285,6 +1285,7 @@ items = [
 
 ["untitled", "invishead", [("invisihead",0)], itp_type_head_armor|itp_fit_to_head|itp_covers_head|itp_covers_beard, 0, 187, weight(1.25)|abundance(100)|head_armor(20)|body_armor(0)|leg_armor(0), imodbits_plate ],
 
+ # itm_chest_b is the start of adult items (not really but for buying purpouses, it is
 #DtheHun
   ["chest_b", "Random", [("chest_b",0)], itp_type_foot_armor, 0, 96,weight(1)|abundance(50),imodbits_none],#0	
  #ca1
@@ -1569,12 +1570,12 @@ items = [
 		(store_trigger_param_2, ":troop_no"),
 		(call_script, "script_set_calves", ":agent_no", ":troop_no"),
 	])
-  ]
+  ],[fac_undeads]
 ],
 ["plate_boots_dthun", "Plate Boots", [("plate_boots_dthun",0)], itp_merchandise| itp_type_foot_armor | itp_attach_armature,0,
-2770 , weight(3.5)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(33)|difficulty(6) ,imodbits_plate ],
+2770 , weight(3.5)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(33)|difficulty(6) ,imodbits_plate ,[],[fac_undeads]],
 ["diabassa_boots", "Assassin Boots", [("diabassa_boots",0)], itp_merchandise| itp_type_foot_armor | itp_attach_armature  ,0,
-1666 , weight(1.5)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(28)|difficulty(0) ,imodbits_armor ],
+1666 , weight(1.5)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(28)|difficulty(0) ,imodbits_armor,[],[fac_undeads]],
 ["sonja_boots", "Hyrcanian Boots", [("sonja_boots",0)], itp_merchandise| itp_type_foot_armor | itp_attach_armature  ,0,
 2100 , weight(2.5)|abundance(0)|head_armor(0)|body_armor(0)|leg_armor(31)|difficulty(0) ,imodbits_armor,
   [(ti_on_init_item, 
@@ -1583,10 +1584,10 @@ items = [
 		(store_trigger_param_2, ":troop_no"),
 		(call_script, "script_set_calves", ":agent_no", ":troop_no"),
 	])
-  ]
+  ],[fac_undeads]
 ],
 ["angela_boots", "Angelic Boots", [("angela_boots",0)], itp_merchandise| itp_type_foot_armor | itp_attach_armature,0,
-1982 , weight(3.0)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(30)|difficulty(5) ,imodbits_plate ],
+1982 , weight(3.0)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(30)|difficulty(5) ,imodbits_plate,[],[fac_undeads] ],
 #DtheHun ARMORS
 ["body_fem", "Clothing", [("custom_armor1",0)], itp_unique  |itp_type_body_armor  |itp_covers_legs |itp_force_show_body ,0,
  0 , weight(0)|abundance(0)|head_armor(0)|body_armor(0)|leg_armor(0)|difficulty(0) ,imodbits_none,
@@ -1745,7 +1746,7 @@ items = [
 		#(cur_item_set_material, s1, 0),  #Base mesh
 		(cur_item_set_material, s1, 1),  #Body - Tatoo? - freez in invetory if no second mesh
 	])
-  ]
+  ],[fac_undeads]
 ],
 ["risty_armor", "Risty's Armor", [("custom_armor1",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_force_show_body ,0,
  1700 , weight(12)|abundance(100)|head_armor(0)|body_armor(36)|leg_armor(8)|difficulty(6) ,imodbits_armor,
@@ -1788,7 +1789,7 @@ items = [
 		#(cur_item_set_material, s1, 0),  #Base mesh
 		(cur_item_set_material, s1, 1),  #Body - Tatoo? - freez in invetory if no second mesh
 	])
-  ]
+  ],[fac_undeads]
 ],
 
  # ":ass_cover" : random "assassin cover" requires "assassin skin" OR "morag_thong"
@@ -1872,7 +1873,7 @@ items = [
 	  #(cur_item_set_material, s1, 0),  #Base mesh
 	  (cur_item_set_material, s1, 1),  #Body - Tatoo? - freez in invetory if no second mesh
     ])
-  ]	
+  ],[fac_undeads]
 ],
 
 ["custom_armor2", "Medium Custom Armor", [("custom_armor1",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_force_show_body ,0,
@@ -1950,7 +1951,7 @@ items = [
 	  #(cur_item_set_material, s1, 0),  #Base mesh
 	  (cur_item_set_material, s1, 1),  #Body - Tatoo? - freez in invetory if no second mesh
     ])
-  ]	
+  ],[fac_undeads]
 ],
 
 ["custom_armor3", "Heavy Custom Armor", [("custom_armor3",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_force_show_body ,0,
@@ -2028,7 +2029,7 @@ items = [
 	  #(cur_item_set_material, s1, 0),  #Base mesh
 	  (cur_item_set_material, s1, 1),  #Body - Tatoo? - freez in invetory if no second mesh
     ])
-  ]	
+  ],[fac_undeads]
 ],
 ["plate_armor_dthun", "Plate Armor", [("custom_armor1",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_force_show_body ,0,
 6900 , weight(27)|abundance(100)|head_armor(0)|body_armor(55)|leg_armor(17)|difficulty(8) ,imodbits_armor,
@@ -2070,7 +2071,7 @@ items = [
 		#(cur_item_set_material, s1, 0),  #Base mesh
 		(cur_item_set_material, s1, 1),  #Body - Tatoo? - freez in invetory if no second mesh
 	])
-  ]
+  ],[fac_undeads]
 ],
 ["diabassa_armor", "Assassin's dress", [("custom_armor1",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_force_show_body ,0,
 3000 , weight(12)|abundance(100)|head_armor(0)|body_armor(40)|leg_armor(12)|difficulty(6) ,imodbits_armor,
@@ -2116,7 +2117,7 @@ items = [
 		#(cur_item_set_material, s1, 0),  #Base mesh
 		(cur_item_set_material, s1, 1),  #Body - Tatoo? - freez in invetory if no second mesh
 	])
-  ]
+  ],[fac_undeads]
 ],
 ["sonja_armor", "Hyrcanian Armor", [("custom_armor1",0)], itp_merchandise| itp_type_body_armor  |itp_covers_legs |itp_force_show_body ,0,
 696 , weight(14)|abundance(100)|head_armor(0)|body_armor(30)|leg_armor(10)|difficulty(0) ,imodbits_armor,
@@ -2158,7 +2159,7 @@ items = [
 		#(cur_item_set_material, s1, 0),  #Base mesh
 		(cur_item_set_material, s1, 1),  #Body - Tatoo? - freez in invetory if no second mesh
 	])
-  ]
+  ],[fac_undeads]
 ],
 ["future_armor10", "Placeholder", [("custom_armor1",0)], itp_type_body_armor  |itp_covers_legs |itp_force_show_body ,0,
  2558 , weight(25)|abundance(100)|head_armor(0)|body_armor(52)|leg_armor(13)|difficulty(8) ,imodbits_armor ],
@@ -2189,7 +2190,7 @@ items = [
 	#WINGS none, plate, angela
 	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 0, 0,3, 0),	
     ])
-  ]	
+  ],[fac_undeads]
 ],
 ["angela_helm", "Angelic diadem", [("angela_helm_band",0)], itp_merchandise| itp_type_head_armor| itp_doesnt_cover_hair ,0, 666, weight(1.5)|abundance(100)|head_armor(42)|body_armor(0)|leg_armor(0)|difficulty(0) ,imodbits_plate,
   [(ti_on_init_item,
@@ -2209,7 +2210,7 @@ items = [
 	#WINGS UP
 	  (call_script, "script_custom_item_prepare_component", ":agent_no", ":troop_no", ":use_agent_slots", ":item_script_no", 2, 0,2, 0),
 	])
-  ]	
+  ],[fac_undeads]
 	 # (cur_item_add_mesh, "@angela_helm_face"),
 	 # (cur_item_add_mesh, "@angela_helm_wings_up"),
 	 # (cur_item_add_mesh, "@angela_helm_wings_down"),
@@ -2219,6 +2220,7 @@ items = [
 ["future_helm04", "Placeholder", [("great_helmet_new_b",0)], itp_type_head_armor |itp_covers_head ,0, 811 , weight(2.5)|abundance(100)|head_armor(51)|body_armor(0)|leg_armor(0)|difficulty(10) ,imodbits_plate ],
 ["future_helm05", "Placeholder", [("great_helmet_new_b",0)], itp_type_head_armor |itp_covers_head ,0, 811 , weight(2.5)|abundance(100)|head_armor(51)|body_armor(0)|leg_armor(0)|difficulty(10) ,imodbits_plate ],
 
+#itm_sonja_sword is the end of adult items
 
 #DtheHun WEAPONS
 ["sonja_sword", "Sword", [("sonja_sword",0)], itp_type_two_handed_wpn|itp_merchandise|itp_primary, itc_bastardsword|itcf_carry_sword_left_hip,
