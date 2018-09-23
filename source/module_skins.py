@@ -404,7 +404,7 @@ skins = [
   
  (
 	 #"calfwoman", skf_use_morph_key_10, "calfwoman",  "calfwoman_calf_l", "f_handL", "corprus_female_head", Break two meshes instead of all BUT two.
-     "calfwoman", skf_use_morph_key_10, "woman_body",  "woman_calf_l", "f_handL", "corprus_female_head",
+     "calfwoman", skf_use_morph_key_10, "woman_body_nude",  "woman_calf_l", "f_handL", "corprus_female_head",
      [(40, 0, -1.0, 0.0, "Caucasian 2"),
      (30, 0, 0.0, 1.0, "Caucasian 1"),
      (10, 0, 0.0, 1.0, "Forehead"),
