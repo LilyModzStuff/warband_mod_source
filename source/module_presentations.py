@@ -20941,7 +20941,10 @@ presentations = [
 			(store_sub, ":surplus", ":land_total", ":acres_needed"),
 			(store_sub, ":revenue", ":prosperity", 50),
 			(val_add, ":revenue", 100),
+			(assign, ":rent_player", 0),			
 			(assign, ":upkeep_player", 0),
+			(try_begin),
+				(gt, ":land_player", 0),												# 	Fix 
 			(try_begin),															#	Player Balance
 				(le, ":land_total", ":acres_needed"),
 				(store_mul, ":rent_player", ":land_player", ":revenue"),										
@@ -20953,10 +20956,11 @@ presentations = [
 					(store_mul, ":rent_player", ":land_player", ":penalty"),
 				(else_try),
 					(store_sub, ":non_rented", ":surplus", 15),
-					(val_sub, ":land_player", ":non_rented"),
-					(store_mul, ":rent_player", ":land_player", 85),
+						(store_sub, ":land_rented", ":land_player", ":non_rented"),					# Fixed, wrong display # if player owned too much land due to val_sub usage
+						(store_mul, ":rent_player", ":land_rented", 85),
 					(store_mul, ":upkeep_player", ":non_rented", -50),
 				(try_end),
+			(try_end),
 			(try_end),
  
 			(store_add, ":balance", ":rent_player", ":upkeep_player"),
