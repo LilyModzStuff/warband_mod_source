@@ -188,3 +188,4 @@ snd_swallow = 186
 snd_gbt_lick = 187
 snd_orgasm = 188
 snd_dice_roll = 189
+snd_woman_lose_armor = 190

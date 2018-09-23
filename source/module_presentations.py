@@ -12,6 +12,7 @@ from header_terrain_types import *
 from module_items import *
 #SB : import colors
 from module_factions import *
+from header_items import *
 ##diplomacy end
 
 from compiler import *
@@ -12880,6 +12881,106 @@ presentations = [
       ]),
     ]),
 
+
+#  ("troop_ratio_bar", prsntf_read_only, mesh_pic_bandits,
+#  [
+#    (ti_on_presentation_load,
+#    [
+#      (assign, "$presentation_troop_ratio_bar_active", 1),
+#      (set_fixed_point_multiplier, 1000),
+#      (create_mesh_overlay, "$g_presentation_obj_1", "mesh_status_troop_ratio_bar"),
+#      (position_set_x, pos1, 30),
+#      (position_set_y, pos1, 700),
+#      (overlay_set_position, "$g_presentation_obj_1", pos1),
+#      (position_set_x, pos1, 35),
+#      (position_set_y, pos1, 713),
+#      (create_mesh_overlay, "$g_presentation_obj_2", "mesh_white_plane"),
+#      (overlay_set_color, "$g_presentation_obj_2", 11149087),
+#      (overlay_set_position, "$g_presentation_obj_2", pos1),
+#      (create_mesh_overlay, "$g_presentation_obj_3", "mesh_white_plane"),
+#      (overlay_set_color, "$g_presentation_obj_3", 2039722),
+#      (overlay_set_position, "$g_presentation_obj_3", pos1),
+#      (create_mesh_overlay, "$g_presentation_obj_4", "mesh_white_plane"),
+#      (overlay_set_color, "$g_presentation_obj_4", 2075167),
+#      (overlay_set_position, "$g_presentation_obj_4", pos1),
+#      (create_mesh_overlay, "$g_presentation_obj_5", "mesh_status_troop_ratio_bar_button"),
+#      (position_set_x, pos1, 35),
+#      (position_set_y, pos1, 700),
+#      (overlay_set_position, "$g_presentation_obj_5", pos1),
+#      (create_mesh_overlay, "$g_presentation_obj_6", "mesh_status_troop_ratio_bar_button"),
+#      (position_set_x, pos1, 275),
+#      (position_set_y, pos1, 700),
+#      (overlay_set_position, "$g_presentation_obj_6", pos1),
+#      (create_mesh_overlay, "$g_presentation_obj_7", "mesh_status_troop_ratio_bar_button"),
+#      (create_mesh_overlay, "$g_presentation_obj_8", "mesh_status_troop_ratio_bar_button"),
+#      (presentation_set_duration, 999999),
+#    ]),
+#    (ti_on_presentation_run,
+#    [
+#      (store_trigger_param_1, ":var0"),
+#      (set_fixed_point_multiplier, 1000),
+#      (assign, ":var1", 0),
+#      (assign, ":var2", 0),
+#      (assign, ":var3", 0),
+#      (assign, ":var4", 0),
+#      (try_for_agents, ":var5"),
+#        (agent_is_human, ":var5"),
+#        (agent_is_alive, ":var5"),
+#        (agent_get_party_id, ":var6", ":var5"),
+#        (try_begin),
+#          (eq, ":var6", "p_main_party"),
+#          (val_add, ":var1", 1),
+#        (else_try),
+#          (agent_is_ally, ":var5"),
+#          (val_add, ":var2", 1),
+#        (else_try),
+#          (val_add, ":var3", 1),
+#        (end_try),
+#      (end_try),
+#      (val_add, ":var4", ":var1"),
+#      (val_add, ":var4", ":var2"),
+#      (val_add, ":var4", ":var3"),
+#      (position_set_x, pos1, 12000),
+#      (position_set_y, pos1, 300),
+#      (overlay_set_size, "$g_presentation_obj_2", pos1),
+#      (store_add, ":var7", ":var1", ":var2"),
+#      (val_mul, ":var7", 12000),
+#      (val_div, ":var7", ":var4"),
+#      (position_set_x, pos1, ":var7"),
+#      (position_set_y, pos1, 300),
+#      (overlay_set_size, "$g_presentation_obj_3", pos1),
+#      (store_mul, ":var8", ":var1", 12000),
+#      (val_div, ":var8", ":var4"),
+#      (position_set_x, pos1, ":var8"),
+#      (position_set_y, pos1, 300),
+#      (overlay_set_size, "$g_presentation_obj_4", pos1),
+#      (store_add, ":var9", ":var1", ":var2"),
+#      (val_mul, ":var9", 240),
+#      (val_div, ":var9", ":var4"),
+#      (val_add, ":var9", 35),
+#      (position_set_x, pos1, ":var9"),
+#      (position_set_y, pos1, 700),
+#      (overlay_set_position, "$g_presentation_obj_7", pos1),
+#      (store_mul, ":var10", ":var1", 240),
+#      (val_div, ":var10", ":var4"),
+#      (val_add, ":var10", 35),
+#      (position_set_x, pos1, ":var10"),
+#      (position_set_y, pos1, 700),
+#      (overlay_set_position, "$g_presentation_obj_8", pos1),
+#      (try_begin),
+#        (eq, "$presentation_troop_ratio_bar_active", 1),
+#        (gt, ":var0", 200),
+#        (game_key_clicked, gk_view_orders),
+#        (assign, "$presentation_troop_ratio_bar_active", 0),
+#        (presentation_set_duration, 0),
+#        (start_presentation, "prsnt_battle"),
+#      (end_try),
+#    ]),
+ # ]),
+
+
+
+
 ##diplomacy begin
   ("dplmc_autoloot_upgrade_management", 0, mesh_load_window, [
     (ti_on_presentation_load,
@@ -17818,9 +17919,20 @@ presentations = [
         (set_fixed_point_multiplier, 1000),
         (store_div, ":map_ratio", ":map_height", 100),
         (store_div, ":map_ratio", ":map_width", ":map_ratio"),
+
+        ## CC
+        (assign, ":minimap_ratio", 100),
+        (try_begin),
+          (eq, "$g_minimap_style", 1),
+          (assign, ":minimap_ratio", 60),
+        (else_try),
+          (eq, "$g_minimap_style", 2),
+          (assign, ":minimap_ratio", 80),
+        (try_end),
+        ## CC
         (try_begin),
           (gt, ":map_ratio", 100),
-          (assign, "$g_battle_map_width", 300),
+(store_mul, "$g_battle_map_width", ":minimap_ratio", 3), ## CC
           (store_div, "$g_battle_map_scale", ":map_width", "$g_battle_map_width"),
           (store_div, "$g_battle_map_height", ":map_height", "$g_battle_map_scale"),
         (else_try),
@@ -18987,6 +19099,16 @@ presentations = [
             (overlay_animate_to_color, "$g_presentation_but8_weapon_usage", 250, 0xFFFFFF),
             (overlay_animate_to_color, "$g_presentation_obj_battle_name8", 250, 0xFFFFFF),
           (try_end),
+         (presentation_set_duration, 0),
+          ## CC
+          (try_begin),
+            (eq, "$g_minimap_style", 0),
+            (assign, ":dest_presentation", "prsnt_mini_map_bar"),
+          (else_try),
+            (assign, ":dest_presentation", "prsnt_mini_map"),
+          (try_end),
+          (start_presentation, ":dest_presentation"),
+          ## CC
         (try_end),
     ]),
     # (ti_on_presentation_run,
@@ -20958,6 +21080,1877 @@ presentations = [
 	]),
 	##	Floris Bank End
 	  
+	#custom armor
+  #takes g_current_opened_item_details as parameter
+  #takes g_current_opened_troop_dthehun as parameter
+  ("customize_armor", prsntf_manual_end_only, 0, [ 
+    (ti_on_presentation_load,
+     [(set_fixed_point_multiplier, 1000),
+
+      (assign, "$g_presentation_credits_obj_1", -1),		#tableau_custom_armor_window
+      (assign, "$g_presentation_credits_obj_2", -1),		#tattoo
+      (assign, "$g_presentation_credits_obj_3", -1),		#text - previous item
+      (assign, "$g_presentation_credits_obj_4", -1),		#text - next item
+      (assign, "$g_presentation_credits_obj_5", -1),		#button - set fix
+      (assign, "$g_presentation_obj_item_select_1", -1),	#dropboxes - item components
+	  (assign, "$g_dthehun_sync_random", 0),		#for character tableau random component alpha mask sync.
+
+	  #background screen
+      (try_begin),
+        (create_mesh_overlay, reg0, "mesh_custom_bg"),
+        (position_set_x, pos1, 0),
+        (position_set_y, pos1, 0),
+        (overlay_set_position, reg0, pos1),
+        (position_set_x, pos1, 1000),
+        (position_set_y, pos1, 1000),
+        (overlay_set_size, reg0, pos1),
+      (try_end),
+      #character background window
+     # (try_begin),
+     #   (create_mesh_overlay, reg0, "mesh_mp_score_a"),
+     #   (position_set_x, pos1, 295),
+     #   (position_set_y, pos1, 115),
+     #   (overlay_set_position, reg0, pos1),
+     #   (position_set_x, pos1, 1000),
+     #   (position_set_y, pos1, 1000),
+     #   (overlay_set_size, reg0, pos1),
+     # (try_end),
+
+      (item_get_slot, ":sub_part_total", "$g_current_opened_item_details", slot_item_num_components),
+      (item_get_slot, ":script_no", "$g_current_opened_item_details", slot_item_init_script),
+   
+#COMBOS2 begin
+	  (try_begin),
+        (gt, ":script_no", 0),
+        (assign, ":cur_x", 15),
+        (assign, ":cur_y", 627),
+		(position_set_x, pos3, 800),
+		(position_set_y, pos3, 800),
+        (try_for_range, ":sub_part", 0, ":sub_part_total"),
+		#button (empty)
+			#(assign, ":cur_mesh_slot", -1),
+			(item_get_type, ":item_type", "$g_current_opened_item_details"),
+			(try_begin), #armor or helmet?
+				(eq, ":item_type", itp_type_body_armor),
+				(assign, ":cur_mesh_slot", slot_troop_armor_slots_begin),
+			(else_try),
+				(eq, ":item_type", itp_type_head_armor),
+				(assign, ":cur_mesh_slot", slot_troop_helm_slots_begin),
+			(try_end),
+			(val_add, ":cur_mesh_slot", ":sub_part"),
+			#try: (ge, ":cur_mesh_slot", 0), # <- item is helm or armor
+			(create_image_button_overlay, ":overlay", "mesh_custom_button_up", "mesh_custom_button_down"),
+			(position_set_x, pos1, ":cur_x"),
+			(position_set_y, pos1, ":cur_y"),
+			(overlay_set_position, ":overlay", pos1),		
+		#item_image	
+			(store_add, ":mesh_x", ":cur_x", 50),
+			(store_add, ":mesh_y", ":cur_y", 50),
+			(position_set_x, pos2, ":mesh_x"),
+			(position_set_y, pos2, ":mesh_y"),		
+			(troop_get_slot, ":cur_value", "$g_current_opened_troop_dthehun", ":cur_mesh_slot"),
+			(call_script, ":script_no", -1, "$g_current_opened_troop_dthehun", ":sub_part", ":cur_value"), #-> s1(item_name), reg0(item_no)
+			(try_begin),
+				(neg|str_is_empty, s1),
+				(assign, ":item_no", reg0),	
+				(create_mesh_overlay_with_item_id, reg0, ":item_no"),		  # <- 0: Invalid Item, n: Item Copmponent 
+			(else_try),
+				(create_mesh_overlay_with_item_id, reg0, "itm_chest_b"), # <- RANDOM - add item overlay keep indexes unchanged
+			(try_end),
+			(overlay_set_position, reg0, pos2),
+			(overlay_set_size, reg0, pos3),		
+			(val_sub, ":cur_y", 100), #resize this depending on amount in each combo?
+			(try_begin),
+				(lt, ":cur_y", 0),	#new column for combos #DtheHun
+				(assign, ":cur_y", 627),
+				(val_add, ":cur_x", 100),
+				(position_set_x, pos1, ":cur_x"),
+			(try_end),
+		(try_end),
+        #store as global
+        (assign, "$g_presentation_obj_item_select_1", ":sub_part"),
+      
+		(try_begin),
+		#show component selection palette
+			(neq, "$g_presentation_state", 0),	#1-14
+			(try_begin),
+				(le, "$g_presentation_state", ":sub_part_total"),
+				(assign, "$g_presentation_obj_item_select_1", "$g_presentation_state"), # remember selected mesh
+			(try_end),
+	#	  (assign, reg0, "$g_presentation_state"),
+	#	  (display_message, "@State: {reg0}"),
+			(assign, ":cur_y", 627),
+			(assign, ":cur_x", 885),
+			(position_set_x, pos1, ":cur_x"),
+			(position_set_y, pos1, ":cur_y"),
+			(assign, ":sub_part", "$g_presentation_state"),
+			(val_sub, ":sub_part", 1), #0-13
+			(call_script, ":script_no", -1, "$g_current_opened_troop_dthehun", ":sub_part", 0), #-> s1(item_name), reg0(item_no)
+			(assign, ":sub_total", "$g_custom_armor_param_count"),		 		#$g <- setted up in init script
+			(try_for_range, ":sub_material", 0, ":sub_total"),	#add 0.-> n. element
+				(call_script, ":script_no", -1, "$g_current_opened_troop_dthehun", ":sub_part", ":sub_material"),
+				(neg|str_is_empty, s1),	# -> no empty button after last component (CENSURE bypass problem)
+				(create_image_button_overlay, ":overlay", "mesh_custom_button_up", "mesh_custom_button_down"),
+				(position_set_x, pos1, ":cur_x"),
+				(position_set_y, pos1, ":cur_y"),
+				(overlay_set_position, ":overlay", pos1),
+				(try_begin),
+				#add subcomponent images
+					(neg|str_is_empty, s1),
+					(assign, ":item_no", reg0),	
+					(create_mesh_overlay_with_item_id, reg0, ":item_no"),
+					(store_add, ":mesh_x", ":cur_x", 50),
+					(store_add, ":mesh_y", ":cur_y", 50),
+					(position_set_x, pos2, ":mesh_x"),
+					(position_set_y, pos2, ":mesh_y"),
+					(overlay_set_position, reg0, pos2),
+					(overlay_set_size, reg0, pos3),
+				(try_end),	
+				(val_sub, ":cur_y", 100),
+				(try_begin),
+					(lt, ":cur_y", 0),	#new column for combos #DtheHun
+					(assign, ":cur_y", 625),
+					(val_sub, ":cur_x", 100),
+					(position_set_x, pos1, ":cur_x"),
+				(try_end),
+			(try_end),
+		(try_end),
+      (try_end),
+	#COMBOS2 end
+	
+	#TEXT: NUM OF COMPONENTS
+      (assign, reg1, ":sub_part_total"),
+      (val_max, reg1, 0),
+      (str_store_item_name, s1, "$g_current_opened_item_details"),
+      (create_text_overlay, reg0, "@{s1} has {reg1} variable components", tf_center_justify|tf_single_line|tf_with_outline),
+      (position_set_x, pos1, 500),
+      (position_set_y, pos1, 680),
+      (overlay_set_position, reg0, pos1),
+      (overlay_set_color, reg0, 0xFFFFFF),
+	#CHARACTER DISPLAY
+      (create_image_button_overlay_with_tableau_material, "$g_presentation_credits_obj_1", -1, "tableau_custom_armor_window", "$g_current_opened_troop_dthehun"),
+      (position_set_x, pos1, 320),	#380
+      (position_set_y, pos1, 130),	#200
+      (overlay_set_position, "$g_presentation_credits_obj_1", pos1),
+      (position_set_x, pos1, 1500),
+      (position_set_y, pos1, 1500),
+      (overlay_set_size, "$g_presentation_credits_obj_1", pos1),
+	#TATTOO
+      (try_begin),
+	  	(troop_get_type, ":is_female", "$g_current_opened_troop_dthehun"),
+		(ge, ":is_female", 1),
+		(assign, ":colors_begin", "str_ca_skin"),
+		(assign, ":colors_end", "str_ca_custom"),
+		(val_add, ":colors_end", 1),
+        (create_combo_label_overlay, "$g_presentation_credits_obj_2"),		#2DIR BUTTON - TATTOO SELECT
+        (position_set_x, pos1, 500),
+        (position_set_y, pos1, 80),
+        (overlay_set_position, "$g_presentation_credits_obj_2", pos1),
+        (try_for_range, ":color", ":colors_begin", ":colors_end"),
+          (overlay_add_item, "$g_presentation_credits_obj_2", ":color"), 	# string no
+        (try_end),
+        (troop_get_slot, ":cur_color", "$g_current_opened_troop_dthehun", slot_troop_tattoo),		
+        (overlay_set_val, "$g_presentation_credits_obj_2", ":cur_color"), 	# label index (0,1,2,3...)
+      (try_end),
+	  (try_begin),
+	    (item_slot_ge, "$g_current_opened_item_details", slot_item_num_components, 1),	#item is customizable 
+	#SELECTED ITEM ICON
+		(position_set_y, pos1, 600),
+		(try_begin),
+			(eq, 1, 0), # NOT DISPLAY
+			(create_mesh_overlay_with_item_id, reg0, "$g_current_opened_item_details", tf_center_justify|tf_single_line|tf_with_outline),	#BUTTON - ITEM SELECT
+			(position_set_x, pos1, 490),
+			(overlay_set_position, reg0, pos1),
+		(try_end),
+	#OTHER EQUIPPED ITEM - PREVIOUS
+		(assign, ":had_active", 0),
+		(assign, ":first_item", -1),
+		(assign, ":end",  ek_foot),
+		(try_for_range_backwards, ":item_slot", ek_item_0, ":end"),
+			(troop_get_inventory_slot, ":item_no", "$g_current_opened_troop_dthehun", ":item_slot"),
+			(gt, ":item_no", -1),										#has equipped item in the slot
+			(item_slot_ge, ":item_no", slot_item_num_components, 1),	#item is customizable 
+			(try_begin),
+				(eq, ":had_active", 0),
+				(try_begin),
+					(eq, ":first_item", -1),
+					(assign, ":first_item", ":item_no"),
+				(try_end),
+				(try_begin),	
+					(eq, ":item_no", "$g_current_opened_item_details"),
+					(assign, ":had_active", 1),
+				(try_end),
+			(else_try),
+				(eq, ":had_active", 1),
+				(assign, ":next_item", ":item_no"), 
+				(assign, ":end", -1), #END CYCLE
+				(assign, ":had_active", 2),
+			(try_end),
+		(try_end),
+		(try_begin),
+			(eq, ":had_active", 1), #last item was active, no next item setted -> set first item (could remain the same)
+			(assign, ":next_item", ":first_item"), 
+		(try_end),
+		(try_begin),
+			(neq, ":next_item", "$g_current_opened_item_details"), #only if next item is not the same as the selected
+			(create_mesh_overlay_with_item_id, "$g_presentation_credits_obj_3", ":next_item", tf_center_justify|tf_single_line|tf_with_outline),	#BUTTON - ITEM SELECT
+			#(str_store_item_name, s1, ":next_item"),
+			#(create_button_overlay, "$g_presentation_credits_obj_3", "@{s1}", tf_center_justify|tf_single_line|tf_with_outline),	#BUTTON - ITEM SELECT
+			(position_set_x, pos1, 360),
+			#(position_set_y, pos1, 600),
+			(overlay_set_position, "$g_presentation_credits_obj_3", pos1),
+			(assign, ":prev_item", ":next_item"),
+		#OTHER EQUIPPED ITEM - NEXT
+			(assign, ":had_active", 0),
+			(assign, ":first_item", -1),
+			(assign, ":end",  ek_foot),
+			(try_for_range, ":item_slot", ek_item_0, ":end"),
+				(troop_get_inventory_slot, ":item_no", "$g_current_opened_troop_dthehun", ":item_slot"),
+				(gt, ":item_no", -1),										#has equipped item in the slot
+				(item_slot_ge, ":item_no", slot_item_num_components, 1),	#item is customizable 
+				(try_begin),
+					(eq, ":had_active", 0),
+					(try_begin),
+						(eq, ":first_item", -1),
+						(assign, ":first_item", ":item_no"),
+					(try_end),
+					(try_begin),	
+						(eq, ":item_no", "$g_current_opened_item_details"),
+						(assign, ":had_active", 1),
+					(try_end),
+				(else_try),
+					(eq, ":had_active", 1),
+					(assign, ":next_item", ":item_no"), 
+					(assign, ":end", -1), #END CYCLE
+					(assign, ":had_active", 2),
+				(try_end),
+			(try_end),
+			(try_begin),
+				(eq, ":had_active", 1), #last item was active, no next item setted -> set first item (could remain the same)
+				(assign, ":next_item", ":first_item"), 
+			(try_end),
+			(try_begin), # add button only if prev item != next item (there are more than 2 customizable items equipped)
+				(neq, ":prev_item", ":next_item"),
+				(create_mesh_overlay_with_item_id, "$g_presentation_credits_obj_4", ":next_item", tf_center_justify|tf_single_line|tf_with_outline),	#BUTTON - ITEM SELECT
+				#(str_store_item_name, s1, ":next_item"),
+				#(create_button_overlay, "$g_presentation_credits_obj_4", "@{s1}", tf_center_justify|tf_single_line|tf_with_outline),	#BUTTON - ITEM SELECT 
+				(position_set_x, pos1, 620),
+				#(position_set_y, pos1, 600),
+				(overlay_set_position, "$g_presentation_credits_obj_4", pos1),
+			(try_end),
+		  (try_end),
+		#SET FIX
+		  (position_set_y, pos1, 30),
+		  (create_game_button_overlay, "$g_presentation_credits_obj_5", "@Fix"),		#BUTTON - SET FIX
+		  (position_set_x, pos1, 500),
+		  (overlay_set_position, "$g_presentation_credits_obj_5", pos1),	  
+		#RANDOMIZE
+		  (create_game_button_overlay, "$g_presentation_obj_profile_banner_selection_1", "@Mix"),	#BUTTON - RANDOMIZE
+		  (position_set_x, pos1, 320),
+		  (overlay_set_position, "$g_presentation_obj_profile_banner_selection_1", pos1),
+	  (try_end),
+	#DONE 
+	  (create_game_button_overlay, "$g_presentation_obj_profile_banner_selection_2", "str_done"),	#BUTTON - DONE
+      (position_set_x, pos1, 680),
+	  (position_set_y, pos1, 30),
+      (overlay_set_position, "$g_presentation_obj_profile_banner_selection_2", pos1),
+      (presentation_set_duration, 999999),
+    ]),
+      
+    (ti_on_presentation_mouse_enter_leave,
+       [(store_trigger_param_1, ":object"),
+		(eq, 1, 0),	#NOT IN USE
+        (try_begin),
+          (eq, ":object", "$g_presentation_credits_obj_1"),
+          (store_trigger_param_2, ":enter_leave"),
+          (try_begin),
+            (eq, ":enter_leave", 0),
+            (try_begin),
+              (assign, ":item_modifier", imod_plain),
+              (item_get_type, ":item_type", "$g_current_opened_item_details"),
+              (try_begin),
+                (is_between, ":item_type", itp_type_head_armor, itp_type_pistol), #head/body/foot/hand
+                (val_add, ":item_type", ek_head - itp_type_head_armor),
+              (else_try), #pretty sure you can't customize ammo but w/e
+                (this_or_next|is_between, ":item_type", itp_type_one_handed_wpn, itp_type_goods),
+                (is_between, ":item_type", itp_type_pistol, itp_type_animal),
+                #find it on the troop
+                (try_for_range, ":slot_no", ek_item_0, ek_head),
+                  (troop_get_inventory_slot, ":item_no", "$g_current_opened_troop_dthehun", ":slot_no"),
+                  (eq, ":item_no", "$g_current_opened_item_details"),
+                  (assign, ":item_type", ":slot_no"),
+                (try_end),
+              (try_end),
+              (is_between, ":item_type", ek_item_0, ek_horse), #validate input
+              (troop_get_inventory_slot_modifier, ":item_modifier", "$g_current_opened_troop_dthehun", ":item_type"),
+              # (overlay_get_position, pos0, ":object"),
+              (mouse_get_position, pos0),
+              (show_item_details_with_modifier, "$g_current_opened_item_details", ":item_modifier", pos0, 100),
+            (try_end),
+          (else_try),
+            (eq, ":enter_leave", 1),
+            (close_item_details),
+          (try_end),
+        (try_end),
+        ]),
+
+    (ti_on_presentation_event_state_change,
+      [
+        (store_trigger_param_1, ":object"),
+        (store_trigger_param_2, ":value"),	
+	#  (assign, reg0, ":object"),
+    #  (assign, reg1, ":value"),
+	#  (display_message, "@reg = object: {reg0} value: {reg1}"),	
+        (assign, ":continue", 0),	
+		(item_get_slot, ":sub_part_total", "$g_current_opened_item_details", slot_item_num_components),
+		#(item_get_slot, ":script_no", "$g_current_opened_item_details", slot_item_init_script),
+		(try_begin),
+	#CHARACTER window
+          (eq, ":object", "$g_presentation_credits_obj_1"), #tableau, switch view sides
+          (val_add, "$g_custom_armor_angle", 1),
+          (val_mod, "$g_custom_armor_angle", 6), #60x6  
+		(else_try),
+	#TATTOO toggler
+          (eq, ":object", "$g_presentation_credits_obj_2"), #combolabel, switch tattoos
+		  (troop_set_slot, "$g_current_opened_troop_dthehun", slot_troop_tattoo, ":value"),		  
+        (else_try),
+	#RANDOMIZE reset slots to (-1)
+			(eq, ":object", "$g_presentation_obj_profile_banner_selection_1"),
+			(item_get_type, ":item_type", "$g_current_opened_item_details"),
+			(try_begin), #armor or helmet?
+				(eq, ":item_type", itp_type_body_armor),
+				(assign, ":begin", slot_troop_armor_slots_begin),
+			(else_try),
+				(eq, ":item_type", itp_type_head_armor),
+				(assign, ":begin", slot_troop_helm_slots_begin),
+			(try_end),
+			(store_add, ":end", ":begin", ":sub_part_total"),
+			(try_for_range, ":slot_no", ":begin", ":end"),
+				(troop_set_slot, "$g_current_opened_troop_dthehun", ":slot_no", -1), # randomize = -1
+			(try_end),
+        (else_try),
+	#SET FIX, from "trp_array_a"
+			(eq, ":object", "$g_presentation_credits_obj_5"),
+			(item_get_type, ":item_type", "$g_current_opened_item_details"),
+			(try_begin), #armor or helmet?
+				(eq, ":item_type", itp_type_body_armor),
+				(assign, ":begin", slot_troop_armor_slots_begin),
+			(else_try),
+				(eq, ":item_type", itp_type_head_armor),
+				(assign, ":begin", slot_troop_helm_slots_begin),
+			(try_end),
+			(store_add, ":end", ":begin", ":sub_part_total"),
+			(try_for_range, ":slot_no", ":begin", ":end"),
+				(troop_get_slot, ":last_val", "trp_temp_array_a", ":slot_no"), # <- saved before tableou alpha (new randomization)
+				(troop_set_slot, "$g_current_opened_troop_dthehun", ":slot_no", ":last_val"),
+			(try_end),
+        (else_try),
+	#DONE - close
+          (eq, ":object", "$g_presentation_obj_profile_banner_selection_2"),
+          (assign, ":continue", -1),
+          (presentation_set_duration, 0),																		 #- /NOT IN USE
+        (else_try),
+	#COMBOS - item components || subcomponents palette
+		  (ge, "$g_presentation_obj_item_select_1", 0),	#	-1: by default, 0:for 1 customizable element, ... 
+		# object -> selected component index
+		  (store_sub, ":mesh_num", ":object", 1),
+		  (val_div, ":mesh_num", 2),
+		  (val_add, ":mesh_num", 1),
+		  (assign, "$g_presentation_state", ":mesh_num"), #(1-14)
+		  (val_sub, ":mesh_num", 1),	#(0-13)  
+	#	(assign, reg0 ,":sub_part_total"),
+	#	(display_message, "@SPT: {reg0}"),
+			(try_begin),
+				(gt, "$g_presentation_state", ":sub_part_total"), #$g_presentation_state - has the mesh num (no+1)
+				(assign, "$g_presentation_state", "$g_presentation_obj_item_select_1"),	# keep open palette for last mesh
+				(store_sub, ":component", ":mesh_num", ":sub_part_total"),
+	#		  (assign, reg0 ,":mesh_num"),
+	#		  (display_message, "@MN: {reg0}"),		
+				
+				(store_sub, ":cur_mesh_slot", "$g_presentation_obj_item_select_1", 1),
+				(item_get_type, ":item_type", "$g_current_opened_item_details"),
+				(try_begin),
+					(eq, ":item_type", itp_type_body_armor),
+					(val_add, ":cur_mesh_slot", slot_troop_armor_slots_begin),
+				(else_try),
+					(eq, ":item_type", itp_type_head_armor),
+					(val_add, ":cur_mesh_slot", slot_troop_helm_slots_begin),
+				(try_end),
+				
+				(try_begin),
+				# CENSORED
+					#(eq, "$g_cenzura", 1),
+					(eq, 1, 0),
+					(eq, ":item_type", itp_type_body_armor),	# body armor component
+					(assign, ":censure_response", 0),
+					(try_begin),
+						(eq, ":component", 0),						# remove
+						(try_begin),
+							(eq, ":cur_mesh_slot", slot_troop_armor_slots_begin + 0),	#SKIN -> grant CHEST piece and PANTY
+							(try_begin),	
+								(troop_get_slot, ":substitute", "$g_current_opened_troop_dthehun", slot_troop_armor_slots_begin + 1),
+								(eq, ":substitute", 0),	# not has chest piece
+								(troop_set_slot, "$g_current_opened_troop_dthehun", slot_troop_armor_slots_begin + 1, 1),	#equip first CHEST
+								(assign, ":censure_response", 1),
+							(try_end),	
+							(try_begin),
+								(troop_get_slot, ":substitute", "$g_current_opened_troop_dthehun", slot_troop_armor_slots_begin + 2),
+								(eq, ":substitute", 0),	# not has panty
+								(troop_set_slot, "$g_current_opened_troop_dthehun", slot_troop_armor_slots_begin + 2, 1),	#equip first PANTY
+								(assign, ":censure_response", 1),
+							(try_end),				
+						(else_try),
+							(eq, ":cur_mesh_slot", slot_troop_armor_slots_begin + 1),	#CHEST -> grant SKIN piece
+							(troop_get_slot, ":substitute", "$g_current_opened_troop_dthehun", slot_troop_armor_slots_begin + 0),
+							(le, ":substitute", 0),	# not has skin piece || random
+							(troop_set_slot, "$g_current_opened_troop_dthehun", slot_troop_armor_slots_begin + 0, 1),	#equip first SKIN
+							(assign, ":censure_response", 1),
+						(else_try),
+							(eq, ":cur_mesh_slot", slot_troop_armor_slots_begin + 2),	#PANTY -> grant SKIN piece (not assassin)
+							(troop_get_slot, ":substitute", "$g_current_opened_troop_dthehun", slot_troop_armor_slots_begin + 0),
+							(le, ":substitute", 1),	# not has skin piece || has assassin skin (no bottom) || random
+							(troop_set_slot, "$g_current_opened_troop_dthehun", slot_troop_armor_slots_begin + 0, 2),	#equip second SKIN
+							(assign, ":censure_response", 1),
+						(try_end),
+					(else_try),
+						(eq, ":component", 1),						# add first
+						(eq, ":cur_mesh_slot", slot_troop_armor_slots_begin + 0),	#SKIN -> grant PANTY (assassin skin has no bottom)
+						(troop_set_slot, "$g_current_opened_troop_dthehun", slot_troop_armor_slots_begin + 2, 1),	#equip first panty
+					(try_end),
+					(try_begin),
+						(eq, ":censure_response", 1),
+						(store_random_in_range, ":censure_response", "str_censure_response_0", "str_censure_response_end"),
+						(str_store_troop_name, s0, "$g_current_opened_troop_dthehun"),
+						(str_store_string, s1, ":censure_response"),
+						(try_begin),
+							(eq, "$g_current_opened_troop_dthehun", "trp_player"),
+							(assign, ":text_color", 0xFFFFFF),
+						(else_try),
+							(assign, ":text_color", 0x00FF00),
+						(try_end),
+						(display_message, "@[{s0}]: {s1}", ":text_color"),
+					(try_end),
+				(try_end),
+				#SPECIAL CASES (assa cover, Angela cover)
+				(try_begin),
+					(eq, ":item_type", itp_type_body_armor),	# body armor component
+					(try_begin),			
+						(this_or_next|eq, ":component", 1),						# add assa cover
+						             (eq, ":component", 2),						# add Angela cover
+						(eq, ":cur_mesh_slot", slot_troop_armor_slots_begin + 4),	#SKIRT: assa cover -> grant something to hang it from
+						(try_begin),
+							(this_or_next|troop_slot_eq, "trp_temp_array_a", slot_troop_armor_slots_begin + 0, 1), 	#has assa skin
+							(this_or_next|troop_slot_eq, "trp_temp_array_a", slot_troop_armor_slots_begin + 2, 1), 	#has assa panty
+							(this_or_next|troop_slot_eq, "trp_temp_array_a", slot_troop_armor_slots_begin + 2, 2), 	#has Angela panty
+							(troop_slot_eq, "trp_temp_array_a", slot_troop_armor_slots_begin + 3, 1), 				#has assa belt	
+						(else_try),	#<- there is nothing to hanging on it
+							(troop_set_slot, "$g_current_opened_troop_dthehun", slot_troop_armor_slots_begin + 2, 1),	#equip assa panty
+						(try_end),
+					(try_end),
+				(try_end),
+				# Do the change anyway (if the game mode is CENSORED, substitution has already been granted at this point)
+				(troop_set_slot, "$g_current_opened_troop_dthehun", ":cur_mesh_slot", ":component"), # set(remove) component mesh
+			(try_end),
+		  
+        (try_end),
+        (try_begin),
+          (eq, ":continue", 0),
+          (start_presentation, "prsnt_customize_armor"),
+          (try_begin), #refresh me
+            # (in_meta_mission),
+            (get_player_agent_no, ":player_agent"),
+            (gt, ":player_agent", -1),
+            (agent_has_item_equipped, ":player_agent", "$g_current_opened_item_details"),
+            (agent_unequip_item, ":player_agent", "$g_current_opened_item_details"),
+			(agent_set_slot, ":player_agent", slot_agent_has_been_here_before, 0), # use troop slots
+            (agent_equip_item, ":player_agent", "$g_current_opened_item_details"),
+          (try_end),
+        (try_end),
+      ]),
+	  
+	  
+	(ti_on_presentation_mouse_press, #click on items
+       [	
+		(store_trigger_param_1, ":object"),
+		(assign, ":continue", 0),
+		(try_begin),	   
+	  #ITEM toggler - previous
+			(eq, ":object", "$g_presentation_credits_obj_3"),
+			(assign, "$g_presentation_state", 0),
+			(assign, ":continue", 1),
+			(assign, ":had_active", 0),
+			(assign, ":first_item", -1),
+			(assign, ":end",  ek_foot),
+			(try_for_range_backwards, ":item_slot", ek_item_0, ":end"),
+				(troop_get_inventory_slot, ":item_no", "$g_current_opened_troop_dthehun", ":item_slot"),
+				(gt, ":item_no", -1),										#has equipped item in the slot
+				(item_slot_ge, ":item_no", slot_item_num_components, 1),	#item is customizable 
+				(try_begin),
+					(eq, ":had_active", 0),
+					(try_begin),
+						(eq, ":first_item", -1),
+						(assign, ":first_item", ":item_no"),
+					(try_end),
+					(try_begin),	
+						(eq, ":item_no", "$g_current_opened_item_details"),
+						(assign, ":had_active", 1),
+					(try_end),
+				(else_try),
+					(eq, ":had_active", 1),
+					(assign, ":next_item", ":item_no"), 
+					(assign, ":end", -1), #END CYCLE
+					(assign, ":had_active", 2),
+				(try_end),
+			(try_end),
+			(try_begin),
+				(eq, ":had_active", 1), #last item was active, no next item setted -> set first item (could remain the same)
+				(assign, ":next_item", ":first_item"), 
+			(try_end),
+			(assign, "$g_current_opened_item_details", ":next_item"),
+        (else_try),
+	  #ITEM toggler - next
+			(eq, ":object", "$g_presentation_credits_obj_4"),
+			(assign, "$g_presentation_state", 0),
+			(assign, ":continue", 1),
+			(assign, ":had_active", 0),
+			(assign, ":first_item", -1),
+			(assign, ":end",  ek_foot),
+			(try_for_range, ":item_slot", ek_item_0, ":end"),
+				(troop_get_inventory_slot, ":item_no", "$g_current_opened_troop_dthehun", ":item_slot"),
+				(gt, ":item_no", -1),										#has equipped item in the slot
+				(item_slot_ge, ":item_no", slot_item_num_components, 1),	#item is customizable 
+				(try_begin),
+					(eq, ":had_active", 0),
+					(try_begin),
+						(eq, ":first_item", -1),
+						(assign, ":first_item", ":item_no"),
+					(try_end),
+					(try_begin),	
+						(eq, ":item_no", "$g_current_opened_item_details"),
+						(assign, ":had_active", 1),
+					(try_end),
+				(else_try),
+					(eq, ":had_active", 1),
+					(assign, ":next_item", ":item_no"), 
+					(assign, ":end", -1), #END CYCLE
+					(assign, ":had_active", 2),
+				(try_end),
+			(try_end),
+			(try_begin),
+				(eq, ":had_active", 1), #last item was active, no next item setted -> set first item (could remain the same)
+				(assign, ":next_item", ":first_item"), 
+			(try_end),
+			(assign, "$g_current_opened_item_details", ":next_item"),
+        (try_end),
+        (try_begin),
+          (eq, ":continue", 1),
+          (start_presentation, "prsnt_customize_armor"),
+		(try_end),
+	  ]),	  
+	 	 
+	#ESC - close
+	(ti_on_presentation_run, # remove body mesh on ESC quit from scene customization (also adding ESC quit to map action menu customization)
+       [
+        #(store_trigger_param_1, ":cur_time"),
+        #(gt, ":cur_time", 500),
+        (try_begin),
+          #(this_or_next|key_clicked, key_space),
+          #(this_or_next|key_clicked, key_enter),
+          (key_clicked, key_escape),
+          (presentation_set_duration, 0),
+		(try_end),
+	  ]),
+    ]),
+	#/custom armor
+#CC
+("mini_map", prsntf_read_only, 0, [
+    (ti_on_presentation_load,
+     [
+      (set_fixed_point_multiplier, 1000),
+
+      (create_mesh_overlay, reg0, "mesh_white_plane"),
+      (position_set_x, pos1, 1200),
+      (position_set_y, pos1, 800),
+      (overlay_set_position, reg0, pos1),
+
+      (try_begin),
+        (ge, "$g_minimap_style", 1), # old style
+        (try_for_agents, ":agent_no"),
+          (agent_set_slot, ":agent_no", slot_agent_map_overlay_id, 0),
+        (try_end),
+
+        (get_scene_boundaries, pos2, pos3),
+        (position_transform_position_to_local, pos4, pos2, pos3),
+        (set_fixed_point_multiplier, 1000),
+        (position_get_x, ":map_width", pos4),
+        (position_get_y, ":map_height", pos4),
+        (set_fixed_point_multiplier, 1000),
+        (store_div, ":map_ratio", ":map_height", 100),
+        (store_div, ":map_ratio", ":map_width", ":map_ratio"),
+        (assign, ":minimap_ratio", 100),
+        (try_begin),
+          (eq, "$g_minimap_style", 1),
+          (assign, ":minimap_ratio", 60),
+        (else_try),
+          (eq, "$g_minimap_style", 2),
+          (assign, ":minimap_ratio", 80),
+        (try_end),
+        (try_begin),
+          (gt, ":map_ratio", 100),
+          (store_mul, "$g_battle_map_width", ":minimap_ratio", 3),
+          (store_div, "$g_battle_map_scale", ":map_width", "$g_battle_map_width"),
+          (store_div, "$g_battle_map_height", ":map_height", "$g_battle_map_scale"),
+        (else_try),
+          (store_mul, "$g_battle_map_height", ":minimap_ratio", 3),
+          (store_div, "$g_battle_map_scale", ":map_height", "$g_battle_map_height"),
+          (store_div, "$g_battle_map_width", ":map_width", "$g_battle_map_scale"),
+        (try_end),
+
+        (create_mesh_overlay, "$g_battle_map_plane", "mesh_white_plane"),
+        (overlay_set_color, "$g_battle_map_plane", 0),
+        (store_add, ":map_bordered_width", "$g_battle_map_width", 20),
+        (store_add, ":map_bordered_height", "$g_battle_map_height", 20),
+        (store_mul, ":map_scale_x", ":map_bordered_width", 50),
+        (store_mul, ":map_scale_y", ":map_bordered_height", 50),
+        (position_set_x, pos1, ":map_scale_x"),
+        (position_set_y, pos1, ":map_scale_y"),
+        (overlay_set_size, "$g_battle_map_plane", pos1),
+        (store_sub, ":map_pos_x", 990, ":map_bordered_width"),
+        (store_sub, ":map_pos_y", 740, ":map_bordered_height"),
+        (position_set_x, pos1, ":map_pos_x"),
+        (position_set_y, pos1, ":map_pos_y"),
+        (overlay_set_position, "$g_battle_map_plane", pos1),
+        (overlay_set_alpha, "$g_battle_map_plane", 0x22),
+
+        ## show player chest
+        (try_begin),
+          (scene_prop_get_instance, ":player_chest", "spr_inventory", 0),
+          (ge, ":player_chest", 0),
+          (create_mesh_overlay, "$g_player_chest_overlay", "mesh_white_plane"),
+          (overlay_set_color, "$g_player_chest_overlay", 0xFF00FF),
+          (position_set_x, pos1, 250),
+          (position_set_y, pos1, 250),
+          (overlay_set_size, "$g_player_chest_overlay", pos1),
+        (try_end),
+      (try_end),
+
+      ## horse stamina
+      (create_text_overlay, "$g_horse_stamina_overlay", "@0", tf_center_justify),
+      (position_set_x, pos1, 925),
+      (position_set_y, pos1, 40),
+      (overlay_set_position, "$g_horse_stamina_overlay", pos1),
+      (position_set_x, pos1, 600),
+      (position_set_y, pos1, 600),
+      (overlay_set_size, "$g_horse_stamina_overlay", pos1),
+      (overlay_set_color, "$g_horse_stamina_overlay", 0xFFFFFF),
+      (overlay_set_alpha, "$g_horse_stamina_overlay", 0),
+
+      # update
+      (call_script, "script_update_order_panel_map"),
+
+      ## hp bar
+      (try_for_agents, ":agent_no"),
+        (agent_set_slot, ":agent_no", slot_agent_hp_bar_overlay_id, 0),
+        (agent_set_slot, ":agent_no", slot_agent_hp_bar_bg_overlay_id, 0),
+        #(agent_set_slot, ":agent_no", slot_agent_name_overlay_id, 0),
+      (try_end),
+      (call_script, "script_update_agent_hp_bar"),
+
+      (presentation_set_duration, 999999),
+     ]),
+    (ti_on_presentation_run,
+     [
+      (set_fixed_point_multiplier, 1000),
+
+      (try_begin),
+        (game_key_clicked, gk_view_orders),
+        (presentation_set_duration, 0),
+        (start_presentation, "prsnt_battle"),
+      (try_end),
+     ]),
+  ]),
+
+  ("mini_map_bar", prsntf_read_only, 0, [
+    (ti_on_presentation_load,
+     [
+      (set_fixed_point_multiplier, 1000),
+
+      (create_mesh_overlay, reg1, "mesh_white_plane"),
+      (position_set_x, pos1, 1200),
+      (position_set_y, pos1, 800),
+      (overlay_set_position, reg1, pos1),
+
+      (create_mesh_overlay, reg1, "mesh_battle_map_bar"),
+      (position_set_x, pos1, 500),
+      (position_set_y, pos1, 700),
+      (overlay_set_position, reg1, pos1),
+      (overlay_set_alpha, reg1, 0xFF),
+
+      ## init map dot and hp bar
+      (try_for_agents, ":agent_no"),
+        (agent_set_slot, ":agent_no", slot_agent_map_overlay_id, 0),
+        (agent_set_slot, ":agent_no", slot_agent_hp_bar_overlay_id, 0),
+        (agent_set_slot, ":agent_no", slot_agent_hp_bar_bg_overlay_id, 0),
+        #(agent_set_slot, ":agent_no", slot_agent_name_overlay_id, 0),
+      (try_end),
+
+      ## player chest
+      (create_mesh_overlay, "$g_player_chest_overlay", "mesh_white_plane"),
+      (position_set_x, pos1, 500),
+      (position_set_y, pos1, 500),
+      (overlay_set_size, "$g_player_chest_overlay", pos1),
+      (overlay_set_color, "$g_player_chest_overlay", 0xFF00FF),
+      (overlay_set_alpha, "$g_player_chest_overlay", 0),
+
+      ## horse stamina
+      (create_text_overlay, "$g_horse_stamina_overlay", "@0", tf_center_justify),
+      (position_set_x, pos1, 925),
+      (position_set_y, pos1, 40),
+      (overlay_set_position, "$g_horse_stamina_overlay", pos1),
+      (position_set_x, pos1, 600),
+      (position_set_y, pos1, 600),
+      (overlay_set_size, "$g_horse_stamina_overlay", pos1),
+      (overlay_set_color, "$g_horse_stamina_overlay", 0xFFFFFF),
+      (overlay_set_alpha, "$g_horse_stamina_overlay", 0),
+
+      ## enemies-allies-us
+      # position
+      (assign, ":pos_x", 380),
+      (assign, ":pos_y", 725),
+      (create_text_overlay, "$g_battle_enemies_ready", s7, tf_center_justify),
+      (position_set_x, pos1, ":pos_x"),
+      (position_set_y, pos1, ":pos_y"),
+      (overlay_set_position, "$g_battle_enemies_ready", pos1),
+      (val_sub, ":pos_y", 10),
+      (create_text_overlay, "$g_battle_allies_ready", s7, tf_center_justify),
+      (position_set_x, pos1, ":pos_x"),
+      (position_set_y, pos1, ":pos_y"),
+      (overlay_set_position, "$g_battle_allies_ready", pos1),
+      (val_sub, ":pos_y", 10),
+      (create_text_overlay, "$g_battle_us_ready", s7, tf_center_justify),
+      (position_set_x, pos1, ":pos_x"),
+      (position_set_y, pos1, ":pos_y"),
+      (overlay_set_position, "$g_battle_us_ready", pos1),
+
+      # size
+      (position_set_x, pos1, 600),
+      (position_set_y, pos1, 600),
+      (overlay_set_size, "$g_battle_enemies_ready", pos1),
+      (overlay_set_size, "$g_battle_allies_ready", pos1),
+      (overlay_set_size, "$g_battle_us_ready", pos1),
+      # color
+      (overlay_set_color, "$g_battle_enemies_ready", 0xFFFFFF),
+      (overlay_set_color, "$g_battle_allies_ready", 0xFFFFFF),
+      (overlay_set_color, "$g_battle_us_ready", 0xFFFFFF),
+
+      ## update map dot and hp bar
+      (call_script, "script_update_map_bar"),
+      (call_script, "script_update_agent_hp_bar"),
+#Troop Ratio bar
+(try_begin),
+(ge, "$g_troop_ratio_bar", 1),
+(assign, "$presentation_troop_ratio_bar_active", 1),
+(set_fixed_point_multiplier, 1000),
+(create_mesh_overlay, "$g_presentation_obj_1", "mesh_status_troop_ratio_bar"),
+(position_set_x, pos1, 30),
+(position_set_y, pos1, 700),
+(overlay_set_position, "$g_presentation_obj_1", pos1),
+(position_set_x, pos1, 35),
+(position_set_y, pos1, 713),
+(create_mesh_overlay, "$g_presentation_obj_2", "mesh_white_plane"),
+(overlay_set_color, "$g_presentation_obj_2", 11149087),
+(overlay_set_position, "$g_presentation_obj_2", pos1),
+(create_mesh_overlay, "$g_presentation_obj_3", "mesh_white_plane"),
+(overlay_set_color, "$g_presentation_obj_3", 2039722),
+(overlay_set_position, "$g_presentation_obj_3", pos1),
+(create_mesh_overlay, "$g_presentation_obj_4", "mesh_white_plane"),
+(overlay_set_color, "$g_presentation_obj_4", 2075167),
+(overlay_set_position, "$g_presentation_obj_4", pos1),
+(create_mesh_overlay, "$g_presentation_obj_5", "mesh_status_troop_ratio_bar_button"),
+(position_set_x, pos1, 35),
+(position_set_y, pos1, 700),
+(overlay_set_position, "$g_presentation_obj_5", pos1),
+(create_mesh_overlay, "$g_presentation_obj_6", "mesh_status_troop_ratio_bar_button"),
+(position_set_x, pos1, 275),
+(position_set_y, pos1, 700),
+(overlay_set_position, "$g_presentation_obj_6", pos1),
+(create_mesh_overlay, "$g_presentation_obj_7", "mesh_status_troop_ratio_bar_button"),
+(create_mesh_overlay, "$g_presentation_obj_8", "mesh_status_troop_ratio_bar_button"),
+(try_end),
+      (presentation_set_duration, 999999),
+      # ####### mouse fix pos system #######
+      # (call_script, "script_mouse_fix_pos_ready"),
+      # ####### mouse fix pos system #######
+     ]),
+    (ti_on_presentation_run,
+     [
+     (try_begin),
+     (ge, "$g_troop_ratio_bar", 1),
+      (store_trigger_param_1, ":var0"),
+      (try_end),
+      (set_fixed_point_multiplier, 1000),
+      (try_begin),
+      (ge, "$g_troop_ratio_bar", 1),
+ (assign, ":var1", 0),
+ (assign, ":var2", 0),
+ (assign, ":var3", 0),
+ (assign, ":var4", 0),
+ (try_for_agents, ":var5"),
+   (agent_is_human, ":var5"),
+   (agent_is_alive, ":var5"),
+   (agent_get_party_id, ":var6", ":var5"),
+   (try_begin),
+     (eq, ":var6", "p_main_party"),
+     (val_add, ":var1", 1),
+   (else_try),
+     (agent_is_ally, ":var5"),
+     (val_add, ":var2", 1),
+   (else_try),
+     (val_add, ":var3", 1),
+   (end_try),
+ (end_try),
+ (val_add, ":var4", ":var1"),
+ (val_add, ":var4", ":var2"),
+ (val_add, ":var4", ":var3"),
+ (position_set_x, pos1, 12000),
+ (position_set_y, pos1, 300),
+ (overlay_set_size, "$g_presentation_obj_2", pos1),
+ (store_add, ":var7", ":var1", ":var2"),
+ (val_mul, ":var7", 12000),
+ (val_div, ":var7", ":var4"),
+ (position_set_x, pos1, ":var7"),
+ (position_set_y, pos1, 300),
+ (overlay_set_size, "$g_presentation_obj_3", pos1),
+ (store_mul, ":var8", ":var1", 12000),
+ (val_div, ":var8", ":var4"),
+ (position_set_x, pos1, ":var8"),
+ (position_set_y, pos1, 300),
+ (overlay_set_size, "$g_presentation_obj_4", pos1),
+ (store_add, ":var9", ":var1", ":var2"),
+ (val_mul, ":var9", 240),
+ (val_div, ":var9", ":var4"),
+ (val_add, ":var9", 35),
+ (position_set_x, pos1, ":var9"),
+ (position_set_y, pos1, 700),
+ (overlay_set_position, "$g_presentation_obj_7", pos1),
+ (store_mul, ":var10", ":var1", 240),
+ (val_div, ":var10", ":var4"),
+ (val_add, ":var10", 35),
+ (position_set_x, pos1, ":var10"),
+ (position_set_y, pos1, 700),
+ (overlay_set_position, "$g_presentation_obj_8", pos1),
+ (try_end),
+      # ####### mouse fix pos system #######
+      # (call_script, "script_mouse_fix_pos_run"),
+      # ####### mouse fix pos system #######
+      (try_begin),
+        (game_key_clicked, gk_view_orders),
+        (presentation_set_duration, 0),
+        (start_presentation, "prsnt_battle"),
+      (try_end),
+     ]),
+  ]),
+##CC
+##plus
+  ("blackjack", 0, 0,#
+   [
+     (ti_on_presentation_load,
+      [
+
+        (set_fixed_point_multiplier, 1000),
+        (assign,"$g_presentation_obj_1",-1), #
+        (assign,"$g_presentation_obj_2",-1), #
+        (assign,"$g_presentation_obj_3",-1), #
+        (assign,"$g_presentation_obj_4",-1), #
+        (assign,"$g_presentation_obj_5",-1), #
+        (assign,"$g_presentation_obj_6",-1), #
+        (assign,"$g_presentation_obj_7",-1), #
+        (assign,"$g_presentation_obj_8",-1), #
+        (assign,"$g_presentation_obj_9",-1), #
+        (assign,"$g_presentation_obj_10",-1), #
+        (assign,"$g_presentation_obj_11",-1), #
+        (assign,"$g_presentation_obj_12",-1), #
+        (assign,"$g_presentation_credits_obj_1",-1), #
+        (assign,"$g_presentation_credits_obj_2",-1), #
+        (assign,"$g_presentation_credits_obj_3",-1), #
+        (assign,"$g_presentation_credits_obj_4",-1), #
+        (assign,"$g_presentation_credits_obj_5",-1), #
+        (assign,reg1,0),#
+        (assign,reg21,0),#
+        (assign,reg22,0),
+        (assign,reg23,0),
+        (assign,reg24,0),
+        (assign,reg25,0),
+        (assign,reg26,0),
+        (assign,reg27,0),
+        (assign,reg28,0),
+        (assign,reg29,0),
+        (assign,reg30,0),
+        (assign,reg31,0),
+        (assign,reg32,0),
+        (assign,reg33,0),
+        (assign,reg34,0),
+        (assign,reg35,0),
+        (assign,reg36,0),
+        (assign,reg37,0),
+        (assign,reg38,0),
+        (assign,reg39,0),
+        (assign, reg51, 1),#
+        (assign, reg52, 0),#
+        (assign, reg53, 0),#
+        (assign, reg54, 0),#
+        (assign, reg55, 0),#
+        (assign, reg56, 0),#
+        (assign, reg57, 0),#
+        (assign, reg58, 0),#
+        (assign, reg60, 0),#
+        (assign, reg61, 0),#
+        (assign, reg62, 0),#
+        (assign, reg63, 0),#
+
+        (create_mesh_overlay, reg1, "mesh_wood_table"),#
+        (position_set_x, pos1, 0),
+        (position_set_y, pos1, 0),
+        (overlay_set_position, reg1, pos1),
+
+        (str_store_troop_name, s1, "$g_talk_troop"),#
+        (create_text_overlay, reg1, "@{s1}", tf_center_justify),
+        (position_set_x, pos1, 120),#820
+        (position_set_y, pos1, 470),#470
+        (overlay_set_position, reg1, pos1),#
+        (overlay_set_color, reg1, 0xffffff),
+        (str_store_troop_name, s1, "trp_player"),#
+        (create_text_overlay, reg1, "@{s1}", tf_center_justify),
+        (position_set_x, pos1, 815),#120
+        (position_set_y, pos1, 8),#8
+        (overlay_set_position, reg1, pos1),#
+        (overlay_set_color, reg1, 0xffffff),
+         # "mesh_21_troop_portrait"
+        (create_mesh_overlay_with_tableau_material, reg1, -1, "tableau_troop_note_mesh", "$g_talk_troop"),
+        (position_set_x, pos1, 750),
+        (position_set_y, pos1, 750),
+        (overlay_set_size, reg1, pos1),
+        (position_set_x, pos1, 7),#700
+        (position_set_y, pos1, 500),#500
+        (overlay_set_position, reg1, pos1),
+         # "mesh_21_troop_portrait"
+        (create_mesh_overlay_with_tableau_material, reg1, -1, "tableau_troop_note_mesh", "trp_player"),
+        (position_set_x, pos1, 750),
+        (position_set_y, pos1, 750),
+        (overlay_set_size, reg1, pos1),
+        (position_set_x, pos1, 740),#7
+        (position_set_y, pos1, 45),#20
+        (overlay_set_position, reg1, pos1),
+
+
+         #$g_presentation_obj_1
+        (create_image_button_overlay, "$g_presentation_obj_1", "mesh_21_button", "mesh_21_button_down"),
+        (position_set_x, pos1, 650),#250
+        (position_set_y, pos1, 160),#160
+        (overlay_set_position, "$g_presentation_obj_1", pos1),
+        (position_set_x, pos1, 300),
+        (position_set_y, pos1, 450),
+        (overlay_set_size, "$g_presentation_obj_1", pos1),
+        (create_text_overlay, reg1, "@Hit"),#
+        (position_set_x, pos1, 660),#260
+        (position_set_y, pos1, 160),#160
+        (overlay_set_position, reg1, pos1),
+        (overlay_set_color, reg1, 0xffffff),
+         #$g_presentation_obj_2
+        (create_image_button_overlay, "$g_presentation_obj_2", "mesh_21_button", "mesh_21_button_down"),
+        (position_set_x, pos1, 650),#250
+        (position_set_y, pos1, 100),#100
+        (overlay_set_position, "$g_presentation_obj_2", pos1),
+        (position_set_x, pos1, 300),
+        (position_set_y, pos1, 450),
+        (overlay_set_size, "$g_presentation_obj_2", pos1),
+        (create_text_overlay, reg1, "@Stay"),#
+        (position_set_x, pos1, 660),#260
+        (position_set_y, pos1, 100),#100
+        (overlay_set_position, reg1, pos1),
+        (overlay_set_color, reg1, 0xffffff),
+         #$g_presentation_obj_3
+        (create_image_button_overlay, "$g_presentation_obj_3", "mesh_21_button", "mesh_21_button_down"),
+        (position_set_x, pos1, 650),#250
+        (position_set_y, pos1, 40),#40
+        (overlay_set_position, "$g_presentation_obj_3", pos1),
+        (position_set_x, pos1, 300),
+        (position_set_y, pos1, 450),
+        (overlay_set_size, "$g_presentation_obj_3", pos1),
+        (create_text_overlay, reg1, "@Double"),#
+        (position_set_x, pos1, 660),#260
+        (position_set_y, pos1, 40),#40
+        (overlay_set_position, reg1, pos1),
+        (overlay_set_color, reg1, 0xffffff),
+
+        (create_mesh_overlay, reg1, "mesh_text_bar"),#
+        (position_set_x, pos1, 240),
+        (position_set_y, pos1, 800),
+        (overlay_set_size, reg1, pos1),
+        (position_set_x, pos1, 740),
+        (position_set_y, pos1, 305),
+        (overlay_set_position, reg1, pos1),
+
+        (str_store_string, s1, "@Bet: {reg51}Denar"),#
+        (create_text_overlay, "$g_presentation_obj_4", s1),#
+        (position_set_x, pos1, 755),#30
+        (position_set_y, pos1, 355),#300
+        (overlay_set_position, "$g_presentation_obj_4", pos1),
+        (overlay_set_color, "$g_presentation_obj_4", 0xfffccc),
+        (store_troop_gold,reg1,"trp_player"),#
+        (create_text_overlay, "$g_presentation_obj_5", "@Money: {reg1}Denar"),
+        (position_set_x, pos1, 755),#30
+        (position_set_y, pos1, 325),#270
+        (overlay_set_position, "$g_presentation_obj_5", pos1),
+        (overlay_set_color, "$g_presentation_obj_5", 0xfffccc),
+
+        (presentation_set_duration, 999999),
+        ]),
+      (ti_on_presentation_run,#
+       [
+        (store_trigger_param_1, ":cur_time"),
+        (set_fixed_point_multiplier, 1000),
+
+        (ge, ":cur_time",500),
+        #ce shi
+        #(try_begin),
+        #        (key_clicked, key_t),
+        #        (display_message, "@reg52={reg52}"),
+        #        (display_message, "@reg53={reg53}"),
+        #        (display_message, "@reg54={reg54}"),
+        #        (display_message, "@reg55={reg55}"),
+        #(try_end),
+        #ce shi
+
+        (try_begin),
+          (eq, reg50, 0),#
+          (assign, reg50, 3),#
+          (create_mesh_overlay, "$g_presentation_obj_6", "mesh_text_bar"),#
+          (position_set_x, pos1, 350),
+          (position_set_y, pos1, 1800),
+          (overlay_set_size, "$g_presentation_obj_6", pos1),
+          (position_set_x, pos6, 330),
+          (position_set_y, pos6, 250),
+          (create_slider_overlay, "$g_presentation_obj_7", 1, 50),#
+          (overlay_set_val, "$g_presentation_obj_7", reg51),
+          (position_set_x, pos7, 510),
+          (position_set_y, pos7, 360),
+          (create_text_overlay, "$g_presentation_obj_8", "@Bet: {reg51}Denar"),#
+          (position_set_x, pos8, 420),
+          (position_set_y, pos8, 400),
+          (create_mesh_overlay, "$g_presentation_obj_9", "mesh_button_used"),#
+          (position_set_x, pos1, 350),
+          (position_set_y, pos1, 500),
+          (overlay_set_size, "$g_presentation_obj_9", pos1),
+          (position_set_x, pos9, 453),
+          (position_set_y, pos9, 284),
+          (create_button_overlay, "$g_presentation_obj_10", "@Done", tf_center_justify),#
+          (position_set_x, pos1, 1400),
+          (position_set_y, pos1, 1400),
+          (overlay_set_size, "$g_presentation_obj_10", pos1),
+          (position_set_x, pos10, 500),
+          (position_set_y, pos10, 284),
+          (overlay_set_position, "$g_presentation_obj_6", pos6),
+          (overlay_set_val, "$g_presentation_obj_7", reg51),
+          (overlay_set_position, "$g_presentation_obj_7", pos7),
+          (overlay_set_position, "$g_presentation_obj_8", pos8),
+          (overlay_set_position, "$g_presentation_obj_9", pos9),
+          (overlay_set_position, "$g_presentation_obj_10", pos10),
+        (try_end),#
+
+        (try_begin),#
+          (eq, reg50, 4),#
+          (assign, reg50, 5),
+          (assign, reg58,":cur_time"),
+          (position_set_x, pos13, 320),#
+          (position_set_y, pos13, 265),
+          (position_set_x, pos14, 450),#
+          (position_set_y, pos14, 400),
+          (assign, reg63, 0),#
+        (try_end),
+        (try_begin),
+          (eq, reg50, 5),
+          (lt, reg63, 30),#
+          (store_sub, ":time_p",":cur_time",reg58),
+          (ge, ":time_p",20),
+          (assign, reg58,":cur_time"),
+          (position_get_x, ":x_13",pos13),
+          (val_add, ":x_13",3),
+          (position_set_x, pos13, ":x_13"),
+          (create_mesh_overlay, reg1, "mesh_poker_back"),#
+          (overlay_set_position, reg1, pos13),
+          (overlay_set_size, reg1, pos14),#
+          (val_add, reg63,1),
+        (else_try),
+          (eq, reg63, 30),
+          (assign, reg63, 0),
+          (assign, reg50, 1),#
+          (assign, reg58,":cur_time"),
+        (try_end),
+
+        (eq, reg50, 1),#
+        (store_sub, ":time_p",":cur_time",reg58),
+        (ge, ":time_p",700),#
+
+        (try_begin),
+          (eq, reg21, 0),#
+          (assign,":reang_low","mesh_poker_heart_a"),
+          (assign,":reang_high","mesh_poker_red_joker"),
+           #
+          (store_random_in_range,":rp",":reang_low",":reang_high"),
+          (assign,reg21,":rp"),#
+          (store_sub,":banker_points",":rp",":reang_low"),
+          (val_add,":banker_points",1),
+          (try_begin),
+            (le,":banker_points",13),
+          (else_try),
+            (val_mod,":banker_points",13),
+            (try_begin),
+              (eq,":banker_points",0),
+              (assign,":banker_points",13),
+            (try_end),
+          (try_end),
+          (val_min,":banker_points",10),#
+          (val_add, reg52, ":banker_points"),#
+          (val_add, reg53, ":banker_points"),#
+          (try_begin),
+            #(this_or_next|eq,reg21,"mesh_poker_heart_a"),
+            #(this_or_next|eq,reg21,"mesh_poker_spade_a"),
+            #(this_or_next|eq,reg21,"mesh_poker_diamond_a"),
+            #(eq,reg21,"mesh_poker_club_a"),
+            (this_or_next|eq,reg21,407),
+            (this_or_next|eq,reg21,420),
+            (this_or_next|eq,reg21,433),
+            (eq,reg21,446),
+            (val_add, reg53, 10),#
+          (try_end),
+          (create_mesh_overlay, "$g_presentation_credits_obj_1", "mesh_poker_back"),#
+          (overlay_set_position, "$g_presentation_credits_obj_1", pos13),#
+          (overlay_set_size, "$g_presentation_credits_obj_1", pos14),#
+          (position_set_x, pos11, 350),#
+          (position_set_y, pos11, 500),
+          (copy_position,pos60,pos11),#
+          (overlay_animate_to_position, "$g_presentation_credits_obj_1",300, pos11),#
+          #
+          (try_for_range, ":unused", 0, 200),
+            (eq,reg22,0),#
+            (store_random_in_range,":rp",":reang_low",":reang_high"),
+            (neq,":rp",reg21),#
+            (assign,reg22,":rp"),#
+          (try_end),
+          (store_sub,":banker_points",":rp",":reang_low"),
+          (val_add,":banker_points",1),
+          (try_begin),
+            (le,":banker_points",13),
+          (else_try),
+            (val_mod,":banker_points",13),
+            (try_begin),
+              (eq,":banker_points",0),
+              (assign,":banker_points",13),
+            (try_end),
+          (try_end),
+          (val_min,":banker_points",10),#
+          (val_add, reg52, ":banker_points"),#
+          (val_add, reg53, ":banker_points"),#
+          (try_begin),
+            (eq, reg53, reg52),#
+            #(this_or_next|eq,reg22,"mesh_poker_heart_a"),
+            #(this_or_next|eq,reg22,"mesh_poker_spade_a"),
+            #(this_or_next|eq,reg22,"mesh_poker_diamond_a"),
+            #(eq,reg22,"mesh_poker_club_a"),
+            (this_or_next|eq,reg22,407),
+            (this_or_next|eq,reg22,420),
+            (this_or_next|eq,reg22,433),
+            (eq,reg22,446),
+            (val_add, reg53, 10),#
+          (try_end),
+          (create_mesh_overlay, "$g_presentation_credits_obj_2", reg22),#
+          (overlay_set_position, "$g_presentation_credits_obj_2", pos13),#
+          (overlay_set_size, "$g_presentation_credits_obj_2", pos14),#
+          (position_get_x,":x_p",pos11),
+          (val_add,":x_p",150),#
+          (position_set_x, pos11, ":x_p"),
+          #(position_move_x, pos11, 150),#
+          (overlay_animate_to_position, "$g_presentation_credits_obj_2",300, pos11),#
+
+           #
+          (try_for_range, ":unused", 0, 200),
+            (eq,reg23,0),#
+            (store_random_in_range,":rp",":reang_low",":reang_high"),
+            (neq,":rp",reg21),#
+            (neq,":rp",reg22),#
+            (assign,reg23,":rp"),#
+          (try_end),
+          (store_sub,":player_points",":rp",":reang_low"),
+          (val_add,":player_points",1),
+          (try_begin),
+            (le,":player_points",13),
+          (else_try),
+            (val_mod,":player_points",13),
+            (try_begin),
+              (eq,":player_points",0),
+              (assign,":player_points",13),
+            (try_end),
+          (try_end),
+          (val_min,":player_points",10),#
+          (val_add, reg54, ":player_points"),#
+          (val_add, reg55, ":player_points"),#
+          (try_begin),
+            #(this_or_next|eq,reg23,"mesh_poker_heart_a"),
+            #(this_or_next|eq,reg23,"mesh_poker_spade_a"),
+            #(this_or_next|eq,reg23,"mesh_poker_diamond_a"),
+            #(eq,reg23,"mesh_poker_club_a"),
+            (this_or_next|eq,reg23,407),
+            (this_or_next|eq,reg23,420),
+            (this_or_next|eq,reg23,433),
+            (eq,reg23,446),
+            (val_add, reg55, 10),#
+          (try_end),
+          (create_mesh_overlay, "$g_presentation_credits_obj_3", reg23),#
+          (overlay_set_position, "$g_presentation_credits_obj_3", pos13),#
+          (overlay_set_size, "$g_presentation_credits_obj_3", pos14),#
+          (position_set_x, pos12, 200),#
+          (position_set_y, pos12, 30),
+          (overlay_animate_to_position, "$g_presentation_credits_obj_3",300, pos12),#
+          #
+          (try_for_range, ":unused", 0, 200),
+            (eq,reg24,0),#
+            (store_random_in_range,":rp",":reang_low",":reang_high"),
+            (neq,":rp",reg21),#
+            (neq,":rp",reg22),#
+            (neq,":rp",reg23),#
+            (assign,reg24,":rp"),#
+          (try_end),
+          (store_sub,":player_points",":rp",":reang_low"),
+          (val_add,":player_points",1),
+          (try_begin),
+            (le,":player_points",13),
+          (else_try),
+            (val_mod,":player_points",13),
+            (try_begin),
+              (eq,":player_points",0),
+              (assign,":player_points",13),
+            (try_end),
+          (try_end),
+          (val_min,":player_points",10),#
+          (val_add, reg54, ":player_points"),#
+          (val_add, reg55, ":player_points"),#
+          (try_begin),
+            (eq, reg55, reg54),#
+            #(this_or_next|eq,reg24,"mesh_poker_heart_a"),
+            #(this_or_next|eq,reg24,"mesh_poker_spade_a"),
+            #(this_or_next|eq,reg24,"mesh_poker_diamond_a"),
+            #(eq,reg24,"mesh_poker_club_a"),
+            (this_or_next|eq,reg24,407),
+            (this_or_next|eq,reg24,420),
+            (this_or_next|eq,reg24,433),
+            (eq,reg24,446),
+            (val_add, reg55, 10),#
+          (try_end),
+          (create_mesh_overlay, "$g_presentation_credits_obj_4", reg24),#
+          (overlay_set_position, "$g_presentation_credits_obj_4", pos13),#
+          (overlay_set_size, "$g_presentation_credits_obj_4", pos14),#
+          (position_get_x,":x_p",pos12),
+          (val_add,":x_p",60),
+          (position_set_x, pos12, ":x_p"),
+          #(position_move_x, pos12, 100),#
+          (overlay_animate_to_position, "$g_presentation_credits_obj_4",300, pos12),#
+
+          (assign, reg58, ":cur_time"),
+        (try_end),
+
+        (gt,reg24,0),#
+        (store_sub, ":time1",":cur_time",reg58),
+        (ge, ":time1",1200),#
+
+        (try_begin),
+          (eq,reg25,0),#
+          (eq,reg56,0),#
+          (try_begin),
+            (eq,reg53,21),#
+            (eq,reg55,21),#
+            (display_message, "@Draw, the bets be returned to you."),
+            (call_script, "script_troop_add_gold", "trp_player", reg51),
+            #(play_sound, "snd_game_draw"),
+            (assign,reg56,3),
+          (else_try),
+            (eq,reg53,21),#
+            (val_div, reg51, 2),
+            (troop_remove_gold, "trp_player", reg51),
+            (play_sound, "snd_money_paid"),
+            (display_message, "@The banker has a Blackjack! You lose 50% more of your bets!"),
+            #(play_sound, "snd_game_lose"),
+            (assign,reg56,1),
+          (else_try),
+            (eq,reg55,21),#
+            (val_mul, reg51, 5),
+            (val_div, reg51, 2),
+            (call_script, "script_troop_add_gold", "trp_player", reg51),
+            (display_message, "@You have a Blackjack! You win 50% more of your bets!"),
+            #(play_sound, "snd_game_win"),
+            (assign,reg56,2),
+          (try_end),
+
+          (neq,reg56,0),#
+          (try_begin),
+            (eq,reg61,0),#
+            (assign,reg61,1),
+            (create_mesh_overlay, reg1, reg21),#
+            (overlay_set_position, reg1, pos60),
+            (overlay_set_size, reg1, pos14),
+          (try_end),
+          (store_troop_gold,reg1,"trp_player"),
+          (str_store_string, s1, "@Bet: 0 Denar"),
+          (overlay_set_text, "$g_presentation_obj_4", s1),
+          (str_store_string, s1, "@Money: {reg1}Denar"),
+          (overlay_set_text, "$g_presentation_obj_5", s1),
+          (assign,reg58,":cur_time"),#
+        (try_end),
+
+        (try_begin),
+          (gt,reg24,0),#
+          (eq,reg56,0),#
+
+          (ge, reg57, 1),#
+
+          (try_begin),
+            (gt,reg52,21),#
+            (val_mul,reg51,2),
+            (display_message, "@The banker's hand value is over 21. You win!"),
+            (call_script, "script_troop_add_gold", "trp_player", reg51),
+            #(play_sound, "snd_game_win"),
+            (assign,reg56,2),
+          (else_try),
+            (gt,reg54,21),#
+            (display_message, "@Your hand value is over 21. You lose!"),
+            #(play_sound, "snd_game_lose"),
+            (assign,reg56,1),
+          (else_try),
+            (eq,reg60,1),#
+            (eq,reg61,1),#
+            (try_begin),
+              (assign,":win",0),#
+              (try_begin),
+                (le,reg53,21),#
+                (gt,reg53,reg55),#
+                (assign,":win",1),
+              (else_try),
+                (gt,reg52,reg55),#
+                (assign,":win",1),
+              (try_end),
+              (eq,":win",1),#
+              (assign,reg56,1),#
+              (display_message, "@The banker has a higher hand value. You lose!"),
+              #(play_sound, "snd_game_lose"),
+              (overlay_set_text, "$g_presentation_obj_4", "@Bet: 0 Denar"),
+            (else_try),
+              (assign,":win",0),#
+              (try_begin),
+                (le,reg55,21),#
+                (gt,reg55,reg53),#
+                (assign,":win",1),
+              (else_try),
+                (gt,reg54,reg53),#
+                (assign,":win",1),
+              (try_end),
+              (eq,":win",1),#
+              (assign,reg56,2),#
+              (display_message, "@You have a higher hand value. You win!"),
+              (val_mul, reg51, 2),
+              (call_script, "script_troop_add_gold", "trp_player", reg51),
+              #(play_sound, "snd_game_win"),
+            (else_try),
+              (display_message, "@Draw, the bets be returned to you."),
+              (call_script, "script_troop_add_gold", "trp_player", reg51),
+              #(play_sound, "snd_game_draw"),
+              (assign,reg56,3),#
+            (try_end),
+          (try_end),
+          (neq,reg56,0),#
+          (try_begin),
+            (eq,reg61,0),#
+            (assign,reg61,1),
+            (create_mesh_overlay, reg1, reg21),#
+            (overlay_set_position, reg1, pos60),
+            (overlay_set_size, reg1, pos14),
+          (try_end),
+          (store_troop_gold,reg1,"trp_player"),
+          (str_store_string, s1, "@Bet: 0 Denar"),
+          (overlay_set_text, "$g_presentation_obj_4", s1),
+          (str_store_string, s1, "@Money: {reg1}Denar"),
+          (overlay_set_text, "$g_presentation_obj_5", s1),
+          (assign,reg58,":cur_time"),#
+        (try_end),
+
+        (try_begin),
+          (neq,reg56,0),#
+          (store_sub,":time",":cur_time",reg58),
+          (ge,":time",800),#
+          (assign,reg50,2),#
+
+          (try_begin),
+            (eq,reg56,1),
+            (str_store_string, s1, "@You lose. Try again?"),
+          (else_try),
+            (eq,reg56,2),
+            (str_store_string, s1, "@You win! Try again?"),
+          (else_try),
+            (eq,reg56,3),
+            (str_store_string, s1, "@Draw. Try again?"),
+          (try_end),
+          (create_text_overlay, reg1, "@{s1}", tf_center_justify),
+          (position_set_x, pos1, 480),
+          (position_set_y, pos1, 480),
+          (overlay_set_position, reg1, pos1),#
+          (position_set_x, pos1, 2000),
+          (position_set_y, pos1, 2000),
+          (overlay_set_size, reg1, pos1),#
+          (overlay_set_color, reg1, 0xffffff),
+
+          (create_button_overlay, "$g_presentation_obj_11", "@Yes", tf_center_justify),
+          (position_set_x, pos1, 450),
+          (position_set_y, pos1, 370),
+          (overlay_set_position, "$g_presentation_obj_11", pos1),
+          (position_set_x, pos1, 1500),
+          (position_set_y, pos1, 1500),
+          (overlay_set_size, "$g_presentation_obj_11", pos1),
+          (overlay_set_color, "$g_presentation_obj_11", 0xffffff),
+          (create_button_overlay, "$g_presentation_obj_12", "@NO", tf_center_justify),
+          (position_set_x, pos1, 500),
+          (position_set_y, pos1, 370),
+          (overlay_set_position, "$g_presentation_obj_12", pos1),
+          (position_set_x, pos1, 1500),
+          (position_set_y, pos1, 1500),
+          (overlay_set_size, "$g_presentation_obj_12", pos1),
+          (overlay_set_color, "$g_presentation_obj_12", 0xffffff),
+        (try_end),
+
+        (try_begin),
+          (eq, reg56, 0),
+          (eq, reg57, 0),
+          (assign, reg57, 1),
+        (try_end),
+	
+         #AI
+        (try_begin),
+          (eq, reg56, 0),
+          (eq,reg60,0),
+          (this_or_next|eq, reg61, 1),
+          (eq, reg57, 2),
+          (neq, reg57, 3),
+          (assign, reg57, 3),
+          (assign,reg58,":cur_time"),
+        (try_end),
+        (try_begin),
+          (eq, reg56, 0),
+          (eq,reg60,0),
+          (eq, reg57, 3),
+          (store_sub,":time",":cur_time",reg58),
+          (ge,":time",700),
+          (try_begin),
+            (gt, reg52, 16),
+            (le, reg52, 21),
+            (assign,reg60,1),
+            (display_message, "@Banker stay."),
+            (create_text_overlay, reg1, "@Stay"),
+            (position_set_x, pos1, 255),
+            (position_set_y, pos1, 650),
+            (overlay_set_position, reg1, pos1),
+            (position_set_x, pos1, 1600),
+            (position_set_y, pos1, 1600),
+            (overlay_set_size, reg1, pos1),
+            (overlay_set_color, reg1, 0x11dd11),
+          (else_try),
+            (le, reg52, 16),
+            (assign, ":banker_hit", 0),
+            (try_begin),
+              (le, reg53, 16),
+              (assign, ":banker_hit", 1),
+            (else_try),
+              (gt, reg53, 16),
+              (store_sub,":oo", reg53, 16),
+              (val_mul,":oo", 30),
+              (store_random_in_range,":rp",0,100),
+              (try_begin),
+                (gt,":rp",":oo"),
+                (assign, ":banker_hit", 1),
+              (else_try),
+                (assign,reg60,1),
+                (display_message, "@Banker stay."),
+                (create_text_overlay, reg1, "@Stay"),
+                (position_set_x, pos1, 255),
+                (position_set_y, pos1, 650),
+                (overlay_set_position, reg1, pos1),
+                (position_set_x, pos1, 1400),
+                (position_set_y, pos1, 1400),
+                (overlay_set_size, reg1, pos1),
+                (overlay_set_color, reg1, 0x11dd11),
+              (try_end),
+            (try_end),
+            (eq, ":banker_hit", 1),
+
+            (assign,":reang_low","mesh_poker_heart_a"),
+            (assign,":reang_high","mesh_poker_red_joker"),
+            (assign,":cur_card",0),
+            (try_for_range, ":unused", 0, 300),
+              (eq,":cur_card",0),
+              (store_random_in_range,":rp",":reang_low",":reang_high"),
+              (neq,":rp",reg21),
+              (neq,":rp",reg22),
+              (neq,":rp",reg23),
+              (neq,":rp",reg24),
+              (neq,":rp",reg25),
+              (neq,":rp",reg26),
+              (neq,":rp",reg27),
+              (neq,":rp",reg28),
+              (neq,":rp",reg29),
+              (neq,":rp",reg30),
+              (neq,":rp",reg31),
+              (neq,":rp",reg32),
+              (neq,":rp",reg33),
+              (neq,":rp",reg34),
+              (neq,":rp",reg35),
+              (neq,":rp",reg36),
+              (neq,":rp",reg37),
+              (neq,":rp",reg38),
+              (neq,":rp",reg39),
+              (assign,":cur_card",":rp"),
+            (try_end),
+            (try_begin),
+              (eq,reg25,0),
+              (assign,reg25,":cur_card"),
+            (else_try),
+              (eq,reg26,0),
+              (assign,reg26,":cur_card"),
+            (else_try),
+              (eq,reg27,0),
+              (assign,reg27,":cur_card"),
+            (else_try),
+              (eq,reg28,0),
+              (assign,reg28,":cur_card"),
+            (else_try),
+              (eq,reg29,0),
+              (assign,reg29,":cur_card"),
+            (else_try),
+              (eq,reg30,0),
+              (assign,reg30,":cur_card"),
+            (else_try),
+              (eq,reg31,0),
+              (assign,reg31,":cur_card"),
+            (else_try),
+              (eq,reg32,0),
+              (assign,reg32,":cur_card"),
+            (else_try),
+              (eq,reg33,0),
+              (assign,reg33,":cur_card"),
+            (else_try),
+              (eq,reg34,0),
+              (assign,reg34,":cur_card"),
+            (else_try),
+              (eq,reg35,0),
+              (assign,reg35,":cur_card"),
+            (else_try),
+              (eq,reg36,0),
+              (assign,reg36,":cur_card"),
+            (else_try),
+              (eq,reg37,0),
+              (assign,reg37,":cur_card"),
+            (else_try),
+              (eq,reg38,0),
+              (assign,reg38,":cur_card"),
+            (else_try),
+              (eq,reg39,0),
+              (assign,reg39,":cur_card"),
+            (try_end),
+            (store_sub,":banker_points",":cur_card",":reang_low"),
+            (val_add,":banker_points",1),
+            (try_begin),
+              (le,":banker_points",13),
+            (else_try),
+              (val_mod,":banker_points",13),
+              (try_begin),
+                (eq,":banker_points",0),
+                (assign,":banker_points",13),
+              (try_end),
+            (try_end),
+            (val_min,":banker_points",10),
+            (val_add, reg52, ":banker_points"),
+            (val_add, reg53, ":banker_points"),
+            (try_begin),
+              (eq, reg53, reg52),
+              #(this_or_next|eq,":cur_card","mesh_poker_heart_a"),
+              #(this_or_next|eq,":cur_card","mesh_poker_spade_a"),
+              #(this_or_next|eq,":cur_card","mesh_poker_diamond_a"),
+              #(eq,":cur_card","mesh_poker_club_a"),
+              (this_or_next|eq,":cur_card",407),
+              (this_or_next|eq,":cur_card",420),
+              (this_or_next|eq,":cur_card",433),
+              (eq,":cur_card",446),
+              (val_add, reg53, 10),
+            (try_end),
+            (create_mesh_overlay, "$g_presentation_credits_obj_5", ":cur_card"),
+            (overlay_set_position, "$g_presentation_credits_obj_5", pos13),
+            (overlay_set_size, "$g_presentation_credits_obj_5", pos14),
+            (position_get_x,":x_p",pos11),
+            (val_add,":x_p",60),
+            (position_set_x, pos11, ":x_p"),
+            #(position_move_x, pos11, 60),
+            (overlay_animate_to_position, "$g_presentation_credits_obj_5",300, pos11),
+          (try_end),
+          (assign, reg57, 1),
+          (assign,reg58,":cur_time"),
+        (try_end),
+        ]),
+
+      (ti_on_presentation_event_state_change,
+       [(store_trigger_param_1, ":object"),
+        (store_trigger_param_2, ":value"),
+
+        (try_begin),
+          (eq, ":object", "$g_presentation_obj_7"),
+          (try_begin),
+            (neq, reg51, ":value"),
+            (assign, reg51, ":value"),
+          (try_end),
+          (overlay_set_val, "$g_presentation_obj_7", reg51),
+          (str_store_string, s1, "@Bet: {reg51}Denar"),
+          (overlay_set_text, "$g_presentation_obj_8", s1),
+        (else_try),
+          (eq, ":object", "$g_presentation_obj_10"),
+          (store_troop_gold,reg1,"trp_player"),
+          (try_begin),
+            (lt,reg1,reg51),
+            (display_message, "@You don't have enough money."),
+          (else_try),
+            (troop_remove_gold, "trp_player", reg51),
+            (play_sound, "snd_money_paid"),
+            (position_set_x, pos1, 1400),
+            (position_set_y, pos1, 1400),
+            (overlay_set_position, "$g_presentation_obj_6", pos1),
+            (overlay_set_position, "$g_presentation_obj_7", pos1),
+            (overlay_set_position, "$g_presentation_obj_8", pos1),
+            (overlay_set_position, "$g_presentation_obj_9", pos1),
+            (overlay_set_position, "$g_presentation_obj_10", pos1),
+            (store_troop_gold,reg1,"trp_player"),
+            (str_store_string, s1, "@Bet: {reg51}Denar"),
+            (overlay_set_text, "$g_presentation_obj_4", s1),
+            (str_store_string, s1, "@Money: {reg1}Denar"),
+            (overlay_set_text, "$g_presentation_obj_5", s1),
+            (assign, reg50, 4),
+          (try_end),
+        (else_try),
+          (eq, ":object", "$g_presentation_obj_11"),
+          (store_troop_gold,reg1,"trp_player"),
+          (try_begin),
+            (lt,reg1,1),
+            (display_message, "@You don't have enough money."),
+          (else_try),
+            (presentation_set_duration, 0),
+            (assign, reg50,0),
+            (start_presentation, "prsnt_blackjack"),
+          (try_end),
+        (else_try),
+          (eq, ":object", "$g_presentation_obj_12"),
+          (assign, "$black_jack",0),
+          (assign,reg1,0),
+          (assign,reg21,0),
+          (assign,reg22,0),
+          (assign,reg23,0),
+          (assign,reg24,0),
+          (assign,reg25,0),
+          (assign,reg26,0),
+          (assign,reg27,0),
+          (assign,reg28,0),
+          (assign,reg29,0),
+          (assign,reg30,0),
+          (assign,reg31,0),
+          (assign,reg32,0),
+          (assign,reg33,0),
+          (assign,reg34,0),
+          (assign,reg35,0),
+          (assign,reg36,0),
+          (assign,reg37,0),
+          (assign,reg38,0),
+          (assign,reg39,0),
+          (assign, reg51, 0),
+          (assign, reg50, 0),
+          (assign, reg52, 0),
+          (assign, reg53, 0),
+          (assign, reg54, 0),
+          (assign, reg55, 0),
+          (assign, reg56, 0),
+          (assign, reg57, 0),
+          (assign, reg58, 0),
+          (assign, reg60, 0),
+          (assign, reg61, 0),
+          (assign, reg62, 0),
+          (assign, reg63, 0),
+          (presentation_set_duration, 0),
+        (try_end),
+
+        (eq, reg56, 0),
+        (eq, reg57, 1),
+        (eq, reg61, 0),
+
+        (try_begin),
+          (eq, ":object", "$g_presentation_obj_1"),
+
+
+          (assign,":reang_low","mesh_poker_heart_a"),
+          (assign,":reang_high","mesh_poker_red_joker"),
+          (assign,":cur_card",0),
+          (try_for_range, ":unused", 0, 300),
+            (eq,":cur_card",0),
+            (store_random_in_range,":rp",":reang_low",":reang_high"),
+            (neq,":rp",reg21),
+            (neq,":rp",reg22),
+            (neq,":rp",reg23),
+            (neq,":rp",reg24),
+            (neq,":rp",reg25),
+            (neq,":rp",reg26),
+            (neq,":rp",reg27),
+            (neq,":rp",reg28),
+            (neq,":rp",reg29),
+            (neq,":rp",reg30),
+            (neq,":rp",reg31),
+            (neq,":rp",reg32),
+            (neq,":rp",reg33),
+            (neq,":rp",reg34),
+            (neq,":rp",reg35),
+            (neq,":rp",reg36),
+            (neq,":rp",reg37),
+            (neq,":rp",reg38),
+            (neq,":rp",reg39),
+            (assign,":cur_card",":rp"),
+          (try_end),
+
+          (try_begin),
+            (eq,reg25,0),
+            (assign,reg25,":cur_card"),
+          (else_try),
+            (eq,reg26,0),
+            (assign,reg26,":cur_card"),
+          (else_try),
+            (eq,reg27,0),
+            (assign,reg27,":cur_card"),
+          (else_try),
+            (eq,reg28,0),
+            (assign,reg28,":cur_card"),
+          (else_try),
+            (eq,reg29,0),
+            (assign,reg29,":cur_card"),
+          (else_try),
+            (eq,reg30,0),
+            (assign,reg30,":cur_card"),
+          (else_try),
+            (eq,reg31,0),
+            (assign,reg31,":cur_card"),
+          (else_try),
+            (eq,reg32,0),
+            (assign,reg32,":cur_card"),
+          (else_try),
+            (eq,reg33,0),
+            (assign,reg33,":cur_card"),
+          (else_try),
+            (eq,reg34,0),
+            (assign,reg34,":cur_card"),
+          (else_try),
+            (eq,reg35,0),
+            (assign,reg35,":cur_card"),
+          (else_try),
+            (eq,reg36,0),
+            (assign,reg36,":cur_card"),
+          (else_try),
+            (eq,reg37,0),
+            (assign,reg37,":cur_card"),
+          (else_try),
+            (eq,reg38,0),
+            (assign,reg38,":cur_card"),
+          (else_try),
+            (eq,reg39,0),
+            (assign,reg39,":cur_card"),
+          (try_end),
+
+          (store_sub,":player_points",":cur_card",":reang_low"),
+          (val_add,":player_points",1),
+          (try_begin),
+            (le,":player_points",13),
+          (else_try),
+            (val_mod,":player_points",13),
+            (try_begin),
+              (eq,":player_points",0),
+              (assign,":player_points",13),
+            (try_end),
+          (try_end),
+          (val_min,":player_points",10),
+          (val_add, reg54, ":player_points"),
+          (val_add, reg55,":player_points"),
+          (try_begin),
+            (eq, reg55, reg54),
+            #(this_or_next|eq,":cur_card","mesh_poker_heart_a"),
+            #(this_or_next|eq,":cur_card","mesh_poker_spade_a"),
+            #(this_or_next|eq,":cur_card","mesh_poker_diamond_a"),
+            #(eq,":cur_card","mesh_poker_club_a"),
+            (this_or_next|eq,":cur_card",407),
+            (this_or_next|eq,":cur_card",420),
+            (this_or_next|eq,":cur_card",433),
+            (eq,":cur_card",446),
+            (val_add, reg55, 10),
+          (try_end),
+          (create_mesh_overlay, "$g_presentation_credits_obj_5", ":cur_card"),
+          (overlay_set_position, "$g_presentation_credits_obj_5", pos13),
+          (overlay_set_size, "$g_presentation_credits_obj_5", pos14),
+          (position_get_x,":x_p",pos12),
+          (val_add,":x_p",60),
+          (position_set_x, pos12, ":x_p"),
+          (overlay_animate_to_position, "$g_presentation_credits_obj_5",300, pos12),
+
+          (try_begin),
+            (eq, reg62, 1),
+            (assign, reg61, 1),
+            (create_mesh_overlay, reg1, reg21),
+            (overlay_set_position, reg1, pos60),
+            (overlay_set_size, reg1, pos14),
+          (try_end),
+
+          (assign, reg57, 2),
+        (else_try),
+          (eq, ":object", "$g_presentation_obj_2"),
+          (display_message, "@You stay."),
+          (create_text_overlay, reg1, "@Stay"),
+          (position_set_x, pos1, 660),
+          (position_set_y, pos1, 100),
+          (overlay_set_position, reg1, pos1),
+          (overlay_set_color, reg1, 0x11dd11),
+          (create_mesh_overlay, reg1, reg21),
+          (overlay_set_position, reg1, pos60),
+          (overlay_set_size, reg1, pos14),
+          (assign, reg61, 1),
+          (assign, reg57, 2),
+        (else_try),
+          (eq, ":object", "$g_presentation_obj_3"),
+          (try_begin),
+            (store_troop_gold,reg1,"trp_player"),
+            (lt,reg1,reg51),
+            (display_message, "@You don't have enough money."),
+          (else_try),
+            (eq, reg25, 0),
+            (assign, reg62, 1),
+            (display_message, "@Double bets! You can only get one card again."),
+            (troop_remove_gold, "trp_player", reg51),
+            (play_sound, "snd_money_paid"),
+            (val_mul, reg51, 2),
+            (store_troop_gold,reg1,"trp_player"),
+            (str_store_string, s1, "@Bet: {reg51}Denar"),
+            (overlay_set_text, "$g_presentation_obj_4", s1),
+            (str_store_string, s1, "@Money: {reg1}Denar"),
+            (overlay_set_text, "$g_presentation_obj_5", s1),
+          (else_try),
+            (display_message, "@Not right now."),
+          (try_end),
+        (try_end),
+        ]),
+     ]),
   ]
 # modmerger_start version=201 type=2
 try:

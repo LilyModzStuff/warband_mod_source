@@ -66,15 +66,25 @@ game_menus = [
 			(change_screen_map),
 		]),
 		
-        ("enter_town",[(party_is_in_any_town,"$enlisted_party"),] ,"Enter stationed town.",
-        [(party_get_cur_town, ":town_no", "$enlisted_party"),(start_encounter, ":town_no"),(change_screen_map),]),
+        ("enter_town",[
+			(party_get_attached_to, reg5, "$enlisted_party"),
+			(gt, reg5, 0),
+			(this_or_next|party_slot_eq, reg5, slot_party_type, spt_town),
+			(party_slot_eq, reg5, slot_party_type, spt_castle),
+		] ,"Enter stationed town.",
+        [(start_encounter, reg5),(change_screen_map),]),
 	 
 		("commander",[(party_get_battle_opponent, ":commander_opponent", "$enlisted_party"),(lt, ":commander_opponent", 0),],
 		   "Request audience with your commander.",
         [(jump_to_menu, "mnu_commander_aud"),]),
 		
-		("revolt",[],"Revolt against the commander!",
+		("revolt",[(party_get_attached_to, reg0, "$enlisted_party"),
+			       (lt, reg0, 0)],"Revolt against the commander!",
         [(jump_to_menu, "mnu_ask_revolt"),]),
+		
+		("revolt_disabled",[(party_get_attached_to, reg0, "$enlisted_party"),
+		(gt, reg0, 0),	
+		(disable_menu_option)],"You cannot revolt now. Bide your time.", []),
 		
 		("desert",[],"Desert the army.(keep equipment but lose relations)",
         [(jump_to_menu, "mnu_ask_desert"),]),
@@ -104,7 +114,8 @@ game_menus = [
        "Continue...",
        [
 		(try_begin),
-			(neg|party_is_in_any_town, "$enlisted_party"),
+			(party_get_attached_to, reg0, "$enlisted_party"),
+		    (lt, reg0, 0),
 			(start_encounter, "$enlisted_party"),
 			(change_screen_map),
 		(else_try),
@@ -142,41 +153,26 @@ game_menus = [
     [
         (set_background_mesh, "mesh_pic_soldier_rebel"),
 		(assign, "$cant_leave_encounter", 1),
-
-        #revert parties to former settings
-		(call_script, "script_freelancer_detach_party"),
-		(call_script, "script_event_player_deserts"),
-		#adds other troops to join player revolt
-        (call_script, "script_get_desert_troops"),
-		
-        #decreases player relation to his commander and faction
-        (call_script, "script_change_player_relation_with_troop", "$enlisted_lord", -10),
-		
-		(store_troop_faction, ":commander_faction", "$enlisted_lord"),
-        (try_begin),
-            (party_get_battle_opponent, ":commander_enemy", "$enlisted_party"),
-            (gt, ":commander_enemy", 0),
-            (store_faction_of_party, ":other_faction", ":commander_enemy"),
-            (store_relation, ":relation", ":other_faction", ":commander_faction"),
-            (store_sub, ":mod_relation", 100, ":relation"),
-            (val_add, ":mod_relation", 5),
-            (call_script, "script_change_player_relation_with_faction_ex", ":commander_faction", ":mod_relation"),
-        (try_end),
+        (call_script, "script_freelancer_event_player_revolts"),       
     ],
     [
         ("revolt_prisoners",[],"Yes, I will take the risk for a greater advantage.",
         [
-            (party_clear, "p_temp_party_2"),
-            #loop adding commander's prisoners to player party as troops
+			(set_spawn_radius, 0),
+			(spawn_around_party, "$enlisted_party", "pt_deserters"),
+			(assign, ":revolt_joiners", reg0),
+			(quest_set_slot, "qst_freelancer_revolt", slot_quest_target_party, ":revolt_joiners"),
+            
+			#loop adding commander's prisoners to player party as troops
             (party_get_num_prisoner_stacks, ":num_stacks", "$enlisted_party"),
             (try_for_range, ":cur_stack", 0, ":num_stacks"),
                 (party_prisoner_stack_get_troop_id , ":prisoner_troop", "$enlisted_party", ":cur_stack"),
                 (ge, ":prisoner_troop", 1),
                 (party_prisoner_stack_get_size, ":stack_size", "$enlisted_party", ":cur_stack"),
                 (party_remove_prisoners, "$enlisted_party", ":prisoner_troop", ":stack_size"),
-                (party_add_members, "p_temp_party_2", ":prisoner_troop", ":stack_size"),
+                (party_add_members, ":revolt_joiners", ":prisoner_troop", ":stack_size"),
             (try_end),
-			(party_attach_to_party, "p_temp_party_2", "p_main_party"),
+			(party_attach_to_party, ":revolt_joiners", "p_main_party"),
             (start_encounter, "$enlisted_party"),
             (change_screen_map),
         ]),
@@ -210,7 +206,7 @@ game_menus = [
         (set_background_mesh, "mesh_pic_soldier_desert"),
 		
 		(call_script, "script_freelancer_detach_party"),
-		(call_script, "script_event_player_deserts"),
+		(call_script, "script_freelancer_event_player_deserts"),
 	],
     [
         ("desert_party",[],"Try to convince them to follow you.",[
@@ -246,39 +242,78 @@ game_menus = [
   
     #menu_upgrade_path
    ("upgrade_path",0,
-    "In recognition of your excellent service, you have been promoted.",
+    "In recognition of your excellent service, your commander is considering you for a promotion.",
     "none",[
 		(set_background_mesh, "mesh_pic_soldier_world_map"),
-		(call_script, "script_freelancer_unequip_troop", "$player_cur_troop"),
+		(assign, reg1, 0),
+		(assign, reg2, 0),
 		],
     [
         ("upgrade_path_1",[
             (troop_get_upgrade_troop, ":path_1_troop", "$player_cur_troop", 0),
             (ge, ":path_1_troop", 0),
+			(assign, reg1, 1),
+			(try_begin),
+				(call_script, "script_cf_freelancer_player_can_upgrade", ":path_1_troop"), #returns s0
+				(assign, reg1, 0),
+			(else_try),
+				(disable_menu_option),	
+			(try_end),
             (str_store_troop_name, s66, ":path_1_troop"),],
-        "{s66}",[
-            (troop_get_upgrade_troop, "$player_cur_troop", "$player_cur_troop", 0),
+        "{s66}{s0}.",[
+            (call_script, "script_freelancer_unequip_troop", "$player_cur_troop"),
+			(troop_get_upgrade_troop, "$player_cur_troop", "$player_cur_troop", 0),
 			(store_troop_faction, ":commander_faction", "$enlisted_lord"),
 			(faction_set_slot, ":commander_faction", slot_faction_freelancer_troop, "$player_cur_troop"),
 			(call_script, "script_freelancer_equip_troop", "$player_cur_troop"),
 			(str_store_troop_name, s5, "$player_cur_troop"),
+			(str_store_troop_name_link, s13, "$enlisted_lord"),
+			(str_store_faction_name_link, s14, ":commander_faction"),
+			(str_store_string, s1, "@Enlisted as a {s5} in the party of {s13} of {s14}."),
+			(add_troop_note_from_sreg, "trp_player", 3, s1, 0),
+
 		    (str_store_string, s5, "@Current rank: {s5}"),
             (add_quest_note_from_sreg, "qst_freelancer_enlisted", 3, s5, 1),
+			(troop_get_xp, reg0, "trp_player"),
+			(quest_set_slot, "qst_freelancer_enlisted", slot_quest_freelancer_start_xp, reg0),
+			
+			(call_script, "script_freelancer_get_upgrade_xp", "$player_cur_troop"),
+			(quest_set_slot, "qst_freelancer_enlisted", slot_quest_freelancer_upgrade_xp, reg0),
             (change_screen_map),]),
 
         ("upgrade_path_2",[
             (troop_get_upgrade_troop, ":path_2_troop", "$player_cur_troop", 1),
             (ge, ":path_2_troop", 1),
+			(assign, reg2, 1),
+			(str_clear, s65),
+			(try_begin),
+				(call_script, "script_cf_freelancer_player_can_upgrade", ":path_2_troop"), #returns s0
+				(assign, reg2, 0),
+			(else_try),
+				(disable_menu_option),
+			(try_end),
             (str_store_troop_name, s67, ":path_2_troop"),],
-        "{s67}",[
-            (troop_get_upgrade_troop, "$player_cur_troop", "$player_cur_troop", 1),
+        "{s67}{s0}.",[
+            (call_script, "script_freelancer_unequip_troop", "$player_cur_troop"),
+			(troop_get_upgrade_troop, "$player_cur_troop", "$player_cur_troop", 1),
 			(store_troop_faction, ":commander_faction", "$enlisted_lord"),
 			(faction_set_slot, ":commander_faction", slot_faction_freelancer_troop, "$player_cur_troop"),
 			(call_script, "script_freelancer_equip_troop", "$player_cur_troop"),
-			(str_store_troop_name, s5, "$player_cur_troop"),
+			(str_store_troop_name, s5, "$player_cur_troop"),	
+			(str_store_troop_name_link, s13, "$enlisted_lord"),
+			(str_store_faction_name_link, s14, ":commander_faction"),
+			(str_store_string, s1, "@Enlisted as a {s5} in the party of {s13} of {s14}."),
+			(add_troop_note_from_sreg, "trp_player", 3, s1, 0),
+
 		    (str_store_string, s5, "@Current rank: {s5}"),
-            (add_quest_note_from_sreg, "qst_freelancer_enlisted", 3, s5, 1),
+            (add_quest_note_from_sreg, "qst_freelancer_enlisted", 3, s5, 1),	
+			(troop_get_xp, reg0, "trp_player"),
+			(quest_set_slot, "qst_freelancer_enlisted", slot_quest_freelancer_start_xp, reg0),	
+			(call_script, "script_freelancer_get_upgrade_xp", "$player_cur_troop"),
+			(quest_set_slot, "qst_freelancer_enlisted", slot_quest_freelancer_upgrade_xp, reg0),			
             (change_screen_map),]),
+		
+		("upgrade_wait", [(this_or_next|eq, reg1, 1),(eq, reg2, 1)], "Wait until next week.", [(change_screen_map)]),
     ]),
 #+freelancer end
  ]
@@ -308,6 +343,8 @@ join_siege_outside_freelancer = [
 			(store_relation, ":relation", ":commanders_faction", "$g_encountered_party_faction"),
 			(this_or_next|eq, ":commanders_faction", "$g_encountered_party_faction"), #encountered party is always the castle/town sieged
 			(ge, ":relation", 0),
+			(assign, "$g_defending_against_siege", 1),
+			(assign, "$g_siege_first_encounter", 1),
 			(jump_to_menu, "mnu_siege_started_defender"),
 		  (else_try),
 			(jump_to_menu, "mnu_besiegers_camp_with_allies"),
@@ -401,6 +438,9 @@ def modmerge_game_menus(orig_game_menus, check_duplicates = False):
 		raise
 
 	try: #disabling menu options
+		find_i = list_find_first_match_i( orig_game_menus, "camp_action" )
+		codeblock = GameMenuWrapper(orig_game_menus[find_i]).GetMenuOption("action_modify_banner").GetConditionBlock()
+		codeblock.InsertBefore(0, not_enlisted)
 		find_i = list_find_first_match_i( orig_game_menus, "join_battle" )
 		menulist = GameMenuWrapper(orig_game_menus[find_i]).GetMenuOptions()
 		for i in range(len(menulist)):

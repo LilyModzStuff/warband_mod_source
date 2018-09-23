@@ -672,6 +672,95 @@ meshes = [
   ("mmc_dice_6", 0, "mmc_dice_6", 0, 0, 0, 0, 0, 0, 1, 1, 1),
 # dices game end 
 ### Dice game ### Dice game ### END ### 
+#Troop Ratio Bar
+ ("status_troop_ratio_bar", 0, "slider_hor", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("status_troop_ratio_bar_button", 0, "handle_hor", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+
+  ("custom_bg", 0, "meeting_window", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("custom_button_up", 0, "button1_up", 0, 0, 0, 0, 0, 0, 1.4, 1.4, 1.4),
+  ("custom_button_down", 0, "button1_down", 0, 0, 0, 0, 0, 0, 1.4, 1.4, 1.4),
+##CC
+
+## CC
+
+  ("relation_bar", 0, "talk_relation_bar", 0, 0, 0, 0, 0, 0, 1.06, 1, 1),
+  ("reln_pointer", 0, "talk_reln_pointer", 0, 0, 0, 0, 0, 0, 1.06, 1, 1),
+  ("relation_bar_vertical", 0, "talk_relation_bar", 0, 0, 0, 0, 0, 90, 0.52, 0.52, 0.52),
+  ("reln_pointer_vertical", 0, "talk_reln_pointer", 0, 0, 0, 0, 0, 90, 0.52, 0.52, 0.52),
+
+  ("compass", 0, "compass", 0, 0, 0, 0, 0, 0, 0.6, 0.6, 1),
+
+  ("map_frame_h", 0, "mp_frame_a_h", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("map_frame_v", 0, "mp_frame_a_v", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+
+  ("battle_map_bar", 0, "battle_map_bar", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+## CC
+##CC
+
+##plus
+  ("text_bar", 0, "text_bar", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("button_used", 0, "medium_button", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("button_press_any_key", 0, "button_drop_hl", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("21_troop_portrait", 0, "blackjack_troop_portrait", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("21_button", 0, "21button", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("21_button_down", 0, "21button_down", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_heart_a", 0, "poker_12", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_heart_2", 0, "poker_13", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_heart_3", 0, "poker_14", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_heart_4", 0, "poker_15", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_heart_5", 0, "poker_16", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_heart_6", 0, "poker_17", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_heart_7", 0, "poker_18", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_heart_8", 0, "poker_19", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_heart_9", 0, "poker_21", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_heart_10", 0, "poker_22", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_heart_j", 0, "poker_23", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_heart_q", 0, "poker_24", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_heart_k", 0, "poker_25", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_spade_a", 0, "poker_26", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_spade_2", 0, "poker_27", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_spade_3", 0, "poker_28", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_spade_4", 0, "poker_29", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_spade_5", 0, "poker_31", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_spade_6", 0, "poker_32", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_spade_7", 0, "poker_33", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_spade_8", 0, "poker_34", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_spade_9", 0, "poker_35", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_spade_10", 0, "poker_36", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_spade_j", 0, "poker_37", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_spade_q", 0, "poker_38", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_spade_k", 0, "poker_39", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_diamond_a", 0, "poker_41", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_diamond_2", 0, "poker_42", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_diamond_3", 0, "poker_43", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_diamond_4", 0, "poker_44", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_diamond_5", 0, "poker_45", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_diamond_6", 0, "poker_46", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_diamond_7", 0, "poker_47", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_diamond_8", 0, "poker_48", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_diamond_9", 0, "poker_49", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_diamond_10", 0, "poker_51", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_diamond_j", 0, "poker_52", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_diamond_q", 0, "poker_53", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_diamond_k", 0, "poker_54", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_club_a", 0, "poker_55", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_club_2", 0, "poker_56", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_club_3", 0, "poker_57", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_club_4", 0, "poker_58", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_club_5", 0, "poker_59", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_club_6", 0, "poker_61", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_club_7", 0, "poker_62", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_club_8", 0, "poker_63", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_club_9", 0, "poker_64", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_club_10", 0, "poker_65", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_club_j", 0, "poker_66", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_club_q", 0, "poker_67", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_club_k", 0, "poker_68", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_red_joker", 0, "poker_69", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_black_joker", 0, "poker_11", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("poker_back", 0, "poker_back", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+  ("wood_table", 0, "wood_table", 0, 0, 0, 0, 0, 0, 1, 1, 1),
+
 ]
 # modmerger_start version=201 type=2
 try:

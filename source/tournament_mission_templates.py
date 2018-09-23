@@ -797,9 +797,8 @@ tpe_standard_triggers = [
 	(0, 0, ti_once, [(main_hero_fallen),],
 	   [(display_message, "@You have fallen during this round, but will be able to continue onto the next round when only one team remains."),
 	    (troop_set_slot, "trp_tpe_presobj", tpe_time_of_death, "$g_wp_tpe_timer"),
-		  (eq, "$g_dplmc_cam_activated", 0),
 		  #(store_mission_timer_a, "$g_dplmc_main_hero_fallen_seconds"),
-		  (assign, "$g_dplmc_cam_activated", "$g_dplmc_cam_default"),
+		  (set_camera_in_first_person, 0),
 	    # (try_begin),
 			# (eq, MOD_PBOD_INSTALLED, 1), # (dependency) PBOD - Custom camera
 			# (display_message, "@You may move your camera around using the arrow keys."),
@@ -997,7 +996,7 @@ tpe_tournament_triggers = [
       # (56, mtef_visitor_source|mtef_team_0, af_override_all, aif_start_alarmed, 1, [itm_practice_sword, itm_practice_shield, itm_ar_rho_t3_aketon_a, itm_he_swa_t3_helmet_a]),
       # (57, mtef_visitor_source|mtef_team_0, af_override_all, aif_start_alarmed, 1, [itm_practice_sword, itm_practice_shield, itm_ar_rho_t3_aketon_a, itm_he_swa_t3_helmet_a]),
 	],
-    tpe_standard_triggers # + custom_camera_triggers # (dependency) PBOD
+    tpe_standard_triggers + extra_arena_triggers
   ),
   
 (
@@ -1070,7 +1069,7 @@ tpe_tournament_triggers = [
       # (56, mtef_visitor_source|mtef_team_0, af_override_all, aif_start_alarmed, 1, [itm_practice_sword, itm_practice_shield, itm_ar_rho_t3_aketon_a, itm_he_swa_t3_helmet_a]),
       # (57, mtef_visitor_source|mtef_team_0, af_override_all, aif_start_alarmed, 1, [itm_practice_sword, itm_practice_shield, itm_ar_rho_t3_aketon_a, itm_he_swa_t3_helmet_a]),
 	],
-    tpe_standard_triggers # + custom_camera_triggers # (dependency) PBOD
+    tpe_standard_triggers + extra_arena_triggers # + custom_camera_triggers # (dependency) PBOD
   ),
 
 ]

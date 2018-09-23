@@ -277,6 +277,9 @@ new_scripts = [
 			(store_item_value, ":value", ":item"),
 			(gt, ":value", 0),
 			
+			(this_or_next|gt, "$g_sexual_content", 0), # No adult armors if disabled
+			(neg|is_between, ":item", itm_chest_b, itm_sonja_sword),
+			
 			(assign, ":item_eligible", 1),
 		(else_try),
 			(this_or_next|eq, ":item", "itm_strange_armor"),

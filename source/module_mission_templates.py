@@ -500,6 +500,12 @@ battle_panel_triggers = [ #4 triggers
       (try_end),
   ]),
 
+#(0, 0, ti_once,
+#    [],
+#    [
+#      (start_presentation, "prsnt_troop_ratio_bar"),
+#    ]),
+
   # (0.1, 0, 0, [ this is left from Native code
       # (is_presentation_active, "prsnt_battle")
   # ],[
@@ -1785,7 +1791,29 @@ common_shield_bash = (0,0,0,[
 
 (call_script, "script_shield_bash"),
 ])
-
+#Troop ratio bar expansion script to call it through left ctrl
+#common_troop_ratio = (0,0,0,[
+#(key_clicked, key_left_control),
+#],
+#[
+#(start_presentation, "prsnt_troop_ratio_bar"),
+#])
+#Mixed gender troops by Dusk Voyager (OSP)
+random_mixed_gender = (ti_on_agent_spawn, 0, 0, [],
+  [
+   (eq, 0, 1), # Clean disable
+   (store_trigger_param_1, ":agent_no"),
+   (agent_get_troop_id, ":troop_no", ":agent_no"),
+   (neg|troop_is_hero, ":troop_no"),
+   (store_random_in_range, ":gender", 0, 2),
+    (try_begin),
+    (eq, ":gender", 0),
+    (troop_set_type, ":troop_no", 0),
+    (else_try),
+    (eq, ":gender", 1),
+    (troop_set_type, ":troop_no", 1),
+    (try_end),
+  ])
 #AI BASHING OSP BEGIN
 ai_shield_bash = (
                  0, 0,  0,
@@ -2458,6 +2486,210 @@ realistic_wounding = (ti_on_agent_hit, 0, 0, [], [
       (agent_set_slot, ":inflicted_agent_id", slot_agent_last_damage, ":inflicted_damage"),
   ])
 
+  
+###DtheHun
+player_dance = (
+  0, 0, 0,
+  [
+    (key_clicked, key_k),
+
+    (troop_get_type, ":is_female", "trp_player"),
+    (ge, ":is_female", 1),
+	(gt, "$g_sexual_content", 1),
+    (get_player_agent_no, ":agent"),	
+	
+    (agent_is_alive, ":agent"),
+    (agent_is_human, ":agent"),
+    (agent_get_horse, ":horse", ":agent"),
+    (le, ":horse", 0),
+    (agent_get_animation, ":anim", ":agent"),
+	(try_begin),
+        (eq, ":anim", "anim_dancer_good"),
+        (agent_set_animation, ":agent", "anim_unequip_dagger_front_left"),
+	(else_try),
+		(neq, ":anim", "anim_jump"),
+		(neq, ":anim", "anim_jump_loop"),
+		(neq, ":anim", "anim_jump_end"),
+		(neq, ":anim", "anim_jump_end_hard"),
+		(neq, ":anim", "anim_kick_right_leg"),
+		(agent_set_animation, ":agent", "anim_dancer_good"),
+	(try_end),
+  ],
+  []
+)
+player_undress = (
+  0, 0, 0,
+  [
+    (key_clicked, key_o),
+
+    (troop_get_type, ":is_female", "trp_player"),
+    (ge, ":is_female", 1),
+	(gt, "$g_sexual_content", 1),
+    (get_player_agent_no, ":agent"),	
+	
+    (agent_is_alive, ":agent"),
+    (agent_is_human, ":agent"),
+    (agent_get_horse, ":horse", ":agent"),
+    (le, ":horse", 0),
+	(troop_get_type, ":type", trp_player),
+	(try_begin),
+		(agent_equip_item, ":agent", "itm_red_tourney_armor"), #Remove clothes/hat
+		(agent_unequip_item, ":agent", "itm_red_tourney_armor"),
+		(agent_equip_item, ":agent", "itm_red_tourney_helmet"),
+		(agent_unequip_item, ":agent", "itm_red_tourney_helmet"),
+		(eq, ":type", 1),
+		(troop_set_type, "trp_player", 3),
+	(try_end),
+  ],
+  []
+)
+
+grant_body_start = (
+  ti_on_agent_spawn, 0, 0, [],
+  [
+	(store_trigger_param_1, ":agent_no"),
+	(call_script, "script_done_skin", ":agent_no"),
+  ]
+)
+
+grant_body_after_inventory = (
+  0, 0, 0, [(le, "$g_body_done", 0),], #inventory tableau script sets it 0 -> will trigger after inventory [mission]/after companion equip [dialog])
+  [
+	(assign, "$g_body_done", 1),
+	(try_for_agents, ":agent_no"),
+		(call_script, "script_done_skin", ":agent_no"),
+	(try_end),
+   ]
+)
+
+grant_body_multiplayer = (
+  ti_on_agent_spawn, 0, 0, [],
+  [
+	#(assign, "$g_cenzura", cenzura),	#can not be changed
+	(store_trigger_param_1, ":agent_no"),
+	(call_script, "script_done_skin_multiplayer", ":agent_no"),
+  ]
+)
+
+#INPUT: agent_no, attacker_no, damage, pos0
+
+lose_armor_parts = (	# $g_cenzura != 1 -> can lose it
+  ti_on_agent_hit, 0, 0, [], 
+  [
+		(store_trigger_param_1, ":agent_no"),
+		#(store_trigger_param_2, ":attacker_no"),
+        (store_trigger_param_3, ":damage"),
+		(ge, ":damage", 4),
+		(agent_get_troop_id, ":hit_troop", ":agent_no"),
+		(troop_get_type, ":is_female", ":hit_troop"),
+		(ge, ":is_female", 1),
+		(agent_get_item_slot, ":item_id", ":agent_no", ek_body),
+        (ge, ":item_id", 0),		
+		(try_for_range, ":fem_item", "itm_chest_b", "itm_sonja_sword"),
+			(eq, ":item_id", ":fem_item"),
+			(agent_get_position, pos3, ":agent_no"),
+			(get_sq_distance_between_position_heights, ":hit_height", pos0, pos3),
+			#(assign, reg1, ":hit_height"),
+			#(display_message, "@hit height {reg1}"),
+			(assign, ":hit_count", 3),	#not yelling if it remains 2 or become greater		
+			(try_begin), #loose top
+				(is_between, ":hit_height", 130, 170),
+				(agent_get_slot, ":hit_count", ":agent_no", slot_agent_chest_hit_count),
+				(val_add, ":hit_count", 1),
+				(agent_set_slot, ":agent_no", slot_agent_chest_hit_count, ":hit_count"),
+				(try_begin),
+					(le, ":hit_count", 1), # 1: bra/skin
+					(agent_unequip_item, ":agent_no", ":item_id"),
+					(agent_equip_item, ":agent_no", ":item_id"),		
+					#(try_begin),	#set permanent component lose
+					#	(eq, "$g_cenzura", 2),
+					#	(troop_is_hero, ":hit_troop"),
+					#	(troop_set_slot, ":hit_troop", slot_troop_armor_slots_begin + 1, 0),
+					#(try_end),							
+				(try_end),
+				(val_add, ":hit_count", 1), #yell only once for bra: 1->2:YES  2->3:NO
+			(else_try), #loose skirt / panty
+				(is_between, ":hit_height", 60, 100),
+				(agent_get_slot, ":hit_count",  ":agent_no", slot_agent_hip_hit_count),
+				(val_add, ":hit_count", 1),
+				(agent_set_slot, ":agent_no", slot_agent_hip_hit_count, ":hit_count"),
+				(try_begin),
+					(le, ":hit_count", 2), #1: skirt  2: panty
+					(agent_unequip_item, ":agent_no", ":item_id"),
+					(agent_equip_item, ":agent_no", ":item_id"),			
+					#(try_begin),	#set permanent component lose
+					#	(eq, "$g_cenzura", 2),
+					#	(troop_is_hero, ":hit_troop"),
+					#	(try_begin),
+					#		(eq, ":hit_count", 1), #1: skirt
+					#		(troop_set_slot, ":hit_troop", slot_troop_armor_slots_begin + 4, 0),
+					#	(else_try),
+					#		#(eq, ":hit_count", 2), #1: panty
+					#		(troop_set_slot, ":hit_troop", slot_troop_armor_slots_begin + 2, 0),
+					#	(try_end),
+					#(try_end),
+				(try_end),					
+			(try_end),
+			(try_begin),	# yelling twice per hit region
+				(le, ":hit_count", 2),		
+				(particle_system_burst, "psys_gourd_smoke", pos0, 3),
+				(particle_system_burst, "psys_dummy_straw", pos0, 10),			
+				(store_agent_hit_points, ":health", ":agent_no",1),
+				(lt, ":damage", ":health"),
+				(agent_play_sound, ":agent_no", "snd_woman_lose_armor"),				
+			(try_end),
+		(try_end),	
+		#(assign, reg0, ":damage"),
+		#(set_trigger_result, reg0),
+   ]
+)
+  
+inventory_or_customize = (
+	ti_inventory_key_pressed, 0, 0,
+      [
+		(try_begin),
+			(game_key_is_down, gk_view_char),
+			(call_script, "script_find_customizable_item_equipped_on_troop", "$g_player_troop"),
+			(try_begin),
+				(neq, "$g_current_opened_item_details", -1),
+				(assign, "$g_current_opened_troop_dthehun", "$g_player_troop"),			
+				(start_presentation, "prsnt_customize_armor"),
+			(else_try),
+				(display_message,"str_dont_have_custom_item"),
+			(try_end),				
+		(else_try),
+		    (set_trigger_result,1),
+		(try_end),
+      ], [])
+	  
+inventory_or_customize_town = (
+	ti_inventory_key_pressed, 0, 0,
+      [
+		(try_begin),
+			(game_key_is_down, gk_view_char),
+			(eq, "$g_mt_mode", tcm_default),
+			(call_script, "script_find_customizable_item_equipped_on_troop", "$g_player_troop"),
+			(try_begin),
+				(neq, "$g_current_opened_item_details", -1),
+				(assign, "$g_current_opened_troop_dthehun", "$g_player_troop"),		
+				(start_presentation, "prsnt_customize_armor"),
+			(else_try),
+				(display_message,"str_dont_have_custom_item"),
+			(try_end),	
+		(else_try),
+		    (try_begin),
+		      (eq, "$g_mt_mode", tcm_default),
+		      (set_trigger_result,1),
+		    (else_try),
+		      (eq, "$g_mt_mode", tcm_disguised),
+		      (display_message,"str_cant_use_inventory_disguised"),
+		    (else_try),
+		      (display_message, "str_cant_use_inventory_now"),
+		    (try_end),
+		(try_end),
+      ], [])
+#/DtheHun
+
 # realistic_wounding2 = (ti_on_agent_killed_or_wounded, 0, 0, [],
    # [
     # (store_trigger_param_1, ":dead_agent_no"),
@@ -2491,9 +2723,24 @@ dplmc_battle_mode_triggers = [
     dplmc_horse_speed,
     common_move_deathcam, common_rotate_deathcam,
     custom_commander_camera, deathcam_cycle_forwards, deathcam_cycle_backwards,
-    dplmc_death_camera, ai_crouch, ai_crouch2, realistic_wounding,
+    dplmc_death_camera, ai_crouch, ai_crouch2, realistic_wounding,	player_dance, player_undress,
+	grant_body_start, grant_body_after_inventory, lose_armor_parts,
   ]
 ##diplomacy end
+extra_arena_triggers = [
+	AI_kick,
+	ai_shield_bash,
+	common_shield_bash,
+	dplmc_horse_speed,
+	common_move_deathcam,
+	common_rotate_deathcam,
+	custom_commander_camera,
+	deathcam_cycle_forwards,
+	deathcam_cycle_backwards,
+	dplmc_death_camera,
+	player_dance,
+	player_undress,
+  ]
 
 multiplayer_server_check_belfry_movement = (
   0, 0, 0, [],
@@ -3447,23 +3694,58 @@ common_siege_check_defeat_condition = (
       (try_end),
     ##diplomacy end
     ])
-
-common_battle_order_panel = (
-  0, 0, 0, [
-    (game_key_clicked, gk_view_orders),
-    (neg|is_presentation_active, "prsnt_battle"),
-  ],
+##CC
+common_battle_order_panel =(
+  0, 0, ti_once, [],
   [
-    (start_presentation, "prsnt_battle"),
+    (try_begin),
+      (eq, "$g_minimap_style", 0),
+      (assign, ":dest_presentation", "prsnt_mini_map_bar"),
+    (else_try),
+      (assign, ":dest_presentation", "prsnt_mini_map"),
+    (try_end),
+    (neg|is_presentation_active, ":dest_presentation"),
+    (start_presentation, ":dest_presentation"),
     ])
+
 
 common_battle_order_panel_tick = (
-  0.1, 0, 0, [
-  (is_presentation_active, "prsnt_battle"),
-  ],
+  0, 0, 0, [],
   [
+    (try_begin),
+      (eq, "$g_minimap_style", 0),
+      (assign, ":dest_presentation", "prsnt_mini_map_bar"),
+    (else_try),
+      (assign, ":dest_presentation", "prsnt_mini_map"),
+    (try_end),
+    (try_begin),
+      (neg|is_presentation_active, "prsnt_battle"),
+      (neg|is_presentation_active, ":dest_presentation"),
+      (start_presentation, ":dest_presentation"),
+      #(start_presentation, "prsnt_troop_ratio_bar"),
+    (try_end),
+    (try_begin),
+  (is_presentation_active, "prsnt_battle"),
     (call_script, "script_update_order_panel_statistics_and_map"),
+    (else_try),
+      (is_presentation_active, "prsnt_mini_map"),
+      (try_begin),
+        (ge, "$g_minimap_style", 1),
+        (call_script, "script_update_order_panel_map"),
+      (try_end),
+      (call_script, "script_update_agent_hp_bar"),
+    (else_try),
+      (is_presentation_active, "prsnt_mini_map_bar"),
+      (call_script, "script_update_map_bar"),
+      (call_script, "script_update_agent_hp_bar"),
+    (try_end),
     ])
+## CC
+#(0, 0, ti_once,
+#    [],
+#    [
+#      (start_presentation, "prsnt_troop_ratio_bar"),
+#    ]),
 
 common_battle_inventory = (
   ti_inventory_key_pressed, 0, 0, [],
@@ -3903,7 +4185,7 @@ mission_templates = [
 
      ],
      [
-		dedal_tavern_animations,
+		dedal_tavern_animations, player_dance, player_undress,
 		#dedal end
       (1, 0, ti_once, [],
       [
@@ -4812,15 +5094,17 @@ mission_templates = [
      (31,mtef_visitor_source,af_castle_lord,0,1,[])
      ],
     [
+	  player_dance, player_undress,
       (ti_on_agent_spawn, 0, 0, [],
       [
         (store_trigger_param_1, ":agent_no"),
         (call_script, "script_init_town_agent", ":agent_no"),
 		(try_begin),
 			(ge, "$g_sexual_content", 1),
+			(eq, "$talk_context", tc_court_talk),
 			(agent_get_troop_id, ":troop_id", ":agent_no"),
+			(neg|eq, trp_player, ":troop_id"),
 			(assign, ":tribute_entertainer", 0),
-			(neq, "$talk_context", tc_prison_break),
 			(call_script, "script_cf_dplmc_troop_is_female", ":troop_id"),
 			(try_begin),
 				(troop_slot_ge, ":troop_id", slot_troop_prisoner_of_party, "$g_encountered_party"),
@@ -5130,6 +5414,8 @@ mission_templates = [
       	  ai_shield_bash,
       	  common_shield_bash,
       	  common_gore,
+          #common_troop_ratio,
+          random_mixed_gender,
 
       (ti_question_answered, 0, 0, [],
        [(store_trigger_param_1,":answer"),
@@ -5332,6 +5618,8 @@ mission_templates = [
       	  ai_shield_bash,
       	  common_shield_bash,
       	  common_gore,
+          #common_troop_ratio,
+          random_mixed_gender,
       common_battle_init_banner,
 
 
@@ -5461,6 +5749,8 @@ mission_templates = [
       	  ai_shield_bash,
       	  common_shield_bash,
       	  common_gore,
+          #common_troop_ratio,
+          random_mixed_gender,
       common_battle_init_banner,
 
       (ti_question_answered, 0, 0, [],
@@ -5782,6 +6072,8 @@ mission_templates = [
       	  ai_shield_bash,
       	  common_shield_bash,
       	  common_gore,
+          #common_troop_ratio,
+          random_mixed_gender,
       common_battle_init_banner,
 
       (ti_question_answered, 0, 0, [],
@@ -5980,6 +6272,8 @@ mission_templates = [
       	  ai_shield_bash,
       	  common_shield_bash,
       	  common_gore,
+          #common_troop_ratio,
+          random_mixed_gender,
       common_battle_init_banner,
 
       killed_or_wounded,
@@ -6083,6 +6377,8 @@ mission_templates = [
       	  ai_shield_bash,
       	  common_shield_bash,
       	  common_gore,
+          #common_troop_ratio,
+          random_mixed_gender,
       common_battle_init_banner,
       common_siege_question_answered,
       common_siege_init,
@@ -6185,6 +6481,8 @@ mission_templates = [
  	  ai_shield_bash,
  	  common_shield_bash,
  	  common_gore,
+      #common_troop_ratio,
+      random_mixed_gender,
       common_battle_init_banner,
       common_siege_question_answered,
       common_siege_init,
@@ -6558,6 +6856,7 @@ mission_templates = [
 	  AI_kick,
 	  ai_shield_bash,
       common_shield_bash,
+      #not adding troop ratio bar here but it might work I don't hponestly know.
 
       #SB : player override items
       (ti_on_agent_spawn, 0, ti_once, [
@@ -6766,10 +7065,6 @@ mission_templates = [
          (call_script, "script_change_banners_and_chest")]),
 
       common_arena_fight_tab_press,
-	  AI_kick,
-	  ai_shield_bash,
-	  common_shield_bash,
-	  
 
       (ti_question_answered, 0, 0, [],
        [
@@ -6958,7 +7253,7 @@ mission_templates = [
          (assign, "$g_last_destroyed_gourds", 0),
          ],
        [(call_script, "script_agents_cheer_during_training"),]),
-    ],
+    ] + extra_arena_triggers,
   ),
 
   (
@@ -7286,7 +7581,7 @@ mission_templates = [
       (56, mtef_visitor_source|mtef_team_0, af_override_all, aif_start_alarmed, 1, [itm_practice_sword, itm_practice_shield, itm_padded_cloth, itm_segmented_helmet]),
       (57, mtef_visitor_source|mtef_team_0, af_override_all, aif_start_alarmed, 1, [itm_practice_sword, itm_practice_shield, itm_padded_cloth, itm_segmented_helmet]),
     ],
-    tournament_triggers
+    tournament_triggers + extra_arena_triggers
   ),
 
   (
@@ -18132,6 +18427,8 @@ mission_templates = [
          (call_script, "script_replace_scene_items_with_spawn_items_before_ms"),
          #(assign, "$g_conversation_camera", 0),
       ]),
+
+	  player_dance, player_undress,
 
       (ti_tab_pressed, 0, 0, [],
        [(finish_mission,0)]),
