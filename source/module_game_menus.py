@@ -12918,7 +12918,7 @@ TOTAL:  {reg5}"),
       [
              (party_slot_eq, "$current_town", slot_party_type, spt_town)
        ],
-       "Do buisness with this town.",
+       "Go to the guild district.",
       [
        (jump_to_menu,"mnu_dickplo_town_manage"),
       ]),
