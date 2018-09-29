@@ -1,4 +1,7 @@
-![picture alt](https://image.ibb.co/bRP7pK/Dickplo_Logo_Forum_Sig.png "https://image.ibb.co/bRP7pK/Dickplo_Logo_Forum_Sig.png")
+<p align="center">
+  <img src="https://image.ibb.co/bRP7pK/Dickplo_Logo_Forum_Sig.png">
+</p>
+
 Anyone is free to make a pull request and contribute to the project as long as they describe the changes they have made in the pull request.
 - - - -
 ### License ###
