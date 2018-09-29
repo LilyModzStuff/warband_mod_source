@@ -294,7 +294,7 @@ troops = [
 #  ["arena_training_fighter_10","Champion Fighter","Champion Fighters",tf_female|tf_guarantee_boots|tf_guarantee_armor,no_scene,reserved,fac_commoners,
 #   [itm_hide_boots, itm_loincloth],#DtheHun tf_female
 #   str_12|agi_12|level(23),wp(150),knows_common,woman_d_face_1, woman_d_face_2],
-
+   
   ["arena_training_fighter_1","Novice Fighter","Novice Fighters",tf_guarantee_boots|tf_guarantee_armor,no_scene,reserved,fac_commoners,
    [itm_hide_boots],
    str_6|agi_6|level(5),wp(60),knows_common,mercenary_face_1, mercenary_face_2],
@@ -784,9 +784,9 @@ troops = [
   #["amazon_cavalry","Amazon Cavalry","Amazon Cavalry",tf_female|tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_horse|tf_guarantee_shield,0,0,fac_commoners,
   # [itm_heavy_lance,itm_bastard_sword_a,itm_sword_medieval_b,itm_tab_shield_heater_c, itm_custom_armor2, itm_scale_armor_dthun, itm_plate_boots_dthun, itm_diabassa_boots, itm_angela_boots, itm_khergit_cavalry_helmet,itm_plate_helm_dthun, itm_angela_helm, itm_arabian_horse_a,itm_hunter],
   # def_attrib|level(25),wp(130),knows_common|knows_riding_5|knows_athletics_2|knows_ironflesh_4|knows_shield_5|knows_power_strike_4,woman_d_face_1,woman_d_face_2],
-  #/DtheHun
-
-
+  #/DtheHun   
+  
+  
   ["refugee","Refugee","Refugees",tf_female|tf_guarantee_armor,0,0,fac_commoners,
    [itm_knife,itm_pitch_fork,itm_sickle,itm_hatchet,itm_club,itm_dress,itm_robe,itm_woolen_dress, itm_headcloth, itm_woolen_hood, itm_wrapping_boots],
    def_attrib|level(1),wp(45),knows_common,refugee_face1,refugee_face2],
@@ -804,8 +804,8 @@ troops = [
   ["kidnapped_girl","Kidnapped Girl","Kidnapped Girls",tf_hero|tf_randomize_face|tf_female|tf_unmoveable_in_party_window,0,reserved,fac_commoners,
    [itm_dress,itm_leather_boots],
    def_attrib|level(2),wp(50),knows_common|knows_riding_2,woman_face_1, woman_face_2],
-
-
+   
+   
   #dckplmc troops new - not savegame compatible
  # ["black_khergit_guard","Black Khergit Guard","Black Khergit Guard",tf_mounted|tf_guarantee_ranged|tf_guarantee_shield|tf_guarantee_boots|tf_guarantee_helmet|tf_guarantee_armor|tf_guarantee_horse,0,0,fac_black_khergits,
   # [itm_khergit_arrows,itm_sword_khergit_1,itm_scimitar,itm_winged_mace,itm_lance,itm_khergit_bow,itm_khergit_guard_helmet,itm_khergit_cavalry_helmet,itm_khergit_guard_boots,itm_khergit_guard_armor,itm_plate_covered_round_shield,itm_warhorse_steppe],
@@ -2475,7 +2475,7 @@ troops = [
    def_attrib|agi_21|int_30|cha_21|level(25),wp(130),knows_common|knows_riding_7|knows_horse_archery_5|knows_leadership_7,swadian_face_young_1, swadian_face_old_2],
 # recruiter kit end
   ##diplomacy end
-
+  
 ####################################################################################################################################
 # TOURNAMENT PLAY ENHANCEMENTS (BEGIN)
 ####################################################################################################################################
@@ -2533,7 +2533,7 @@ troops = [
 
 ####################################################################################################################################
 # TOURNAMENT PLAY ENHANCEMENTS (END)
-####################################################################################################################################
+####################################################################################################################################  
 
  ["black_khergit_guard","Black Khergit Guard","Black Khergit Guard",tf_mounted|tf_guarantee_ranged|tf_guarantee_shield|tf_guarantee_boots|tf_guarantee_helmet|tf_guarantee_armor|tf_guarantee_horse,0,0,fac_black_khergits,
   [itm_khergit_arrows,itm_sword_khergit_1,itm_scimitar,itm_winged_mace,itm_lance,itm_khergit_bow,itm_khergit_guard_helmet,itm_khergit_cavalry_helmet,itm_khergit_guard_boots,itm_khergit_guard_armor,itm_plate_covered_round_shield,itm_warhorse_steppe],
@@ -2545,10 +2545,10 @@ troops = [
   [itm_spear,itm_sword_viking_1,itm_battle_axe,itm_morningstar,itm_shield_kite_k,itm_shield_kite_g,itm_shield_heater_c,itm_shield_heater_d,itm_leather_jerkin,itm_iron_greaves,itm_guard_helmet,itm_saddle_horse,itm_warhorse],
    def_attrib|level(23),wp(120),knows_common|knows_riding_4|knows_shield_3|knows_ironflesh_4|knows_power_strike_4,swadian_face_young_1, swadian_face_older_2],
 
- ["brothel_madam", "Madam","{!}Tavern_Keeper",tf_hero|tf_randomize_face|tf_female, 0,0,   fac_commoners,[itm_red_dress,        itm_woolen_hose],def_attrib|level(2),wp(20),knows_common, woman_face_1, woman_face_2],
+ ["brothel_madam", "Madam","{!}Tavern_Keeper",tf_hero|tf_randomize_face|tf_female, 0,0,   fac_commoners,[itm_red_dress,        itm_woolen_hose],def_attrib|level(2),wp(20),knows_common, woman_face_1, woman_face_2], 
  ["prostitute","Prostitute","Prostitutes",tf_female|tf_guarantee_armor,0,0,fac_commoners,
   [itm_blue_dress, itm_dress, itm_woolen_dress, itm_peasant_dress, itm_woolen_hose, itm_blue_hose, itm_wimple_a, itm_wimple_with_veil, itm_female_hood, itm_knife, itm_dagger, itm_butchering_knife],
-   def_attrib|level(2),wp(30),knows_common,refugee_face1,refugee_face2],
+   def_attrib|level(2),wp(30),knows_common,refugee_face1,refugee_face2], 
  ["courtesan","Courtesan","Courtesans",tf_female|tf_guarantee_boots|tf_guarantee_armor,0,0,fac_commoners,
   [itm_court_dress, itm_red_dress, itm_brown_dress, itm_green_dress, itm_khergit_lady_dress_b, itm_khergit_lady_dress, itm_sarranid_lady_dress, itm_sarranid_lady_dress_b, itm_khergit_lady_hat, itm_khergit_lady_hat_b, itm_woolen_hose, itm_blue_hose, itm_wimple_a, itm_wimple_with_veil, itm_knife, itm_dagger, itm_butchering_knife],
    def_attrib|level(2),wp(30),knows_common|knows_riding_2,refugee_face1,refugee_face2],
@@ -2561,7 +2561,7 @@ troops = [
    # [itm_cleaver,itm_knife,itm_pitch_fork,itm_sickle,itm_club,itm_stones,
    # itm_sarranid_felt_hat,itm_turban,itm_wrapping_boots,itm_sarranid_boots_a,itm_sarranid_cloth_robe, itm_sarranid_cloth_robe_b],
    # def_attrib|level(4),wp(60),knows_common,man_face_younger_1, man_face_middle_2],
-
+   
  # ["khergit_woman","Peasant Woman","Peasant Women",tf_female|tf_guarantee_boots|tf_guarantee_armor,0,0,fac_commoners,
    # [itm_knife,itm_pitch_fork,itm_sickle,itm_hatchet,itm_club,
    # itm_blue_dress, itm_dress, itm_woolen_dress, itm_peasant_dress, itm_woolen_hose, itm_blue_hose, itm_wimple_a, itm_wimple_with_veil, itm_female_hood],
@@ -2583,10 +2583,10 @@ troops = [
  # ["rhodok_farmer","Farmer","Farmers",tf_guarantee_boots|tf_guarantee_armor,0,0,fac_commoners,
    # [itm_short_tunic, itm_linen_tunic,itm_fur_coat, itm_coarse_tunic, itm_tabard, itm_leather_vest, itm_arena_tunic_white, itm_leather_apron, itm_shirt, itm_arena_tunic_green, itm_arena_tunic_blue, itm_woolen_hose, itm_nomad_boots, itm_blue_hose, itm_hide_boots, itm_ankle_boots, itm_leather_boots, itm_fur_hat, itm_leather_cap, itm_straw_hat, itm_felt_hat],
    # def_attrib|level(4),wp(60),knows_common,man_face_young_1, man_face_old_2],
-
+   
  # ["swadian_woman","Peasant Woman","Peasant Women",tf_female|tf_guarantee_boots|tf_guarantee_armor,0,0,fac_commoners,
    # [itm_blue_dress, itm_dress, itm_woolen_dress, itm_peasant_dress, itm_woolen_hose, itm_blue_hose, itm_wimple_a, itm_wimple_with_veil, itm_female_hood],
-   # def_attrib|level(2),wp(40),knows_common,woman_face_1,woman_face_2],
+   # def_attrib|level(2),wp(40),knows_common,woman_face_1,woman_face_2],   
  # ["vaegir_woman","Peasant Woman","Peasant Women",tf_female|tf_guarantee_boots|tf_guarantee_armor,0,0,fac_commoners,
    # [itm_blue_dress, itm_dress, itm_woolen_dress, itm_peasant_dress, itm_woolen_hose, itm_blue_hose, itm_wimple_a, itm_wimple_with_veil, itm_female_hood],
    # def_attrib|level(2),wp(40),knows_common,woman_face_1,woman_face_2],
@@ -2596,7 +2596,7 @@ troops = [
  # ["rhodok_woman","Peasant Woman","Peasant Women",tf_female|tf_guarantee_boots|tf_guarantee_armor,0,0,fac_commoners,
    # [itm_blue_dress, itm_dress, itm_woolen_dress, itm_peasant_dress, itm_woolen_hose, itm_blue_hose, itm_wimple_a, itm_wimple_with_veil, itm_female_hood],
    # def_attrib|level(2),wp(40),knows_common,woman_face_1,woman_face_2],
-
+   
 ##  ["conspirator","Conspirator","Conspirators", tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_horse,0,0,fac_neutral,
 ##   [itm_sword,itm_leather_jerkin,itm_leather_boots,itm_hunter,itm_leather_gloves],
 ##   def_attrib|agi_11|level(10),wp(130),knows_common,vaegir_face1, vaegir_face2],
@@ -2637,18 +2637,18 @@ troops = [
 ##  ["town_20_crook","Town 20 Crook","Town 14 Crook",tf_hero|tf_female,   0,0, fac_neutral,[itm_woolen_dress,      itm_turret_hat_ruby     ],def_attrib|level(5),wp(20),knows_inventory_management_10, 0x00000000001021c001f545a49b6eb2bc],
 ##  ["town_21_crook","Town 21 Crook","Town 11 Crook",tf_hero|tf_female,   0,0, fac_neutral,[itm_blue_dress,        itm_wimple_with_veil    ],def_attrib|level(5),wp(20),knows_inventory_management_10, 0x000000000008408101f386c4db4dd514],
 ##  ["town_22_crook","Town 22 Crook","Town 12 Crook",tf_hero,             0,0, fac_neutral,[itm_coarse_tunic,      itm_hide_boots          ],def_attrib|level(5),wp(20),knows_inventory_management_10, 0x00000000000870c501f386c4f34dbaa1],
-
+   
  ["new_troops_end","Dark Knight","Dark Knights",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_helmet|tf_guarantee_horse,0,0,fac_dark_knights,
   [itm_spear,itm_great_sword,itm_sword_of_war,itm_morningstar,itm_great_axe,itm_steel_shield,itm_shield_kite_g,itm_steel_shield,itm_shield_heater_d,itm_black_armor,itm_black_greaves,itm_bascinet,itm_guard_helmet,itm_saddle_horse,itm_warhorse,itm_leather_gloves],
-   def_attrib|level(33),wp(160),knows_common|knows_riding_6|knows_shield_5|knows_ironflesh_7|knows_power_strike_7,swadian_face_middle_1, swadian_face_older_2],
-
+   def_attrib|level(33),wp(160),knows_common|knows_riding_6|knows_shield_5|knows_ironflesh_7|knows_power_strike_7,swadian_face_middle_1, swadian_face_older_2], 
+   
    ["coop_companion_equipment_ui_0","{!}multiplayer_end","{!}multiplayer_end", 0, 0, 0, fac_kingdom_5, [], 0, 0, 0, 0, 0],
    ["coop_companion_equipment_ui_0_f","{!}multiplayer_end","{!}multiplayer_end", tf_female, 0, 0, fac_kingdom_5, [], 0, 0, 0, 0, 0],
    ["coop_companion_equipment_ui_1","{!}multiplayer_end","{!}multiplayer_end", 0, 0, 0, fac_kingdom_5, [], 0, 0, 0, 0, 0],
    ["coop_companion_equipment_ui_1_f","{!}multiplayer_end","{!}multiplayer_end", tf_female, 0, 0, fac_kingdom_5, [], 0, 0, 0, 0, 0],
    ["coop_companion_equipment_sets_end","{!}multiplayer_end","{!}multiplayer_end", 0, 0, 0, fac_kingdom_5, [], 0, 0, 0, 0, 0],
 
-
+   
 ]
 
 #Troop upgrade declarations
@@ -2734,7 +2734,8 @@ upgrade(troops,"dark_hunter","dark_knight")
 
 upgrade2(troops,"bandit","brigand","mercenary_swordsman")
 
-upgrade(troops,"manhunter","slave_driver")
+#upgrade(troops,"manhunter","slave_driver")
+
 #upgrade(troops,"forest_bandit","mercenary_crossbowman")
 
 upgrade(troops,"slave_driver","slave_hunter")
