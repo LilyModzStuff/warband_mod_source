@@ -77119,6 +77119,11 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 		(agent_get_team, ":agent_team", ":agent"),
 		(teams_are_enemies, ":victim_team", ":agent_team"), #don't bash allies
 		(agent_is_human, ":victims"),#stop if not human
+        #Should fix the dickplo reloaded shield bash on horse bug.
+        (get_player_agent_no, ":agent"),
+        (agent_get_horse, ":horse_agent", ":agent"),
+        (gt, ":horse_agent", -1), #If agent is on horse
+        #End fix
 		(agent_is_active,":victims"),
 		(agent_is_alive,":victims"),
 		(try_begin),
