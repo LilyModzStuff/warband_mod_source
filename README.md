@@ -1,5 +1,9 @@
-# Dickplomacy Reloaded Github page. # 
+<p align="center">
+  <img src="https://image.ibb.co/bRP7pK/Dickplo_Logo_Forum_Sig.png">
+</p>
+
 Anyone is free to make a pull request and contribute to the project as long as they describe the changes they have made in the pull request.
+- - - -
 ### License ###
 You may edit, modify, and redistribute under the following conditions: 
 * (a) You leave your entire source code in the module.
