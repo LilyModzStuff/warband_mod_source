@@ -25,9 +25,9 @@ from compiler import *
 ####################################################################################################################
 
 man_face_keys = [
-(240,0,-0.4,0.3, "Chin Size"), 
-(230,0,-0.4,0.8, "Chin Shape"), 
-(250,0,-0.25,0.55, "Chin Forward"), 
+(240,0,-0.4,0.3, "Chin Size"),
+(230,0,-0.4,0.8, "Chin Shape"),
+(250,0,-0.25,0.55, "Chin Forward"),
 (130,0,-0.5,1.0, "Jaw Width"),
 (120,0,-0.5,0.6, "Lower Lip"),
 (110,0,-0.2,0.6, "Upper Lip"),
@@ -61,10 +61,10 @@ man_face_keys = [
 ]
 # Face width-Jaw width Temple width
 woman_face_keys = [
-(230,0,1.0,-1.6, "Chin Size"), 
-(220,0,-1.4,1.0, "Chin Shape"), 
+(230,0,1.0,-1.6, "Chin Size"),
+(220,0,-1.4,1.0, "Chin Shape"),
 (10,0,-1.4,1.4, "Chin Forward"),
-(20,0,-1.4,1.4, "Jaw Width"), 
+(20,0,-1.4,1.4, "Jaw Width"),
 (40,0,-2.0,1.0, "Jaw Position"),
 (90,0,-1.4,1.4, "Jaw Neck"),
 (50,0,-1.4,1.4, "Cheeks"),
@@ -140,7 +140,7 @@ skins = [
     ["beard_blonde","beard_red","beard_brunette","beard_black","beard_white"], #beard_materials
     [("manface_young_2",0xffcbe0e0,["hair_blonde"],[0xffffffff, 0xffb04717, 0xff502a19]),
      ("manface_midage",0xffdfefe1,["hair_blonde"],[0xffffffff, 0xffb04717, 0xff632e18, 0xff502a19, 0xff19100c]),
-     ("manface_young",0xffd0e0e0,["hair_blonde"],[0xff83301a, 0xff502a19, 0xff19100c, 0xff0c0d19]),     
+     ("manface_young",0xffd0e0e0,["hair_blonde"],[0xff83301a, 0xff502a19, 0xff19100c, 0xff0c0d19]),
 #     ("manface_old",0xffd0d0d0,["hair_white","hair_brunette","hair_red","hair_blonde"],[0xffffcded, 0xffbbcded, 0xff99eebb]),
      ("manface_young_3",0xffdceded,["hair_blonde"],[0xff2f180e, 0xff171313, 0xff007080c]),
      ("manface_7",0xffc0c8c8,["hair_blonde"],[0xff171313, 0xff007080c]),
@@ -160,20 +160,20 @@ skins = [
 	 ("manface_white1",0xffe0e8e8,["hair_blonde"],[0xffffffff, 0xffb04717, 0xff632e18, 0xff502a19, 0xff19100c]),
 	 ("manface_white2",0xffe0e8e8,["hair_blonde"],[0xffffffff, 0xffb04717, 0xff632e18, 0xff502a19, 0xff19100c, 0xff0c0d19]),
 	 ("manface_white3",0xffe0e8e8,["hair_blonde"],[0xff83301a, 0xff502a19, 0xff19100c, 0xff0c0d19]),
-     
+
 #     ("manface_old_2",0xffd5d5c5,["hair_white"],[0xffffcded, 0xffbbcded, 0xff99eebb]),
      ], #man_face_textures,
     [(voice_die,"snd_man_die"),(voice_hit,"snd_man_hit"),(voice_grunt,"snd_man_grunt"),(voice_grunt_long,"snd_man_grunt_long"),(voice_yell,"snd_man_yell"),(voice_stun,"snd_man_stun"),(voice_victory,"snd_man_victory")], #voice sounds
     "skel_human", 1.0,
     psys_game_blood,psys_game_blood_2,
 	[[1.6, comp_greater_than, (1.0,eye_to_eye_dist), (1.0,temple_width)], #constraints: ex: 1.7 > (face_width + temple_width)
-     [0.6, comp_less_than, (1.0,eye_to_eye_dist), (1.0,temple_width)],  
+     [0.6, comp_less_than, (1.0,eye_to_eye_dist), (1.0,temple_width)],
 	 [1.5, comp_greater_than, (1.0,face_ratio), (1.0,mouth_width)],  # face ratio and mouth to nose distance
 	 [0.6, comp_greater_than, (-1.0,nose_width), (1.0,mouth_width)],  # nose height and mouth to nose distance
 	 [-1.0, comp_less_than, (-1.0,nose_width), (1.0,mouth_width)],  # nose height and mouth to nose distance
      ]
   ),
-  
+
   #(
 #    "woman", skf_use_morph_key_10,
 #    "femalebody_u",  "femalefoot_l", "f_handL",
@@ -186,8 +186,8 @@ skins = [
 #    ["woman_hair_a","woman_hair_b","woman_hair_c","woman_hair_d","woman_hair_e","woman_hair_f","woman_hair_g"], #woman_hair_meshes
 #    ["rus_eyelashes","rus_mascara","acc4","acc5","acc6","acc7","acc8","acc9","acc10","acc11","acc12","byz_earring"], #jewellery,
 #    ["hair_blonde02", "hair_red", "hair_brunette", "hair_black", "hair_white"], #hair textures
-#    ["lucheyelashes_blonde"], 
-#    [("womanface_11",0xfff6f3f1,["hair_blonde02"],[0xffffffff, 0xffb04717, 0xff502a19, 0xff19100c]),  #womanface_young    
+#    ["lucheyelashes_blonde"],
+#    [("womanface_11",0xfff6f3f1,["hair_blonde02"],[0xffffffff, 0xffb04717, 0xff502a19, 0xff19100c]),  #womanface_young
 #	 ("womanface_03", 0xffe4eded, ["hair_blonde02"], [0xffa5481f, 0xff502a19, 0xff19100c, 0xff0c0d19]), #womanface_b
 #	 ("womanface_02", 0xffeaf7ff, ["hair_blonde02"], [0xff502a19, 0xff19100c, 0xff0c0d19]), #womanface_a
 #	 ("womanface_04", 0xffd5d3b8, ["hair_blonde02"], [0xff19100c, 0xff0c0d19, 0xff007080c]), #womanface_brown
@@ -220,7 +220,8 @@ skins = [
 #  ),
 #GAOLU faces
  (
-     "woman", skf_use_morph_key_10, "femalebody_u",  "femalefoot_l", "f_handL", "corprus_female_head",
+     #"woman", skf_use_morph_key_10, "femalebody_u",  "femalefoot_l", "f_handL", "corprus_female_head",   #Native Dickplomacy 
+     "woman", skf_use_morph_key_10, "woman_body_nude",  "woman_calf_l", "f_handL", "corprus_female_head", #Queens Blade
      [(40, 0, -1.0, 0.0, "Caucasian 2"),
      (30, 0, 0.0, 1.0, "Caucasian 1"),
      (10, 0, 0.0, 1.0, "Forehead"),
@@ -240,10 +241,10 @@ skins = [
      ],
      [(voice_die,"snd_woman_die"),(voice_hit,"snd_woman_hit"),(voice_grunt,"snd_woman_grunt"),(voice_grunt_long,"snd_woman_grunt_long"),(voice_yell,"snd_woman_yell"),(voice_stun,"snd_woman_stun"),(voice_victory,"snd_woman_victory")],
      "skel_human_female", 1.0, psys_game_blood, psys_game_blood_2,
-        
-     
+
+
  ),
-  
+
   (
     "man_nude", 0,
     "malebody", "malefoot_l", "m_handL",
@@ -255,7 +256,7 @@ skins = [
     ["beard_blonde","beard_red","beard_brunette","beard_black","beard_white"], #beard_materials
     [("manface_young_2",0xffcbe0e0,["hair_blonde"],[0xffffffff, 0xffb04717, 0xff502a19]),
      ("manface_midage",0xffdfefe1,["hair_blonde"],[0xffffffff, 0xffb04717, 0xff632e18, 0xff502a19, 0xff19100c]),
-     ("manface_young",0xffd0e0e0,["hair_blonde"],[0xff83301a, 0xff502a19, 0xff19100c, 0xff0c0d19]),     
+     ("manface_young",0xffd0e0e0,["hair_blonde"],[0xff83301a, 0xff502a19, 0xff19100c, 0xff0c0d19]),
 #     ("manface_old",0xffd0d0d0,["hair_white","hair_brunette","hair_red","hair_blonde"],[0xffffcded, 0xffbbcded, 0xff99eebb]),
      ("manface_young_3",0xffdceded,["hair_blonde"],[0xff2f180e, 0xff171313, 0xff007080c]),
      ("manface_7",0xffc0c8c8,["hair_blonde"],[0xff171313, 0xff007080c]),
@@ -275,20 +276,20 @@ skins = [
 	 ("manface_white1",0xffe0e8e8,["hair_blonde"],[0xffffffff, 0xffb04717, 0xff632e18, 0xff502a19, 0xff19100c]),
 	 ("manface_white2",0xffe0e8e8,["hair_blonde"],[0xffffffff, 0xffb04717, 0xff632e18, 0xff502a19, 0xff19100c, 0xff0c0d19]),
 	 ("manface_white3",0xffe0e8e8,["hair_blonde"],[0xff83301a, 0xff502a19, 0xff19100c, 0xff0c0d19]),
-     
+
 #     ("manface_old_2",0xffd5d5c5,["hair_white"],[0xffffcded, 0xffbbcded, 0xff99eebb]),
      ], #man_face_textures,
     [(voice_die,"snd_man_die"),(voice_hit,"snd_man_hit"),(voice_grunt,"snd_man_grunt"),(voice_grunt_long,"snd_man_grunt_long"),(voice_yell,"snd_man_yell"),(voice_stun,"snd_man_stun"),(voice_victory,"snd_man_victory")], #voice sounds
     "skel_human", 1.0,
     psys_game_blood,psys_game_blood_2,
 	[[1.6, comp_greater_than, (1.0,eye_to_eye_dist), (1.0,temple_width)], #constraints: ex: 1.7 > (face_width + temple_width)
-     [0.6, comp_less_than, (1.0,eye_to_eye_dist), (1.0,temple_width)],  
+     [0.6, comp_less_than, (1.0,eye_to_eye_dist), (1.0,temple_width)],
 	 [1.5, comp_greater_than, (1.0,face_ratio), (1.0,mouth_width)],  # face ratio and mouth to nose distance
 	 [0.6, comp_greater_than, (-1.0,nose_width), (1.0,mouth_width)],  # nose height and mouth to nose distance
 	 [-1.0, comp_less_than, (-1.0,nose_width), (1.0,mouth_width)],  # nose height and mouth to nose distance
      ]
   ),
-  
+
   #(
   #  "woman_nude", skf_use_morph_key_10,
   #  "femalebody",  "femalefoot_l", "f_handL",
@@ -300,8 +301,8 @@ skins = [
 #    ["woman_hair_a","woman_hair_b","woman_hair_c","woman_hair_d","woman_hair_e","woman_hair_f","woman_hair_g"], #woman_hair_meshes
   #  ["rus_eyelashes","rus_mascara","acc4","acc5","acc6","acc7","acc8","acc9","acc10","acc11","acc12","byz_earring"], #jewellery,
    # ["hair_blonde02", "hair_red", "hair_brunette", "hair_black", "hair_white"], #hair textures
-  #  ["lucheyelashes_blonde"], 
- #   [("womanface_11",0xfff6f3f1,["hair_blonde02"],[0xffffffff, 0xffb04717, 0xff502a19, 0xff19100c]),  #womanface_young    
+  #  ["lucheyelashes_blonde"],
+ #   [("womanface_11",0xfff6f3f1,["hair_blonde02"],[0xffffffff, 0xffb04717, 0xff502a19, 0xff19100c]),  #womanface_young
 #	 ("womanface_03", 0xffe4eded, ["hair_blonde02"], [0xffa5481f, 0xff502a19, 0xff19100c, 0xff0c0d19]), #womanface_b
 #	 ("womanface_02", 0xffeaf7ff, ["hair_blonde02"], [0xff502a19, 0xff19100c, 0xff0c0d19]), #womanface_a
 #	 ("womanface_04", 0xffd5d3b8, ["hair_blonde02"], [0xff19100c, 0xff0c0d19, 0xff007080c]), #womanface_brown
@@ -354,9 +355,9 @@ skins = [
      ],
      [(voice_die,"snd_woman_die"),(voice_hit,"snd_woman_hit"),(voice_grunt,"snd_woman_grunt"),(voice_grunt_long,"snd_woman_grunt_long"),(voice_yell,"snd_woman_yell"),(voice_stun,"snd_woman_stun"),(voice_victory,"snd_woman_victory")],
      "skel_human_female", 1.0, psys_game_blood, psys_game_blood_2,
-        
+
  ),
-  
+
   ( # Dummy skin to make calfwoman an odd numbered skin
     "undead", 0,
     "malebody", "malefoot_l", "m_handL",
@@ -368,7 +369,7 @@ skins = [
     ["beard_blonde","beard_red","beard_brunette","beard_black","beard_white"], #beard_materials
     [("manface_young_2",0xffcbe0e0,["hair_blonde"],[0xffffffff, 0xffb04717, 0xff502a19]),
      ("manface_midage",0xffdfefe1,["hair_blonde"],[0xffffffff, 0xffb04717, 0xff632e18, 0xff502a19, 0xff19100c]),
-     ("manface_young",0xffd0e0e0,["hair_blonde"],[0xff83301a, 0xff502a19, 0xff19100c, 0xff0c0d19]),     
+     ("manface_young",0xffd0e0e0,["hair_blonde"],[0xff83301a, 0xff502a19, 0xff19100c, 0xff0c0d19]),
 #     ("manface_old",0xffd0d0d0,["hair_white","hair_brunette","hair_red","hair_blonde"],[0xffffcded, 0xffbbcded, 0xff99eebb]),
      ("manface_young_3",0xffdceded,["hair_blonde"],[0xff2f180e, 0xff171313, 0xff007080c]),
      ("manface_7",0xffc0c8c8,["hair_blonde"],[0xff171313, 0xff007080c]),
@@ -388,20 +389,20 @@ skins = [
 	 ("manface_white1",0xffe0e8e8,["hair_blonde"],[0xffffffff, 0xffb04717, 0xff632e18, 0xff502a19, 0xff19100c]),
 	 ("manface_white2",0xffe0e8e8,["hair_blonde"],[0xffffffff, 0xffb04717, 0xff632e18, 0xff502a19, 0xff19100c, 0xff0c0d19]),
 	 ("manface_white3",0xffe0e8e8,["hair_blonde"],[0xff83301a, 0xff502a19, 0xff19100c, 0xff0c0d19]),
-     
+
 #     ("manface_old_2",0xffd5d5c5,["hair_white"],[0xffffcded, 0xffbbcded, 0xff99eebb]),
      ], #man_face_textures,
     [(voice_die,"snd_man_die"),(voice_hit,"snd_man_hit"),(voice_grunt,"snd_man_grunt"),(voice_grunt_long,"snd_man_grunt_long"),(voice_yell,"snd_man_yell"),(voice_stun,"snd_man_stun"),(voice_victory,"snd_man_victory")], #voice sounds
     "skel_human", 1.0,
     psys_game_blood,psys_game_blood_2,
 	[[1.6, comp_greater_than, (1.0,eye_to_eye_dist), (1.0,temple_width)], #constraints: ex: 1.7 > (face_width + temple_width)
-     [0.6, comp_less_than, (1.0,eye_to_eye_dist), (1.0,temple_width)],  
+     [0.6, comp_less_than, (1.0,eye_to_eye_dist), (1.0,temple_width)],
 	 [1.5, comp_greater_than, (1.0,face_ratio), (1.0,mouth_width)],  # face ratio and mouth to nose distance
 	 [0.6, comp_greater_than, (-1.0,nose_width), (1.0,mouth_width)],  # nose height and mouth to nose distance
 	 [-1.0, comp_less_than, (-1.0,nose_width), (1.0,mouth_width)],  # nose height and mouth to nose distance
      ]
   ),
-  
+
  (
 	 #"calfwoman", skf_use_morph_key_10, "calfwoman",  "calfwoman_calf_l", "f_handL", "corprus_female_head", Break two meshes instead of all BUT two.
      "calfwoman", skf_use_morph_key_10, "woman_body_nude",  "woman_calf_l", "f_handL", "corprus_female_head",
@@ -424,9 +425,9 @@ skins = [
      ],
      [(voice_die,"snd_woman_die"),(voice_hit,"snd_woman_hit"),(voice_grunt,"snd_woman_grunt"),(voice_grunt_long,"snd_woman_grunt_long"),(voice_yell,"snd_woman_yell"),(voice_stun,"snd_woman_stun"),(voice_victory,"snd_woman_victory")],
      "skel_human_female", 1.0, psys_game_blood, psys_game_blood_2,
-        
+
  ),
-  
+
 ]
 
 # modmerger_start version=201 type=2
