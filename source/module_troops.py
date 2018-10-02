@@ -2734,7 +2734,7 @@ upgrade(troops,"dark_hunter","dark_knight")
 
 upgrade2(troops,"bandit","brigand","mercenary_swordsman")
 
-#upgrade(troops,"manhunter","slave_driver")
+upgrade(troops,"manhunter","slave_driver")
 
 #upgrade(troops,"forest_bandit","mercenary_crossbowman")
 
