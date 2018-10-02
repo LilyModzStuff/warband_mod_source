@@ -21942,7 +21942,6 @@ presentations = [
       (call_script, "script_update_map_bar"),
       (call_script, "script_update_agent_hp_bar"),
 
-    
       #Troop Ratio Bar
       (try_begin),
       (ge, "$g_troop_ratio_bar", 1),
