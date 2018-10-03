@@ -77159,7 +77159,11 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 
 #VIKING CONQUEST DECAP STUFF - NOTE THIS CODE IS SLIGHTLY ALTERED CODE FROM VC, WHICH IS LEGAL AS LONG AS YOU GIVE CREDIT - Ramaraunt
 ("cf_vc_decap_check_if_possible",
-	[(store_script_param_1, ":inflicted_agent_id"),
+	[
+    #Check if the player has decapitation enabled first
+    (try_begin),
+    (eq, "$g_decapitation_enabled", 1),
+    (store_script_param_1, ":inflicted_agent_id"),
 	(store_script_param_2, ":damage"),
 	(store_script_param, ":weapon_id",3),
 	(store_script_param, ":attacker_id", 4),
@@ -77196,8 +77200,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	(store_agent_hit_points, ":inflicted_hp", ":inflicted_agent_id", 1),
 	(store_sub, ":inflicted_new_hp", ":inflicted_hp", ":damage"),
 	(le, ":inflicted_new_hp", 0),
-
-
+    (try_end),
       ]),
 
 ("cf_vc_decap_probability",
