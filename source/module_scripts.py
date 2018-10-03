@@ -78029,55 +78029,55 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
   #script_set_calves - This is for SANDALS!!!
   # INPUT: 	1:agent_no, 2:troop_no,2, reg1(:troop_item_slots_begin), reg2(:agent_item_slots_begin)
   # OUTPUT:	NONE
- ("set_calves", [
-	(store_trigger_param_1, ":agent_no"), # -1 if not in scene
-	(store_trigger_param_2, ":troop_no"),
-	(try_begin),
-		(eq, ":agent_no", -1),	#not in scene (presentation)
-		(is_between, ":troop_no", "trp_town_1_armorer", "trp_merchants_end"),	#trade - item from merchant inventory gives merchant no despite player equips it
-		(assign, ":troop_no", "trp_player"),
-	(try_end),
-	(try_begin),
-		(troop_get_type, ":troop_type", ":troop_no"),
-		(try_begin),
-			(this_or_next|eq, ":troop_type", tf_female), #female || tf_woman_nude || calfwoman (don't change male!)
-			(this_or_next|eq, ":troop_type", tf_woman_nude),
-			(eq, ":troop_type", tf_calfwoman),
-			(try_begin),
-				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_risty_sandals"), #tf_calfwoman and has sandals on -> no change
-				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_sonja_boots"),
-				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_sonja_armor"),
-				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_diabassa_armor"),
-				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_plate_armor_dthun"),
-				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_custom_armor3"),
-				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_custom_armor2"),
-				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_custom_armor1"),
-				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_risty_armor"),
-				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_scale_armor_dthun"),
-				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_loincloth"),
-				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_loin_top"),
-				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_loin_skirt"),
-				(troop_has_item_equipped , ":troop_no", "itm_body_fem"),
-				(try_begin),
-					(this_or_next|eq, ":troop_type", tf_female),(eq, ":troop_type", tf_woman_nude),
-					(troop_set_type, ":troop_no", tf_calfwoman),
-					(assign, ":troop_changed", 1),
-				(try_end),
-			(else_try),
-				(eq, ":troop_type", tf_calfwoman),
-				(troop_set_type, ":troop_no", tf_female),
-				(assign, ":troop_changed", 1),
-			(try_end),
-			(ge, ":agent_no", 0), # in scene - warnings from map else
-			(eq, ":troop_changed", 1),
-			(troop_get_inventory_slot, ":item_no", ":troop_no", ek_body),
-			(ge, ":item_no", 0), # has body armor -> must refresh to see the change in scene
-			(agent_unequip_item, ":agent_no", ":item_no"),
-			(agent_equip_item, ":agent_no", ":item_no"),
-		(try_end),
-	(try_end),
-	]
-  ),
+ #("set_calves", [
+#	(store_trigger_param_1, ":agent_no"), # -1 if not in scene
+#	(store_trigger_param_2, ":troop_no"),
+#	(try_begin),
+#		(eq, ":agent_no", -1),	#not in scene (presentation)
+#		(is_between, ":troop_no", "trp_town_1_armorer", "trp_merchants_end"),	#trade - item from merchant inventory gives merchant no despite player equips it
+#		(assign, ":troop_no", "trp_player"),
+#	(try_end),
+#	(try_begin),
+#		(troop_get_type, ":troop_type", ":troop_no"),
+#		(try_begin),
+#			(this_or_next|eq, ":troop_type", tf_female), #female || tf_woman_nude || calfwoman (don't change male!)
+#			(this_or_next|eq, ":troop_type", tf_woman_nude),
+#			(eq, ":troop_type", tf_calfwoman),
+#			(try_begin),
+#				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_risty_sandals"), #tf_calfwoman and has sandals on -> no change
+#				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_sonja_boots"),
+#				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_sonja_armor"),
+#				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_diabassa_armor"),
+#				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_plate_armor_dthun"),
+#				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_custom_armor3"),
+#				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_custom_armor2"),
+#				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_custom_armor1"),
+#				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_risty_armor"),
+#				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_scale_armor_dthun"),
+#				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_loincloth"),
+#				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_loin_top"),
+#				(this_or_next|troop_has_item_equipped , ":troop_no", "itm_loin_skirt"),
+#				(troop_has_item_equipped , ":troop_no", "itm_body_fem"),
+#				(try_begin),
+#					(this_or_next|eq, ":troop_type", tf_female),(eq, ":troop_type", tf_woman_nude),
+#					(troop_set_type, ":troop_no", tf_calfwoman),
+#					(assign, ":troop_changed", 1),
+#				(try_end),
+#			(else_try),
+#				(eq, ":troop_type", tf_calfwoman),
+#				(troop_set_type, ":troop_no", tf_female),
+#				(assign, ":troop_changed", 1),
+#			(try_end),
+#			(ge, ":agent_no", 0), # in scene - warnings from map else
+#			(eq, ":troop_changed", 1),
+#			(troop_get_inventory_slot, ":item_no", ":troop_no", ek_body),
+#			(ge, ":item_no", 0), # has body armor -> must refresh to see the change in scene
+#			(agent_unequip_item, ":agent_no", ":item_no"),
+#			(agent_equip_item, ":agent_no", ":item_no"),
+#		(try_end),
+#	(try_end),
+#	]
+ # ),
 
  # script_roll_for_charisma
  # ex:

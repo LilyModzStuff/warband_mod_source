@@ -1562,30 +1562,30 @@ items = [
 ["future_gauntlets05","Placeholder", [("scale_gauntlets_b_L",0)], itp_type_hand_armor,0, 710, weight(0.75)|abundance(100)|body_armor(5)|difficulty(0),imodbits_armor],
 
 #DtheHun BOOTS
-["risty_sandals", "Risty's sandals", [("risty_sandals",0)], itp_type_foot_armor | itp_attach_armature  ,0,
- 1000 , weight(2)|abundance(0)|head_armor(0)|body_armor(0)|leg_armor(24)|difficulty(0) ,imodbits_armor,
-  [(ti_on_init_item,
-	[
-		(store_trigger_param_1, ":agent_no"), # -1 if not in scene
-		(store_trigger_param_2, ":troop_no"),
-		(call_script, "script_set_calves", ":agent_no", ":troop_no"),
-	])
-  ],[fac_undeads]
-],
+#["risty_sandals", "Risty's sandals", [("risty_sandals",0)], itp_type_foot_armor | itp_attach_armature  ,0,
+# 1000 , weight(2)|abundance(0)|head_armor(0)|body_armor(0)|leg_armor(24)|difficulty(0) ,imodbits_armor,
+#  [(ti_on_init_item,
+#	[
+#		(store_trigger_param_1, ":agent_no"), # -1 if not in scene
+#		(store_trigger_param_2, ":troop_no"),
+		#(call_script, "script_set_calves", ":agent_no", ":troop_no"),
+#	])
+#  ],[fac_undeads]
+#],
 ["plate_boots_dthun", "Plate Boots", [("plate_boots_dthun",0)], itp_merchandise| itp_type_foot_armor | itp_attach_armature,0,
 2770 , weight(3.5)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(33)|difficulty(6) ,imodbits_plate ,[],[fac_undeads]],
 ["diabassa_boots", "Assassin Boots", [("diabassa_boots",0)], itp_merchandise| itp_type_foot_armor | itp_attach_armature  ,0,
 1666 , weight(1.5)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(28)|difficulty(0) ,imodbits_armor,[],[fac_undeads]],
-["sonja_boots", "Hyrcanian Boots", [("sonja_boots",0)], itp_type_foot_armor | itp_attach_armature  ,0,
-2100 , weight(2.5)|abundance(0)|head_armor(0)|body_armor(0)|leg_armor(31)|difficulty(0) ,imodbits_armor,
-  [(ti_on_init_item,
-	[
-		(store_trigger_param_1, ":agent_no"), # -1 if not in scene
-		(store_trigger_param_2, ":troop_no"),
-		(call_script, "script_set_calves", ":agent_no", ":troop_no"),
-	])
-  ],[fac_undeads]
-],
+#["sonja_boots", "Hyrcanian Boots", [("sonja_boots",0)], itp_type_foot_armor | itp_attach_armature  ,0,
+#2100 , weight(2.5)|abundance(0)|head_armor(0)|body_armor(0)|leg_armor(31)|difficulty(0) ,imodbits_armor,
+ # [(ti_on_init_item,
+#	[
+#		(store_trigger_param_1, ":agent_no"), # -1 if not in scene
+#		(store_trigger_param_2, ":troop_no"),
+#		#(call_script, "script_set_calves", ":agent_no", ":troop_no"),
+#	])
+#  ],[fac_undeads]
+#],
 ["angela_boots", "Angelic Boots", [("angela_boots",0)], itp_merchandise| itp_type_foot_armor | itp_attach_armature,0,
 1982 , weight(3.0)|abundance(100)|head_armor(0)|body_armor(0)|leg_armor(30)|difficulty(5) ,imodbits_plate,[],[fac_undeads] ],
 #DtheHun ARMORS
@@ -1614,7 +1614,7 @@ items = [
     [
 		(store_trigger_param_1, ":agent_no"),
 		(store_trigger_param_2, ":troop_no"),
-		(call_script, "script_set_calves", ":agent_no", ":troop_no"),
+		#(call_script, "script_set_calves", ":agent_no", ":troop_no"),
 	#ARMOR
 		(cur_item_add_mesh, "@custom_skin"), # for inventory skin color
 		(try_begin),
@@ -1646,7 +1646,7 @@ items = [
     [
 		(store_trigger_param_1, ":agent_no"),
 		(store_trigger_param_2, ":troop_no"),
-		(call_script, "script_set_calves", ":agent_no", ":troop_no"),
+		#(call_script, "script_set_calves", ":agent_no", ":troop_no"),
 	#ARMOR
 		(cur_item_add_mesh, "@custom_skin"), # for inventory skin color
 		(try_begin),
@@ -1676,7 +1676,7 @@ items = [
     [
 	    (store_trigger_param_1, ":agent_no"),
 		(store_trigger_param_2, ":troop_no"),
-		(call_script, "script_set_calves", ":agent_no", ":troop_no"),
+		#(call_script, "script_set_calves", ":agent_no", ":troop_no"),
 	#ARMOR
 		(cur_item_add_mesh, "@custom_skin"), # for inventory skin color
 		(try_begin),
@@ -1714,7 +1714,7 @@ items = [
 	[
 	  (store_trigger_param_1, ":agent_no"),
       (store_trigger_param_2, ":troop_no"),
-	  (call_script, "script_set_calves", ":agent_no", ":troop_no"),
+	  #(call_script, "script_set_calves", ":agent_no", ":troop_no"),
 	#ARMOR
 		(cur_item_add_mesh, "@custom_skin"), # for inventory skin color
 		(try_begin),
@@ -1754,7 +1754,7 @@ items = [
 	[
 		(store_trigger_param_1, ":agent_no"),
 		(store_trigger_param_2, ":troop_no"),
-		(call_script, "script_set_calves", ":agent_no", ":troop_no"),
+		#(call_script, "script_set_calves", ":agent_no", ":troop_no"),
 	#ARMOR
 		(cur_item_add_mesh, "@custom_skin"), # for inventory skin color
 		(try_begin),
@@ -1801,7 +1801,7 @@ items = [
 	  (cur_item_add_mesh, "@custom_skin"), # for inventory skin color
       (store_trigger_param_1, ":agent_no"),
       (store_trigger_param_2, ":troop_no"),
-	  (call_script, "script_set_calves", ":agent_no", ":troop_no"),
+	  #(call_script, "script_set_calves", ":agent_no", ":troop_no"),
 	#SET IT!
 	  (assign, ":item_script_no", "script_init_custom_armor1"),
 	  (assign, reg1, slot_troop_armor_slots_begin),	#->	script_custom_item_prepare_component
@@ -1883,7 +1883,7 @@ items = [
 	  (cur_item_add_mesh, "@custom_skin"), # for inventory skin color
       (store_trigger_param_1, ":agent_no"),
       (store_trigger_param_2, ":troop_no"),
-	  (call_script, "script_set_calves", ":agent_no", ":troop_no"),
+	  #(call_script, "script_set_calves", ":agent_no", ":troop_no"),
 	#SET IT!
 	  (assign, ":item_script_no", "script_init_custom_armor2"),
 	  (assign, reg1, slot_troop_armor_slots_begin),	#->	script_custom_item_prepare_component
@@ -1961,7 +1961,7 @@ items = [
 	  (cur_item_add_mesh, "@custom_skin"), # for inventory skin color
       (store_trigger_param_1, ":agent_no"),
       (store_trigger_param_2, ":troop_no"),
-	  (call_script, "script_set_calves", ":agent_no", ":troop_no"),
+	  #(call_script, "script_set_calves", ":agent_no", ":troop_no"),
 	#SET IT!
 	  (assign, ":item_script_no", "script_init_custom_armor3"),
 	  (assign, reg1, slot_troop_armor_slots_begin),	#->	script_custom_item_prepare_component
@@ -2037,7 +2037,7 @@ items = [
 	[
 		(store_trigger_param_1, ":agent_no"),
 		(store_trigger_param_2, ":troop_no"),
-		(call_script, "script_set_calves", ":agent_no", ":troop_no"),
+		#(call_script, "script_set_calves", ":agent_no", ":troop_no"),
 	#ARMOR
 		(cur_item_add_mesh, "@custom_skin"), # for inventory skin color
 		(try_begin),
@@ -2079,7 +2079,7 @@ items = [
 	[
 		(store_trigger_param_1, ":agent_no"),
 		(store_trigger_param_2, ":troop_no"),
-		(call_script, "script_set_calves", ":agent_no", ":troop_no"),
+		#(call_script, "script_set_calves", ":agent_no", ":troop_no"),
 		(cur_item_add_mesh, "@custom_skin"), # for inventory skin color
 		(try_begin),
 			(neq, ":agent_no", -1),
@@ -2125,7 +2125,7 @@ items = [
 	[
 		(store_trigger_param_1, ":agent_no"),
 		(store_trigger_param_2, ":troop_no"),
-		(call_script, "script_set_calves", ":agent_no", ":troop_no"),
+		#(call_script, "script_set_calves", ":agent_no", ":troop_no"),
 		(cur_item_add_mesh, "@custom_skin"), # for inventory skin color
 		(try_begin),
 			(neq, ":agent_no", -1),
