@@ -11405,6 +11405,20 @@ What kind of recruits do you want?", "dplmc_constable_recruit_select",
 "I want to move our residence.", "dplmc_spouse_move_residence_ask",[
 ]],
 
+#Change wife outfit by SexDwarf2250
+
+[anyone|plyr,"spouse_talk",
+[
+    (troop_slot_eq, "$g_talk_troop", slot_troop_occupation, slto_kingdom_lady),
+],
+    "I have some new clothing for you to wear.", "spouse_pretalk",
+    [
+    (change_screen_equip_other)
+    ]
+],
+
+#End change wife outfit by SexDwarf2250
+
 
 [anyone, "dplmc_spouse_move_residence_ask",
 [
