@@ -90,6 +90,9 @@ scripts = [
   ("game_start",
    [
       (faction_set_slot, "fac_player_supporters_faction", slot_faction_state, sfs_inactive),
+
+#Decapitation settings
+      (assign, "$g_decapitation_enabled", 0),
 #CC
       # hp bars
       (assign, "$g_hp_bar_dis_limit", 30),
@@ -77162,7 +77165,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 	[
     #Check if the player has decapitation enabled first
     (try_begin),
-    (eq, "$g_decapitation_enabled", 1),
+    (ge, "$g_decapitation_enabled", 1),
     (store_script_param_1, ":inflicted_agent_id"),
 	(store_script_param_2, ":damage"),
 	(store_script_param, ":weapon_id",3),
@@ -77273,7 +77276,11 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
   # Input: inflicted_agent_id, head_position
   # Output: none
   ("vc_decap_special_effects",
-    [(store_script_param_1, ":inflicted_agent_id"),
+    [
+    #Check if the player has decapitation enabled first
+    (try_begin),
+    (ge, "$g_decapitation_enabled", 1),
+    (store_script_param_1, ":inflicted_agent_id"),
 
       # Checks if agent was using a helmet
       (try_begin),
@@ -77312,7 +77319,9 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (prop_instance_enable_physics, ":head_id", 1),
 
       # makes sure the agent dies
-      (agent_set_hit_points,":inflicted_agent_id", 0, 1),]),
+      (agent_set_hit_points,":inflicted_agent_id", 0, 1),
+      (try_end),
+      ]),
 
 
 #VIKING CONQUEST END

@@ -426,8 +426,8 @@ mod_options = [
         ],
 ),
 
-    ("camp_decapitation", xgm_ov_checkbox, [], "decapitation:", 0,
-	  "Toggles decapitation", 0,
+    ("camp_decapitation", xgm_ov_checkbox, [], "Decapitation:", 0,
+	  "Toggles Decapitation", 0,
 
              [(try_begin),
             (eq, "$g_decapitation_enabled", 0),
