@@ -706,6 +706,7 @@ strings = [
   ("steal_from_villagers", "steal from poor villagers"),
   ("rob_caravan", "rob a merchant caravan"), # possibly remove
   ("sell_slavery", "sell people into slavery"),
+  ("force_into_party", "force peasants into the party"),
 
 # egalitarian
   ("men_hungry", "run out of food"), ##Done - simple triggers
@@ -4926,8 +4927,8 @@ Even in the last case, the player can make formations up to four lines by orderi
   ("october_reg1_reg2_v2", "October {reg1}, {reg2}"),
   ("november_reg1_reg2_v2", "November {reg1}, {reg2}"),
   ("december_reg1_reg2_v2", "December {reg1}, {reg2}"),
-  
-#DtheHun  
+
+#DtheHun
  #custom item
   ("tutorial_custom_item", "You may have customizable item equipped. Press ""Wiew Outfit"" and ""Inventory Window"" keys to open the Customization Window in character view, or find it in the Camp Actions Menu."),
   ("dont_have_custom_item", "You don't have any customizable item equipped!"),
@@ -4950,7 +4951,7 @@ Even in the last case, the player can make formations up to four lines by orderi
   ("censure_response_9", "I have a better idea."),
   ("censure_response_10", "Are you kidding me?"),
   ("censure_response_end", "END"),
-  
+
 #utility for skill names
 ]+[
 ("skl_"+skills[x][0], skills[x][1]) for x in range(0, len(skills))]
