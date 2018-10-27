@@ -15,8 +15,7 @@ DEBUG_TPE_DESIGN                       = 0   # ON (1) / OFF (0) - Displays any d
 DEBUG_TPE_QUESTS                       = 0   # ON (1) / OFF (0) - Displays any debug messages associated with the Tournament Quest System.
 
 # MOD DESIGNER OPTIONS
-#Some people like native tournaments more so it's worth it to give the player the option to completely disable it.
-wp_tpe_mod_opt_player_can_disable      = 1   # Set this to 0 if you want to force players to use TPE only.  If this is set to 0 the g_wp_tpe_active global will be automatically set.
+wp_tpe_mod_opt_player_can_disable      = 0   # Set this to 0 if you want to force players to use TPE only.  If this is set to 0 the g_wp_tpe_active global will be automatically set.
 wp_tpe_mod_opt_actual_gear             = 0   # (0 - OFF / 1 - ON) Enabling this completely changes TPE design.  It will allow every troop to bring their regular equipment into the arena.
                                              # This will also remove any options regarding choosing of equipment from the TPE options display.
 wp_tpe_mod_opt_renown_scale_enabled    = 0   # (0 - OFF / 1 - ON) Enabling this allows a player to choose if they want the renown scaling feature
@@ -35,7 +34,7 @@ MOD_PBOD_INSTALLED                     = 0   # Caba'drin's Pre-Battle Orders & D
 MOD_CUSTOM_COMMANDER_INSTALLED         = 0   # Rubik's Custom Commander mod is installed.  Set to 0 if you do not use his mod.
 MOD_FLORIS_INSTALLED                   = 0   # Set to 1 hides the tournament configuration menu since Floris already handles these changes.
 MOD_ARENA_OVERHAUL_INSTALLED           = 1   # If Adorno's Arena Overhaul Mod is being used this should be set to 1.  If not, use 0.
-tpe_default_arena_scene                = 1   # 0 = Native, 1 = Arena Overhaul Mod
+tpe_default_arena_scene                = 0   # 0 = Native, 1 = Arena Overhaul Mod
 ###########################################################################################################################
 #####                                              TROOP SLOT DEFINITIONS                                             #####
 ###########################################################################################################################
