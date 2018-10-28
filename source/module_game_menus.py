@@ -4116,6 +4116,11 @@ TOTAL:  {reg5}"),
         ]
        ),
 
+      ("action_sort_inventory",[],"Sort player inventory.",
+       [(jump_to_menu, "mnu_camp_action_sort_inventory"),
+        ]
+        ),
+
        #("queens_blade", [], "Queens blade options.",
        #[(jump_to_menu, "mnu_queens_blade"),
        # ],
@@ -4396,6 +4401,46 @@ TOTAL:  {reg5}"),
       ]
   ),
 
+#This is the menu for the Universal Inventory Sorting Script
+    ("camp_action_sort_inventory",0,
+     "Choose what to sort by.",
+     "none",
+     [
+          (try_begin),
+            (neq, "$g_player_icon_state", pis_ship),
+          (assign, "$g_player_icon_state", pis_normal),
+             (party_get_slot, ":player_party", "$marshalship"),
+             (ge, ":player_party", 0),
+             (set_fixed_point_multiplier, 100),
+             (position_set_x, pos1, 70),
+             (position_set_y, pos1, 5),
+             (position_set_z, pos1, 75),
+             (set_game_menu_tableau_mesh, "tableau_troop_note_mesh", ":player_party", pos1),
+             (try_end),
+         ],
+      [
+        ("camp_sort_by_cost",
+         [], "Sort inventory by cost.",
+         [
+         (call_script, "script_rearrange_inventory","trp_player", 1),
+         (display_message, "@Your inventory is now sorted by cost."),
+         ],
+         ),
+
+        ("camp_sort_by_type",
+         [], "Sort inventory by type.",
+         [
+        (call_script, "script_rearrange_inventory","trp_player", 2),
+        (display_message, "@Your inventory is now sorted by type."),
+        ]
+       ),
+       ("camp_sort_leave_to_menu",[],"Back to camp menu.",
+        [(jump_to_menu, "mnu_camp"),
+        ]
+       ),
+     ]
+  ),
+  #End Menu
   ("camp_action_read_book",0,
    "Choose a book to read:",
    "none",
@@ -9638,7 +9683,7 @@ TOTAL:  {reg5}"),
     "{s10} {s12}^{s11}^{s6}{s7}",
     "none",
     [
-     (try_begin),
+       (try_begin),
         (party_get_slot, ":center_lord", "$current_town", slot_town_lord),
         (ge, ":center_lord", 0),
         (set_fixed_point_multiplier, 100),
@@ -9965,18 +10010,27 @@ TOTAL:  {reg5}"),
            (assign, "$g_next_menu", "mnu_village"),
            (jump_to_menu, "mnu_center_manage"),
         ]),
-      ("recruit_volunteers",
-      [
-        (call_script, "script_cf_village_recruit_volunteers_cond"),
-       ]
-       ,"Recruit Volunteers.",
-       [
-         (try_begin),
-           (call_script, "script_cf_enter_center_location_bandit_check"),
-         (else_try),
-           (jump_to_menu, "mnu_recruit_volunteers"),
-         (try_end),
-        ]),
+
+     ("recruit_volunteers_dickplo",
+     [
+     (call_script, "script_cf_village_recruit_volunteers_cond"),
+     ],
+     "Recruit Volunteers.",
+     [
+     (jump_to_menu, "mnu_recruit_volunteers_dickplo_main")
+     ]),
+     # ("recruit_volunteers",
+     # [
+     #    (call_script, "script_cf_village_recruit_volunteers_cond"),
+     #  ]
+     #  ,"Recruit Volunteers.",
+     #  [
+     #    (try_begin),
+     # (call_script, "script_cf_enter_center_location_bandit_check"),
+     #     (else_try),
+     #       (jump_to_menu, "mnu_recruit_volunteers"),
+     #     (try_end),
+     #    ]),
       ("village_center",[(call_script, "script_cf_village_normal_cond", "$current_town"), #SB : script condition
        ]
        ,"Go to the village center.",
@@ -10339,6 +10393,78 @@ TOTAL:  {reg5}"),
       "Forget it.",[(jump_to_menu,"mnu_village")]),
     ],
   ),
+#Dickplomacy Volunteer menu
+(
+  "recruit_volunteers_dickplo_main",0,
+  "How would you like to recruit volunteers?",
+  "none",
+  [
+  #Floris tableau_troop_note_mesh for menus
+         (try_begin),
+          (party_get_slot, ":center_lord", "$current_town", slot_town_lord),
+          (ge, ":center_lord", 0),
+          (set_fixed_point_multiplier, 100),
+          (position_set_x, pos1, 70),
+          (position_set_y, pos1, 5),
+          (position_set_z, pos1, 75),
+          (set_game_menu_tableau_mesh, "tableau_troop_note_mesh", ":center_lord", pos1),
+          (try_end),
+  #End tableau mesh
+  ],
+  [
+      #Force Recruit by Topper, heavily moddified by LilyModzStuff
+      ("forced_recruits",
+      [
+        # Standard check
+        (neg|party_slot_eq, "$current_town", slot_village_state, svs_looted),
+        (neg|party_slot_eq, "$current_town", slot_village_state, svs_being_raided),
+        (neg|party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
+        # Check if party have enough free slots
+        (assign, ":mod_amount", 7),
+        (party_get_free_companions_capacity, ":mod_capacity", "p_main_party"),
+        (ge, ":mod_capacity", ":mod_amount"),
+       ]
+       ,"Force villagers to join your army.",
+       [
+        (assign, ":mod_amount", 7),
+        #Center relation check
+        (try_begin),
+        (assign, ":mod_rel_change", -15),
+        (party_get_slot, ":center_relation", "$current_town", slot_center_player_relation),
+        (ge, ":mod_rel_change", ":center_relation"),
+        (display_message, "@The villagers have decided to revolt!"),
+        (jump_to_menu, "mnu_village_start_attack"),
+        (else_try),
+        (party_get_free_companions_capacity, ":free_capacity", "p_main_party"),
+        (val_min, ":mod_amount", ":free_capacity"),
+        (party_get_slot, ":mod_troop", "$current_town", slot_center_volunteer_troop_type),
+        (party_add_members, "p_main_party", ":mod_troop", 7), #the original script used 30 but that was way to high.
+        # Change relation and subtract honor, and companion objections
+        (call_script, "script_change_player_relation_with_center", "$current_town", -15),
+        (call_script, "script_change_player_honor", -3), #Should be an honor loss as well
+        (display_message, "@You have forced the villigers to join your army by force."),
+        (call_script, "script_objectionable_action", tmt_humanitarian, "str_force_into_party"), #humanitarian don't like it when you steal.
+        (try_end),
+        ]),
+        #End force recruit
+              ("recruit_normal_volunteers",
+               [
+               ],
+               "Recruit volunteers.",
+               [
+               (jump_to_menu,"mnu_recruit_volunteers"),
+              ]),
+        ("recruit_normal_volunteers",
+        [
+        ],
+        "Return to village.",
+        [
+        (jump_to_menu,"mnu_village"),
+    ]),
+  ]),
+
+#End volunteer menu
+
 
   (
     "recruit_volunteers",0,
@@ -10346,38 +10472,6 @@ TOTAL:  {reg5}"),
     "none",
     [
 		 (start_presentation, "prsnt_recruit_volunteers"),
-
-#		 (party_get_slot, ":volunteer_troop", "$current_town", slot_center_volunteer_troop_type),
-#     (party_get_slot, ":volunteer_amount", "$current_town", slot_center_volunteer_troop_amount),
-#     (party_get_free_companions_capacity, ":free_capacity", "p_main_party"),
-#     (store_troop_gold, ":gold", "trp_player"),
-#     (store_div, ":gold_capacity", ":gold", 10),#10 denars per man
-#     (assign, ":party_capacity", ":free_capacity"),
-#     (val_min, ":party_capacity", ":gold_capacity"),
-#     (try_begin),
-#       (gt, ":party_capacity", 0),
-#       (val_min, ":volunteer_amount", ":party_capacity"),
-#     (try_end),
-#     (assign, reg5, ":volunteer_amount"),
-#     (assign, reg7, 0),
-#     (try_begin),
-#       (gt, ":volunteer_amount", ":gold_capacity"),
-#       (assign, reg7, 1), #not enough money
-#     (try_end),
-#     (try_begin),
-#       (eq, ":volunteer_amount", 0),
-#       (str_store_string, s18, "@No one here seems to be willing to join your party."),
-#     (else_try),
-#       (store_mul, reg6, ":volunteer_amount", 10),#10 denars per man
-#       (str_store_troop_name_by_count, s3, ":volunteer_troop", ":volunteer_amount"),
-#       (try_begin),
-#         (eq, reg5, 1),
-#         (str_store_string, s18, "@One {s3} volunteers to follow you."),
-#       (else_try),
-#         (str_store_string, s18, "@{reg5} {s3} volunteer to follow you."),
-#       (try_end),
-#       (set_background_mesh, "mesh_pic_recruits"),
-#     (try_end),
     ],
     [
 
@@ -11097,7 +11191,6 @@ TOTAL:  {reg5}"),
       ("let_them_keep_it",[],"Let them keep it.",[(jump_to_menu, "mnu_village")]),
     ],
   ),
-
 
   ( #SB : added fugitive related strings
     "village_start_attack",mnf_disable_all_keys|mnf_scale_picture,
@@ -12918,7 +13011,7 @@ TOTAL:  {reg5}"),
       [
              (party_slot_eq, "$current_town", slot_party_type, spt_town)
        ],
-       "Do buisness with this town.",
+       "Go to the guild district.",
       [
        (jump_to_menu,"mnu_dickplo_town_manage"),
       ]),
