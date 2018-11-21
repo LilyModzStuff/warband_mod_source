@@ -348,7 +348,12 @@ bodyguard_triggers = [
          (troop_get_slot, ":renown", "trp_player", slot_troop_renown),
          (val_div, ":leadership", 3),
          (val_div, ":renown", 400),
+         (try_begin),
+         (eq, "$disable_bodyguards", 0),
          (store_add, ":max_guards", ":renown", ":leadership"),
+         (else_try),
+         (assign, ":max_guards", 0),
+         (try_end),
          (val_min, ":max_guards", 4),
          (ge, ":max_guards", 1),
          # Get player info

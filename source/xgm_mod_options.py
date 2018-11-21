@@ -152,6 +152,17 @@ mod_options = [
         ],
     ),
 
+    ( "disable_bodyguard", xgm_ov_checkbox ,  [],
+        "Disable Bodyguards:", 0,
+        "Setting for disabling companions as bodyguards", 0,
+        [  # initialization block (set value in reg1)
+            (assign, reg1, "$disable_bodyguards"),
+        ],
+        [  # update block (value is in reg1)
+            (assign, "$disable_bodyguards", reg1),
+        ],
+    ),
+
     ("camp_realistic_wounding", xgm_ov_checkbox, [], "Realistic Casualties:", 0,
 	  "Toggles realistic wounding for other damage types", 0,
             [(try_begin),
