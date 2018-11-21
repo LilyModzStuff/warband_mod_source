@@ -885,6 +885,7 @@ g_player_luck
 g_player_party_icon
 g_lord_long_term_count
 disable_npc_complaints
+disable_bodyguards
 romantic_attraction_seed
 g_multiplayer_respawn_period
 g_multiplayer_round_max_seconds
