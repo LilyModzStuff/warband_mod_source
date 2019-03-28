@@ -13281,12 +13281,22 @@ presentations = [
       (overlay_set_position, reg1, pos1),
 
       # hero list
+      #TODO: Add pagination in case the player has a lot of companions. Possible if they recruit all tavern companions and have polygamy
+      #Might also want to move this column a bit, as long spouse names crash with the border
       (assign, ":pos_x", 900),
       (assign, ":pos_y", 600),
       (assign, ":num_of_heros", 0),
       (party_get_num_companion_stacks, ":num_stacks", "p_main_party"),
       (try_for_range, ":i_stack", 1, ":num_stacks"),
         (party_stack_get_troop_id,":stack_troop","p_main_party",":i_stack"),
+        (assign, ":is_spouse", 0),
+        (try_begin),
+          (is_between, ":stack_troop", heroes_begin, heroes_end),
+          (troop_slot_eq, ":stack_troop", slot_troop_spouse, "trp_player"),
+          (assign, ":is_spouse", 1),
+        (try_end),
+        (this_or_next|eq, ":is_spouse", 1),
+        (this_or_next|is_between, ":stack_troop", pretenders_begin, pretenders_end),
         (is_between, ":stack_troop", companions_begin, companions_end),
         (str_store_troop_name, s1, ":stack_troop"),
         (position_set_x, pos1, ":pos_x"),
