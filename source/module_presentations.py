@@ -12990,7 +12990,7 @@ presentations = [
 
       # done
       (create_game_button_overlay, "$g_presentation_obj_10", "str_done"),
-      (position_set_x, pos1, 900),
+      (position_set_x, pos1, 850),
       (position_set_y, pos1, 25),
       (overlay_set_position, "$g_presentation_obj_10", pos1),
 
@@ -13283,7 +13283,7 @@ presentations = [
       # hero list
       #TODO: Add pagination in case the player has a lot of companions. Possible if they recruit all tavern companions and have polygamy
       #Might also want to move this column a bit, as long spouse names crash with the border
-      (assign, ":pos_x", 900),
+      (assign, ":pos_x", 850),
       (assign, ":pos_y", 600),
       (assign, ":num_of_heros", 0),
       (party_get_num_companion_stacks, ":num_stacks", "p_main_party"),
@@ -13463,6 +13463,14 @@ presentations = [
         (party_get_num_companion_stacks, ":num_stacks","p_main_party"),
         (try_for_range, ":i_stack", 0, ":num_stacks"),
           (party_stack_get_troop_id,":stack_troop","p_main_party",":i_stack"),
+          (assign, ":is_spouse", 0),
+          (try_begin),
+            (is_between, ":stack_troop", heroes_begin, heroes_end),
+            (troop_slot_eq, ":stack_troop", slot_troop_spouse, "trp_player"),
+            (assign, ":is_spouse", 1),
+          (try_end),
+          (this_or_next|eq, ":is_spouse", 1),
+          (this_or_next|is_between, ":stack_troop", pretenders_begin, pretenders_end),
           (is_between, ":stack_troop", companions_begin, companions_end),
           (assign, ":trp_slot_prsnt_no", ":num_of_heros"),
           (val_add, ":num_of_heros", 1),
