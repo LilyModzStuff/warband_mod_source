@@ -62771,6 +62771,7 @@ scripts = [
 
 	  (eq, "$players_kingdom", ":pretender_faction"),
 	  (eq, "$player_has_homage", 1),
+    (this_or_next|eq, "$g_polygamy", 1),
 	  (troop_slot_eq, "trp_player", slot_troop_spouse, -1),
 	  (troop_slot_eq, "trp_player", slot_troop_betrothed, -1),
 

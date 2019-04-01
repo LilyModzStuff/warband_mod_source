@@ -27272,6 +27272,7 @@ I will use this to make amends to those you have wronged, and I will let it be k
 
 [anyone, "dplmc_claimant_marriage_proposal_pc_reax", [
 	#The player must not be married.  This probably can't occur, but make sure.
+  (eq, "$g_polygamy", 0), #Only do this check if polygamy is disabled
 	(troop_get_slot, ":spouse", "trp_player", slot_troop_spouse),
 	(ge, ":spouse", 1),
 	(str_store_troop_name, s0, ":spouse"),
