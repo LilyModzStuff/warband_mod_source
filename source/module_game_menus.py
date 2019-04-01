@@ -10332,8 +10332,17 @@ TOTAL:  {reg5}"),
 			(eq, "$g_dplmc_sell_items_when_leaving", 1),
 			(call_script, "script_dplmc_auto_sell", "trp_player", ":merchant_troop", "$g_dplmc_auto_sell_price_limit", all_items_begin, all_items_end, 2),
 		 (try_end),
+      #Automatically buy and sell with village elder, if enabled
+      (try_begin),
+        (eq, "$g_auto_trade_items_when_leaving", 1),
+        #Villages tend to not have much coin, so we buy first to make sure they can afford the player's goods
+        (call_script, "script_auto_trade_buy_from_merchant", ":merchant_troop"),
+        (call_script, "script_auto_trade_sell_to_merchant", ":merchant_troop"),
+      (try_end),
+      #AutoTrade End
 	  (try_end),
 	  ##diplomacy end+
+        
 	  ]),
       #SB : consolidated cheats
       ("village_cheat", [(ge, "$cheat_mode", 1),],
@@ -13363,6 +13372,13 @@ TOTAL:  {reg5}"),
 			(eq, "$g_dplmc_sell_items_when_leaving", 1),
 			(call_script, "script_dplmc_player_auto_sell_at_center", "$current_town"),
 		  (try_end),
+      #AutoTrade Begin
+      #Automatically buy and sell trade goods with this town if enabled
+      (try_begin),
+        (eq, "$g_auto_trade_items_when_leaving", 1),
+        (call_script, "script_auto_trade_at_center", "$current_town"),
+      (try_end),
+      #AutoTrade End
 		(else_try), #SB : process leaving town guard check
           (gt, "$sneaked_into_town", disguise_none),
         (try_end),
@@ -14752,7 +14768,14 @@ TOTAL:  {reg5}"),
               (change_screen_trade, ":merchant_troop"),
             (try_end),
         ]),
-
+      #Autotrade begin
+      ("auto_Trade",[],
+       "Buy and sell trade goods automatically.",
+       [
+          (assign, "$g_next_menu", "mnu_town"),
+          (jump_to_menu,"mnu_auto_trade"),
+        ]),
+      #Autotrade end
       ("back_to_town_menu",[],"Head back.",
        [
            (jump_to_menu,"mnu_town"),
@@ -23093,6 +23116,24 @@ goods, and books will never be sold. ^^You can change some settings here freely.
         ]),
      ]
   ),
+
+  #Autotrade begin
+  (
+    "auto_trade",0,
+    "Trade goods will automatically be bought if their price is low enough or sold if their price is high enough. You can adjust the price thresholds, disable auto trading for certain goods, or set minimum and maximum quantities to avoid filling your inventory with one type of item or selling items you want to keep.",
+    "none",
+  [],
+  [
+    ("continue",[],"Continue...",
+    [
+      (call_script, "script_auto_trade_at_center", "$current_town"),
+      (jump_to_menu, "$g_next_menu"),
+    ]),
+    ("change_settings",[],"Change settings.",[(start_presentation, "prsnt_auto_trade_options"),]),
+    ("go_back",[],"Go back",[(jump_to_menu, "$g_next_menu")]),
+  ]
+  ),
+  #Autotrade end  
 
  ]
 import header_scenes
