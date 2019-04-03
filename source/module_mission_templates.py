@@ -5106,6 +5106,7 @@ mission_templates = [
         (call_script, "script_init_town_agent", ":agent_no"),
 		(try_begin),
 			(ge, "$g_sexual_content", 1),
+      (eq, "$g_feast_dancers", 1),
 			(eq, "$talk_context", tc_court_talk),
 			(agent_get_troop_id, ":troop_id", ":agent_no"),
 			(neg|eq, trp_player, ":troop_id"),

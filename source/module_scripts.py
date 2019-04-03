@@ -117,6 +117,7 @@ scripts = [
       (assign, "$g_dark_hunters_enabled", 0),
       (assign, "$g_realistic_wounding", 0),
       (assign, "$g_polygamy", 0),
+    (assign, "$g_feast_dancers", 1),
 	  (assign, "$g_enable_shield_bash", 2),
 	  (assign, "$f_con", 0),
 	  (assign, "$f_player_prost", 0),
