@@ -97,6 +97,18 @@ mod_options = [
         ],
     ),
 
+    ( "camp_no_dancers", xgm_ov_checkbox ,  [],
+        "Feast Dancers:", 0,
+        "Toggles dancers during feasts.", 0,
+        [  # initialization block (set value in reg1)
+            (assign, reg1, "$g_feast_dancers"),
+        ],
+        [  # update block (value is in reg1)
+            (assign, "$g_feast_dancers", reg1),
+        ],
+    ),
+
+
     ("camp_dark_hunters", xgm_ov_checkbox, [], "Black Khergits and Dark Hunters:", 0,
      "Settings for Dark Hunters and Black Khergits.", 0,
   [

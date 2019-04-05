@@ -34625,6 +34625,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
 	[
 	(try_begin),
 		(ge, "$g_sexual_content", 1),
+    (eq, "$g_feast_dancers", 1),
 		(try_begin),
 				(eq, "$tep_entertainer1", "$g_talk_troop"),
 				(assign, ":tribute_entertainer", 1),
