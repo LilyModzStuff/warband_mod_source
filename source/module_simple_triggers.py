@@ -7481,33 +7481,33 @@ simple_triggers = [
 				(val_sub, ":change", 3),
 			(try_end),
 			(store_div,":base",":population",100),										#	Base population change is 1% of pop
-			(val_mul,":change",":base"),				
-			(val_add,":population", ":change"),			
+			(val_mul,":change",":base"),
+			(val_add,":population", ":change"),
 			(try_begin),
-				(gt, ":population", 30000),
-				(assign, ":population", 30000),
+				(gt, ":population", 90000),
+				(assign, ":population", 90000),
 				(party_set_slot, ":town_no", slot_center_population, ":population"),
 			(else_try),
-				(lt, ":population", 5000),
-				(assign, ":population", 5000),
+				(lt, ":population", 2000),
+				(assign, ":population", 2000),
 				(party_set_slot, ":town_no", slot_center_population, ":population"),
 			(else_try),
 				(party_set_slot, ":town_no", slot_center_population, ":population"),
 			(try_end),
-		(try_end),	
- 
+		(try_end),
+
 		(try_for_range, ":town_no", towns_begin, towns_end),							#	Floris	//	Calculating Land Demand and Consequences for supply, pricing and renting
 			(party_get_slot, ":population", ":town_no", slot_center_population),
 			(party_get_slot, ":land_town", ":town_no", slot_town_acres),
 			(party_get_slot, ":land_player", ":town_no", slot_player_acres),
 			(party_get_slot, ":prosperity", ":town_no", slot_town_prosperity),
 			(store_sub, ":revenue", ":prosperity", 50),
-			(val_add, ":revenue", 100),
+			(val_add, ":revenue", 150),
 			(try_begin),
 				(store_div, ":acres_needed", ":population", 200),						#	200 People warrant 1 acre of cultivated land
 				(store_add, ":total_land", ":land_town", ":land_player"),
 				(store_sub, ":surplus", ":total_land", ":acres_needed"),
- 
+
 				(try_begin),															#	AI Consequences
 					(lt, ":total_land", ":acres_needed"),
 					(store_sub, ":new_acres", ":acres_needed", ":total_land"),
@@ -7516,47 +7516,44 @@ simple_triggers = [
 				(else_try),
 					(ge, ":surplus", 20),
 					(val_sub, ":land_town", 2),
+                    (try_begin),                                                        #   Safety check // Negative land makes no sense
+                        (lt, ":land_town", 0),
+                        (assign, ":land_town", 0),
+                    (try_end),
 					(party_set_slot, ":town_no", slot_town_acres, ":land_town"),
 				(try_end),
- 
+
 				(try_begin),															#	Player Consequences
-					(le, ":total_land", ":acres_needed"),
-					(val_mul, ":land_player", ":revenue"),										
-					(party_set_slot, ":town_no", slot_rent, ":land_player"),
-				(else_try),
-					(store_mul, ":penalty", ":surplus", -1),
-					(val_add, ":penalty", ":revenue"),
-					(try_begin),
-						(ge, ":penalty", 85),
-						(val_mul, ":land_player", ":penalty"),
-						(party_set_slot, ":town_no", slot_rent, ":land_player"),
-					(else_try),
-						(store_sub, ":non_rented", ":surplus", 15),
-						(val_sub, ":land_player", ":non_rented"),
-						(try_begin),													#	Safety check // No penalty on rent should turn rent negative.
-							(lt, ":penalty", 0),
-							(assign, ":penalty", 0),
-						(try_end),
-						(val_mul, ":land_player", ":penalty"),
-						(party_set_slot, ":town_no", slot_rent, ":land_player"),
-						(val_mul, ":non_rented", -50),
-						(party_set_slot, ":town_no", slot_upkeep, ":non_rented"),
-					(try_end),
+                    (store_mul, ":upkeep", ":land_player", -50),
+                    (party_set_slot, ":town_no", slot_upkeep, ":upkeep"),
+                    (party_set_slot, ":town_no", slot_rent, 0),
+                    (gt, ":land_player", 0),                                            #   Safety check  // If player has no land, calculating player rents make no sense
+                    (try_begin),
+    					(le, ":total_land", ":acres_needed"),
+    					(val_mul, ":land_player", ":revenue"),
+    					(party_set_slot, ":town_no", slot_rent, ":land_player"),
+    				(else_try),
+                        (store_mul, ":player_portion", ":land_player", 100),
+                        (val_div, ":player_portion", ":total_land"),
+                        (store_mul, ":used_land", ":player_portion", ":acres_needed"),
+                        (val_mul, ":used_land", ":revenue"),
+                        (val_div, ":used_land", 100),
+                        (party_set_slot, ":town_no", slot_rent, ":used_land"),
+                    (try_end),
 				(try_end),
- 
 			(try_end),
 			(party_get_slot, ":assets", ":town_no", slot_assets),						#	Adding/Subtracting profits/losses
 			(party_get_slot, ":rent", ":town_no", slot_rent),
 			(party_get_slot, ":upkeep", ":town_no", slot_upkeep),
 			(val_add, ":assets", ":rent"),
 			(val_add, ":assets", ":upkeep"),
-			(party_set_slot, ":town_no", slot_assets, ":assets"),			
+			(party_set_slot, ":town_no", slot_assets, ":assets"),
 		(try_end),
- 
+
 	]),
-	
-	(1, 																				
-	[	
+
+	(1,
+	[
 		(try_for_range, ":town_no", towns_begin, towns_end),							#	Floris Moneylenders // Not paying debts has consequences
 			(party_get_slot, ":debt", ":town_no", slot_debt),
 			(gt, ":debt", 0),															#	If a debt exists, a deadline exists

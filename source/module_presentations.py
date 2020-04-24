@@ -20952,34 +20952,8 @@ presentations = [
 			(party_get_slot, ":deadline", ":center_no", slot_deadline),
 			(party_get_slot, ":population", ":center_no", slot_center_population),
 			(party_get_slot, ":prosperity", ":center_no", slot_town_prosperity),
-
-			(store_add, ":land_total", ":land_town", ":land_player"),
-
-			(store_div, ":acres_needed", ":population", 200),
-			(store_sub, ":surplus", ":land_total", ":acres_needed"),
-			(store_sub, ":revenue", ":prosperity", 50),
-			(val_add, ":revenue", 100),
-			(assign, ":rent_player", 0),
-			(assign, ":upkeep_player", 0),
-			(try_begin),
-				(gt, ":land_player", 0),												# 	Fix
-			(try_begin),															#	Player Balance
-				(le, ":land_total", ":acres_needed"),
-				(store_mul, ":rent_player", ":land_player", ":revenue"),
-			(else_try),
-				(store_mul, ":penalty", ":surplus", -1),
-				(val_add, ":penalty", ":revenue"),
-				(try_begin),
-					(ge, ":penalty", 85),
-					(store_mul, ":rent_player", ":land_player", ":penalty"),
-				(else_try),
-					(store_sub, ":non_rented", ":surplus", 15),
-						(store_sub, ":land_rented", ":land_player", ":non_rented"),					# Fixed, wrong display # if player owned too much land due to val_sub usage
-						(store_mul, ":rent_player", ":land_rented", 85),
-					(store_mul, ":upkeep_player", ":non_rented", -50),
-				(try_end),
-			(try_end),
-			(try_end),
+            (party_get_slot, ":rent_player", ":center_no", slot_rent),
+            (party_get_slot, ":upkeep_player", ":center_no", slot_upkeep),
 
 			(store_add, ":balance", ":rent_player", ":upkeep_player"),
 
