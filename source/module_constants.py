@@ -2696,6 +2696,8 @@ slot_agent_dest_hp                = 38
 slot_agent_weapon_xp              = 39
 ##CC
 
+slot_last_requested_troop = 11 #related to slot_adv_transfer_mode 12
+slot_adv_transfer_mode = 12 #10 for prisoners, 12 for fiefs
 
 #-## TBS - Beer drinking
 # These are troop slots, so check for conflicting numbers in your mod.
