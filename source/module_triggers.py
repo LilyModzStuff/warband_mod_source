@@ -1769,7 +1769,12 @@ triggers = [
                                  (try_end),
                              (try_end),
                          (try_end),
-                     (try_end)])
+                     (try_end)]),
+
+(0,0, ti_on_switch_to_map, [],
+  [
+	   (troop_set_slot, "trp_temp_array_d", slot_adv_transfer_mode, 0),
+  ])
 ]
 # modmerger_start version=201 type=2
 try:

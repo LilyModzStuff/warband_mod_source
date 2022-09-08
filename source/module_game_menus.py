@@ -5862,6 +5862,7 @@ TOTAL:  {reg5}"),
           (store_add, ":total_capture_size", ":num_rescued_prisoners", ":num_captured_enemies"),
 
           (gt, ":total_capture_size", 0),
+          (troop_set_slot, "trp_temp_array_d", slot_adv_transfer_mode, 10),
           (change_screen_exchange_with_party, "p_temp_party"),
         (else_try),
           (eq, "$loot_screen_shown", 0),
@@ -9464,6 +9465,7 @@ TOTAL:  {reg5}"),
         (eq, ":player_can_draw_from_garrison", 1),
       ],
           "Manage the garrison {s10}",[
+              (troop_set_slot, "trp_temp_array_d", slot_adv_transfer_mode, 12),
               (change_screen_exchange_members,1),]),
 
      ##diplomacy begin
@@ -13094,6 +13096,7 @@ TOTAL:  {reg5}"),
       ],
       "Manage the garrison {s10}",
       [
+        (troop_set_slot, "trp_temp_array_d", slot_adv_transfer_mode, 12),
         (change_screen_exchange_members,1),
       ]),
 	  ##diplomacy start+
