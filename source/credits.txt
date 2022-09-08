@@ -26,3 +26,4 @@ papa lazarou - animations
 shredzorz - 15th c weapons
 corprus - faces, armors, skeleton, shaders, hairs
 slamowir of aaarghh - tavern animations, map icons
+Leonion - Advanced Soldier Management in Exchange Screens
